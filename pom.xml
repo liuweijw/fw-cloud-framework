@@ -82,8 +82,8 @@
 		<module>fw-cloud-system</module>
 		<!-- 基础公共模块 -->
 		<module>fw-cloud-core</module>
-		<!-- 业务模块 
-		<module>fw-cloud-business</module>-->
+		<!-- 业务模块-->
+		<module>fw-cloud-business</module>
 	</modules>
     
     <dependencies>
