@@ -1,0 +1,76 @@
+server:
+  port: 1003
+
+spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: ENC(tbrYcuNRFv1gflhdhpuY0g==)
+    password: ENC(tbrYcuNRFv1gflhdhpuY0g==)
+  zipkin:
+    rabbitmq:
+      queue: zipkin
+  sleuth:
+    sampler:
+      percentage: 1.0
+      
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000
+
+zuul:
+  ignoredServices: '*'
+  host:
+    connect-timeout-millis: 30000
+    socket-timeout-millis: 30000
+  routes:
+    system-auth-server:
+      path: /auth/**
+      serviceId: system-auth-server
+      stripPrefix: true
+      sensitiveHeaders:
+    business-admin-server:
+      path: /admin/**
+      serviceId: business-admin-server
+      stripPrefix: true
+      sensitiveHeaders:
+  ratelimit:
+    key-prefix: business-ratelimite 
+    enabled: true 
+    repository: REDIS 
+    behind-proxy: true
+    policies:
+      business-admin-server:
+        limit: 100
+        quota: 100
+        refresh-interval: 3
+
+security:
+  validate:
+    code: false
+  sessions: stateless
+  oauth2:
+    resource:
+      loadBalanced: true
+      user-info-uri: http://system-auth-server/user
+      prefer-token-info: false
+      service-id: system-gateway-server
+
+urls:
+  collects:
+    - /mobile/**
+    - /auth/**
+    - /admin/code/*
+    - /admin/smsCode/*
+    - /swagger-resources/**
+    - /swagger-ui.html
+    - /*/v2/api-docs
+    - /swagger/api-docs
+    - /webjars/**
+       
+logging:
+  config: classpath:logback.xml

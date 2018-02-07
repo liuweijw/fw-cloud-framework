@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>fw-cloud-core-commons</artifactId>
+	<packaging>jar</packaging>
+	
+    <name>fw-cloud-core-commons</name>
+    <description>基础公共模块</description>
+
+    <parent>
+    	<groupId>com.github.liuweijw</groupId>
+        <artifactId>fw-cloud-core</artifactId>
+        <version>${fw.core.version}</version>
+    </parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.github.liuweijw</groupId>
+            <artifactId>fw-cloud-core-beans</artifactId>
+            <version>${fw.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.liuweijw</groupId>
+            <artifactId>fw-cloud-core-utils</artifactId>
+            <version>${fw.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.liuweijw</groupId>
+            <artifactId>fw-cloud-core-configuration</artifactId>
+            <version>${fw.version}</version>
+		</dependency>
+		<dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.30</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xiaoleilu</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>1.16</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>2.1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-validator -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.luhuiguo</groupId>
+            <artifactId>fastdfs-spring-boot-starter</artifactId>
+            <version>0.2.0</version>
+        </dependency>
+	</dependencies>
+	
+</project>

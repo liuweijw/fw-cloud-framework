@@ -1,0 +1,34 @@
+server:
+  port: 1002
+
+spring:
+  application:
+    name: system-config-server
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          searchLocations: classpath:/shared
+---
+spring:
+  profiles: native
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 20
+  client:
+    serviceUrl:
+      defaultZone: http://admin:liuweijw@localhost:1001/eureka 
+      #开启密码模式 http://${userName}:${password}@localhost:1001/eureka
+---
+spring:
+  profiles: proj
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1001/eureka

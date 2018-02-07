@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ /*
+  ~  * Copyright 2018 https://github.com/liuweijw
+  ~  *
+  ~  * Licensed under the Apache License, Version 2.0 (the "License");
+  ~  * you may not use this file except in compliance with the License.
+  ~  * You may obtain a copy of the License at
+  ~  *
+  ~  *     http://www.apache.org/licenses/LICENSE-2.0
+  ~  *
+  ~  * Unless required by applicable law or agreed to in writing, software
+  ~  * distributed under the License is distributed on an "AS IS" BASIS,
+  ~  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  * See the License for the specific language governing permissions and
+  ~  * limitations under the License.
+  ~  */
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.liuweijw</groupId>
+    <artifactId>fw-cloud-framework</artifactId>
+    <version>${fw.version}</version>
+    <packaging>pom</packaging>
+
+	<name>liuweijw cloud framework</name>
+  	<url>https://github.com/liuweijw</url>
+  	<description>
+  		基于springboot + springcloud 全家桶快速构建分布式项目
+  	</description>
+  	<licenses>
+     	<license>
+        	<name>The Apache License, Version 2.0</name>
+         	<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+     	</license>
+  	</licenses>
+  
+  	<developers>
+      <developer>
+          <name>liuweijw</name>
+          <email>liuweijw.github@foxmail.com</email>
+          <roles>
+              <role>Owner</role>
+          </roles>
+          <timezone>+8</timezone>
+          <url>https://github.com/liuweijw</url>
+      </developer>
+   	</developers>
+
+   	<scm>
+       <connection>scm:git:https://github.com/liuweijw/fw-cloud-framework.git</connection>
+       <developerConnection>scm:git:https://github.com/liuweijw/fw-cloud-framework.git</developerConnection>
+       <url>https://github.com/liuweijw/fw-cloud-framework</url>
+       <tag>${project.version}</tag>
+   	</scm>
+   
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.9.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <spring-boot.version>1.5.9.RELEASE</spring-boot.version>
+        <spring-cloud.version>Edgware.RELEASE</spring-cloud.version>
+        <lombok.version>1.16.20</lombok.version>
+		<fw.version>1.0.0-SNAPSHOT</fw.version>
+		<fw.system.version>${fw.version}</fw.system.version>
+		<fw.business.version>${fw.version}</fw.business.version>
+		<fw.core.version>${fw.version}</fw.core.version>
+    </properties>
+
+	<modules>
+		<!-- 框架核心 -->
+		<module>fw-cloud-system</module>
+		<!-- 基础公共模块 -->
+		<module>fw-cloud-core</module>
+		<!-- 业务模块 
+		<module>fw-cloud-business</module>-->
+	</modules>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.spring.platform</groupId>
+                <artifactId>platform-bom</artifactId>
+                <version>Brussels-SR6</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <target>${java.version}</target>
+                        <source>${java.version}</source>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+                
+               	<!-- 发布到 maven central-->
+                <plugin>
+	                 <groupId>org.sonatype.plugins</groupId>
+	                 <artifactId>nexus-staging-maven-plugin</artifactId>
+	                 <version>1.6.3</version>
+	                 <extensions>true</extensions>
+	                 <configuration>
+	                     <serverId>sonatype-releases</serverId>
+	                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+	                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
+	                 </configuration>
+	             </plugin>
+	             <plugin>
+	                 <groupId>org.apache.maven.plugins</groupId>
+	                 <artifactId>maven-release-plugin</artifactId>
+	                 <configuration>
+	                     <autoVersionSubmodules>true</autoVersionSubmodules>
+	                     <useReleaseProfile>false</useReleaseProfile>
+	                     <releaseProfiles>release</releaseProfiles>
+	                     <goals>deploy</goals>
+	                 </configuration>
+	             </plugin>
+	             <plugin>
+	                 <groupId>org.apache.maven.plugins</groupId>
+	                 <artifactId>maven-gpg-plugin</artifactId>
+	                 <version>1.5</version>
+	                 <executions>
+	                     <execution>
+	                         <id>sign-artifacts</id>
+	                         <phase>verify</phase>
+	                         <goals>
+	                             <goal>sign</goal>
+	                         </goals>
+	                     </execution>
+	                 </executions>
+	             </plugin>
+	             <plugin>
+	                 <groupId>org.apache.maven.plugins</groupId>
+	                 <artifactId>maven-javadoc-plugin</artifactId>
+	                 <version>2.9.1</version>
+	                 <configuration>
+	                     <additionalparam>-Xdoclint:none</additionalparam>
+	                 </configuration>
+	                 <executions>
+	                     <execution>
+	                         <id>attach-javadocs</id>
+	                         <goals>
+	                             <goal>jar</goal>
+	                         </goals>
+	                     </execution>
+	                 </executions>
+	             </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    
+	<distributionManagement>
+        <repository>
+            <id>sonatype-releases</id>
+            <name>sonatype repository</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+        <snapshotRepository>
+            <id>sonatype-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+    
+    <repositories>
+        <repository>
+            <id>aliyun</id>
+            <name>aliyun</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+        </repository>
+    </repositories>
+</project>

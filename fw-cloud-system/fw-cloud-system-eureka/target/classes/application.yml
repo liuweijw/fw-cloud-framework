@@ -1,0 +1,25 @@
+server:
+  port: 1001
+
+spring:
+  application:
+    name: system-eureka-server
+
+security:
+  basic:
+    enabled: true
+  user:
+    name: admin
+    password: liuweijw
+
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    serviceUrl:
+          defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+  instance:
+    hostname: localhost
+  server:  #可能 Eureka 自我保护模式以及心跳周期长会遇到 Eureka Server 不剔除已关停的节点的问题
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 5000

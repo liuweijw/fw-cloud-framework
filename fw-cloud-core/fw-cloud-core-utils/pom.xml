@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>fw-cloud-core-utils</artifactId>
+    <packaging>jar</packaging>
+
+    <name>fw-cloud-core-utils</name>
+    <description>基础工具类模块</description>
+
+    <parent>
+    	<groupId>com.github.liuweijw</groupId>
+        <artifactId>fw-cloud-core</artifactId>
+        <version>${fw.core.version}</version>
+    </parent>
+    
+    <dependencies>
+        <dependency>
+			<groupId>com.github.liuweijw</groupId>
+            <artifactId>fw-cloud-core-exception</artifactId>
+            <version>${fw.version}</version>
+		</dependency>
+		
+		<dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency> 
+    </dependencies>
+</project>

@@ -1,0 +1,26 @@
+server:
+  port: 1004
+  
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: ENC(rC/X/8UBBH2bn9Tgfuu7aw==)
+    password: ENC(IVTzs5LDfVEsblAFWFgA9w==)
+    url: jdbc:mysql://127.0.0.1:3306/fw-cloud?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+      
+fw:
+  auth:
+    clientId: ENC(eZLNwFxeSKENBh1pu/M/rMMB76nxo/RLhWSaSLHa8+0=)
+    clientSecret: ENC(sKbpJGHz9JZmdydv1WOyAYjyXm2irxc0xYqvQ6VpF31uEw/FVNxYeA==)
+    scope: server
+
+urls:
+  collects:
+    - /social
+    - /signin
+    - /signup
+    - /mobile/token
+
+logging:
+  config: classpath:logback.xml
+
