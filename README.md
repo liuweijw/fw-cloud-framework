@@ -6,7 +6,7 @@
 - fw-cloud-system-eureka 服务注册中心
 - fw-cloud-system-config 服务配置和发现
 - fw-cloud-system-gateway zuul服务网关（外部接口接入入口）
-- fw-cloud-system-oauth 权限接入服务(支持oauth2、单点登录)
+- fw-cloud-system-auth 权限接入服务(支持oauth2、单点登录)
 - fw-cloud-system-xxx 服务状态监控、zipkin、elk监控、缓存、日志等监控
 
 2、fw-cloud-core 基础公共模块
