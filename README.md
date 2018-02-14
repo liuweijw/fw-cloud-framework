@@ -27,6 +27,7 @@
 - Redis
 - MySQL
 - RabbitMQ
+- Java8
 
 # 说明
 - xxx 待开发和完善的模块
