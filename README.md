@@ -21,7 +21,8 @@
 - fw-cloud-business-client 前端接口服务
 
 4、fw-cloud-ui-xxx 前端模块
-- 基于element ui 的Vue
+- 基于element ui 的Vue2
+- webpack3
 
 # 开发环境
 - Redis
