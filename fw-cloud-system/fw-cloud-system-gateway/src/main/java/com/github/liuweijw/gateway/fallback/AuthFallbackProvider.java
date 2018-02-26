@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
 
+import com.github.liuweijw.core.commons.constants.MessageConstant;
 import com.github.liuweijw.core.commons.constants.ServiceIdConstant;
 
 /**
@@ -37,16 +38,17 @@ public class AuthFallbackProvider implements FallbackProvider {
 
 	@Override
 	public ClientHttpResponse fallbackResponse(Throwable cause) {
-		log.error("调用:{} 异常：{}", getRoute(), cause.getMessage());
-		
+
 		return new ClientHttpResponse(){
 
 			@Override
 			public InputStream getBody() throws IOException {
 				if (cause != null && cause.getMessage() != null) {
+					log.error("调用:{} 异常：{}", getRoute(), cause.getMessage());
                     return new ByteArrayInputStream(cause.getMessage().getBytes());
                 } else {
-                    return new ByteArrayInputStream("授权模块不可用".getBytes());
+                	log.error("调用:{} 异常：{}", getRoute(), MessageConstant.SYSTEM_AUTH_NOTSUPPORT);
+                    return new ByteArrayInputStream(MessageConstant.SYSTEM_AUTH_NOTSUPPORT.getBytes());
                 }
 			}
 

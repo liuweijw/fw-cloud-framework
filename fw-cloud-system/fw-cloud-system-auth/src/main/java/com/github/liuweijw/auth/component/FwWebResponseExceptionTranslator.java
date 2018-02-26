@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
+import org.springframework.security.oauth2.common.exceptions.UnsupportedResponseTypeException;
 import org.springframework.security.oauth2.provider.error.DefaultWebResponseExceptionTranslator;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +35,7 @@ public class FwWebResponseExceptionTranslator extends DefaultWebResponseExceptio
         } else if (e instanceof InternalAuthenticationServiceException) {
             oAuth2Exception = new InvalidGrantException("用户名不存在", e);
         } else {
-            oAuth2Exception = (OAuth2Exception) e;
+        	oAuth2Exception = new UnsupportedResponseTypeException("服务处理异常", e);
         }
         return super.translate(oAuth2Exception);
     }

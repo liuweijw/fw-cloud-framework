@@ -3,11 +3,11 @@
 
 # 技术模块相关说明
 1、 fw-cloud-system 模块
-- fw-cloud-system-eureka 服务注册中心
-- fw-cloud-system-config 服务配置和发现
-- fw-cloud-system-gateway zuul服务网关（外部接口接入入口）
-- fw-cloud-system-auth 权限接入服务(支持oauth2、单点登录)
-- fw-cloud-system-xxx 服务状态监控、zipkin、elk监控、缓存、日志等监控
+- fw-cloud-system-eureka  [端口1001] 服务注册中心
+- fw-cloud-system-config  [端口1002] 服务配置和发现
+- fw-cloud-system-gateway [端口1003] zuul服务网关（外部接口接入入口）
+- fw-cloud-system-auth    [端口1004] 权限接入服务(支持oauth2、单点登录)
+- fw-cloud-system-xxx     [端口待定] 服务状态监控、zipkin、elk监控、缓存、日志等监控
 
 2、fw-cloud-core 基础公共模块
 - fw-cloud-core-beans 常用全局bean
@@ -17,8 +17,8 @@
 - fw-cloud-core-utils 常用工具类
 
 3、fw-cloud-business 服务模块
-- fw-cloud-business-admin 权限管理等接口服务
-- fw-cloud-business-client 前端接口服务
+- fw-cloud-business-admin  [端口2002] 权限管理等接口服务
+- fw-cloud-business-client [端口待定] 前端接口服务
 
 4、fw-cloud-ui-xxx 前端模块
 - 基于element ui 的Vue2

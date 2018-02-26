@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
+import com.github.liuweijw.core.commons.constants.MessageConstant;
 import com.github.liuweijw.core.utils.R;
 import com.github.liuweijw.exception.DeniedException;
 
@@ -24,7 +25,7 @@ import com.github.liuweijw.exception.DeniedException;
  * @author liuweijw
  * 
  * 授权拒绝处理器，覆盖默认的OAuth2AccessDeniedHandler
- * 包装失败信息到PigDeniedException
+ * 包装失败信息到DeniedException
  * 
  */
 @Component
@@ -40,7 +41,7 @@ public class AccessDeniedHandler extends OAuth2AccessDeniedHandler {
         logger.info("授权失败，禁止访问");
         response.setCharacterEncoding(CommonConstant.UTF8);
         response.setContentType(CommonConstant.CONTENT_TYPE);
-        R<String> result = new R<String>().failure(new DeniedException("授权失败，禁止访问"));
+        R<String> result = new R<String>().failure(new DeniedException(MessageConstant.COMMONS_AUTH_NOTSUPPORT));
         response.setStatus(HttpStatus.SC_FORBIDDEN);
         PrintWriter printWriter = response.getWriter();
         printWriter.append(objectMapper.writeValueAsString(result));
