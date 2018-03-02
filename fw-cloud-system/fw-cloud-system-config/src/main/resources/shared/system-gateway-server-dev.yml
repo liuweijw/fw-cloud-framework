@@ -13,14 +13,6 @@ spring:
   sleuth:
     sampler:
       percentage: 1.0
-      
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 30000
 
 zuul:
   ignoredServices: '*'
@@ -45,9 +37,9 @@ zuul:
     behind-proxy: true
     policies:
       business-admin-server:
-        limit: 100
-        quota: 100
-        refresh-interval: 3
+        limit: 300
+        quota: 2400
+        refresh-interval: 3 #3秒内允许300个访问，平均每个请求2秒，并且要求总请求时间小于2400秒
 
 security:
   validate:
@@ -66,6 +58,8 @@ urls:
     - /auth/**
     - /admin/code/*
     - /admin/smsCode/*
+    - /admin/user/info
+    - /admin/menu/userTree
     - /swagger-resources/**
     - /swagger-ui.html
     - /*/v2/api-docs

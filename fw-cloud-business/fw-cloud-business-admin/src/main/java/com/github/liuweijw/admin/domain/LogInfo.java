@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -23,9 +24,10 @@ public class LogInfo implements Serializable {
 	public static final String TABLE_NAME = "t_sys_log";
 
 	@Id
-	@GeneratedValue
-	@Column(name = "id")
-    private Integer id;
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+	
     /**
      * 日志类型
      */
@@ -100,11 +102,11 @@ public class LogInfo implements Serializable {
 	@Column(name = "service_id")
     private String serviceId;
 
-	public Integer getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(final long id) {
 		this.id = id;
 	}
 
@@ -112,7 +114,7 @@ public class LogInfo implements Serializable {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(final String type) {
 		this.type = type;
 	}
 
@@ -120,7 +122,7 @@ public class LogInfo implements Serializable {
 		return title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 
@@ -128,7 +130,7 @@ public class LogInfo implements Serializable {
 		return createBy;
 	}
 
-	public void setCreateBy(String createBy) {
+	public void setCreateBy(final String createBy) {
 		this.createBy = createBy;
 	}
 
@@ -136,7 +138,7 @@ public class LogInfo implements Serializable {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(final Date createTime) {
 		this.createTime = createTime;
 	}
 
@@ -144,7 +146,7 @@ public class LogInfo implements Serializable {
 		return updateTime;
 	}
 
-	public void setUpdateTime(Date updateTime) {
+	public void setUpdateTime(final Date updateTime) {
 		this.updateTime = updateTime;
 	}
 
@@ -152,7 +154,7 @@ public class LogInfo implements Serializable {
 		return remoteAddr;
 	}
 
-	public void setRemoteAddr(String remoteAddr) {
+	public void setRemoteAddr(final String remoteAddr) {
 		this.remoteAddr = remoteAddr;
 	}
 
@@ -160,7 +162,7 @@ public class LogInfo implements Serializable {
 		return userAgent;
 	}
 
-	public void setUserAgent(String userAgent) {
+	public void setUserAgent(final String userAgent) {
 		this.userAgent = userAgent;
 	}
 
@@ -168,7 +170,7 @@ public class LogInfo implements Serializable {
 		return requestUri;
 	}
 
-	public void setRequestUri(String requestUri) {
+	public void setRequestUri(final String requestUri) {
 		this.requestUri = requestUri;
 	}
 
@@ -176,7 +178,7 @@ public class LogInfo implements Serializable {
 		return method;
 	}
 
-	public void setMethod(String method) {
+	public void setMethod(final String method) {
 		this.method = method;
 	}
 
@@ -184,7 +186,7 @@ public class LogInfo implements Serializable {
 		return params;
 	}
 
-	public void setParams(String params) {
+	public void setParams(final String params) {
 		this.params = params;
 	}
 
@@ -192,7 +194,7 @@ public class LogInfo implements Serializable {
 		return time;
 	}
 
-	public void setTime(Long time) {
+	public void setTime(final Long time) {
 		this.time = time;
 	}
 
@@ -200,7 +202,7 @@ public class LogInfo implements Serializable {
 		return delFlag;
 	}
 
-	public void setDelFlag(String delFlag) {
+	public void setDelFlag(final String delFlag) {
 		this.delFlag = delFlag;
 	}
 
@@ -208,7 +210,7 @@ public class LogInfo implements Serializable {
 		return exception;
 	}
 
-	public void setException(String exception) {
+	public void setException(final String exception) {
 		this.exception = exception;
 	}
 
@@ -216,7 +218,7 @@ public class LogInfo implements Serializable {
 		return serviceId;
 	}
 
-	public void setServiceId(String serviceId) {
+	public void setServiceId(final String serviceId) {
 		this.serviceId = serviceId;
 	}
     

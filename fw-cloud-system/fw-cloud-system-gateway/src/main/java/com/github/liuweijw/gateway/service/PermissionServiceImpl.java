@@ -18,7 +18,7 @@ import com.github.liuweijw.core.utils.StringHelper;
 
 @Service("permissionService")
 public class PermissionServiceImpl implements PermissionService {
-    
+
 	@Autowired
     private MenuPermissionService menuService;
 
@@ -34,27 +34,28 @@ public class PermissionServiceImpl implements PermissionService {
         Object principal = authentication.getPrincipal();
         List<SimpleGrantedAuthority> grantedAuthorityList = (List<SimpleGrantedAuthority>) authentication.getAuthorities();
         boolean hasPermission = false;
-        if (principal != null) {
-        	if (CollectionUtils.isEmpty(grantedAuthorityList)) {
-                return hasPermission;
-            }
 
-            Set<AuthMenu> urls = new HashSet<AuthMenu>();
-            for (SimpleGrantedAuthority authority : grantedAuthorityList) {
-                urls.addAll(menuService.findMenuByRole(authority.getAuthority()));
-            }
-            
-            for (AuthMenu menu : urls) {
-            	//System.out.println("=======menu.getUrl()=====" + menu.getUrl());
-            	//System.out.println("=======request.getRequestURI()=====" + request.getRequestURI());
-                if (StringHelper.isNotEmpty(menu.getUrl()) && antPathMatcher.match(menu.getUrl(), request.getRequestURI())
-                        && request.getMethod().equalsIgnoreCase(menu.getMethod())) {
-                    hasPermission = true;
-                    break;
-                }
+        if (null == principal) return hasPermission;
+        if (CollectionUtils.isEmpty(grantedAuthorityList)) return hasPermission;
+
+        // 接口层面做了缓存处理，后续可以继续优化
+        Set<AuthMenu> urls = new HashSet<AuthMenu>();
+        for (SimpleGrantedAuthority authority : grantedAuthorityList) {
+            urls.addAll(menuService.findMenuByRole(authority.getAuthority()));
+        }
+
+        String requestURI = request.getRequestURI();
+        for (AuthMenu menu : urls) {
+        	// System.out.println("=======menu.getUrl()=====" + menu.getUrl());
+        	// System.out.println("=======request.getRequestURI()=====" + requestURI);
+            if (StringHelper.isNotEmpty(menu.getUrl())
+            		&& antPathMatcher.match(menu.getUrl(), requestURI)
+                    && request.getMethod().equalsIgnoreCase(menu.getMethod())) {
+                hasPermission = true;
+                break;
             }
         }
-        System.out.println("=======request.hasPermission=====" + hasPermission);
+        // System.out.println("=======request.hasPermission=====" + hasPermission);
         return hasPermission;
     }
 }

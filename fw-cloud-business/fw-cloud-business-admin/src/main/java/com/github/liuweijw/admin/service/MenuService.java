@@ -3,6 +3,7 @@ package com.github.liuweijw.admin.service;
 import java.util.Set;
 
 import com.github.liuweijw.admin.domain.Menu;
+import com.github.liuweijw.core.beans.system.AuthMenu;
 
 public interface MenuService {
 
@@ -12,7 +13,7 @@ public interface MenuService {
      * @param roleCode 角色名称
      * @return 菜单列表
      */
-    Set<Menu> findMenuByRole(String roleCode);
+    Set<AuthMenu> findMenuByRole(String roleCode);
 
     /**
      * 通过角色获取菜单权限列表

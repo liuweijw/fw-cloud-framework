@@ -6,16 +6,16 @@ redis:
     expiration: 3600
 
 spring:
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    username: ENC(rC/X/8UBBH2bn9Tgfuu7aw==)
-    password: ENC(IVTzs5LDfVEsblAFWFgA9w==)
-    url: jdbc:mysql://127.0.0.1:3306/fw-cloud?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+  #datasource: # 采用分库分表，即注释这里的数据源
+    #driver-class-name: com.mysql.jdbc.Driver
+    #username: ENC(rC/X/8UBBH2bn9Tgfuu7aw==)
+    #password: ENC(IVTzs5LDfVEsblAFWFgA9w==)
+    #url: jdbc:mysql://127.0.0.1:3306/fw-cloud?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
   jpa:
     database: MYSQL
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
     properties:
       hibernate:
@@ -30,7 +30,35 @@ spring:
       queue: zipkin
   sleuth:
     sampler:
-      percentage: 1.0     
-    
+      percentage: 1.0
+
+# 对分库分表的支持
+sharding:
+  jdbc:
+    #defaultDataSourceName:
+      #type: com.zaxxer.hikari.HikariDataSource
+      #driver-class-name: com.mysql.jdbc.Driver
+      #username: ENC(rC/X/8UBBH2bn9Tgfuu7aw==)
+      #password: ENC(IVTzs5LDfVEsblAFWFgA9w==)
+      #jdbc-url: jdbc:mysql://127.0.0.1:3306/fw-cloud?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    datasource:
+      names: ds
+      ds:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        username: ENC(rC/X/8UBBH2bn9Tgfuu7aw==)
+        password: ENC(IVTzs5LDfVEsblAFWFgA9w==)
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/fw-cloud?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    config:
+      sharding:
+        tables:
+          t_sys_log:
+            actual-data-nodes: ds.t_sys_log_${0..1}
+            table-strategy:
+              inline:
+                sharding-column: id
+                algorithm-expression: t_sys_log_${id % 2}
+            key-generator-column-name: id
+
 logging:
   config: classpath:logback.xml

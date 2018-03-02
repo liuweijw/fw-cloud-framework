@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -19,6 +20,7 @@ import com.github.liuweijw.admin.repository.MenuRepository;
 import com.github.liuweijw.admin.repository.RoleRepository;
 import com.github.liuweijw.admin.service.AdminCacheKey;
 import com.github.liuweijw.admin.service.MenuService;
+import com.github.liuweijw.core.beans.system.AuthMenu;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
 import com.github.liuweijw.core.utils.Assert;
 import com.github.liuweijw.core.utils.StringHelper;
@@ -34,7 +36,7 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 	
 	@Override
 	@Cacheable(value = AdminCacheKey.MENU_INFO, key = AdminCacheKey.MENU_INFO_KEY_ROLECODE)
-	public Set<Menu> findMenuByRole(String roleCode) {
+	public Set<AuthMenu> findMenuByRole(String roleCode) {
 		if(StringHelper.isBlank(roleCode)) return null;
 
 		Role role = roleRepository.findRoleByRoleCode(roleCode.trim());
@@ -50,24 +52,25 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 		
 		if(null == rList || rList.size() == 0) return null;
 		
-		Set<Menu> mList = new HashSet<Menu>();
-		for(Menu m : rList){
-			mList.add(m);
-		}
-		
+		Set<AuthMenu> mList = new HashSet<AuthMenu>();
+    	for(Menu m : rList){
+    		AuthMenu authMenu = new AuthMenu();
+    		BeanUtils.copyProperties(m, authMenu);
+    		mList.add(authMenu);
+    	}
 		return mList;
 	}
 
 	@Override
 	public String[] findPermission(String[] roleCodes) {
-		Set<Menu> menuSet = new HashSet<>();
+		Set<AuthMenu> menuSet = new HashSet<>();
         for (String roleCode : roleCodes) {
-            Set<Menu> menu = findMenuByRole(roleCode);
+            Set<AuthMenu> menu = findMenuByRole(roleCode);
             if(null != menu) menuSet.addAll(menu);
         }
 
         Set<String> permissions = new HashSet<>();
-        for (Menu menu : menuSet) {
+        for (AuthMenu menu : menuSet) {
             if (StringUtils.isNotEmpty(menu.getPermission())) {
                 String permission = menu.getPermission();
                 permissions.add(permission);

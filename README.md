@@ -32,3 +32,9 @@
 
 # 说明
 - xxx 待开发和完善的模块
+
+# 常见问题
+- lombok 安装
+  1.下载lombok.jar包 https://projectlombok.org/download.html
+  2.在eclipse.ini 配置文件最后添加：-javaagent:F:\xxx\lombok.jar 注：F:\xxx 为lombok.jar 放置的目录地址
+  3.重启eclipse

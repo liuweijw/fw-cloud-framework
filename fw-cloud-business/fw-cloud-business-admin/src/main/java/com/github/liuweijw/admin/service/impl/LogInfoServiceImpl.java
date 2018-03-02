@@ -18,7 +18,7 @@ public class LogInfoServiceImpl implements LogInfoService {
 		
 		if(null == logInfo) return;
 		
-		logInfoRepository.saveAndFlush(logInfo);
+		logInfoRepository.save(logInfo);
 		
 	}
 

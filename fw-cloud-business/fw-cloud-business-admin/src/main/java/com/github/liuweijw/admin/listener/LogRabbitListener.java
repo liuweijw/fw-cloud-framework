@@ -18,7 +18,7 @@ import com.github.liuweijw.core.commons.jwt.JwtUtil;
 /**
  * 日志队列消息监听：消息对象必须是经过序列化操作的对象
  * 
- * @author LW
+ * @author liuweijw
  *
  */
 @Component
@@ -30,7 +30,6 @@ public class LogRabbitListener {
 	
 	@RabbitHandler
 	public void receive(AuthLog authLog) {
-	    System.out.println("=========LogRabbitListener======="+authLog.getLog());
 	    String username = JwtUtil.getUserName(authLog.getToken());
         MDC.put(CommonConstant.KEY_USER, username);
         Log sysLog = authLog.getLog();
