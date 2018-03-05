@@ -58,7 +58,7 @@ public class User implements Serializable {
      * 0-正常，1-删除
      */
     @Column(name = "del_flag")
-    private String delFlag;
+    private Integer delFlag;
     /**
      * 手机号码
      */
@@ -70,6 +70,17 @@ public class User implements Serializable {
     @Column(name = "avatar")
     private String avatar;
 
+    /**
+     * 所属部门
+     */
+    //@Column(name = "dept_id")
+    //private Integer deptId;
+    
+    /**
+     * 所属部门名称
+     */
+    //private transient String deptName;
+    
     /**
      * 角色列表
      */
@@ -123,11 +134,11 @@ public class User implements Serializable {
 		this.updateTime = updateTime;
 	}
 
-	public String getDelFlag() {
+	public Integer getDelFlag() {
 		return delFlag;
 	}
 
-	public void setDelFlag(String delFlag) {
+	public void setDelFlag(Integer delFlag) {
 		this.delFlag = delFlag;
 	}
 
@@ -154,5 +165,21 @@ public class User implements Serializable {
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
+
+	/*public Integer getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(Integer deptId) {
+		this.deptId = deptId;
+	}
+
+	public String getDeptName() {
+		return deptName;
+	}
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}*/
 
 }

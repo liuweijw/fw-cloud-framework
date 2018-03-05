@@ -86,8 +86,7 @@ public class Menu implements Serializable {
      * 0--正常 1--删除
      */
 	@Column(name = "del_flag")
-    private String delFlag;
-	
+    private Integer delFlag = 0;
 	public Integer getMenuId() {
 		return menuId;
 	}
@@ -160,11 +159,11 @@ public class Menu implements Serializable {
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
-	public String getDelFlag() {
+	public Integer getDelFlag() {
 		return delFlag;
 	}
-	public void setDelFlag(String delFlag) {
+	public void setDelFlag(Integer delFlag) {
 		this.delFlag = delFlag;
 	}
-    
+	
 }

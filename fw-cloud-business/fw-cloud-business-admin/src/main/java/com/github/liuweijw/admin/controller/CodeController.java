@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.github.liuweijw.admin.service.UserService;
-import com.github.liuweijw.core.commons.constants.SecurityConstants;
+import com.github.liuweijw.core.commons.constants.SecurityConstant;
 import com.github.liuweijw.core.utils.Assert;
 import com.google.code.kaptcha.Producer;
 
@@ -33,7 +33,7 @@ public class CodeController {
     /**
      * 创建验证码
      */
-    @GetMapping(SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/{randomStr}")
+    @GetMapping(SecurityConstant.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/{randomStr}")
     public void createCode(@PathVariable String randomStr, HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         Assert.isBlank(randomStr, "随机码不能为空");

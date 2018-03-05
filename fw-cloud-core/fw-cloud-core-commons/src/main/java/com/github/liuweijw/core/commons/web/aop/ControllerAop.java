@@ -18,7 +18,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.github.liuweijw.core.beans.system.AuthUser;
-import com.github.liuweijw.core.commons.constants.SecurityConstants;
+import com.github.liuweijw.core.commons.constants.SecurityConstant;
 import com.github.liuweijw.core.commons.jwt.JwtUtil;
 
 /**
@@ -55,7 +55,7 @@ public class ControllerAop {
         String token = JwtUtil.getToken(request);
         AuthUser authUser = null;
         if (StringUtils.isNotEmpty(token)) {
-        	authUser = cacheManager.getCache(SecurityConstants.TOKEN_USER_DETAIL).get(token, AuthUser.class);
+        	authUser = cacheManager.getCache(SecurityConstant.TOKEN_USER_DETAIL).get(token, AuthUser.class);
         }
         
         String username = "";

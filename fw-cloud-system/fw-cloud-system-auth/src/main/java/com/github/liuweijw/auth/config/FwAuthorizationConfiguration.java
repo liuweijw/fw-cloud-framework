@@ -19,7 +19,7 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 
 import com.github.liuweijw.auth.component.FwWebResponseExceptionTranslator;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
-import com.github.liuweijw.core.commons.constants.SecurityConstants;
+import com.github.liuweijw.core.commons.constants.SecurityConstant;
 
 /**
  * @author liuweijw
@@ -51,7 +51,7 @@ public class FwAuthorizationConfiguration extends AuthorizationServerConfigurerA
         clients.inMemory()
                 .withClient(authServerConfiguration.getClientId())
                 .secret(authServerConfiguration.getClientSecret())
-                .authorizedGrantTypes(SecurityConstants.REFRESH_TOKEN, SecurityConstants.PASSWORD,SecurityConstants.AUTHORIZATION_CODE)
+                .authorizedGrantTypes(SecurityConstant.REFRESH_TOKEN, SecurityConstant.PASSWORD,SecurityConstant.AUTHORIZATION_CODE)
                 .scopes(authServerConfiguration.getScope());
     }
 

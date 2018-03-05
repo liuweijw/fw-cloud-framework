@@ -16,7 +16,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import com.github.liuweijw.core.beans.system.AuthRole;
 import com.github.liuweijw.core.beans.system.AuthUser;
-import com.github.liuweijw.core.commons.constants.SecurityConstants;
+import com.github.liuweijw.core.commons.constants.SecurityConstant;
 import com.github.liuweijw.core.commons.jwt.JwtUtil;
 import com.github.liuweijw.core.utils.StringHelper;
 
@@ -58,7 +58,7 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
             return null;
         }
         
-        Optional<AuthUser> optional = Optional.ofNullable(cacheManager.getCache(SecurityConstants.TOKEN_USER_DETAIL).get(token, AuthUser.class));
+        Optional<AuthUser> optional = Optional.ofNullable(cacheManager.getCache(SecurityConstant.TOKEN_USER_DETAIL).get(token, AuthUser.class));
         if (optional.isPresent()) {
             return optional.get();
         }
@@ -82,7 +82,7 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
             });
             authUser.setRoleList(roleList);
             
-            cacheManager.getCache(SecurityConstants.TOKEN_USER_DETAIL).put(token, authUser);
+            cacheManager.getCache(SecurityConstant.TOKEN_USER_DETAIL).put(token, authUser);
         }
         
         return authUser;

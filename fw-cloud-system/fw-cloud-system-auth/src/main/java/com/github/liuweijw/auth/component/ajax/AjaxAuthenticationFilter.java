@@ -11,7 +11,7 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.github.liuweijw.core.commons.constants.CommonConstant;
-import com.github.liuweijw.core.commons.constants.SecurityConstants;
+import com.github.liuweijw.core.commons.constants.SecurityConstant;
 import com.github.liuweijw.core.utils.StringHelper;
 
 /**
@@ -22,7 +22,7 @@ public class AjaxAuthenticationFilter extends AbstractAuthenticationProcessingFi
     private boolean postOnly = true;
 
     public AjaxAuthenticationFilter() {
-        super(new AntPathRequestMatcher(SecurityConstants.MOBILE_TOKEN_URL, "POST"));
+        super(new AntPathRequestMatcher(SecurityConstant.MOBILE_TOKEN_URL, "POST"));
     }
 
     @Override

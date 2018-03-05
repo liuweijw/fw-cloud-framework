@@ -14,7 +14,7 @@ public class Log implements Serializable {
     /**
      * 日志类型
      */
-    private String type;
+    private Integer type;
     /**
      * 日志标题
      */
@@ -79,11 +79,11 @@ public class Log implements Serializable {
 		this.id = id;
 	}
 
-	public String getType() {
+	public Integer getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(Integer type) {
 		this.type = type;
 	}
 

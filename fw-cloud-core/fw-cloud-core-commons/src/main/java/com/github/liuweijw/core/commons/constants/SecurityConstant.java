@@ -3,7 +3,7 @@ package com.github.liuweijw.core.commons.constants;
 /**
  * @author liuweijw
  */
-public interface SecurityConstants {
+public interface SecurityConstant {
 	/**
 	 * 授权
 	 */

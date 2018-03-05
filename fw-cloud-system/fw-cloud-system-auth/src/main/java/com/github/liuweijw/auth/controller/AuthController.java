@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.liuweijw.core.commons.constants.SecurityConstants;
+import com.github.liuweijw.core.commons.constants.SecurityConstant;
 import com.github.liuweijw.core.utils.R;
 
 @RestController
@@ -27,7 +27,7 @@ public class AuthController {
      * 清除Redis中 accesstoken refreshtoken
      */
     @PostMapping("/removeToken")
-    @CacheEvict(value = SecurityConstants.TOKEN_USER_DETAIL, key = "#accesstoken")
+    @CacheEvict(value = SecurityConstant.TOKEN_USER_DETAIL, key = "#accesstoken")
     public R<Boolean> removeToken(String accesstoken, String refreshToken) {
         RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
         tokenStore.removeRefreshToken(refreshToken);

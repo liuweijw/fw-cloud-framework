@@ -5,7 +5,7 @@ import java.util.Properties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.github.liuweijw.core.commons.constants.SecurityConstants;
+import com.github.liuweijw.core.commons.constants.SecurityConstant;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
 
@@ -26,13 +26,13 @@ public class KaptchaConfig {
     @Bean
     public DefaultKaptcha producer() {
         Properties properties = new Properties();
-        properties.put(KAPTCHA_BORDER, SecurityConstants.DEFAULT_IMAGE_BORDER);
-        properties.put(KAPTCHA_TEXTPRODUCER_FONT_COLOR, SecurityConstants.DEFAULT_COLOR_FONT);
-        properties.put(KAPTCHA_TEXTPRODUCER_CHAR_SPACE, SecurityConstants.DEFAULT_CHAR_SPACE);
-        properties.put(KAPTCHA_IMAGE_WIDTH, SecurityConstants.DEFAULT_IMAGE_WIDTH);
-        properties.put(KAPTCHA_IMAGE_HEIGHT, SecurityConstants.DEFAULT_IMAGE_HEIGHT);
-        properties.put(KAPTCHA_IMAGE_FONT_SIZE, SecurityConstants.DEFAULT_IMAGE_FONT_SIZE);
-        properties.put(KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, SecurityConstants.DEFAULT_IMAGE_LENGTH);
+        properties.put(KAPTCHA_BORDER, SecurityConstant.DEFAULT_IMAGE_BORDER);
+        properties.put(KAPTCHA_TEXTPRODUCER_FONT_COLOR, SecurityConstant.DEFAULT_COLOR_FONT);
+        properties.put(KAPTCHA_TEXTPRODUCER_CHAR_SPACE, SecurityConstant.DEFAULT_CHAR_SPACE);
+        properties.put(KAPTCHA_IMAGE_WIDTH, SecurityConstant.DEFAULT_IMAGE_WIDTH);
+        properties.put(KAPTCHA_IMAGE_HEIGHT, SecurityConstant.DEFAULT_IMAGE_HEIGHT);
+        properties.put(KAPTCHA_IMAGE_FONT_SIZE, SecurityConstant.DEFAULT_IMAGE_FONT_SIZE);
+        properties.put(KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, SecurityConstant.DEFAULT_IMAGE_LENGTH);
         Config config = new Config(properties);
         DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
         defaultKaptcha.setConfig(config);

@@ -19,7 +19,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
-import com.github.liuweijw.core.commons.constants.SecurityConstants;
+import com.github.liuweijw.core.commons.constants.SecurityConstant;
 import com.github.liuweijw.core.utils.R;
 import com.github.liuweijw.core.utils.StringHelper;
 import com.github.liuweijw.exception.ValidateCodeException;
@@ -47,9 +47,9 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (isValidate && (StringHelper.contains(request.getRequestURI(), SecurityConstants.OAUTH_TOKEN_URL)
-                || StringHelper.contains(request.getRequestURI(), SecurityConstants.REFRESH_TOKEN)
-                || StringHelper.contains(request.getRequestURI(), SecurityConstants.MOBILE_TOKEN_URL))) {
+        if (isValidate && (StringHelper.contains(request.getRequestURI(), SecurityConstant.OAUTH_TOKEN_URL)
+                || StringHelper.contains(request.getRequestURI(), SecurityConstant.REFRESH_TOKEN)
+                || StringHelper.contains(request.getRequestURI(), SecurityConstant.MOBILE_TOKEN_URL))) {
             PrintWriter printWriter = null;
             try {
                 checkCode(request, response, filterChain);
@@ -76,7 +76,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
         if (StringHelper.isBlank(randomStr)) {
             randomStr = httpServletRequest.getParameter("mobile");
         }
-        Object codeObj = redisTemplate.opsForValue().get(SecurityConstants.DEFAULT_CODE_KEY + randomStr);
+        Object codeObj = redisTemplate.opsForValue().get(SecurityConstant.DEFAULT_CODE_KEY + randomStr);
 
         if (codeObj == null) {
             throw new ValidateCodeException("验证码为空或已过期");
@@ -84,22 +84,22 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
         String saveCode = codeObj.toString();
 
         if (StringHelper.isBlank(code)) {
-            redisTemplate.delete(SecurityConstants.DEFAULT_CODE_KEY + randomStr);
+            redisTemplate.delete(SecurityConstant.DEFAULT_CODE_KEY + randomStr);
             throw new ValidateCodeException("验证码的值不能为空");
         }
 
         if (StringHelper.isEmpty(saveCode)) {
-            redisTemplate.delete(SecurityConstants.DEFAULT_CODE_KEY + randomStr);
+            redisTemplate.delete(SecurityConstant.DEFAULT_CODE_KEY + randomStr);
             throw new ValidateCodeException("验证码已过期或已过期");
         }
 
         if (!StringHelper.equals(saveCode, code)) {
-            redisTemplate.delete(SecurityConstants.DEFAULT_CODE_KEY + randomStr);
+            redisTemplate.delete(SecurityConstant.DEFAULT_CODE_KEY + randomStr);
             throw new ValidateCodeException("验证码不匹配");
         }
 
         if (StringHelper.equals(code, saveCode)) {
-            redisTemplate.delete(SecurityConstants.DEFAULT_CODE_KEY + randomStr);
+            redisTemplate.delete(SecurityConstant.DEFAULT_CODE_KEY + randomStr);
             filterChain.doFilter(httpServletRequest, httpServletResponse);
         }
     }

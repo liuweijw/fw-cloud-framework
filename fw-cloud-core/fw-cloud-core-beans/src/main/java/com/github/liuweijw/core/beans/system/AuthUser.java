@@ -23,7 +23,7 @@ public class AuthUser implements Serializable {
     /**
      * 0-正常，1-删除
      */
-    private String delFlag;
+    private Integer delFlag;
     /**
      * 头像
      */
@@ -58,11 +58,11 @@ public class AuthUser implements Serializable {
 		this.password = password;
 	}
 
-	public String getDelFlag() {
+	public Integer getDelFlag() {
 		return delFlag;
 	}
 
-	public void setDelFlag(String delFlag) {
+	public void setDelFlag(Integer delFlag) {
 		this.delFlag = delFlag;
 	}
 

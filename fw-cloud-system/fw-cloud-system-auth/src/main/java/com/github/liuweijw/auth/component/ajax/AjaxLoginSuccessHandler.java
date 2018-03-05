@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
-import com.github.liuweijw.core.commons.constants.SecurityConstants;
+import com.github.liuweijw.core.commons.constants.SecurityConstant;
 import com.github.liuweijw.core.utils.StringHelper;
 import com.xiaoleilu.hutool.util.MapUtil;
 
@@ -45,8 +45,8 @@ public class AjaxLoginSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        String header = request.getHeader(SecurityConstants.AUTHORIZATION);
-        if (StringHelper.isBlank(header) || !header.startsWith(SecurityConstants.BASIC)) {
+        String header = request.getHeader(SecurityConstant.AUTHORIZATION);
+        if (StringHelper.isBlank(header) || !header.startsWith(SecurityConstant.BASIC)) {
             throw new UnapprovedClientAuthenticationException("请求头中client信息为空");
         }
 

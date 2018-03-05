@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>fw-cloud-business-commons</artifactId>
+	<packaging>jar</packaging>
+	
+    <name>fw-cloud-business-commons</name>
+    <description>业务基础公共模块</description>
+
+    <parent>
+    	<groupId>com.github.liuweijw</groupId>
+        <artifactId>fw-cloud-business</artifactId>
+        <version>${fw.business.version}</version>
+    </parent>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.github.liuweijw</groupId>
+            <artifactId>fw-cloud-core-commons</artifactId>
+            <version>${fw.core.version}</version>
+		</dependency>
+	</dependencies>
+</project>
