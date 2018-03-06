@@ -16,19 +16,23 @@
 - fw-cloud-core-exception Exception定义
 - fw-cloud-core-utils 常用工具类
 
-3、fw-cloud-business 服务模块
+3、fw-cloud-business 业务模块服务模块
 - fw-cloud-business-admin  [端口2002] 权限管理等接口服务
 - fw-cloud-business-client [端口待定] 前端接口服务
 
-4、fw-cloud-ui-xxx 前端模块
-- 基于element ui 的Vue2
+4、前端模块 [Vue2-Admin](https://github.com/liuweijw/Vue2-Admin)
+- 基于element ui 的Vue全家桶
 - webpack3
+- axios
+- ...
+- 初始学习Vue项目,请移步参考 [Vue2-All](https://github.com/liuweijw/Vue2-All)
 
 # 开发环境
 - Redis
 - MySQL
 - RabbitMQ
 - Java8
+- ...
 
 # 说明
 - xxx 待开发和完善的模块
