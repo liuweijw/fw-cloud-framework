@@ -1,5 +1,5 @@
 # fw-cloud-framework
-基于springcloud全家桶开发分布式框架（支持认证授权、常见服务监控、链路监控、异步日志、redis缓存等功能），实现基于Vue全家桶等前后端分离项目工程
+基于springcloud全家桶开发分布式框架（支持oauth2认证授权、Shardingdbc分库分表、常见服务监控、链路监控、异步日志、redis缓存等功能），实现基于Vue全家桶等前后端分离项目工程
 
 # 技术模块相关说明
 1、 fw-cloud-system 模块
@@ -19,6 +19,7 @@
 3、fw-cloud-business 业务模块服务模块
 - fw-cloud-business-admin  [端口2002] 权限管理等接口服务
 - fw-cloud-business-client [端口待定] 前端接口服务
+- fw-cloud-business-commons 业务公共组件等
 
 4、前端模块 [Vue2-Admin](https://github.com/liuweijw/Vue2-Admin)
 - 基于element ui 的Vue全家桶
