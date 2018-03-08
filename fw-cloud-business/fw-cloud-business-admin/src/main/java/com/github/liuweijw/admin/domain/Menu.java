@@ -87,6 +87,7 @@ public class Menu implements Serializable {
      */
 	@Column(name = "del_flag")
     private Integer delFlag = 0;
+	
 	public Integer getMenuId() {
 		return menuId;
 	}

@@ -73,13 +73,8 @@ public class User implements Serializable {
     /**
      * 所属部门
      */
-    //@Column(name = "dept_id")
-    //private Integer deptId;
-    
-    /**
-     * 所属部门名称
-     */
-    //private transient String deptName;
+    @Column(name = "dept_id")
+    private Integer deptId;
     
     /**
      * 角色列表
@@ -166,20 +161,12 @@ public class User implements Serializable {
 		this.mobile = mobile;
 	}
 
-	/*public Integer getDeptId() {
+	public Integer getDeptId() {
 		return deptId;
 	}
 
 	public void setDeptId(Integer deptId) {
 		this.deptId = deptId;
 	}
-
-	public String getDeptName() {
-		return deptName;
-	}
-
-	public void setDeptName(String deptName) {
-		this.deptName = deptName;
-	}*/
 
 }

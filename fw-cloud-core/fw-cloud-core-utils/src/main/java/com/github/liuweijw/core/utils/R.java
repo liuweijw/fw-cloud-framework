@@ -17,7 +17,7 @@ public class R<T> implements Serializable {
 	private int code = RConstant.SUCCESS;
 
     private T data;
-
+    
     public R() {
         super();
     }
@@ -87,4 +87,5 @@ public class R<T> implements Serializable {
     public void setData(T data) {
         this.data = data;
     }
+
 }

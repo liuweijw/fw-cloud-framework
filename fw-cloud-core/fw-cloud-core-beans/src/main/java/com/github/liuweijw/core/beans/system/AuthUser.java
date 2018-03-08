@@ -28,6 +28,10 @@ public class AuthUser implements Serializable {
      * 头像
      */
     private String avatar;
+    /**
+     * 部门Id
+     */
+    private Integer deptId;
     
     /**
      * 角色列表
@@ -80,6 +84,14 @@ public class AuthUser implements Serializable {
 
 	public void setRoleList(List<AuthRole> roleList) {
 		this.roleList = roleList;
+	}
+
+	public Integer getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(Integer deptId) {
+		this.deptId = deptId;
 	}
 
 }

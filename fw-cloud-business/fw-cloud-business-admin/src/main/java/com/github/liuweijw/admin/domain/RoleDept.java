@@ -12,23 +12,23 @@ import javax.persistence.Table;
  * @author liuweijw
  */
 @Entity
-@Table(name = UserRole.TABLE_NAME)
-public class UserRole implements Serializable {
+@Table(name = RoleDept.TABLE_NAME)
+public class RoleDept implements Serializable {
 
-	private static final long serialVersionUID = 8409879328945905867L;
+	private static final long serialVersionUID = -1028920072723837099L;
 
-	public static final String TABLE_NAME = "t_sys_user_role";
+	public static final String TABLE_NAME = "t_sys_role_dept";
 
     @Id
 	@GeneratedValue
 	@Column(name = "id")
     private Integer id;
+
+    @Column(name = "role_id")
+    private Integer roleId;
     
-	@Column(name="user_id")
-	private Integer userId;
-	
-	@Column(name="role_id")
-	private Integer roleId;
+    @Column(name = "dept_id")
+    private Integer deptId;
 
 	public Integer getId() {
 		return id;
@@ -36,14 +36,6 @@ public class UserRole implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Integer getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
 	}
 
 	public Integer getRoleId() {
@@ -54,4 +46,12 @@ public class UserRole implements Serializable {
 		this.roleId = roleId;
 	}
 
+	public Integer getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(Integer deptId) {
+		this.deptId = deptId;
+	}
+    
 }
