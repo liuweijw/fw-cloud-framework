@@ -25,4 +25,9 @@ public class RoleController extends BaseController {
         return new R<List<Role>>().data(roleService.getRoleListByDeptId(deptId));
     }
 	
+	@GetMapping(value = "/list")
+    public R<List<Role>> getRoleList() {
+        return new R<List<Role>>().data(roleService.getRoleList());
+    }
+	
 }

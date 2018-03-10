@@ -77,7 +77,7 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
         	List<AuthRole> roleList = new ArrayList<AuthRole>();
             roles.stream().forEach(role -> {
             	AuthRole authRole = new AuthRole();
-            	authRole.setRoleName(role);
+            	authRole.setRoleCode(role);
             	roleList.add(authRole);
             });
             authUser.setRoleList(roleList);

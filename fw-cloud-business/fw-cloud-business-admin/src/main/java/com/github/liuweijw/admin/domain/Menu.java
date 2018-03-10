@@ -30,48 +30,23 @@ public class Menu implements Serializable {
     /**
      * 菜单名称
      */
-	@Column(name = "name")
-    private String name;
-    /**
-     * 菜单权限标识
-     */
-	@Column(name = "permission")
-    private String permission;
-    /**
-     * 请求链接
-     */
+	@Column(name = "menu_name")
+    private String menuName;
+	/**
+	 * 请求路径
+	 */
+	@Column(name = "path")
+	private String path;
+	/**
+	 * 请求链接
+	 */
 	@Column(name = "url")
-    private String url;
-    /**
-     * 请求方法
-     */
-	@Column(name = "method")
-    private String method;
+	private String url;
     /**
      * 父菜单ID
      */
-	@Column(name = "parent_id")
-    private Integer parentId;
-    /**
-     * 图标
-     */
-	@Column(name = "icon")
-    private String icon;
-    /**
-     * VUE页面
-     */
-	@Column(name = "component")
-    private String component;
-    /**
-     * 排序值
-     */
-	@Column(name = "sort")
-    private Integer sort;
-    /**
-     * 菜单类型 （0菜单 1按钮）
-     */
-	@Column(name = "type")
-    private String type;
+	@Column(name = "pid")
+    private Integer pid;
     /**
      * 创建时间
      */
@@ -82,71 +57,35 @@ public class Menu implements Serializable {
      */
 	@Column(name = "update_time")
     private Date updateTime;
-    /**
-     * 0--正常 1--删除
+	/**
+     * 0-正常，1-删除
      */
-	@Column(name = "del_flag")
-    private Integer delFlag = 0;
-	
+    @Column(name = "statu")
+    private Integer statu = 0;
+    
 	public Integer getMenuId() {
 		return menuId;
 	}
 	public void setMenuId(Integer menuId) {
 		this.menuId = menuId;
 	}
-	public String getName() {
-		return name;
+	public String getMenuName() {
+		return menuName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setMenuName(String menuName) {
+		this.menuName = menuName;
 	}
-	public String getPermission() {
-		return permission;
+	public String getPath() {
+		return path;
 	}
-	public void setPermission(String permission) {
-		this.permission = permission;
+	public void setPath(String path) {
+		this.path = path;
 	}
-	public String getUrl() {
-		return url;
+	public Integer getPid() {
+		return pid;
 	}
-	public void setUrl(String url) {
-		this.url = url;
-	}
-	public String getMethod() {
-		return method;
-	}
-	public void setMethod(String method) {
-		this.method = method;
-	}
-	public Integer getParentId() {
-		return parentId;
-	}
-	public void setParentId(Integer parentId) {
-		this.parentId = parentId;
-	}
-	public String getIcon() {
-		return icon;
-	}
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
-	public String getComponent() {
-		return component;
-	}
-	public void setComponent(String component) {
-		this.component = component;
-	}
-	public Integer getSort() {
-		return sort;
-	}
-	public void setSort(Integer sort) {
-		this.sort = sort;
-	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
+	public void setPid(Integer pid) {
+		this.pid = pid;
 	}
 	public Date getCreateTime() {
 		return createTime;
@@ -160,11 +99,16 @@ public class Menu implements Serializable {
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
-	public Integer getDelFlag() {
-		return delFlag;
+	public Integer getStatu() {
+		return statu;
 	}
-	public void setDelFlag(Integer delFlag) {
-		this.delFlag = delFlag;
+	public void setStatu(Integer statu) {
+		this.statu = statu;
 	}
-	
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 }

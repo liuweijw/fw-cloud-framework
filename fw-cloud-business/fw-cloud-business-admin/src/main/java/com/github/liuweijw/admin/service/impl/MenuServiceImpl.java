@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -12,13 +11,15 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.liuweijw.admin.cache.AdminCacheKey;
 import com.github.liuweijw.admin.domain.Menu;
 import com.github.liuweijw.admin.domain.QMenu;
 import com.github.liuweijw.admin.domain.QRoleMenu;
+import com.github.liuweijw.admin.domain.QRoleMenuPermission;
 import com.github.liuweijw.admin.domain.Role;
+import com.github.liuweijw.admin.domain.RoleMenuPermission;
 import com.github.liuweijw.admin.repository.MenuRepository;
 import com.github.liuweijw.admin.repository.RoleRepository;
-import com.github.liuweijw.admin.service.AdminCacheKey;
 import com.github.liuweijw.admin.service.MenuService;
 import com.github.liuweijw.core.beans.system.AuthMenu;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
@@ -63,18 +64,25 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 
 	@Override
 	public String[] findPermission(String[] roleCodes) {
-		Set<AuthMenu> menuSet = new HashSet<>();
+		Set<String> permissions = new HashSet<>();
         for (String roleCode : roleCodes) {
-            Set<AuthMenu> menu = findMenuByRole(roleCode);
-            if(null != menu) menuSet.addAll(menu);
-        }
-
-        Set<String> permissions = new HashSet<>();
-        for (AuthMenu menu : menuSet) {
-            if (StringUtils.isNotEmpty(menu.getPermission())) {
-                String permission = menu.getPermission();
-                permissions.add(permission);
-            }
+        	// 查询Role
+        	Role role = roleRepository.findRoleByRoleCode(roleCode.trim());
+    		if(null == role) continue;
+    		// 查询菜单
+    		QRoleMenu qRoleMenu = QRoleMenu.roleMenu;
+    		QRoleMenuPermission qRoleMenuPermission = QRoleMenuPermission.roleMenuPermission;
+    		List<RoleMenuPermission> rList = this.queryFactory.select(qRoleMenuPermission)
+    											.from(qRoleMenuPermission,qRoleMenu)
+    											.where(qRoleMenu.roleId.eq(role.getRoleId()))
+    											.where(qRoleMenuPermission.roleMenuId.eq(qRoleMenu.id))
+    											.fetch();
+    		
+            if(null == rList || rList.size() == 0) continue;
+            
+            rList.stream().forEach(r -> {
+            	permissions.add(r.getPermission());
+            });
         }
 
         return permissions.toArray(new String[permissions.size()]);
@@ -89,13 +97,13 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 		// 删除当前节点 -- 假删除
 		QMenu qMenu = QMenu.menu;
 		this.queryFactory.update(qMenu)
-						 .set(qMenu.delFlag, CommonConstant.STATUS_DEL)
+						 .set(qMenu.statu, CommonConstant.STATUS_DEL)
 						 .where(qMenu.menuId.eq(menuId)).execute();
 		
         // 删除父节点为当前节点的节点 -- 假删除
 		this.queryFactory.update(qMenu)
-		 				 .set(qMenu.delFlag, CommonConstant.STATUS_DEL)
-		 				 .where(qMenu.parentId.eq(menuId)).execute();
+		 				 .set(qMenu.statu, CommonConstant.STATUS_DEL)
+		 				 .where(qMenu.pid.eq(menuId)).execute();
 		
         return true;
 	}

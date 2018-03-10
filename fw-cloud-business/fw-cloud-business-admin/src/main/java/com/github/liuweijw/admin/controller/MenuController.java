@@ -1,6 +1,7 @@
 package com.github.liuweijw.admin.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.liuweijw.admin.service.MenuService;
 import com.github.liuweijw.core.beans.system.AuthMenu;
+import com.github.liuweijw.core.beans.system.AuthPermission;
 import com.github.liuweijw.core.commons.jwt.JwtUtil;
 import com.github.liuweijw.core.commons.web.BaseController;
 
@@ -28,8 +30,16 @@ public class MenuController extends BaseController {
      * 通过用户名查询用户菜单
      */
     @GetMapping("/findMenuByRole/{roleCode}")
-    public Set<AuthMenu> findMenuByRole(@PathVariable String roleCode) {
-        return menuService.findMenuByRole(roleCode);
+    public Set<AuthPermission> findMenuByRole(@PathVariable String roleCode) {
+    	Set<AuthPermission> permissions = new HashSet<AuthPermission>();
+    	Set<AuthMenu> menus = menuService.findMenuByRole(roleCode);
+    	
+    	if(null == menus || menus.size() == 0) return permissions;
+    	
+    	menus.stream().forEach(r -> {
+			permissions.add(new AuthPermission(r.getUrl()));
+		});
+        return permissions;
     }
     
     /**

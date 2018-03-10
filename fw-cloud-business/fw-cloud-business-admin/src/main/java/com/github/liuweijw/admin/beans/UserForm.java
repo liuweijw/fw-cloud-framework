@@ -8,10 +8,8 @@ public class UserForm {
 	
 	private String newpassword;
 
-    private Integer delFlag = 0;
+    private Integer statu = 0;
 
-    private Integer deptId;
-    
     private Integer roleId;
     
     private Integer userId;
@@ -32,20 +30,12 @@ public class UserForm {
 		this.password = password;
 	}
 
-	public Integer getDelFlag() {
-		return delFlag;
+	public Integer getStatu() {
+		return statu;
 	}
 
-	public void setDelFlag(Integer delFlag) {
-		this.delFlag = delFlag;
-	}
-
-	public Integer getDeptId() {
-		return deptId;
-	}
-
-	public void setDeptId(Integer deptId) {
-		this.deptId = deptId;
+	public void setStatu(Integer statu) {
+		this.statu = statu;
 	}
 
 	public Integer getRoleId() {

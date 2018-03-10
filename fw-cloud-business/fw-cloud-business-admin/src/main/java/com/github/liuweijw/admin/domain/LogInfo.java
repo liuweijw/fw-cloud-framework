@@ -32,27 +32,22 @@ public class LogInfo implements Serializable {
      * 日志类型
      */
 	@Column(name = "type")
-    private String type;
+    private Integer type;
     /**
      * 日志标题
      */
 	@Column(name = "title")
-    private String title;
+    private Integer title;
+	/**
+     * 服务ID
+     */
+	@Column(name = "service_id")
+    private String serviceId;
     /**
      * 创建者
      */
 	@Column(name = "create_by")
     private String createBy;
-    /**
-     * 创建时间
-     */
-	@Column(name = "create_time")
-    private Date createTime;
-    /**
-     * 更新时间
-     */
-	@Column(name = "update_time")
-    private Date updateTime;
     /**
      * 操作IP地址
      */
@@ -83,143 +78,117 @@ public class LogInfo implements Serializable {
      */
 	@Column(name = "time")
     private Long time;
-
     /**
      * 删除标记
      */
-	@Column(name = "del_flag")
-    private String delFlag;
+	@Column(name = "statu")
+    private Integer statu = 0;
 
     /**
      * 异常信息
      */
 	@Column(name = "exception")
     private String exception;
-
-    /**
-     * 服务ID
+	/**
+     * 创建时间
      */
-	@Column(name = "service_id")
-    private String serviceId;
-
+	@Column(name = "create_time")
+    private Date createTime;
+    /**
+     * 更新时间
+     */
+	@Column(name = "update_time")
+    private Date updateTime;
+	
 	public long getId() {
 		return id;
 	}
-
-	public void setId(final long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
-
-	public String getType() {
+	public Integer getType() {
 		return type;
 	}
-
-	public void setType(final String type) {
+	public void setType(Integer type) {
 		this.type = type;
 	}
-
-	public String getTitle() {
+	public Integer getTitle() {
 		return title;
 	}
-
-	public void setTitle(final String title) {
+	public void setTitle(Integer title) {
 		this.title = title;
 	}
-
-	public String getCreateBy() {
-		return createBy;
-	}
-
-	public void setCreateBy(final String createBy) {
-		this.createBy = createBy;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(final Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(final Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
-	public String getRemoteAddr() {
-		return remoteAddr;
-	}
-
-	public void setRemoteAddr(final String remoteAddr) {
-		this.remoteAddr = remoteAddr;
-	}
-
-	public String getUserAgent() {
-		return userAgent;
-	}
-
-	public void setUserAgent(final String userAgent) {
-		this.userAgent = userAgent;
-	}
-
-	public String getRequestUri() {
-		return requestUri;
-	}
-
-	public void setRequestUri(final String requestUri) {
-		this.requestUri = requestUri;
-	}
-
-	public String getMethod() {
-		return method;
-	}
-
-	public void setMethod(final String method) {
-		this.method = method;
-	}
-
-	public String getParams() {
-		return params;
-	}
-
-	public void setParams(final String params) {
-		this.params = params;
-	}
-
-	public Long getTime() {
-		return time;
-	}
-
-	public void setTime(final Long time) {
-		this.time = time;
-	}
-
-	public String getDelFlag() {
-		return delFlag;
-	}
-
-	public void setDelFlag(final String delFlag) {
-		this.delFlag = delFlag;
-	}
-
-	public String getException() {
-		return exception;
-	}
-
-	public void setException(final String exception) {
-		this.exception = exception;
-	}
-
 	public String getServiceId() {
 		return serviceId;
 	}
-
-	public void setServiceId(final String serviceId) {
+	public void setServiceId(String serviceId) {
 		this.serviceId = serviceId;
 	}
-    
+	public String getCreateBy() {
+		return createBy;
+	}
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy;
+	}
+	public String getRemoteAddr() {
+		return remoteAddr;
+	}
+	public void setRemoteAddr(String remoteAddr) {
+		this.remoteAddr = remoteAddr;
+	}
+	public String getUserAgent() {
+		return userAgent;
+	}
+	public void setUserAgent(String userAgent) {
+		this.userAgent = userAgent;
+	}
+	public String getRequestUri() {
+		return requestUri;
+	}
+	public void setRequestUri(String requestUri) {
+		this.requestUri = requestUri;
+	}
+	public String getMethod() {
+		return method;
+	}
+	public void setMethod(String method) {
+		this.method = method;
+	}
+	public String getParams() {
+		return params;
+	}
+	public void setParams(String params) {
+		this.params = params;
+	}
+	public Long getTime() {
+		return time;
+	}
+	public void setTime(Long time) {
+		this.time = time;
+	}
+	public Integer getStatu() {
+		return statu;
+	}
+	public void setStatu(Integer statu) {
+		this.statu = statu;
+	}
+	public String getException() {
+		return exception;
+	}
+	public void setException(String exception) {
+		this.exception = exception;
+	}
+	public Date getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
 }

@@ -23,7 +23,7 @@ public class DeptServiceImpl extends JPAFactoryImpl implements DeptService {
 	public List<DeptTree> getDeptTreeList() {
 		QDept dept = QDept.dept;
 		List<Dept> list = this.queryFactory.selectFrom(dept)
-										   .where(dept.delFlag.eq(0))
+										   .where(dept.statu.eq(0))
 										   .fetch();
 		if(null == list || list.size() == 0) return new ArrayList<DeptTree>();
 		
@@ -38,7 +38,7 @@ public class DeptServiceImpl extends JPAFactoryImpl implements DeptService {
 			DeptTree node = new DeptTree();
 			node.setId(dept.getId());
 			node.setPid(dept.getPid());
-			node.setName(dept.getName());
+			node.setName(dept.getDeptName());
 			treeList.add(node);
 		}
 		return TreeUtil.build(treeList, 0);

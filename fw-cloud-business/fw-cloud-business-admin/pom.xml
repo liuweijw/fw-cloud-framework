@@ -29,10 +29,10 @@
 	       <groupId>org.springframework.boot</groupId>
 	       <artifactId>spring-boot-starter-data-jpa</artifactId>
 	    </dependency> 
-	    <dependency>
+	    <!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
-		</dependency>
+		</dependency> -->
 		<dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-core</artifactId> 
@@ -69,12 +69,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-amqp</artifactId>
-		</dependency>
-		<!--七牛-->
-		<dependency>
-			<groupId>com.qiniu</groupId>
-			<artifactId>qiniu-java-sdk</artifactId>
-			<version>[7.2.0, 7.2.99]</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.axet</groupId>

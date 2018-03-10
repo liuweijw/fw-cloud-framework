@@ -98,9 +98,4 @@ public final class RandomHelper {
         return from + r.nextInt(to - from);
     }
     
-    public static void main(String[] args) {
-		System.out.println(RandomHelper.randomStringUpper());
-		
-		 System.out.println("123456789012345".replaceAll("\\d{4}(?!$)", "$0 "));
-	}
 }

@@ -39,5 +39,5 @@ public interface MenuService {
      * @return 成功、失败
      */
     Boolean updateMenuById(Menu sysMenu,String roleCode);
-    
+
 }

@@ -23,75 +23,51 @@ public class AuthUser implements Serializable {
     /**
      * 0-正常，1-删除
      */
-    private Integer delFlag;
+    private Integer statu = 0;
     /**
      * 头像
      */
-    private String avatar;
-    /**
-     * 部门Id
-     */
-    private Integer deptId;
-    
+    private String picUrl;
     /**
      * 角色列表
      */
     private List<AuthRole> roleList = new ArrayList<AuthRole>();
-
+    
 	public Integer getUserId() {
 		return userId;
 	}
-
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
-
 	public String getUsername() {
 		return username;
 	}
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
 	public String getPassword() {
 		return password;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public Integer getDelFlag() {
-		return delFlag;
+	public Integer getStatu() {
+		return statu;
 	}
-
-	public void setDelFlag(Integer delFlag) {
-		this.delFlag = delFlag;
+	public void setStatu(Integer statu) {
+		this.statu = statu;
 	}
-
-	public String getAvatar() {
-		return avatar;
+	public String getPicUrl() {
+		return picUrl;
 	}
-
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
+	public void setPicUrl(String picUrl) {
+		this.picUrl = picUrl;
 	}
-
 	public List<AuthRole> getRoleList() {
 		return roleList;
 	}
-
 	public void setRoleList(List<AuthRole> roleList) {
 		this.roleList = roleList;
-	}
-
-	public Integer getDeptId() {
-		return deptId;
-	}
-
-	public void setDeptId(Integer deptId) {
-		this.deptId = deptId;
 	}
 
 }

@@ -40,8 +40,14 @@ public class Dept implements Serializable {
 	/**
      * 部门名称
      */
-	@Column(name = "name")
-	private String name;
+	@Column(name = "dept_name")
+	private String deptName;
+	
+	/**
+     * 0--正常 1--删除
+     */
+	@Column(name = "statu")
+    private Integer statu = 0;
 	
 	/**
      * 排序字段
@@ -59,63 +65,71 @@ public class Dept implements Serializable {
      */
 	@Column(name = "update_time")
     private Date updateTime;
-    /**
-     * 0--正常 1--删除
-     */
-	@Column(name = "del_flag")
-    private Integer delFlag = 0;
 	
 	public Dept(){
 		
 	}
 	
-	public Dept(Integer id, Integer pid, String name){
+	public Dept(Integer id, Integer pid, String deptName){
 		this.id = id;
 		this.pid = pid;
-		this.name = name;
+		this.deptName = deptName;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public Integer getPid() {
 		return pid;
 	}
+
 	public void setPid(Integer pid) {
 		this.pid = pid;
 	}
-	public String getName() {
-		return name;
+
+	public String getDeptName() {
+		return deptName;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
 	}
+
+	public Integer getStatu() {
+		return statu;
+	}
+
+	public void setStatu(Integer statu) {
+		this.statu = statu;
+	}
+
 	public Integer getPos() {
 		return pos;
 	}
+
 	public void setPos(Integer pos) {
 		this.pos = pos;
 	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
+
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+
 	public Date getUpdateTime() {
 		return updateTime;
 	}
+
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
-	}
-	public Integer getDelFlag() {
-		return delFlag;
-	}
-	public void setDelFlag(Integer delFlag) {
-		this.delFlag = delFlag;
 	}
 	
 }

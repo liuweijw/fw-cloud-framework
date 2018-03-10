@@ -24,8 +24,8 @@ public class RoleMenu implements Serializable {
      */
     @Id
 	@GeneratedValue
-	@Column(name = "sid")
-    private Integer sid;
+	@Column(name = "id")
+    private Integer id;
     
     /**
      * 角色Id
@@ -39,12 +39,12 @@ public class RoleMenu implements Serializable {
     @Column(name = "menu_id")
     private Integer menuId;
 
-	public Integer getSid() {
-		return sid;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setSid(Integer sid) {
-		this.sid = sid;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Integer getRoleId() {

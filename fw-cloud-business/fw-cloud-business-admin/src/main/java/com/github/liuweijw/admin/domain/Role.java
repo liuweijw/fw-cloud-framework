@@ -61,11 +61,10 @@ public class Role implements Serializable {
     /**
      * 0-正常，1-删除
      */
-    @Column(name = "del_flag")
-    private String delFlag;
+    @Column(name = "statu")
+    private Integer statu = 0;
 
-
-    public Integer getRoleId() {
+	public Integer getRoleId() {
 		return roleId;
 	}
 
@@ -113,24 +112,12 @@ public class Role implements Serializable {
 		this.updateTime = updateTime;
 	}
 
-	public String getDelFlag() {
-		return delFlag;
+	public Integer getStatu() {
+		return statu;
 	}
 
-	public void setDelFlag(String delFlag) {
-		this.delFlag = delFlag;
+	public void setStatu(Integer statu) {
+		this.statu = statu;
 	}
 
-	@Override
-    public String toString() {
-        return "SysRole{" +
-                ", roleId=" + roleId +
-                ", roleName=" + roleName +
-                ", roleCode=" + roleCode +
-                ", roleDesc=" + roleDesc +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", delFlag=" + delFlag +
-                "}";
-    }
 }

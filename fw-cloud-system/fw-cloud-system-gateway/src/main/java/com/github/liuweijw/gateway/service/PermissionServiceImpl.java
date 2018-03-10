@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.CollectionUtils;
 
-import com.github.liuweijw.core.beans.system.AuthMenu;
+import com.github.liuweijw.core.beans.system.AuthPermission;
 import com.github.liuweijw.core.utils.StringHelper;
 
 @Service("permissionService")
@@ -39,23 +39,19 @@ public class PermissionServiceImpl implements PermissionService {
         if (CollectionUtils.isEmpty(grantedAuthorityList)) return hasPermission;
 
         // 接口层面做了缓存处理，后续可以继续优化
-        Set<AuthMenu> urls = new HashSet<AuthMenu>();
+        Set<AuthPermission> permissions = new HashSet<AuthPermission>();
         for (SimpleGrantedAuthority authority : grantedAuthorityList) {
-            urls.addAll(menuService.findMenuByRole(authority.getAuthority()));
+        	permissions.addAll(menuService.findMenuByRole(authority.getAuthority()));
         }
 
         String requestURI = request.getRequestURI();
-        for (AuthMenu menu : urls) {
-        	// System.out.println("=======menu.getUrl()=====" + menu.getUrl());
-        	// System.out.println("=======request.getRequestURI()=====" + requestURI);
+        for (AuthPermission menu : permissions) {
             if (StringHelper.isNotEmpty(menu.getUrl())
-            		&& antPathMatcher.match(menu.getUrl(), requestURI)
-                    && request.getMethod().equalsIgnoreCase(menu.getMethod())) {
+            		&& antPathMatcher.match(menu.getUrl(), requestURI)) {
                 hasPermission = true;
                 break;
             }
         }
-        // System.out.println("=======request.hasPermission=====" + hasPermission);
         return hasPermission;
     }
 }

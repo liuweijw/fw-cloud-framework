@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.liuweijw.admin.beans.UserBean;
 import com.github.liuweijw.admin.beans.UserForm;
+import com.github.liuweijw.admin.cache.AdminCacheKey;
 import com.github.liuweijw.admin.domain.QRole;
 import com.github.liuweijw.admin.domain.QUser;
 import com.github.liuweijw.admin.domain.QUserRole;
@@ -24,7 +25,6 @@ import com.github.liuweijw.admin.domain.User;
 import com.github.liuweijw.admin.domain.UserRole;
 import com.github.liuweijw.admin.repository.UserRepository;
 import com.github.liuweijw.admin.repository.UserRoleRepository;
-import com.github.liuweijw.admin.service.AdminCacheKey;
 import com.github.liuweijw.admin.service.MenuService;
 import com.github.liuweijw.admin.service.UserService;
 import com.github.liuweijw.business.commons.beans.PageBean;
@@ -117,19 +117,14 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
         
         //设置角色列表
         List<AuthRole> roleList = user.getRoleList();
-        List<String> roleNames = new ArrayList<>();
-        if(null == roleList || roleList.size() == 0){
-        	List<Role> dbRoleList = findRoleListByUserId(dbUser.getUserId());
-        	dbRoleList.stream().forEach(r -> {
-        		roleNames.add(r.getRoleName());
-        	});
-        } else {
-        	roleList.stream().forEach(r -> {
-        		roleNames.add(r.getRoleName());
-        	});
-        }
+        List<String> roleCodes = new ArrayList<>();
         
-        String[] roles = roleNames.toArray(new String[roleNames.size()]);
+        roleList.stream().forEach(r -> {
+        	roleCodes.add(r.getRoleCode());
+    	});
+        
+        String[] roles = roleCodes.toArray(new String[roleCodes.size()]);
+        
         userInfo.setRoles(roles);
         
         //设置权限列表（menu.permission）
@@ -140,8 +135,7 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 	}
 
 	@Override
-	// 待排查是什么问题导致转换失败
-	//@Cacheable(value = AdminCacheKey.USER_INFO_USERID, key = AdminCacheKey.USER_INFO_USERID_KEY_USERID)
+	@Cacheable(value = AdminCacheKey.USER_INFO_USERID, key = AdminCacheKey.USER_INFO_USERID_KEY_USERID)
 	public AuthUser findByUserId(String userId) {
 		User user = userRepository.findUserByUserId(Integer.valueOf(userId));
 		if(null == user) return null;
@@ -155,18 +149,17 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
     	if(null == user) return null;
     	
     	AuthUser authUser = new AuthUser();
-    	authUser.setAvatar(user.getAvatar());
-    	authUser.setDelFlag(user.getDelFlag());
+    	authUser.setPicUrl(user.getPicUrl());
+    	authUser.setStatu(user.getStatu());
     	authUser.setPassword(user.getPassword());
     	authUser.setUserId(user.getUserId());
     	authUser.setUsername(user.getUsername());
-    	authUser.setDeptId(user.getDeptId());
     	
     	if(null == user.getRoleList() || user.getRoleList().size() == 0) return authUser;
     	List<AuthRole> rList = new ArrayList<AuthRole>();
     	for(Role r : user.getRoleList()){
     		AuthRole aRole = new AuthRole();
-    		aRole.setDelFlag(r.getDelFlag());
+    		aRole.setStatu(r.getStatu());
     		aRole.setRoleCode(r.getRoleCode());
     		aRole.setRoleDesc(r.getRoleDesc());
     		aRole.setRoleId(r.getRoleId());
@@ -187,7 +180,7 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 			qUserNamePredicate = qUser.username.like("%"+user.getUsername().trim()+"%");
 		}
 		
-		Predicate predicate = qUser.delFlag.eq(0).and(qUserNamePredicate);
+		Predicate predicate = qUser.statu.eq(0).and(qUserNamePredicate);
 		
 		Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC,"createTime"));
         PageRequest pageRequest = new PageRequest(pageParams.getPageNo(),pageParams.getPageNum(),sort);
@@ -215,7 +208,7 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 		
 		QUser qUser = QUser.user;
 		long num = this.queryFactory.update(qUser)
-									.set(qUser.delFlag, 1) // 0 正常 1删除
+									.set(qUser.statu, 1) // 0 正常 1删除
 									.where(qUser.userId.eq(userId.intValue()))
 									.execute();
 		return num > 0;
@@ -244,8 +237,7 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 		User user = userRepository.findUserByUserId(userForm.getUserId());
 		if(null == user) return false;
 		
-		user.setDelFlag(userForm.getDelFlag());
-		user.setDeptId(userForm.getDeptId());
+		user.setStatu(userForm.getStatu());
 		user.setUpdateTime(new Date());
 		user.setUserId(userForm.getUserId());
 		user.setUsername(userForm.getUsername());

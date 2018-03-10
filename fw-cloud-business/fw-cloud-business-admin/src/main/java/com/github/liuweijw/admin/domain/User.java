@@ -21,7 +21,6 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 4401115751257255358L;
 
 	public static final String TABLE_NAME = "t_sys_user";
-	
     /**
      * 主键ID
      */
@@ -45,6 +44,21 @@ public class User implements Serializable {
     @Column(name = "open_id")
     private String openId;
     /**
+     * 手机号码
+     */
+    @Column(name = "mobile")
+    private String mobile;
+    /**
+     * 头像
+     */
+    @Column(name = "pic_url")
+    private String picUrl;
+    /**
+     * 0-正常，1-删除
+     */
+    @Column(name = "statu")
+    private Integer statu = 0;
+    /**
      * 创建时间
      */
     @Column(name = "create_time")
@@ -54,28 +68,6 @@ public class User implements Serializable {
      */
     @Column(name = "update_time")
     private Date updateTime;
-    /**
-     * 0-正常，1-删除
-     */
-    @Column(name = "del_flag")
-    private Integer delFlag;
-    /**
-     * 手机号码
-     */
-    @Column(name = "mobile")
-    private String mobile;
-    /**
-     * 头像
-     */
-    @Column(name = "avatar")
-    private String avatar;
-
-    /**
-     * 所属部门
-     */
-    @Column(name = "dept_id")
-    private Integer deptId;
-    
     /**
      * 角色列表
      */
@@ -129,28 +121,12 @@ public class User implements Serializable {
 		this.updateTime = updateTime;
 	}
 
-	public Integer getDelFlag() {
-		return delFlag;
+	public Integer getStatu() {
+		return statu;
 	}
 
-	public void setDelFlag(Integer delFlag) {
-		this.delFlag = delFlag;
-	}
-
-	public String getAvatar() {
-		return avatar;
-	}
-
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
-
-	public List<Role> getRoleList() {
-		return roleList;
-	}
-
-	public void setRoleList(List<Role> roleList) {
-		this.roleList = roleList;
+	public void setStatu(Integer statu) {
+		this.statu = statu;
 	}
 
 	public String getMobile() {
@@ -161,12 +137,20 @@ public class User implements Serializable {
 		this.mobile = mobile;
 	}
 
-	public Integer getDeptId() {
-		return deptId;
+	public String getPicUrl() {
+		return picUrl;
 	}
 
-	public void setDeptId(Integer deptId) {
-		this.deptId = deptId;
+	public void setPicUrl(String picUrl) {
+		this.picUrl = picUrl;
+	}
+
+	public List<Role> getRoleList() {
+		return roleList;
+	}
+
+	public void setRoleList(List<Role> roleList) {
+		this.roleList = roleList;
 	}
 
 }

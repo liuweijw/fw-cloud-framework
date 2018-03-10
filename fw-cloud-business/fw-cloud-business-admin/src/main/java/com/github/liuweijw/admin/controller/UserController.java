@@ -78,8 +78,6 @@ public class UserController extends BaseController {
 	public R<AuthUser> findByUserId(HttpServletRequest request,@PathVariable("userId") Integer userId){
     	AuthUser authUser = this.userService.findByUserId(String.valueOf(userId));
     	if(null == authUser) return new R<AuthUser>().failure();
-    	
-    	System.out.println(authUser.toString());
     	return new R<AuthUser>().success().data(authUser);
     }
     
@@ -88,12 +86,10 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value="/addUser",method=RequestMethod.POST)
 	public R<Boolean> addUser(HttpServletRequest request, @RequestBody UserForm userForm){
-    	if(null == userForm.getDeptId()) return new R<Boolean>().failure("请选择部门");
     	if(null == userForm.getRoleId()) return new R<Boolean>().failure("请选择角色");
     	User user = new User();
     	user.setCreateTime(new Date());
-    	user.setDelFlag(0);
-    	user.setDeptId(userForm.getDeptId());
+    	user.setStatu(0);
     	user.setPassword(new BCryptPasswordEncoder().encode(userForm.getPassword().trim()));
     	user.setUpdateTime(new Date());
     	user.setUsername(userForm.getUsername());
@@ -107,7 +103,6 @@ public class UserController extends BaseController {
     @RequestMapping(value="/updateUser",method=RequestMethod.POST)
 	public R<Boolean> updateUser(HttpServletRequest request, @RequestBody UserForm userForm){
     	if(null == userForm.getUserId()) return new R<Boolean>().failure("用户不存在");
-    	if(null == userForm.getDeptId()) return new R<Boolean>().failure("请选择部门");
     	if(null == userForm.getRoleId()) return new R<Boolean>().failure("请选择角色");
     	
     	boolean r = this.userService.updateUserAndRole(userForm);

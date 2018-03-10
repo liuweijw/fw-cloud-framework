@@ -24,7 +24,7 @@ public class UserDetailsImpl implements UserDetails {
     public UserDetailsImpl(AuthUser authUser) {
         this.username = authUser.getUsername();
         this.password = authUser.getPassword();
-        this.status = authUser.getDelFlag();
+        this.status = authUser.getStatu();
         this.roleList = authUser.getRoleList();
     }
     
@@ -32,10 +32,8 @@ public class UserDetailsImpl implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorityList = new ArrayList<>();
         for (AuthRole role : roleList) {
-        	System.out.println("=====auth==getAuthorities()==========" + role.getRoleCode());
             authorityList.add(new SimpleGrantedAuthority(role.getRoleCode()));
         }
-        //authorityList.add(new SimpleGrantedAuthority("ROLE_USER"));
         return authorityList;
 	}
 

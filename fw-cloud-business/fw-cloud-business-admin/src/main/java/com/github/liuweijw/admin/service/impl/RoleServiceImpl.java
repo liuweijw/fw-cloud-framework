@@ -3,8 +3,10 @@ package com.github.liuweijw.admin.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
+import com.github.liuweijw.admin.cache.AdminCacheKey;
 import com.github.liuweijw.admin.domain.QRole;
 import com.github.liuweijw.admin.domain.QRoleDept;
 import com.github.liuweijw.admin.domain.Role;
@@ -31,6 +33,12 @@ public class RoleServiceImpl extends JPAFactoryImpl implements RoleService {
 											.fetch();
 		
 		return rList;
+	}
+
+	@Override
+	@Cacheable(value = AdminCacheKey.ROLE_INFO_LIST)
+	public List<Role> getRoleList() {
+		return roleRepository.findAll();
 	}
 	
 }

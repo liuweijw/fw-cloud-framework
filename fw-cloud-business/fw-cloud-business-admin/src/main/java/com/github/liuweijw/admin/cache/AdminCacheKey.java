@@ -1,4 +1,4 @@
-package com.github.liuweijw.admin.service;
+package com.github.liuweijw.admin.cache;
 
 /**
  * 各种缓存Key定义
@@ -19,4 +19,6 @@ public interface AdminCacheKey {
 	
 	String MENU_INFO = "menu_info_";
 	String MENU_INFO_KEY_ROLECODE = "#roleCode + '_menu'";
+	
+	String ROLE_INFO_LIST = "role_info_list";
 }

@@ -19,7 +19,7 @@ public class UserRole implements Serializable {
 
 	public static final String TABLE_NAME = "t_sys_user_role";
 
-    @Id
+	@Id
 	@GeneratedValue
 	@Column(name = "id")
     private Integer id;

@@ -29,7 +29,7 @@ public class AuthRole implements Serializable {
     /**
      * 0-正常，1-删除
      */
-    private String delFlag;
+    private Integer statu;
 
 	public Integer getRoleId() {
 		return roleId;
@@ -63,12 +63,12 @@ public class AuthRole implements Serializable {
 		this.roleDesc = roleDesc;
 	}
 
-	public String getDelFlag() {
-		return delFlag;
+	public Integer getStatu() {
+		return statu;
 	}
 
-	public void setDelFlag(String delFlag) {
-		this.delFlag = delFlag;
+	public void setStatu(Integer statu) {
+		this.statu = statu;
 	}
-    
+
 }
