@@ -84,9 +84,9 @@ CREATE TABLE IF NOT EXISTS `t_sys_log_0` (
   KEY `t_sys_log_0_request_uri` (`request_uri`) USING BTREE,
   KEY `t_sys_log_0_type` (`type`) USING BTREE,
   KEY `t_sys_log_0_create_date` (`create_time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=179236518043320321 DEFAULT CHARSET=utf8 COMMENT='日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=179631651272261633 DEFAULT CHARSET=utf8 COMMENT='日志表';
 
--- 正在导出表  fw-cloud.t_sys_log_0 的数据：~0 rows (大约)
+-- 正在导出表  fw-cloud.t_sys_log_0 的数据：~291 rows (大约)
 DELETE FROM `t_sys_log_0`;
 /*!40000 ALTER TABLE `t_sys_log_0` DISABLE KEYS */;
 /*!40000 ALTER TABLE `t_sys_log_0` ENABLE KEYS */;
@@ -190,7 +190,7 @@ CREATE TABLE IF NOT EXISTS `t_sys_role_dept` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色与部门对应关系';
 
--- 正在导出表  fw-cloud.t_sys_role_dept 的数据：~1 rows (大约)
+-- 正在导出表  fw-cloud.t_sys_role_dept 的数据：~0 rows (大约)
 DELETE FROM `t_sys_role_dept`;
 /*!40000 ALTER TABLE `t_sys_role_dept` DISABLE KEYS */;
 INSERT INTO `t_sys_role_dept` (`id`, `role_id`, `dept_id`) VALUES
@@ -244,7 +244,8 @@ INSERT INTO `t_sys_role_menu_permission` (`id`, `role_menu_id`, `permission`) VA
 	(1, 2, 'user_add'),
 	(2, 2, 'user_upd'),
 	(3, 2, 'user_view'),
-	(4, 2, 'user_del');
+	(4, 2, 'user_del'),
+	(5, 2, 'role_view');
 /*!40000 ALTER TABLE `t_sys_role_menu_permission` ENABLE KEYS */;
 
 
@@ -284,7 +285,7 @@ CREATE TABLE IF NOT EXISTS `t_sys_user_role` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='用户角色表';
 
--- 正在导出表  fw-cloud.t_sys_user_role 的数据：~4 rows (大约)
+-- 正在导出表  fw-cloud.t_sys_user_role 的数据：~3 rows (大约)
 DELETE FROM `t_sys_user_role`;
 /*!40000 ALTER TABLE `t_sys_user_role` DISABLE KEYS */;
 INSERT INTO `t_sys_user_role` (`id`, `user_id`, `role_id`) VALUES
