@@ -12,6 +12,7 @@
 - fw-cloud-system-xxx     [端口待定] elk监控
 - fw-cloud-system-xxx     [端口待定] 缓存监控
 - fw-cloud-system-xxx     [端口待定] 日志等监控
+- fw-cloud-system-commons system各模块基础功能依赖
 
 2、fw-cloud-core 基础公共模块
 - fw-cloud-core-beans 常用全局bean
@@ -23,7 +24,7 @@
 3、fw-cloud-business 业务模块服务模块
 - fw-cloud-business-admin   [端口2002] 权限管理等接口服务
 - fw-cloud-business-client  [端口待定] 前端接口服务
-- fw-cloud-business-commons 业务公共组件等
+- fw-cloud-business-commons business各业务公共组件等
 
 4、前端模块 [Vue2-Admin](https://github.com/liuweijw/Vue2-Admin)
 - 基于element ui 的Vue全家桶
@@ -39,8 +40,10 @@
 - Java8
 - ...
 
-# 说明
+# 项目说明
 - xxx 待开发和完善的模块
+- 项目部分技术配置说明[guide](https://github.com/liuweijw/fw-cloud-framework/wiki/%E9%83%A8%E5%88%86%E6%8A%80%E6%9C%AF%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E)
+- 项目配置文件加密说明[guide](https://github.com/liuweijw/fw-cloud-framework/wiki/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8A%A0%E5%AF%86%E8%AF%B4%E6%98%8E)
 
 # 常见问题
 - lombok 安装
@@ -49,3 +52,4 @@
   * 重启eclipse
 - idea 安装
   * 查看地址[guide](http://blog.csdn.net/zhglance/article/details/54931430)
+  * idea 导入工程方法建议参考[guide](http://blog.csdn.net/sinat_36246371/article/details/52914448)

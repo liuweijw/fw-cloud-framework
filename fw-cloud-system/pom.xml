@@ -16,6 +16,7 @@
     </parent>
 
 	<modules>
+		<module>fw-cloud-system-commons</module>
 		<module>fw-cloud-system-eureka</module>
 		<module>fw-cloud-system-config</module>
 		<module>fw-cloud-system-gateway</module>

@@ -2,6 +2,12 @@ package com.github.liuweijw.business.commons.beans;
 
 import com.github.liuweijw.business.commons.constants.PageConstant;
 
+/**
+ * page 查询参数封装
+ * 
+ * @author liuweijw
+ *
+ */
 public class PageParams {
 
 	/**

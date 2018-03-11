@@ -58,8 +58,8 @@ urls:
     - /auth/**
     - /admin/code/*
     - /admin/smsCode/*
-    - /admin/user/info
-    - /admin/menu/userTree
+    - /admin/api/info
+    - /admin/api/userTree
     - /swagger-resources/**
     - /swagger-ui.html
     - /*/v2/api-docs

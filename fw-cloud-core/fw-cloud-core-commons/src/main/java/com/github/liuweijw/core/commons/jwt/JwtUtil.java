@@ -3,6 +3,7 @@ package com.github.liuweijw.core.commons.jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
 import com.github.liuweijw.core.commons.constants.CommonConstant;
+import com.github.liuweijw.core.utils.StringHelper;
 
 /**
  * @author liuweijw
@@ -82,19 +84,30 @@ public class JwtUtil {
      * @return 角色名
      */
     public static List<String> getRole(HttpServletRequest httpServletRequest) {
-        String token = getToken(httpServletRequest);
-        String key = Base64.getEncoder().encodeToString(CommonConstant.SIGN_KEY.getBytes());
-        Claims claims = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
-        @SuppressWarnings("unchecked")
-		List<String> roleNames = (List<String>) claims.get(JWT_USER_AUTHORITIES);
-        return roleNames;
+        return getRole(getToken(httpServletRequest));
     }
 
+    /**
+     * 根据请求heard中的token获取用户角色
+     *
+     * @param httpServletRequest request
+     * @return 角色名
+     */
+    public static List<String> getRole(String token) {
+    	if(StringHelper.isBlank(token)) return new ArrayList<String>();
+    	String key = Base64.getEncoder().encodeToString(CommonConstant.SIGN_KEY.getBytes());
+        Claims claims = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
+        @SuppressWarnings("unchecked")
+		List<String> roleCodes = (List<String>) claims.get(JWT_USER_AUTHORITIES);
+        return roleCodes;
+    }
+    
     /**
      * 获取请求中token
      */
     public static String getToken(HttpServletRequest httpServletRequest) {
         String authorization = httpServletRequest.getHeader(CommonConstant.REQ_HEADER);
+        if(StringHelper.isBlank(authorization)) return null;
         return StringUtils.substringAfter(authorization, CommonConstant.TOKEN_SPLIT);
     }
 

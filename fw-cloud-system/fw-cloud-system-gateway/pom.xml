@@ -17,7 +17,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.github.liuweijw</groupId>
-            <artifactId>fw-cloud-core-commons</artifactId>
+            <artifactId>fw-cloud-system-commons</artifactId>
             <version>${fw.core.version}</version>
 		</dependency>
         <dependency>

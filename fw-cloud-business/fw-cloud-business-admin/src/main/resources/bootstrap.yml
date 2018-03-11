@@ -23,7 +23,9 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://admin:liuweijw@localhost:1001/eureka
-
+business:
+  permission:
+    enabled: true
 ---
 spring:
   profiles: prd
@@ -33,3 +35,6 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://admin:liuweijw@localhost:1001/eureka
+business:
+  permission:
+    enabled: true
