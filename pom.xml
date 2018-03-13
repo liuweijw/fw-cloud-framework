@@ -79,6 +79,7 @@
         <spring-boot.version>1.5.9.RELEASE</spring-boot.version>
         <spring-cloud.version>Edgware.RELEASE</spring-cloud.version>
         <lombok.version>1.16.20</lombok.version>
+        <swagger2.version>2.8.0</swagger2.version>
 		<fw.version>1.0.0-SNAPSHOT</fw.version>
 		<fw.system.version>${fw.version}</fw.system.version>
 		<fw.business.version>${fw.version}</fw.business.version>
