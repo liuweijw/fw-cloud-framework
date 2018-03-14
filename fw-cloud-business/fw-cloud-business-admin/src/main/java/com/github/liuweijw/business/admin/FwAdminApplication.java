@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author liuweijw
  * 
  */
+// @EnableAsync // 开始对异步任务的支持，并在相应的方法中使用@Async注解来声明一个异步任务
 @EnableTransactionManagement // 启注解事务管理，等同于xml配置方式的 <tx:annotation-driven />
 @SpringBootApplication
 //@EnableScheduling

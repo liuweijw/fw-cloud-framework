@@ -31,6 +31,14 @@ public class AuthRole implements Serializable {
      */
     private Integer statu;
 
+    public AuthRole(){
+    	
+    }
+    
+    public AuthRole(String roleCode){
+    	this.roleCode = roleCode;
+    }
+    
 	public Integer getRoleId() {
 		return roleId;
 	}

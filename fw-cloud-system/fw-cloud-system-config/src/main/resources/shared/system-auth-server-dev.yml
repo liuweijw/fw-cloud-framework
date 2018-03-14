@@ -2,12 +2,21 @@ server:
   port: 1004
   
 spring:
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    username: ENC(rC/X/8UBBH2bn9Tgfuu7aw==)
-    password: ENC(IVTzs5LDfVEsblAFWFgA9w==)
-    url: jdbc:mysql://127.0.0.1:3306/fw-cloud?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
-      
+  freemarker:
+    allow-request-override: false
+    allow-session-override: false
+    cache: true
+    charset: UTF-8
+    check-template-location: true
+    content-type: text/html
+    enabled: true
+    expose-request-attributes: false
+    expose-session-attributes: false
+    expose-spring-macro-helpers: true
+    prefer-file-system-access: true
+    suffix: .ftl
+    template-loader-path: classpath:/templates/
+        
 fw:
   auth:
     clientId: ENC(eZLNwFxeSKENBh1pu/M/rMMB76nxo/RLhWSaSLHa8+0=)
@@ -16,9 +25,9 @@ fw:
 
 urls:
   collects:
-    - /social
-    - /signin
-    - /signup
+    - /auth/**
+    - /**/*.css
+    - /**/*.png
     - /mobile/token
 
 logging:

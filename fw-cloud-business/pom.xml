@@ -14,7 +14,7 @@
         <artifactId>fw-cloud-framework</artifactId>
         <version>${fw.version}</version>
     </parent>
-    
+
     <properties>
     	<querydsl.version>4.1.4</querydsl.version>
     </properties>
@@ -22,7 +22,56 @@
 	<modules>
 		<module>fw-cloud-business-admin</module>
 		<module>fw-cloud-business-client</module>
-		<module>fw-cloud-business-commons</module>		
+		<module>fw-cloud-business-commons</module>
 	</modules>
-	
+
+	<dependencies>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+	       <groupId>org.springframework.boot</groupId>
+	       <artifactId>spring-boot-starter-data-jpa</artifactId>
+	    </dependency>
+	    <!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency> -->
+		<dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-apt</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+        </dependency>
+
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+		</dependency>
+
+		<!--HikariCP连接池 //https://github.com/brettwooldridge/HikariCP -->
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+		</dependency>
+
+		<!--rabbitMQ-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-zipkin</artifactId>
+		</dependency>
+    </dependencies>
 </project>

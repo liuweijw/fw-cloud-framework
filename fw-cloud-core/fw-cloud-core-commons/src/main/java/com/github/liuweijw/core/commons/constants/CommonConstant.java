@@ -16,9 +16,9 @@ public interface CommonConstant {
     String TOKEN_SPLIT = "Bearer ";
 
     /**
-     * jwt签名
+     * jwt签名密匙,需要与配置ENC解密之后密码一致
      */
-    String SIGN_KEY = "liuweijw";
+    String SIGN_KEY = "jwt:token:liuweijw";
     
     /**
      * 删除

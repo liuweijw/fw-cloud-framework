@@ -34,6 +34,16 @@ public interface SecurityConstant {
      * 手机登录URL
      */
     String MOBILE_TOKEN_URL = "/mobile/token";
+    
+    /**
+     * JWT 用户对象key
+     */
+    String JWT_USER_NAME = "user_name";
+
+    /**
+     * JWT 用户权限
+     */
+    String JWT_USER_AUTHORITIES = "authorities";
 
     /**
      * 默认的处理验证码的url前缀

@@ -2,6 +2,7 @@ package com.github.liuweijw.business.admin.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -129,7 +130,11 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
         userInfo.setRoles(roles);
         
         //设置权限列表（menu.permission）
-        Set<String> permissions = menuService.findMenuPermissionsByRoleCodes(roles);
+        Set<String> permissions = new HashSet<String>();
+        for(String roleCode : roles){
+        	permissions.addAll(menuService.findMenuPermissions(roleCode));
+        }
+
         userInfo.setPermissions(permissions.toArray(new String[permissions.size()]));
         
         return userInfo;

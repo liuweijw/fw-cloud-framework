@@ -22,7 +22,7 @@ import com.github.liuweijw.core.utils.StringHelper;
 
 /**
  * 将AuthUser参数转换为用户对象
- * 
+ *
  * @author liuweijw
  *
  */
@@ -50,29 +50,29 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
                                   ModelAndViewContainer modelAndViewContainer,
                                   NativeWebRequest nativeWebRequest,
                                   WebDataBinderFactory webDataBinderFactory) throws Exception {
-    	
+
         HttpServletRequest request = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
 
         String token = JwtUtil.getToken(request);
         if (StringHelper.isBlank(token)) {
             return null;
         }
-        
+
         Optional<AuthUser> optional = Optional.ofNullable(cacheManager.getCache(SecurityConstant.TOKEN_USER_DETAIL).get(token, AuthUser.class));
         if (optional.isPresent()) {
             return optional.get();
         }
-        
+
         return optional.orElseGet(() -> generatorByToken(request, token));
     }
 
     private AuthUser generatorByToken(HttpServletRequest request, String token) {
         String username = JwtUtil.getUserName(request);
         List<String> roles = JwtUtil.getRole(request);
-        
+
         AuthUser authUser = new AuthUser();
         authUser.setUsername(username);
-        
+
         if(null != roles){
         	List<AuthRole> roleList = new ArrayList<AuthRole>();
             roles.stream().forEach(role -> {
@@ -81,10 +81,10 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
             	roleList.add(authRole);
             });
             authUser.setRoleList(roleList);
-            
+
             cacheManager.getCache(SecurityConstant.TOKEN_USER_DETAIL).put(token, authUser);
         }
-        
+
         return authUser;
     }
 

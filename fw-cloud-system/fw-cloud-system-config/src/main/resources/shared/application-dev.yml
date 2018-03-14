@@ -2,6 +2,11 @@ jasypt:
   encryptor:
     password: liuweijw
 
+server:
+  tomcat:
+    max-threads: 500
+    min-spare-threads: 50
+
 spring:
   redis:
     remote: true        #是否是开启缓存
@@ -39,6 +44,11 @@ feign:
         readTimeout: 30000
 
 hystrix:
+  threadpool:
+    default:
+      coreSize: 500
+      maxQueueSize: 1000
+      queueSizeRejectionThreshold: 800
   command:
     default:
       execution:

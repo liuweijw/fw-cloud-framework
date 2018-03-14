@@ -21,63 +21,16 @@
             <artifactId>fw-cloud-business-commons</artifactId>
             <version>${fw.business.version}</version>
 		</dependency>
-    	<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-		<dependency>
-	       <groupId>org.springframework.boot</groupId>
-	       <artifactId>spring-boot-starter-data-jpa</artifactId>
-	    </dependency> 
-	    <!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-		</dependency> -->
-		<dependency>
-            <groupId>com.querydsl</groupId>
-            <artifactId>querydsl-core</artifactId> 
-        </dependency>
-        <dependency>
-            <groupId>com.querydsl</groupId>
-            <artifactId>querydsl-apt</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.querydsl</groupId>
-            <artifactId>querydsl-jpa</artifactId>
-        </dependency>
-		
-		<dependency>
-			<groupId>javax.inject</groupId>
-			<artifactId>javax.inject</artifactId>
-		</dependency>
-		
-		<!--HikariCP连接池 //https://github.com/brettwooldridge/HikariCP -->
-		<dependency>
-			<groupId>com.zaxxer</groupId>
-			<artifactId>HikariCP</artifactId>
-		</dependency>
-
 		<!-- 支持数据库分库分表 // https://github.com/shardingjdbc -->
 		<dependency>
 			<groupId>io.shardingjdbc</groupId>
 			<artifactId>sharding-jdbc-core-spring-boot-starter</artifactId>
 			<version>2.0.3</version>
 		</dependency>
-		
-		<!--rabbitMQ-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-amqp</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>com.github.axet</groupId>
 			<artifactId>kaptcha</artifactId>
 			<version>0.0.9</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-zipkin</artifactId>
 		</dependency>
     </dependencies>
     

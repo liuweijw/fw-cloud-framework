@@ -23,7 +23,7 @@ import com.github.liuweijw.system.auth.component.FwWebResponseExceptionTranslato
 
 /**
  * @author liuweijw
- * 
+ *
  * 认证服务器逻辑实现
  */
 @Configuration
@@ -70,7 +70,8 @@ public class FwAuthorizationConfiguration extends AuthorizationServerConfigurerA
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security
                 .allowFormAuthenticationForClients()
-                .tokenKeyAccess("isAuthenticated()")
+                // 获取JWt加密key: /oauth/token_key 采用RSA非对称加密时候使用。对称加密禁止访问
+                //.tokenKeyAccess("isAuthenticated()") 
                 .checkTokenAccess("permitAll()");
     }
 
@@ -83,6 +84,12 @@ public class FwAuthorizationConfiguration extends AuthorizationServerConfigurerA
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
         jwtAccessTokenConverter.setSigningKey(CommonConstant.SIGN_KEY);
+    	// log.info("Initializing JWT with public key:\n" + authServerConfiguration.getPublicKey());
+        
+        // 采用RSA非对称加密
+        //JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
+        //jwtAccessTokenConverter.setSigningKey(authServerConfiguration.getPrivateKey());
+        //jwtAccessTokenConverter.setVerifierKey(authServerConfiguration.getPublicKey());
         return jwtAccessTokenConverter;
     }
 

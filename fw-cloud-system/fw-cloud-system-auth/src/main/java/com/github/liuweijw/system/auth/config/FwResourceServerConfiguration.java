@@ -3,9 +3,9 @@ package com.github.liuweijw.system.auth.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 
 import com.github.liuweijw.core.configuration.FwUrlsConfiguration;
 import com.github.liuweijw.system.auth.component.ajax.AjaxSecurityConfigurer;
@@ -16,10 +16,11 @@ import com.github.liuweijw.system.auth.component.ajax.AjaxSecurityConfigurer;
  * 认证服务器开放接口配置
  */
 @Configuration
-@EnableResourceServer
-public class FwResourceServerConfiguration extends ResourceServerConfigurerAdapter {
-	
-    @Autowired
+//@EnableResourceServer
+@EnableWebSecurity
+public class FwResourceServerConfiguration extends WebSecurityConfigurerAdapter {//ResourceServerConfigurerAdapter {
+
+	@Autowired
     private FwUrlsConfiguration fwUrlsConfiguration;
     
     @Autowired
@@ -27,8 +28,12 @@ public class FwResourceServerConfiguration extends ResourceServerConfigurerAdapt
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http
-                .authorizeRequests();
+        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = 
+        		http.formLogin() // 可以通过授权登录进行访问
+        			.loginPage("/auth/login")
+                	.loginProcessingUrl("/auth/signin")
+                	.and()
+                	.authorizeRequests();
         
         for (String url : fwUrlsConfiguration.getCollects()) {
             registry.antMatchers(url).permitAll();

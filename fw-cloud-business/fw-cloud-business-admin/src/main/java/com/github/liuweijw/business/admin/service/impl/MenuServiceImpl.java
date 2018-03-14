@@ -63,16 +63,7 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 	}
 
 	@Override
-	public Set<String> findMenuPermissionsByRoleCodes(String... roleCodes) {
-		Set<String> permissions = new HashSet<String>();
-		for(String role : roleCodes){
-			permissions.addAll(this.findMenuPermissions(role));
-		}
-		return permissions;
-	}
-	
-	@Override
-	//@Cacheable(value = AdminCacheKey.MENU_INFO, key = AdminCacheKey.MENU_INFO_KEY_ROLECODE_PERMISSION)
+	@Cacheable(value = AdminCacheKey.PERMISSION_INFO, key = AdminCacheKey.PERMISSION_INFO_KEY_ROLECODE)
 	public Set<String> findMenuPermissions(String roleCode) {
 		Set<String> permissions = new HashSet<>();
 		// 查询Role

@@ -18,12 +18,4 @@ public interface PermissionService {
      */
     Set<String> findMenuPermissions(String roleCode);
     
-    /**
-     * 通过多角色获取菜单权限列表
-     *
-     * @param roleCodes 多角色
-     * @return 权限列表
-     */
-    Set<String> findMenuPermissionsByRoleCodes(String... roleCodes);
-    
 }

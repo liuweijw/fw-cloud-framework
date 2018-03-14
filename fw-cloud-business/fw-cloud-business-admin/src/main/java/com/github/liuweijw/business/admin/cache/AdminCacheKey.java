@@ -19,7 +19,9 @@ public interface AdminCacheKey {
 	
 	String MENU_INFO = "menu_info_";
 	String MENU_INFO_KEY_ROLECODE = "#roleCode + '_menu'";
-	String MENU_INFO_KEY_ROLECODE_PERMISSION = "#roleCode + '_permission'";
+	
+	String PERMISSION_INFO = "permission_info_";
+	String PERMISSION_INFO_KEY_ROLECODE = "#roleCode";
 	
 	String ROLE_INFO_LIST = "role_info_list";
 }

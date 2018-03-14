@@ -15,22 +15,26 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
 import com.github.liuweijw.core.commons.constants.CommonConstant;
+import com.github.liuweijw.core.commons.constants.SecurityConstant;
 import com.github.liuweijw.core.utils.StringHelper;
 
 /**
  * @author liuweijw
- * 
+ *
  * 用户相关工具类
  */
 public class JwtUtil {
-	
+
     private static Logger logger = LoggerFactory.getLogger(JwtUtil.class);
-    
+
     private static final ThreadLocal<String> THREAD_LOCAL_USER = new ThreadLocal<>();
-    
-    private static final String JWT_USER_NAME = "user_name";
-    
-    private static final String JWT_USER_AUTHORITIES = "authorities";
+
+    public static String getUserName(String token) {
+    	Claims claims = buildClaims(buildToken(token));
+    	if(null == claims) return "";
+    	
+    	return claims.get(SecurityConstant.JWT_USER_NAME).toString();
+    }
     
     /**
      * 根据用户请求中的token 获取用户名
@@ -39,42 +43,10 @@ public class JwtUtil {
      * @return ""、username
      */
     public static String getUserName(HttpServletRequest request) {
-        String authorization = request.getHeader(CommonConstant.REQ_HEADER);
-        if (StringUtils.isEmpty(authorization)) return "";
-        
-        String token = StringUtils.substringAfter(authorization, CommonConstant.TOKEN_SPLIT);
-        if (StringUtils.isEmpty(token)) return "";
-        
-        String key = Base64.getEncoder().encodeToString(CommonConstant.SIGN_KEY.getBytes());
-        try {
-            Claims claims = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
-            return claims.get(JWT_USER_NAME).toString();
-        } catch (Exception ex) {
-            logger.error("用户名解析异常,token:{},key:{}", token, key);
-        }
-        
-        return "";
-    }
-
-    /**
-     * 通过token 获取用户名
-     *
-     * @param authorization token
-     * @return 用户名
-     */
-    public static String getUserName(String authorization) {
-        String token = StringUtils.substringAfter(authorization, CommonConstant.TOKEN_SPLIT);
-        if (StringUtils.isEmpty(token)) return "";
-        
-        String key = Base64.getEncoder().encodeToString(CommonConstant.SIGN_KEY.getBytes());
-        try {
-            Claims claims = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
-            return claims.get(JWT_USER_NAME).toString();
-        } catch (Exception ex) {
-            logger.error("用户名解析异常,token:{},key:{}", token, key);
-        }
-        
-        return "";
+        Claims claims = buildClaims(getToken(request));
+    	if(null == claims) return "";
+    	
+    	return claims.get(SecurityConstant.JWT_USER_NAME).toString();
     }
 
     /**
@@ -84,7 +56,7 @@ public class JwtUtil {
      * @return 角色名
      */
     public static List<String> getRole(HttpServletRequest httpServletRequest) {
-        return getRole(getToken(httpServletRequest));
+    	return getRole(getToken(httpServletRequest));
     }
 
     /**
@@ -94,23 +66,45 @@ public class JwtUtil {
      * @return 角色名
      */
     public static List<String> getRole(String token) {
-    	if(StringHelper.isBlank(token)) return new ArrayList<String>();
-    	String key = Base64.getEncoder().encodeToString(CommonConstant.SIGN_KEY.getBytes());
-        Claims claims = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
+    	Claims claims = buildClaims(buildToken(token));
+    	if(null == claims) return new ArrayList<String>();
+    	
         @SuppressWarnings("unchecked")
-		List<String> roleCodes = (List<String>) claims.get(JWT_USER_AUTHORITIES);
+		List<String> roleCodes = (List<String>) claims.get(SecurityConstant.JWT_USER_AUTHORITIES);
         return roleCodes;
     }
-    
+
     /**
      * 获取请求中token
      */
     public static String getToken(HttpServletRequest httpServletRequest) {
         String authorization = httpServletRequest.getHeader(CommonConstant.REQ_HEADER);
-        if(StringHelper.isBlank(authorization)) return null;
-        return StringUtils.substringAfter(authorization, CommonConstant.TOKEN_SPLIT);
+        return buildToken(authorization);
     }
-
+    
+    /**
+     * jwt 解密
+     */
+    private static Claims buildClaims(String token){
+    	if(StringHelper.isBlank(token)) return null;
+    	
+    	String key = "";
+    	try {
+    		key = Base64.getEncoder().encodeToString(CommonConstant.SIGN_KEY.getBytes());
+        	Claims claims = Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
+        	return claims;
+    	} catch(Exception ex) {
+    		logger.error("用户TOKEN解析异常,token:{},key:{}", token, key);
+    	}
+    	return null;
+    }
+    
+    private static String buildToken(String token){
+    	if(StringHelper.isBlank(token)) return null;
+    	if(!token.contains(CommonConstant.TOKEN_SPLIT)) return token;
+    	return StringUtils.substringAfter(token, CommonConstant.TOKEN_SPLIT);
+    }
+    
     /**
      * 设置用户信息
      *

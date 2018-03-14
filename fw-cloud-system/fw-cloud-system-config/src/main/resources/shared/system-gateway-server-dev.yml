@@ -31,9 +31,9 @@ zuul:
       stripPrefix: true
       sensitiveHeaders:
   ratelimit:
-    key-prefix: business-ratelimite 
-    enabled: true 
-    repository: REDIS 
+    key-prefix: business-ratelimite
+    enabled: true
+    repository: REDIS
     behind-proxy: true
     policies:
       business-admin-server:
@@ -46,18 +46,33 @@ security:
     code: false
   sessions: stateless
   oauth2:
+    client:
+      client-id: ENC(eZLNwFxeSKENBh1pu/M/rMMB76nxo/RLhWSaSLHa8+0=)
+      client-secret: ENC(sKbpJGHz9JZmdydv1WOyAYjyXm2irxc0xYqvQ6VpF31uEw/FVNxYeA==)
     resource:
       loadBalanced: true
-      user-info-uri: http://system-auth-server/user
-      prefer-token-info: false
+      token-info-uri: ${security.auth.server}/oauth/check-token #由资源服务器用来解码访问令牌
       service-id: system-gateway-server
+      jwt:
+         #key-uri: ${security.auth.server}/oauth/token_key #使用JWT令牌，RSA公开密钥可以用于令牌验证
+         key-value: ENC(fmVD9Jt6YXP9Q+KBPU8/1cWgKn5WhlGuD10SzFADNz4=)
+#security:
+#  validate:
+#    code: false
+#  sessions: stateless
+#  oauth2:
+#    resource:
+#      loadBalanced: true
+#      user-info-uri: http://system-auth-server/user
+#      prefer-token-info: false
+#      service-id: system-gateway-server
+# 上述做法将权限认证和网关解耦、建议采用RSA加密验证方式
 
 urls:
   collects:
     - /mobile/**
     - /auth/**
     - /admin/code/*
-    - /admin/smsCode/*
     - /admin/api/info
     - /admin/api/userTree
     - /swagger-resources/**
@@ -65,6 +80,6 @@ urls:
     - /*/v2/api-docs
     - /swagger/api-docs
     - /webjars/**
-       
+
 logging:
   config: classpath:logback.xml

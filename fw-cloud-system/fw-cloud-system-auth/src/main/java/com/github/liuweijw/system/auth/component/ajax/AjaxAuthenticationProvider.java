@@ -4,6 +4,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.github.liuweijw.core.beans.system.AuthUser;
 import com.github.liuweijw.system.auth.service.UserDetailsImpl;
@@ -21,6 +22,9 @@ public class AjaxAuthenticationProvider implements AuthenticationProvider {
         AjaxAuthenticationToken ajaxAuthenticationToken = (AjaxAuthenticationToken) authentication;
         AuthUser user = userService.findUserByMobile((String) ajaxAuthenticationToken.getPrincipal());
 
+        if (null == user) 
+        	throw new UsernameNotFoundException("登录账户[" + ajaxAuthenticationToken.getPrincipal()+"]不存在");
+        
         UserDetailsImpl userDetails = buildUserDeatils(user);
         
         if (null == userDetails) 
