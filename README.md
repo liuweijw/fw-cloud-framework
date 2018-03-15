@@ -12,7 +12,7 @@
 - fw-cloud-system-eureka  [端口1001] 服务注册中心
 - fw-cloud-system-config  [端口1002] 服务配置和发现[远程配置 guide](https://github.com/liuweijw/fw-cloud-framework/wiki/%E9%83%A8%E5%88%86%E6%8A%80%E6%9C%AF%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E)
 - fw-cloud-system-gateway [端口1003] zuul服务网关（外部接口接入入口）
-- fw-cloud-system-auth    [端口1004] 权限接入服务(支持oauth2、单点登录)
+- fw-cloud-system-auth    [端口1004] 权限接入服务(支持oauth2、单点登录) [查看详情 guide](https://github.com/liuweijw/fw-cloud-framework/wiki/05-Auth-%E6%A8%A1%E5%9D%97%E5%90%AF%E5%8A%A8%E8%AF%B4%E6%98%8E)
 - fw-cloud-system-xxx     [端口待定] 服务状态监控
 - fw-cloud-system-xxx     [端口待定] zipkin监控
 - fw-cloud-system-xxx     [端口待定] elk监控
