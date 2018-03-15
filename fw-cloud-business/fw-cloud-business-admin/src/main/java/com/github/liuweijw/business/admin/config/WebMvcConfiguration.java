@@ -1,4 +1,4 @@
-package com.github.liuweijw.business.commons.web.config;
+package com.github.liuweijw.business.admin.config;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.github.liuweijw.business.commons.web.aop.AuthorizationInterceptor;
-import com.github.liuweijw.business.commons.web.resolver.TokenArgumentResolver;
+import com.github.liuweijw.business.admin.aop.AuthorizationInterceptor;
+import com.github.liuweijw.business.admin.aop.TokenArgumentResolver;
 
 /**
  * @author liuweijw

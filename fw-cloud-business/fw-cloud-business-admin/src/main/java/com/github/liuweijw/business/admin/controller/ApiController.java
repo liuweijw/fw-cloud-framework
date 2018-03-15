@@ -95,4 +95,13 @@ public class ApiController extends BaseController {
 		});
         return permissions;
     }
+    
+    /**
+     * 通过角色获取菜单相关权限列表
+     */
+    @GetMapping(value="/findMenuPermissions/{roleCode}")
+	public Set<String> findMenuPermissions(@PathVariable("roleCode") String roleCode){
+
+		return menuService.findMenuPermissions(roleCode);
+    }
 }

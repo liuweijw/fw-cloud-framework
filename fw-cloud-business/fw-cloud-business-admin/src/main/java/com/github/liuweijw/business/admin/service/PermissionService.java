@@ -1,4 +1,4 @@
-package com.github.liuweijw.business.commons.web.service;
+package com.github.liuweijw.business.admin.service;
 
 import java.util.Set;
 

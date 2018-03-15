@@ -3,7 +3,6 @@ package com.github.liuweijw.business.admin.service;
 import java.util.Set;
 
 import com.github.liuweijw.business.admin.domain.Menu;
-import com.github.liuweijw.business.commons.web.service.PermissionService;
 import com.github.liuweijw.core.beans.system.AuthMenu;
 
 public interface MenuService extends PermissionService {

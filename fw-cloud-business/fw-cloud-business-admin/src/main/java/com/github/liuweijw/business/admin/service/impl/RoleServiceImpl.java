@@ -12,6 +12,7 @@ import com.github.liuweijw.business.admin.domain.QRoleDept;
 import com.github.liuweijw.business.admin.domain.Role;
 import com.github.liuweijw.business.admin.repository.RoleRepository;
 import com.github.liuweijw.business.admin.service.RoleService;
+import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
 
 @Component
 public class RoleServiceImpl extends JPAFactoryImpl implements RoleService {

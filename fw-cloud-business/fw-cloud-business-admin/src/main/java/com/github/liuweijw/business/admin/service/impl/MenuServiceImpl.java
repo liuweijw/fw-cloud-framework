@@ -21,6 +21,7 @@ import com.github.liuweijw.business.admin.domain.RoleMenuPermission;
 import com.github.liuweijw.business.admin.repository.MenuRepository;
 import com.github.liuweijw.business.admin.repository.RoleRepository;
 import com.github.liuweijw.business.admin.service.MenuService;
+import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
 import com.github.liuweijw.core.beans.system.AuthMenu;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
 import com.github.liuweijw.core.utils.Assert;

@@ -31,6 +31,7 @@ import com.github.liuweijw.business.admin.service.MenuService;
 import com.github.liuweijw.business.admin.service.UserService;
 import com.github.liuweijw.business.commons.beans.PageBean;
 import com.github.liuweijw.business.commons.beans.PageParams;
+import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
 import com.github.liuweijw.core.beans.system.AuthRole;
 import com.github.liuweijw.core.beans.system.AuthUser;
 import com.github.liuweijw.core.commons.constants.SecurityConstant;

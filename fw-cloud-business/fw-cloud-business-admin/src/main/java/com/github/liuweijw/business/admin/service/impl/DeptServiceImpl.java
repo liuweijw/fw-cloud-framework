@@ -12,6 +12,7 @@ import com.github.liuweijw.business.admin.repository.DeptRepository;
 import com.github.liuweijw.business.admin.service.DeptService;
 import com.github.liuweijw.business.commons.tree.DeptTree;
 import com.github.liuweijw.business.commons.tree.TreeUtil;
+import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
 
 @Component
 public class DeptServiceImpl extends JPAFactoryImpl implements DeptService {

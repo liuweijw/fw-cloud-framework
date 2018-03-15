@@ -1,4 +1,4 @@
-package com.github.liuweijw.business.admin.service.impl;
+package com.github.liuweijw.business.commons.web.jpa;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
