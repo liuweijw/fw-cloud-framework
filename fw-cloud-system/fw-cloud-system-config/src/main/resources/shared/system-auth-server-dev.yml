@@ -28,6 +28,10 @@ urls:
     - /auth/**
     - /**/*.css
     - /**/*.png
+    - /info
+    - /health
+    - /metrics/**
+    - /loggers/**
     - /mobile/token
 
 logging:
