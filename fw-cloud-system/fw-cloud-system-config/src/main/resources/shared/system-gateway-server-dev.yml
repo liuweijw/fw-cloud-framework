@@ -15,6 +15,10 @@ spring:
       percentage: 1.0
 
 zuul:
+  ribbon:
+    eager-load:
+      enabled: true #开启Ribbon的饥饿加载模式
+      clients: system-auth-server,business-admin-server,business-pay-server #指定需要饥饿加载的客户端名称、服务名
   ignoredServices: '*'
   host:
     connect-timeout-millis: 30000
