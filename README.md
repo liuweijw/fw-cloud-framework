@@ -10,7 +10,7 @@
 # 技术模块相关说明
 1、 fw-cloud-system 模块
 - fw-cloud-system-eureka  [端口1001] 服务注册中心
-- fw-cloud-system-config  [端口1002] 服务配置和发现[远程配置 guide](https://github.com/liuweijw/fw-cloud-framework/wiki/%E9%83%A8%E5%88%86%E6%8A%80%E6%9C%AF%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E)
+- fw-cloud-system-config  [端口1002] 服务配置和发现[远程配置 guide](https://github.com/liuweijw/fw-cloud-framework/wiki/02-%E9%83%A8%E5%88%86%E6%8A%80%E6%9C%AF%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E)
 - fw-cloud-system-gateway [端口1003] zuul服务网关（外部接口接入入口）
 - fw-cloud-system-auth    [端口1004] 权限接入服务(支持oauth2、单点登录) [查看详情 guide](https://github.com/liuweijw/fw-cloud-framework/wiki/05-Auth-%E6%A8%A1%E5%9D%97%E5%90%AF%E5%8A%A8%E8%AF%B4%E6%98%8E)
 - fw-cloud-system-xxx     [端口待定] 服务状态监控
@@ -28,14 +28,15 @@
 - fw-cloud-core-utils 常用工具类
 
 3、fw-cloud-business 业务模块服务模块
-- fw-cloud-business-admin   [端口2002] 权限管理等接口服务
-- fw-cloud-business-client  [端口待定] 前端接口服务
 - fw-cloud-business-commons business各业务公共组件等
+- fw-cloud-business-admin   [端口2002] 权限管理等接口服务
+- fw-cloud-business-sso     [端口3001] 单点登录模块接入demo
+- fw-cloud-business-client  [端口待定] 前端接口服务
 
 4、前端模块 [Vue2-Admin](https://github.com/liuweijw/Vue2-Admin)
 - 基于element ui 的Vue全家桶
-- webpack3
-- axios
+- Webpack3
+- Axios
 - ...
 - 初始学习Vue项目,请移步参考 [Vue2-All](https://github.com/liuweijw/Vue2-All)
 
@@ -44,6 +45,8 @@
 - MySQL
 - RabbitMQ
 - Java8
+- Lombok
+- Feign
 - ...
 
 # 项目说明
@@ -52,6 +55,7 @@
 - 项目配置文件加密说明[guide](https://github.com/liuweijw/fw-cloud-framework/wiki/03-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8A%A0%E5%AF%86%E8%AF%B4%E6%98%8E)
 - 服务启动说明[guide](https://github.com/liuweijw/fw-cloud-framework/wiki/04-%E6%9C%8D%E5%8A%A1%E5%90%AF%E5%8A%A8)
 - Auth模块启动说明[guide](https://github.com/liuweijw/fw-cloud-framework/wiki/05-Auth-%E6%A8%A1%E5%9D%97%E5%90%AF%E5%8A%A8%E8%AF%B4%E6%98%8E)
+- SSO单点登录模块说明[guide](https://github.com/liuweijw/fw-cloud-framework/wiki/06-%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95sso-demo)
 
 # 常见问题
 - lombok 安装
