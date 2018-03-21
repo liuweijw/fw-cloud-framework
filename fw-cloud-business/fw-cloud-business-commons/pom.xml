@@ -4,7 +4,7 @@
 
     <artifactId>fw-cloud-business-commons</artifactId>
 	<packaging>jar</packaging>
-	
+
     <name>fw-cloud-business-commons</name>
     <description>业务基础公共模块</description>
 
@@ -13,7 +13,7 @@
         <artifactId>fw-cloud-business</artifactId>
         <version>${fw.business.version}</version>
     </parent>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>com.github.liuweijw</groupId>

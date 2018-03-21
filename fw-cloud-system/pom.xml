@@ -16,10 +16,13 @@
     </parent>
 
 	<modules>
+		<!-- system-commons 系统公共模块 -->
 		<module>fw-cloud-system-commons</module>
+		
+		<!-- system 系统相关的服务 -->
 		<module>fw-cloud-system-eureka</module>
 		<module>fw-cloud-system-config</module>
-		<module>fw-cloud-system-gateway</module>
 		<module>fw-cloud-system-auth</module>
+		<module>fw-cloud-system-gateway</module>
 	</modules>
 </project>

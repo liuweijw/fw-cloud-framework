@@ -3,9 +3,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>fw-cloud-business-admin</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	
+
     <name>fw-cloud-business-admin</name>
     <description>业务后台工程</description>
 
@@ -14,7 +13,7 @@
         <artifactId>fw-cloud-business</artifactId>
         <version>${fw.business.version}</version>
     </parent>
-    
+
     <dependencies>
     	<dependency>
 			<groupId>com.github.liuweijw</groupId>
@@ -33,7 +32,7 @@
 			<version>0.0.9</version>
 		</dependency>
     </dependencies>
-    
+
     <build>
     	<plugins>
 			<plugin>
@@ -68,6 +67,6 @@
 					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
-    	</plugins> 
+    	</plugins>
     </build>
 </project>

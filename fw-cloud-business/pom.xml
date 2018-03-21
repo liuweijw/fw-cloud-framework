@@ -4,7 +4,7 @@
 
     <artifactId>fw-cloud-business</artifactId>
     <packaging>pom</packaging>
-    <version>${fw.business.version}</version>
+	<version>${fw.business.version}</version>
 
     <name>fw-cloud-business</name>
     <description>业务模块</description>
@@ -17,12 +17,16 @@
 
     <properties>
     	<querydsl.version>4.1.4</querydsl.version>
+    	<weixin.business.version>2.9.0</weixin.business.version>
     </properties>
 
 	<modules>
+		<!-- business-commons 基础公共模块 -->
+		<module>fw-cloud-business-commons</module>
+
+		<!-- business 业务相关模块服务 -->
 		<module>fw-cloud-business-admin</module>
 		<module>fw-cloud-business-client</module>
-		<module>fw-cloud-business-commons</module>
 	</modules>
 
 	<dependencies>

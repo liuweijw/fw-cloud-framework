@@ -13,5 +13,5 @@
         <artifactId>fw-cloud-core</artifactId>
         <version>${fw.core.version}</version>
     </parent>
-  
+
 </project>

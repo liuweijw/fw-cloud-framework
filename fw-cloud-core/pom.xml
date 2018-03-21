@@ -22,4 +22,5 @@
         <module>fw-cloud-core-configuration</module>
         <module>fw-cloud-core-exception</module>
 	</modules>
+
 </project>

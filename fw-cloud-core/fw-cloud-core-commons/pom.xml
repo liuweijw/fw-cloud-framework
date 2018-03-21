@@ -4,7 +4,7 @@
 
     <artifactId>fw-cloud-core-commons</artifactId>
 	<packaging>jar</packaging>
-	
+
     <name>fw-cloud-core-commons</name>
     <description>基础公共模块</description>
 
@@ -18,17 +18,17 @@
 		<dependency>
 			<groupId>com.github.liuweijw</groupId>
             <artifactId>fw-cloud-core-beans</artifactId>
-            <version>${fw.version}</version>
+            <version>${fw.core.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.liuweijw</groupId>
             <artifactId>fw-cloud-core-utils</artifactId>
-            <version>${fw.version}</version>
+            <version>${fw.core.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.liuweijw</groupId>
             <artifactId>fw-cloud-core-configuration</artifactId>
-            <version>${fw.version}</version>
+            <version>${fw.core.version}</version>
 		</dependency>
 		<dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -78,5 +78,5 @@
             <version>0.2.0</version>
         </dependency>
 	</dependencies>
-	
+
 </project>

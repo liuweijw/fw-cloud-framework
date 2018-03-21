@@ -4,7 +4,7 @@
 
     <artifactId>fw-cloud-system-commons</artifactId>
 	<packaging>jar</packaging>
-	
+
     <name>fw-cloud-system-commons</name>
     <description>系统核心基础公共模块</description>
 
@@ -13,7 +13,7 @@
         <artifactId>fw-cloud-system</artifactId>
         <version>${fw.system.version}</version>
     </parent>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>com.github.liuweijw</groupId>

@@ -13,17 +13,17 @@
         <artifactId>fw-cloud-core</artifactId>
         <version>${fw.core.version}</version>
     </parent>
-    
+
     <dependencies>
         <dependency>
 			<groupId>com.github.liuweijw</groupId>
             <artifactId>fw-cloud-core-exception</artifactId>
-            <version>${fw.version}</version>
+            <version>${fw.core.version}</version>
 		</dependency>
-		
+
 		<dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-        </dependency> 
+        </dependency>
     </dependencies>
 </project>

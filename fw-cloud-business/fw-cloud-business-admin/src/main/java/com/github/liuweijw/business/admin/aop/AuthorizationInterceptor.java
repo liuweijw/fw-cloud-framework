@@ -1,7 +1,6 @@
 package com.github.liuweijw.business.admin.aop;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.List;
@@ -19,9 +18,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.liuweijw.business.admin.service.PermissionService;
+import com.github.liuweijw.business.commons.utils.WebUtils;
 import com.github.liuweijw.business.commons.web.aop.PrePermissions;
 import com.github.liuweijw.business.commons.web.config.PermissionConfiguration;
-import com.github.liuweijw.core.commons.constants.CommonConstant;
 import com.github.liuweijw.core.commons.jwt.JwtUtil;
 import com.github.liuweijw.core.utils.R;
 import com.github.liuweijw.exception.CheckedException;
@@ -123,12 +122,8 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 	}
 	
 	public void handleWithResponse(HttpServletResponse response, R<Boolean> responseWithR) {
-        PrintWriter printWriter;
 		try {
-			response.setCharacterEncoding(CommonConstant.UTF8);
-	        response.setContentType(CommonConstant.CONTENT_TYPE);
-			printWriter = response.getWriter();
-			printWriter.append(this.objectMapper.writeValueAsString(responseWithR));
+			WebUtils.handleWithResponse(response, this.objectMapper.writeValueAsString(responseWithR));
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new CheckedException("Failed to response");

@@ -4,7 +4,7 @@
 
     <artifactId>fw-cloud-business-sso</artifactId>
 	<packaging>jar</packaging>
-	
+
     <name>fw-cloud-business-sso</name>
     <description>sso 单点登录 demo工程</description>
 
@@ -13,7 +13,7 @@
         <artifactId>fw-cloud-business</artifactId>
         <version>${fw.business.version}</version>
     </parent>
-    
+
     <dependencies>
     	<dependency>
             <groupId>com.github.ulisesbocchio</groupId>
@@ -33,7 +33,7 @@
             <artifactId>spring-security-jwt</artifactId>
         </dependency>
     </dependencies>
-    
+
     <build>
         <plugins>
             <plugin>
