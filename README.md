@@ -62,6 +62,15 @@
   * 下载lombok.jar包 https://projectlombok.org/download.html
   * 在eclipse.ini 配置文件最后添加：-javaagent:F:\xxx\lombok.jar 注：F:\xxx 为lombok.jar 放置的目录地址
   * 重启eclipse
+
+- 项目导入工程遇到 maven 插件问题
+~~~
+You need to run build with JDK or have tools.jar on the classpath. If this occurs during eclipse build make sure you run eclipse under JDK as well (com.mysema.maven:apt-maven-plugin:1.1.3:process:default:generate-sources
+
+解决：在eclipse.ini 配置文件添加
+-vm
+{path_to_jdk}\jdk{your_version}\bin\javaw.exe
+~~~
 - idea 安装
   * 查看地址[guide](http://blog.csdn.net/zhglance/article/details/54931430)
   * idea 导入工程方法建议参考[guide](http://blog.csdn.net/sinat_36246371/article/details/52914448)
