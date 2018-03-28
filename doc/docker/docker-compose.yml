@@ -1,0 +1,58 @@
+version: '3'
+services:
+  eureka-server:
+    build:
+      context: ./
+      dockerfile: Dockerfile-eureka
+    restart: always
+    ports:
+      - 1001:1001
+
+  config-server:
+    links:
+      - eureka-server:eureka
+    build:
+      context: ./
+      dockerfile: Dockerfile-config
+    restart: always
+    ports:
+      - 1002:1002
+
+  auth-server:
+    links:
+      - eureka-server:eureka
+    build:
+      context: ./
+      dockerfile: Dockerfile-auth
+    restart: always
+    ports:
+      - 1004:1004
+    volumes:
+      - /usr/web/logs/:/usr/web/logs/
+
+  admin-server:
+    links:
+      - eureka-server:eureka
+    build:
+      context: ./
+      dockerfile: Dockerfile-admin
+    restart: always
+    ports:
+      - 2002:2002
+    volumes:
+      - /usr/web/logs/:/usr/web/logs/
+
+  gateway-server:
+    links:
+      - eureka-server:eureka
+      - auth-server:auth
+      - admin-server:admin
+    build:
+      context: ./
+      dockerfile: Dockerfile-gateway
+    restart: always
+    ports:
+      - 1003:1003
+    volumes:
+      - /usr/web/logs/:/usr/web/logs/
+
