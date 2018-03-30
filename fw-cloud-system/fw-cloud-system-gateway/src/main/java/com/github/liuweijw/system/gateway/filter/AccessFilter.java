@@ -5,13 +5,8 @@ import static org.springframework.cloud.netflix.zuul.filters.support.FilterConst
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.stereotype.Component;
 
-import com.github.liuweijw.core.commons.jwt.JwtUtil;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
@@ -46,7 +41,7 @@ public class AccessFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         ctx.set("startTime", System.currentTimeMillis());
         
-        String token = JwtUtil.getToken(ctx.getRequest());
+        /*String token = JwtUtil.getToken(ctx.getRequest());
         if(null == token){
         	ctx.setSendZuulResponse(false);
             ctx.setResponseStatusCode(401);
@@ -62,7 +57,7 @@ public class AccessFilter extends ZuulFilter {
                 ctx.setResponseStatusCode(401);
                 return null;
             }
-        }
+        }*/
         
         return null;
     }
