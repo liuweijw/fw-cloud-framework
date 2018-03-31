@@ -27,7 +27,7 @@ eureka:
 # auth模块请求地址
 security:
   auth:
-    server: http://localhost:1004      
+    server: http://localhost:1004
 ---
 spring:
   profiles: proj
@@ -40,4 +40,4 @@ eureka:
 
 security:
   auth:
-    server: http://localhost:1004  
+    server: http://localhost:1004
