@@ -42,11 +42,24 @@ services:
     volumes:
       - /usr/web/logs/:/usr/web/logs/
 
+  pay-server:
+    links:
+      - eureka-server:eureka
+    build:
+      context: ./
+      dockerfile: Dockerfile-pay
+    restart: always
+    ports:
+      - 2003:2003
+    volumes:
+      - /usr/web/logs/:/usr/web/logs/
+
   gateway-server:
     links:
       - eureka-server:eureka
       - auth-server:auth
       - admin-server:admin
+      - pay-server:pay
     build:
       context: ./
       dockerfile: Dockerfile-gateway
