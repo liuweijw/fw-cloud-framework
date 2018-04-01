@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: business-pay-server
+  profiles:
+    active: dev
+  cloud:
+    config:
+      fail-fast: true
+      discovery:
+        service-id: system-config-server
+        enabled: true
+      profile: ${spring.profiles.active}
+      label: ${spring.profiles.active}
+
+---
+spring:
+  profiles: dev
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
+  client:
+    serviceUrl:
+      defaultZone: http://admin:liuweijw@localhost:1001/eureka
+business:
+  permission:
+    enabled: true
+  config:
+    wxpay:
+      certRootPath: E:/project/xxx/cert
+      notifyUrl: http://localhost:2003/pay/notify/result
+---
+spring:
+  profiles: proj
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://admin:liuweijw@localhost:1001/eureka
+business:
+  permission:
+    enabled: true
+  config:
+    wxpay:
+      certRootPath: /xxx/pay #最终证书真实地址/xxx/pay/wx/apiclient_cert.p12
+      notifyUrl: https://www.xxxx/pay/notify/result
