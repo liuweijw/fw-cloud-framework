@@ -23,6 +23,9 @@ cache:
     expiration: 3601
 
 ribbon:
+  eager-load:
+    enabled: true
+    clients: system-auth-server,business-admin-server
   Httpclient:
     enable: false
   OkHttp:

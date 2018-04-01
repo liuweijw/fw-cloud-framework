@@ -23,10 +23,13 @@
 	<modules>
 		<!-- business-commons 基础公共模块 -->
 		<module>fw-cloud-business-commons</module>
+		<module>fw-cloud-business-pay-commons</module>
 
 		<!-- business 业务相关模块服务 -->
 		<module>fw-cloud-business-admin</module>
 		<module>fw-cloud-business-client</module>
+		<module>fw-cloud-business-sso</module>
+		<module>fw-cloud-business-pay</module>
 	</modules>
 
 	<dependencies>
@@ -49,7 +52,6 @@
         <dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-apt</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.querydsl</groupId>
