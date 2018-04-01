@@ -81,11 +81,10 @@
         <lombok.version>1.16.20</lombok.version>
         <swagger2.version>2.8.0</swagger2.version>
         <zuul-ratelimit>1.5.0.RELEASE</zuul-ratelimit>
-        <fw.version>1.0.0-SNAPSHOT</fw.version>
+        <fw.version>1.0.2-SNAPSHOT</fw.version>
         <fw.system.version>${fw.version}</fw.system.version>
         <fw.business.version>${fw.version}</fw.business.version>
         <fw.core.version>${fw.version}</fw.core.version>
-        <fw.project.version>${fw.version}</fw.project.version>
     </properties>
 
 	<modules>

@@ -1,0 +1,36 @@
+server:
+  port: 2003
+
+redis:
+  cache:
+    expiration: 3600
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: ENC(rC/X/8UBBH2bn9Tgfuu7aw==)
+    password: ENC(IVTzs5LDfVEsblAFWFgA9w==)
+    url: jdbc:mysql://localhost:3306/fw-cloud-pay?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: ENC(tbrYcuNRFv1gflhdhpuY0g==)
+    password: ENC(tbrYcuNRFv1gflhdhpuY0g==)
+  zipkin:
+    rabbitmq:
+      queue: zipkin
+  sleuth:
+    sampler:
+      percentage: 1.0
+    
+logging:
+  config: classpath:logback.xml
