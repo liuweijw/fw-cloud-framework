@@ -23,6 +23,7 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://admin:liuweijw@localhost:1001/eureka
+    registry-fetch-interval-seconds: 10
 
 ---
 spring:
@@ -33,3 +34,4 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://admin:liuweijw@localhost:1001/eureka
+    registry-fetch-interval-seconds: 10 #默认30s

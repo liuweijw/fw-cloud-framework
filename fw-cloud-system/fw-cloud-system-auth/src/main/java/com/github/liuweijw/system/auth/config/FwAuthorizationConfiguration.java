@@ -52,7 +52,9 @@ public class FwAuthorizationConfiguration extends AuthorizationServerConfigurerA
                 .withClient(authServerConfiguration.getClientId())
                 .secret(authServerConfiguration.getClientSecret())
                 .authorizedGrantTypes(SecurityConstant.REFRESH_TOKEN, SecurityConstant.PASSWORD,SecurityConstant.AUTHORIZATION_CODE)
-                .scopes(authServerConfiguration.getScope());
+                .scopes(authServerConfiguration.getScope())
+                // true 直接跳转到客户端页面，false 跳转到用户确认授权页面
+                .autoApprove(true);
     }
 
     @Override
