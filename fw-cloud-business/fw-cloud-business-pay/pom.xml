@@ -4,7 +4,7 @@
 
     <artifactId>fw-cloud-business-pay</artifactId>
 	<packaging>jar</packaging>
-	
+
     <name>fw-cloud-business-pay</name>
     <description>支付平台服务</description>
 
@@ -13,17 +13,23 @@
         <artifactId>fw-cloud-business</artifactId>
         <version>${fw.business.version}</version>
     </parent>
-    
+
     <dependencies>
     	<dependency>
 			<groupId>com.github.liuweijw</groupId>
             <artifactId>fw-cloud-business-commons</artifactId>
             <version>${fw.business.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.liuweijw</groupId>
+            <artifactId>fw-cloud-core-commons</artifactId>
+            <version>${fw.business.version}</version>
+		</dependency>
+		<!-- 远程依赖 // https://github.com/liuweijw/cloud-commons.git -->
     	<dependency>
 			<groupId>com.github.liuweijw</groupId>
-            <artifactId>fw-cloud-business-pay-commons</artifactId>
-            <version>${fw.business.version}</version>
+            <artifactId>business-pay-commons</artifactId>
+            <version>${business-pay-commons.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.binarywang</groupId>
@@ -31,7 +37,7 @@
 			<version>${weixin.business.version}</version>
 		</dependency>
     </dependencies>
-    
+
     <build>
     	<plugins>
 			<plugin>
@@ -51,7 +57,7 @@
 			            <goals>
 			                <goal>process</goal>
 			            </goals>
-			            <configuration> 
+			            <configuration>
 			                <outputDirectory>target/generated-sources</outputDirectory>
 			                <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
 			            </configuration>
@@ -66,6 +72,6 @@
 					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
-    	</plugins> 
+    	</plugins>
     </build>
 </project>

@@ -30,6 +30,7 @@ eureka:
     serviceUrl:
       defaultZone: http://admin:liuweijw@localhost:1001/eureka
       #开启密码模式 http://${userName}:${password}@localhost:1001/eureka
+    registry-fetch-interval-seconds: 10
 ---
 spring:
   profiles: native
@@ -43,6 +44,7 @@ eureka:
       enabled: true # 开启健康检查（依赖spring-boot-starter-actuator）
     serviceUrl:
       defaultZone: http://admin:liuweijw@localhost:1001/eureka
+    registry-fetch-interval-seconds: 10
 ---
 spring:
   profiles: proj
@@ -52,3 +54,4 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:1001/eureka
+    registry-fetch-interval-seconds: 10

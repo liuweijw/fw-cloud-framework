@@ -14,8 +14,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.github.liuweijw.business.commons.web.https.HttpUtil;
 import com.github.liuweijw.business.pay.beans.NotifyBean;
+import com.github.liuweijw.business.pay.commons.constants.PayConstant;
 import com.github.liuweijw.business.pay.config.RabbitConfiguration;
-import com.github.liuweijw.business.pay.core.constants.PayConstant;
 import com.github.liuweijw.business.pay.service.NotifyService;
 import com.github.liuweijw.business.pay.service.PayOrderService;
 import com.github.liuweijw.core.utils.StringHelper;

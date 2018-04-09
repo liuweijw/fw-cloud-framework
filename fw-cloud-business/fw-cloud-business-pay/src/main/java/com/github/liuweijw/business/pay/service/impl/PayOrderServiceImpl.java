@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
-import com.github.liuweijw.business.pay.core.constants.PayConstant;
+import com.github.liuweijw.business.pay.commons.constants.PayConstant;
 import com.github.liuweijw.business.pay.domain.PayOrder;
 import com.github.liuweijw.business.pay.domain.QPayOrder;
 import com.github.liuweijw.business.pay.repository.PayOrderRepository;
