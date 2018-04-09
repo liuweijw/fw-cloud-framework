@@ -18,12 +18,12 @@
     <properties>
     	<querydsl.version>4.1.4</querydsl.version>
     	<weixin.business.version>2.9.0</weixin.business.version>
+    	<business-pay-commons.version>1.0.2-SNAPSHOT</business-pay-commons.version>
     </properties>
 
 	<modules>
 		<!-- business-commons 基础公共模块 -->
 		<module>fw-cloud-business-commons</module>
-		<module>fw-cloud-business-pay-commons</module>
 
 		<!-- business 业务相关模块服务 -->
 		<module>fw-cloud-business-admin</module>
