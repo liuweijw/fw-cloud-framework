@@ -11,15 +11,15 @@ import com.github.liuweijw.business.admin.service.LogInfoService;
 public class LogInfoServiceImpl implements LogInfoService {
 
 	@Autowired
-	private LogInfoRepository logInfoRepository; 
-	
+	private LogInfoRepository	logInfoRepository;
+
 	@Override
 	public void saveOrUpdate(LogInfo logInfo) {
-		
-		if(null == logInfo) return;
-		
+
+		if (null == logInfo) return;
+
 		logInfoRepository.save(logInfo);
-		
+
 	}
 
 }

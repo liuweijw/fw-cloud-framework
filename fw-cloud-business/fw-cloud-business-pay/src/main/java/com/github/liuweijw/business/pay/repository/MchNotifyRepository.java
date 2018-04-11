@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.github.liuweijw.business.pay.domain.PayMchNotify;
 
-public interface MchNotifyRepository extends JpaRepository<PayMchNotify, Long>{
+public interface MchNotifyRepository extends JpaRepository<PayMchNotify, Long> {
 
 }

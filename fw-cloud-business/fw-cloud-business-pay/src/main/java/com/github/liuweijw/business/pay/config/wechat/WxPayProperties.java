@@ -7,15 +7,14 @@ import org.springframework.context.annotation.Configuration;
  * 微信支付相关配置
  * 
  * @author liuweijw
- *
  */
 @Configuration
 @ConfigurationProperties(prefix = "business.config.wxpay")
 public class WxPayProperties {
 
-	private String certRootPath;
+	private String	certRootPath;
 
-	private String notifyUrl;
+	private String	notifyUrl;
 
 	public String getCertRootPath() {
 		return certRootPath;

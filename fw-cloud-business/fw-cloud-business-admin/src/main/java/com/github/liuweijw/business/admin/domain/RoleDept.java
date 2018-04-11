@@ -15,20 +15,20 @@ import javax.persistence.Table;
 @Table(name = RoleDept.TABLE_NAME)
 public class RoleDept implements Serializable {
 
-	private static final long serialVersionUID = -1028920072723837099L;
+	private static final long	serialVersionUID	= -1028920072723837099L;
 
-	public static final String TABLE_NAME = "t_sys_role_dept";
+	public static final String	TABLE_NAME			= "t_sys_role_dept";
 
-    @Id
+	@Id
 	@GeneratedValue
 	@Column(name = "id")
-    private Integer id;
+	private Integer				id;
 
-    @Column(name = "role_id")
-    private Integer roleId;
-    
-    @Column(name = "dept_id")
-    private Integer deptId;
+	@Column(name = "role_id")
+	private Integer				roleId;
+
+	@Column(name = "dept_id")
+	private Integer				deptId;
 
 	public Integer getId() {
 		return id;
@@ -53,5 +53,5 @@ public class RoleDept implements Serializable {
 	public void setDeptId(Integer deptId) {
 		this.deptId = deptId;
 	}
-    
+
 }

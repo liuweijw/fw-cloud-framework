@@ -13,20 +13,19 @@ import com.github.liuweijw.core.utils.R;
  * 支付渠道信息获取
  * 
  * @author liuweijw
- *
  */
 @RestController
 @RequestMapping(value = "/pay/channel")
 public class PayChannelController {
 
 	@Autowired
-    private PayChannelService payChannelService;
-	
+	private PayChannelService	payChannelService;
+
 	@RequestMapping(value = "/find/{channelId}/{mchId}")
-    public R<PayChannel> selectPayChannel(@PathVariable String channelId, @PathVariable String mchId) {
-		
+	public R<PayChannel> selectPayChannel(@PathVariable String channelId, @PathVariable String mchId) {
+
 		PayChannel payChannel = payChannelService.findPayChannel(channelId, mchId);
-		
+
 		return new R<PayChannel>().data(payChannel);
 	}
 }

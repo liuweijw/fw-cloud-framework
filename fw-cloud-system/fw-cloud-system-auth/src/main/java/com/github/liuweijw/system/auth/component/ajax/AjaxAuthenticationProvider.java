@@ -14,35 +14,40 @@ import com.github.liuweijw.system.auth.service.UserService;
  * @author liuweijw
  */
 public class AjaxAuthenticationProvider implements AuthenticationProvider {
-	
-	private UserService userService;
-		
-    @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        AjaxAuthenticationToken ajaxAuthenticationToken = (AjaxAuthenticationToken) authentication;
-        AuthUser user = userService.findUserByMobile((String) ajaxAuthenticationToken.getPrincipal());
 
-        if (null == user) 
-        	throw new UsernameNotFoundException("登录账户[" + ajaxAuthenticationToken.getPrincipal()+"]不存在");
-        
-        UserDetailsImpl userDetails = buildUserDeatils(user);
-        
-        if (null == userDetails) 
-        	throw new InternalAuthenticationServiceException("登录用户[" + ajaxAuthenticationToken.getPrincipal() + "]不存在！");
+	private UserService	userService;
 
-        AjaxAuthenticationToken authenticationToken = new AjaxAuthenticationToken(userDetails, userDetails.getAuthorities());
-        authenticationToken.setDetails(ajaxAuthenticationToken.getDetails());
-        return authenticationToken;
-    }
+	@Override
+	public Authentication authenticate(Authentication authentication)
+			throws AuthenticationException {
+		AjaxAuthenticationToken ajaxAuthenticationToken = (AjaxAuthenticationToken) authentication;
+		AuthUser user = userService.findUserByMobile((String) ajaxAuthenticationToken
+				.getPrincipal());
 
-    private UserDetailsImpl buildUserDeatils(AuthUser user) {
-        return new UserDetailsImpl(user);
-    }
+		if (null == user)
+			throw new UsernameNotFoundException("登录账户[" + ajaxAuthenticationToken.getPrincipal()
+					+ "]不存在");
 
-    @Override
-    public boolean supports(Class<?> authentication) {
-        return AjaxAuthenticationToken.class.isAssignableFrom(authentication);
-    }
+		UserDetailsImpl userDetails = buildUserDeatils(user);
+
+		if (null == userDetails)
+			throw new InternalAuthenticationServiceException("登录用户["
+					+ ajaxAuthenticationToken.getPrincipal() + "]不存在！");
+
+		AjaxAuthenticationToken authenticationToken = new AjaxAuthenticationToken(userDetails,
+				userDetails.getAuthorities());
+		authenticationToken.setDetails(ajaxAuthenticationToken.getDetails());
+		return authenticationToken;
+	}
+
+	private UserDetailsImpl buildUserDeatils(AuthUser user) {
+		return new UserDetailsImpl(user);
+	}
+
+	@Override
+	public boolean supports(Class<?> authentication) {
+		return AjaxAuthenticationToken.class.isAssignableFrom(authentication);
+	}
 
 	public UserService getUserService() {
 		return userService;

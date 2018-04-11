@@ -18,33 +18,34 @@ import com.github.liuweijw.core.utils.StringHelper;
 @Primary
 public class FwSwaggerResourcesProvider implements SwaggerResourcesProvider {
 
-	private final RouteLocator routeLocator;
+	private final RouteLocator	routeLocator;
 
-    public FwSwaggerResourcesProvider(RouteLocator routeLocator) {
-        this.routeLocator = routeLocator;
-    }
+	public FwSwaggerResourcesProvider(RouteLocator routeLocator) {
+		this.routeLocator = routeLocator;
+	}
 
-    @Override
-    public List<SwaggerResource> get() {
-        List<SwaggerResource> resources = new ArrayList<>();
+	@Override
+	public List<SwaggerResource> get() {
+		List<SwaggerResource> resources = new ArrayList<>();
 
-        List<Route> routes = routeLocator.getRoutes();
-        routes.forEach(route -> {
-            // swagger排除 auth 模块
-            if (!StringHelper.contains(route.getId(), ServiceIdConstant.AUTH_SERVICE)){
-                resources.add(buildSwaggerResource(route.getId(), route.getFullPath().replace("**", "v2/api-docs")));
-            }
-        });
+		List<Route> routes = routeLocator.getRoutes();
+		routes.forEach(route -> {
+			// swagger排除 auth 模块
+			if (!StringHelper.contains(route.getId(), ServiceIdConstant.AUTH_SERVICE)) {
+				resources.add(buildSwaggerResource(route.getId(), route.getFullPath().replace("**",
+						"v2/api-docs")));
+			}
+		});
 
-        return resources;
-    }
+		return resources;
+	}
 
-    private SwaggerResource buildSwaggerResource(String name, String location) {
-        SwaggerResource swaggerResource = new SwaggerResource();
-        swaggerResource.setName(name);
-        swaggerResource.setLocation(location);
-        swaggerResource.setSwaggerVersion("2.0");
-        return swaggerResource;
-    }
+	private SwaggerResource buildSwaggerResource(String name, String location) {
+		SwaggerResource swaggerResource = new SwaggerResource();
+		swaggerResource.setName(name);
+		swaggerResource.setLocation(location);
+		swaggerResource.setSwaggerVersion("2.0");
+		return swaggerResource;
+	}
 
 }

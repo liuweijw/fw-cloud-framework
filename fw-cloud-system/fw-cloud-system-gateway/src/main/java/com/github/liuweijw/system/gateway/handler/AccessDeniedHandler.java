@@ -22,28 +22,26 @@ import com.github.liuweijw.core.utils.R;
 import com.github.liuweijw.exception.DeniedException;
 
 /**
- * @author liuweijw
- * 
- * 授权拒绝处理器，覆盖默认的OAuth2AccessDeniedHandler
- * 包装失败信息到DeniedException
- * 
+ * @author liuweijw 授权拒绝处理器，覆盖默认的OAuth2AccessDeniedHandler 包装失败信息到DeniedException
  */
 @Component
 public class AccessDeniedHandler extends OAuth2AccessDeniedHandler {
-	
-    private static Logger logger = LoggerFactory.getLogger(AccessDeniedHandler.class);
-    
-    @Autowired
-    private ObjectMapper objectMapper;
 
-    @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException authException) throws IOException, ServletException {
-        logger.info("授权失败，禁止访问");
-        response.setCharacterEncoding(CommonConstant.UTF8);
-        response.setContentType(CommonConstant.CONTENT_TYPE);
-        R<String> result = new R<String>().failure(new DeniedException(MessageConstant.COMMONS_AUTH_NOTSUPPORT));
-        response.setStatus(HttpStatus.SC_FORBIDDEN);
-        PrintWriter printWriter = response.getWriter();
-        printWriter.append(objectMapper.writeValueAsString(result));
-    }
+	private static Logger	logger	= LoggerFactory.getLogger(AccessDeniedHandler.class);
+
+	@Autowired
+	private ObjectMapper	objectMapper;
+
+	@Override
+	public void handle(HttpServletRequest request, HttpServletResponse response,
+			AccessDeniedException authException) throws IOException, ServletException {
+		logger.info("授权失败，禁止访问");
+		response.setCharacterEncoding(CommonConstant.UTF8);
+		response.setContentType(CommonConstant.CONTENT_TYPE);
+		R<String> result = new R<String>().failure(new DeniedException(
+				MessageConstant.COMMONS_AUTH_NOTSUPPORT));
+		response.setStatus(HttpStatus.SC_FORBIDDEN);
+		PrintWriter printWriter = response.getWriter();
+		printWriter.append(objectMapper.writeValueAsString(result));
+	}
 }

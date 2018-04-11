@@ -14,8 +14,8 @@ import com.github.liuweijw.system.gateway.service.MenuPermissionService;
 public class FwServiceApplicationTest {
 
 	@Autowired
-	private MenuPermissionService menuService;
-	
+	private MenuPermissionService	menuService;
+
 	@Test
 	public void testMenuService() {
 		menuService.findMenuByRole("admins");

@@ -29,33 +29,23 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfiguration {
 
-    @Bean
-    public Docket createRestApi() {
-    	List<Parameter> operationParameters = new ArrayList<Parameter>();
-    	ParameterBuilder parameterBuilder = new ParameterBuilder();
-    	parameterBuilder.name("Authorization")
-				        .defaultValue("请求中获取heard中token参数")
-				        .description("令牌")
-				        .modelRef(new ModelRef("string"))
-				        .parameterType("header")
-				        .required(true).build();
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
-                .paths(PathSelectors.any())
-                .build()
-                .globalOperationParameters(operationParameters);
-    }
+	@Bean
+	public Docket createRestApi() {
+		List<Parameter> operationParameters = new ArrayList<Parameter>();
+		ParameterBuilder parameterBuilder = new ParameterBuilder();
+		parameterBuilder.name("Authorization").defaultValue("请求中获取heard中token参数").description("令牌")
+				.modelRef(new ModelRef("string")).parameterType("header").required(true).build();
+		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select().apis(
+				RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class)).paths(
+				PathSelectors.any()).build().globalOperationParameters(operationParameters);
+	}
 
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title(" Swagger API ")
-                .description("https://github.com/liuweijw/fw-cloud-framework/wiki")
-                .termsOfServiceUrl("https://github.com/liuweijw/fw-cloud-framework")
-                .contact(new Contact("liuweijw","https://github.com/liuweijw/fw-cloud-framework","liuweijw.github@foxmail.com"))
-                .version("1.0")
-                .build();
-    }
+	private ApiInfo apiInfo() {
+		return new ApiInfoBuilder().title(" Swagger API ").description(
+				"https://github.com/liuweijw/fw-cloud-framework/wiki").termsOfServiceUrl(
+				"https://github.com/liuweijw/fw-cloud-framework").contact(
+				new Contact("liuweijw", "https://github.com/liuweijw/fw-cloud-framework",
+						"liuweijw.github@foxmail.com")).version("1.0").build();
+	}
 
 }

@@ -2,18 +2,18 @@ package com.github.liuweijw.business.admin.beans;
 
 public class UserForm {
 
-	private String username;
+	private String	username;
 
-	private String password;
-	
-	private String newpassword;
+	private String	password;
 
-    private Integer statu = 0;
+	private String	newpassword;
 
-    private Integer roleId;
-    
-    private Integer userId;
-    
+	private Integer	statu	= 0;
+
+	private Integer	roleId;
+
+	private Integer	userId;
+
 	public String getUsername() {
 		return username;
 	}
@@ -61,5 +61,5 @@ public class UserForm {
 	public void setNewpassword(String newpassword) {
 		this.newpassword = newpassword;
 	}
-    
+
 }

@@ -17,70 +17,63 @@ import com.querydsl.jpa.impl.JPAUpdateClause;
 public class PayOrderServiceImpl extends JPAFactoryImpl implements PayOrderService {
 
 	@Autowired
-	private PayOrderRepository payOrderRepository;
+	private PayOrderRepository	payOrderRepository;
 
 	@Override
 	@Transactional
 	public PayOrder updateOrSavePayOrder(PayOrder payOrder) {
-		
-		if(null == payOrder) return null;
-		
+
+		if (null == payOrder) return null;
+
 		return payOrderRepository.saveAndFlush(payOrder);
 	}
 
 	@Override
 	public PayOrder findPayOrderByOrderId(String payOrderId) {
-		
-		if(StringHelper.isBlank(payOrderId)) return null;
-		
+
+		if (StringHelper.isBlank(payOrderId)) return null;
+
 		return payOrderRepository.findPayOrderByPayOrderId(payOrderId);
 	}
 
 	@Override
-	public PayOrder findPayOrderByMchIdAndPayOrderId(String mchId,
-			String payOrderId) {
-		
-		if(StringHelper.isBlank(mchId) || StringHelper.isBlank(payOrderId)) return null;
-		
+	public PayOrder findPayOrderByMchIdAndPayOrderId(String mchId, String payOrderId) {
+
+		if (StringHelper.isBlank(mchId) || StringHelper.isBlank(payOrderId)) return null;
+
 		QPayOrder qPayOrder = QPayOrder.payOrder;
-		return this.queryFactory.selectFrom(qPayOrder)
-								.where(qPayOrder.mch_id.eq(mchId.trim()))
-								.where(qPayOrder.payOrderId.eq(payOrderId.trim()))
-								.fetchFirst();
+		return this.queryFactory.selectFrom(qPayOrder).where(qPayOrder.mch_id.eq(mchId.trim()))
+				.where(qPayOrder.payOrderId.eq(payOrderId.trim())).fetchFirst();
 	}
 
 	@Override
-	public PayOrder findPayOrderByMchIdAndMchOrderNo(String mchId,
-			String mchOrderNo) {
+	public PayOrder findPayOrderByMchIdAndMchOrderNo(String mchId, String mchOrderNo) {
 
-		if(StringHelper.isBlank(mchId) || StringHelper.isBlank(mchOrderNo)) return null;
-		
+		if (StringHelper.isBlank(mchId) || StringHelper.isBlank(mchOrderNo)) return null;
+
 		QPayOrder qPayOrder = QPayOrder.payOrder;
-		return this.queryFactory.selectFrom(qPayOrder)
-								.where(qPayOrder.mch_id.eq(mchId.trim()))
-								.where(qPayOrder.mchOrderNo.eq(mchOrderNo.trim()))
-								.fetchFirst();
-		
+		return this.queryFactory.selectFrom(qPayOrder).where(qPayOrder.mch_id.eq(mchId.trim()))
+				.where(qPayOrder.mchOrderNo.eq(mchOrderNo.trim())).fetchFirst();
+
 	}
 
 	@Override
 	@Transactional
-	public boolean updatePayOrderStatus4Paying(String payOrderId,
-			String channelOrderNo) {
-		
-		if(StringHelper.isBlank(payOrderId)) return false;
-		
+	public boolean updatePayOrderStatus4Paying(String payOrderId, String channelOrderNo) {
+
+		if (StringHelper.isBlank(payOrderId)) return false;
+
 		QPayOrder qPayOrder = QPayOrder.payOrder;
-		JPAUpdateClause updateClause = this.queryFactory.update(qPayOrder)
-						 								.set(qPayOrder.status, PayConstant.PAY_STATUS_PAYING)
-						 								.set(qPayOrder.paySuccTime, System.currentTimeMillis());
-		if(StringHelper.isNotBlank(channelOrderNo)) {
+		JPAUpdateClause updateClause = this.queryFactory.update(qPayOrder).set(qPayOrder.status,
+				PayConstant.PAY_STATUS_PAYING).set(qPayOrder.paySuccTime,
+				System.currentTimeMillis());
+		if (StringHelper.isNotBlank(channelOrderNo)) {
 			updateClause.set(qPayOrder.channelOrderNo, channelOrderNo.trim());
 		}
-		
-		updateClause.where(qPayOrder.payOrderId.eq(payOrderId.trim()))
-					.where(qPayOrder.status.eq(PayConstant.PAY_STATUS_INIT));
-		
+
+		updateClause.where(qPayOrder.payOrderId.eq(payOrderId.trim())).where(
+				qPayOrder.status.eq(PayConstant.PAY_STATUS_INIT));
+
 		long num = updateClause.execute();
 		return num > 0;
 	}
@@ -89,32 +82,28 @@ public class PayOrderServiceImpl extends JPAFactoryImpl implements PayOrderServi
 	@Transactional
 	public boolean updatePayOrderStatus4Success(String payOrderId) {
 
-		if(StringHelper.isBlank(payOrderId)) return false;
-		
+		if (StringHelper.isBlank(payOrderId)) return false;
+
 		QPayOrder qPayOrder = QPayOrder.payOrder;
-		long num  = this.queryFactory.update(qPayOrder)
-	 								 .set(qPayOrder.status, PayConstant.PAY_STATUS_SUCCESS)
-	 								 .set(qPayOrder.paySuccTime, System.currentTimeMillis())
-									 .where(qPayOrder.payOrderId.eq(payOrderId.trim()))
-									 .where(qPayOrder.status.eq(PayConstant.PAY_STATUS_PAYING))
-									 .execute();
-		
+		long num = this.queryFactory.update(qPayOrder).set(qPayOrder.status,
+				PayConstant.PAY_STATUS_SUCCESS).set(qPayOrder.paySuccTime,
+				System.currentTimeMillis()).where(qPayOrder.payOrderId.eq(payOrderId.trim()))
+				.where(qPayOrder.status.eq(PayConstant.PAY_STATUS_PAYING)).execute();
+
 		return num > 0;
 	}
 
 	@Override
 	@Transactional
 	public boolean updatePayOrderStatus4Complete(String payOrderId) {
-		
-		if(StringHelper.isBlank(payOrderId)) return false;
-		
+
+		if (StringHelper.isBlank(payOrderId)) return false;
+
 		QPayOrder qPayOrder = QPayOrder.payOrder;
-		long num  = this.queryFactory.update(qPayOrder)
-	 								 .set(qPayOrder.status, PayConstant.PAY_STATUS_COMPLETE)
-									 .where(qPayOrder.payOrderId.eq(payOrderId.trim()))
-									 .where(qPayOrder.status.eq(PayConstant.PAY_STATUS_SUCCESS))
-									 .execute();
-		
+		long num = this.queryFactory.update(qPayOrder).set(qPayOrder.status,
+				PayConstant.PAY_STATUS_COMPLETE).where(qPayOrder.payOrderId.eq(payOrderId.trim()))
+				.where(qPayOrder.status.eq(PayConstant.PAY_STATUS_SUCCESS)).execute();
+
 		return num > 0;
 	}
 
@@ -122,16 +111,14 @@ public class PayOrderServiceImpl extends JPAFactoryImpl implements PayOrderServi
 	@Transactional
 	public boolean updateNotify(String payOrderId, int count) {
 		// TODO 并发情况下 次数问题待解决
-		
-		if(StringHelper.isBlank(payOrderId)) return false;
-		
+
+		if (StringHelper.isBlank(payOrderId)) return false;
+
 		QPayOrder qPayOrder = QPayOrder.payOrder;
-		long num  = this.queryFactory.update(qPayOrder)
-	 								 .set(qPayOrder.notifyCount, count)
-	 								 .set(qPayOrder.lastNotifyTime, System.currentTimeMillis())
-									 .where(qPayOrder.payOrderId.eq(payOrderId.trim()))
-									 .execute();
-		
+		long num = this.queryFactory.update(qPayOrder).set(qPayOrder.notifyCount, count).set(
+				qPayOrder.lastNotifyTime, System.currentTimeMillis()).where(
+				qPayOrder.payOrderId.eq(payOrderId.trim())).execute();
+
 		return num > 0;
 	}
 }

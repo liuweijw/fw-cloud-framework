@@ -9,15 +9,15 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 
 public abstract class JPAFactoryImpl {
 
-	//JPA查询工厂
-    protected JPAQueryFactory queryFactory;
-    
-    @Autowired
-    private EntityManager em;
-    
-    @PostConstruct
-    public void initFactory(){
-        queryFactory = new JPAQueryFactory(em);
-    }
-    
+	// JPA查询工厂
+	protected JPAQueryFactory	queryFactory;
+
+	@Autowired
+	private EntityManager		em;
+
+	@PostConstruct
+	public void initFactory() {
+		queryFactory = new JPAQueryFactory(em);
+	}
+
 }

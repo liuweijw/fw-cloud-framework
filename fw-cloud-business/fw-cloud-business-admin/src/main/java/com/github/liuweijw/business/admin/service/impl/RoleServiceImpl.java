@@ -18,21 +18,18 @@ import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
 public class RoleServiceImpl extends JPAFactoryImpl implements RoleService {
 
 	@Autowired
-	private RoleRepository roleRepository;
+	private RoleRepository	roleRepository;
 
 	@Override
 	public List<Role> getRoleListByDeptId(Integer deptId) {
-		if(null == deptId || deptId <= 0) return null;
-		
+		if (null == deptId || deptId <= 0) return null;
+
 		// load role
 		QRoleDept qRoleDept = QRoleDept.roleDept;
 		QRole qRole = QRole.role;
-		List<Role> rList = this.queryFactory.select(qRole)
-											.from(qRoleDept,qRole)
-											.where(qRoleDept.deptId.eq(deptId))
-											.where(qRoleDept.roleId.eq(qRole.roleId))
-											.fetch();
-		
+		List<Role> rList = this.queryFactory.select(qRole).from(qRoleDept, qRole).where(
+				qRoleDept.deptId.eq(deptId)).where(qRoleDept.roleId.eq(qRole.roleId)).fetch();
+
 		return rList;
 	}
 
@@ -41,5 +38,5 @@ public class RoleServiceImpl extends JPAFactoryImpl implements RoleService {
 	public List<Role> getRoleList() {
 		return roleRepository.findAll();
 	}
-	
+
 }

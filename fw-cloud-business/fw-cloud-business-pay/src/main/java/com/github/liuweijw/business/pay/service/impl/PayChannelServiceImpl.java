@@ -14,16 +14,15 @@ import com.github.liuweijw.core.utils.StringHelper;
 public class PayChannelServiceImpl extends JPAFactoryImpl implements PayChannelService {
 
 	@Autowired
-	private PayChannelRepository payChannelRepository;
+	private PayChannelRepository	payChannelRepository;
 
 	@Override
 	public PayChannel findPayChannel(String channelId, String mchId) {
-		if(StringHelper.isBlank(channelId) || StringHelper.isBlank(mchId)) return null;
-		
+		if (StringHelper.isBlank(channelId) || StringHelper.isBlank(mchId)) return null;
+
 		QPayChannel qPayChannel = QPayChannel.payChannel;
-		return this.queryFactory.selectFrom(qPayChannel)
-								.where(qPayChannel.channelId.eq(channelId.trim()))
-								.where(qPayChannel.mchId.eq(mchId.trim()))
-								.fetchFirst();
+		return this.queryFactory.selectFrom(qPayChannel).where(
+				qPayChannel.channelId.eq(channelId.trim())).where(
+				qPayChannel.mchId.eq(mchId.trim())).fetchFirst();
 	}
 }

@@ -12,14 +12,13 @@ import com.github.liuweijw.core.utils.StringHelper;
 public class MchInfoServiceImpl implements MchInfoService {
 
 	@Autowired
-	private MchInfoRepository mchInfoRepository;
+	private MchInfoRepository	mchInfoRepository;
 
 	@Override
 	public PayMchInfo findMchInfoByMchId(String mchId) {
-		if(StringHelper.isBlank(mchId)) return null;
-		
+		if (StringHelper.isBlank(mchId)) return null;
+
 		return mchInfoRepository.findPayMchInfoByMchId(mchId.trim());
 	}
-	
-	
+
 }

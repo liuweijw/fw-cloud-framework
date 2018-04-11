@@ -4,11 +4,11 @@ import java.io.Serializable;
 
 public class AuthLog implements Serializable {
 
-	private static final long serialVersionUID = -7612739305546935933L;
+	private static final long	serialVersionUID	= -7612739305546935933L;
 
-	private Log log;
-	
-    private String token;
+	private Log					log;
+
+	private String				token;
 
 	public Log getLog() {
 		return log;
@@ -25,5 +25,5 @@ public class AuthLog implements Serializable {
 	public void setToken(String token) {
 		this.token = token;
 	}
-    
+
 }

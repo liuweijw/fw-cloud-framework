@@ -7,10 +7,10 @@ package com.github.liuweijw.exception;
  */
 public class ValidateCodeException extends RuntimeException {
 
-	private static final long serialVersionUID = 8798176161238427050L;
+	private static final long	serialVersionUID	= 8798176161238427050L;
 
 	public ValidateCodeException(String msg) {
-        super(msg);
-    }
+		super(msg);
+	}
 
 }

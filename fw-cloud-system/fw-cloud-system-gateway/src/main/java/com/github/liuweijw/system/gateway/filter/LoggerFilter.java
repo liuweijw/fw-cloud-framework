@@ -11,34 +11,32 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
 /**
- * @author liuweijw
- * 
- * 网关日志拦截器
+ * @author liuweijw 网关日志拦截器
  */
 @Component
 public class LoggerFilter extends ZuulFilter {
 
-    @Autowired
-    private LogService logService;
+	@Autowired
+	private LogService	logService;
 
-    @Override
-    public String filterType() {
-        return POST_TYPE;
-    }
+	@Override
+	public String filterType() {
+		return POST_TYPE;
+	}
 
-    @Override
-    public int filterOrder() {
-        return SEND_RESPONSE_FILTER_ORDER - 1;
-    }
+	@Override
+	public int filterOrder() {
+		return SEND_RESPONSE_FILTER_ORDER - 1;
+	}
 
-    @Override
-    public boolean shouldFilter() {
-        return true;
-    }
+	@Override
+	public boolean shouldFilter() {
+		return true;
+	}
 
-    @Override
-    public Object run() {
-    	logService.send(RequestContext.getCurrentContext());
-        return null;
-    }
+	@Override
+	public Object run() {
+		logService.send(RequestContext.getCurrentContext());
+		return null;
+	}
 }

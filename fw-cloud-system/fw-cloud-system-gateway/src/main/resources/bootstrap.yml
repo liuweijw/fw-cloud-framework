@@ -24,7 +24,6 @@ eureka:
     serviceUrl:
       defaultZone: http://admin:liuweijw@localhost:1001/eureka
 
-# auth模块请求地址
 security:
   auth:
     server: http://localhost:1004
@@ -37,7 +36,6 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://admin:liuweijw@localhost:1001/eureka
-    registry-fetch-interval-seconds: 10
 
 security:
   auth:

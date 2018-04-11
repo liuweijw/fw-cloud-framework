@@ -13,71 +13,70 @@ import javax.persistence.Table;
  * 商户信息表
  * 
  * @author liuweijw
- *
  */
 @Entity
 @Table(name = PayMchInfo.TABLE_NAME)
 public class PayMchInfo implements Serializable {
 
-	private static final long serialVersionUID = 6226786548520958050L;
-	
-	public static final String TABLE_NAME = "t_pay_mch_info";
+	private static final long	serialVersionUID	= 6226786548520958050L;
+
+	public static final String	TABLE_NAME			= "t_pay_mch_info";
 
 	/**
-     * 菜单ID
-     */
+	 * 菜单ID
+	 */
 	@Id
 	@GeneratedValue
 	@Column(name = "id")
-    private Long id;
-	
+	private Long				id;
+
 	/**
-     * 商户ID
-     */
+	 * 商户ID
+	 */
 	@Column(name = "mch_id")
-    private String mchId;
+	private String				mchId;
 
-    /**
-     * 名称
-     */
+	/**
+	 * 名称
+	 */
 	@Column(name = "mch_name")
-    private String mchName;
+	private String				mchName;
 
-    /**
-     * 类型
-     */
+	/**
+	 * 类型
+	 */
 	@Column(name = "type")
-    private String type;
+	private String				type;
 
-    /**
-     * 请求私钥
-     */
+	/**
+	 * 请求私钥
+	 */
 	@Column(name = "req_key")
-    private String reqKey;
+	private String				reqKey;
 
-    /**
-     * 响应私钥
-     */
+	/**
+	 * 响应私钥
+	 */
 	@Column(name = "res_key")
-    private String resKey;
+	private String				resKey;
 
-    /**
-     * 商户状态,0-停止使用,1-使用中
-     */
+	/**
+	 * 商户状态,0-停止使用,1-使用中
+	 */
 	@Column(name = "statu")
-    private Integer statu = 0;
+	private Integer				statu				= 0;
 
-    /**
-     * 创建时间
-     */
+	/**
+	 * 创建时间
+	 */
 	@Column(name = "create_time")
-    private Date createTime;
+	private Date				createTime;
 
-    /**
-     * 更新时间
-     */
+	/**
+	 * 更新时间
+	 */
 	@Column(name = "update_time")
-    private Date updateTime;
+	private Date				updateTime;
 
 	public Long getId() {
 		return id;

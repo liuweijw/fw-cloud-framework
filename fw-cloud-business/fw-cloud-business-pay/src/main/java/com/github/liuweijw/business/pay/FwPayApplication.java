@@ -12,21 +12,21 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * 支付平台服务API
  * 
  * @author liuweijw
- * 
  */
 @EnableTransactionManagement
 @SpringBootApplication
 @EnableDiscoveryClient
-@ComponentScan(basePackages = {"com.github.liuweijw.business.pay", "com.github.liuweijw.core", "com.github.liuweijw.business.commons.web"})
+@ComponentScan(basePackages = { "com.github.liuweijw.business.pay", "com.github.liuweijw.core",
+		"com.github.liuweijw.business.commons.web" })
 public class FwPayApplication extends SpringBootServletInitializer {
-	
-	@Override  
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {  
-        return application.sources(FwPayApplication.class);  
-    }
-	
-    public static void main(String[] args) {
-        SpringApplication.run(FwPayApplication.class, args);
-    }
-    
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(FwPayApplication.class);
+	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(FwPayApplication.class, args);
+	}
+
 }

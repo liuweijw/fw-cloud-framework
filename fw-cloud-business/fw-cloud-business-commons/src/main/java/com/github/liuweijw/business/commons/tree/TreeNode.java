@@ -7,20 +7,19 @@ import java.util.List;
  * 树形节点
  * 
  * @author liuweijw
- *
  */
 public class TreeNode {
 
-	private int id;
-	
-	private int pid;
-	
-	private List<TreeNode> children = new ArrayList<TreeNode>();
+	private int				id;
+
+	private int				pid;
+
+	private List<TreeNode>	children	= new ArrayList<TreeNode>();
 
 	public void add(TreeNode node) {
-        children.add(node);
-    }
-	
+		children.add(node);
+	}
+
 	public int getId() {
 		return id;
 	}

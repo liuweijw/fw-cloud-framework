@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class SsoDemoController {
-	
-    @GetMapping("/user")
-    public Authentication user(Authentication authentication) {
-        return authentication;
-    }
-    
+
+	@GetMapping("/user")
+	public Authentication user(Authentication authentication) {
+		return authentication;
+	}
+
 }

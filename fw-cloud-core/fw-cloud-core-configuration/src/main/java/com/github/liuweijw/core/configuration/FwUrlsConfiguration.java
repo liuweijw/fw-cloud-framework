@@ -11,14 +11,13 @@ import org.springframework.context.annotation.Configuration;
  * 所有需要过滤URL的配置，urls.collects 模式
  * 
  * @author liuweijw
- *
  */
 @Configuration
 @ConditionalOnExpression("!'${urls}'.isEmpty()")
 @ConfigurationProperties(prefix = "urls")
 public class FwUrlsConfiguration {
 
-	private List<String> collects = new ArrayList<>();
+	private List<String>	collects	= new ArrayList<>();
 
 	public List<String> getCollects() {
 		return collects;
@@ -27,5 +26,5 @@ public class FwUrlsConfiguration {
 	public void setCollects(List<String> collects) {
 		this.collects = collects;
 	}
-    
+
 }

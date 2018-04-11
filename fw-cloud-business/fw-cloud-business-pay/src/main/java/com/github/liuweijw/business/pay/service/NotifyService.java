@@ -8,5 +8,5 @@ public interface NotifyService {
 	public void notifyPayOrder(PayOrder payOrder);
 
 	public void notifyPayOrder(NotifyBean notifyBean, int count);
-	
+
 }

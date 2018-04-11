@@ -5,6 +5,7 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
 import com.github.liuweijw.business.admin.domain.UserRole;
 
-public interface UserRoleRepository extends JpaRepository<UserRole, Integer>, QueryDslPredicateExecutor<UserRole> {
+public interface UserRoleRepository extends JpaRepository<UserRole, Integer>,
+		QueryDslPredicateExecutor<UserRole> {
 
 }

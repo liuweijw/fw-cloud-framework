@@ -14,13 +14,16 @@ import com.github.liuweijw.system.gateway.FwGatewayApplication;
 public class FwGatewayApplicationTest {
 
 	@Autowired
-	private StringEncryptor stringEncryptor;
+	private StringEncryptor	stringEncryptor;
 
 	@Test
 	public void testEnvironmentProperties() {
-		System.out.println("=================="+stringEncryptor.encrypt("guest")); // tbrYcuNRFv1gflhdhpuY0g==
-		System.out.println("=================="+stringEncryptor.encrypt("root")); // rC/X/8UBBH2bn9Tgfuu7aw==
-		System.out.println("=================="+stringEncryptor.encrypt("admin"));// IVTzs5LDfVEsblAFWFgA9w==
+		System.out.println("=================="
+				+ stringEncryptor.encrypt("http://120.79.84.65:1004"));
+		System.out.println("=================="
+				+ stringEncryptor.encrypt("http://120.79.84.65:1004"));
+		System.out.println("=================="
+				+ stringEncryptor.encrypt("http://120.79.84.65:1004"));
 	}
 
 }

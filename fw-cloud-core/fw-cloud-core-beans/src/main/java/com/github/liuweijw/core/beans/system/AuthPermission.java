@@ -4,17 +4,17 @@ import java.io.Serializable;
 
 public class AuthPermission implements Serializable {
 
-	private static final long serialVersionUID = 4566420419542436770L;
-	
-    /**
-     * 请求URL
-     */
-    private String url;
-    
-    public AuthPermission() {
-    	
-    }
-    
+	private static final long	serialVersionUID	= 4566420419542436770L;
+
+	/**
+	 * 请求URL
+	 */
+	private String				url;
+
+	public AuthPermission() {
+
+	}
+
 	public AuthPermission(String url) {
 		this.url = url;
 	}
@@ -26,5 +26,5 @@ public class AuthPermission implements Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-    
+
 }

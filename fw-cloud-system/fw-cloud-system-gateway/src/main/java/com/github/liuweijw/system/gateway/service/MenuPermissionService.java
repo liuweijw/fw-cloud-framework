@@ -13,11 +13,11 @@ import com.github.liuweijw.core.beans.system.AuthPermission;
  */
 @FeignClient(name = "business-admin-server", fallback = MenuPermissionServiceFallback.class)
 public interface MenuPermissionService {
-   
+
 	/**
-     * 通过角色名查询菜单
-     */
-    @GetMapping(value = "/api/findMenuByRole/{roleCode}")
-    Set<AuthPermission> findMenuByRole(@PathVariable("roleCode") String roleCode);
-    
+	 * 通过角色名查询菜单
+	 */
+	@GetMapping(value = "/api/findMenuByRole/{roleCode}")
+	Set<AuthPermission> findMenuByRole(@PathVariable("roleCode") String roleCode);
+
 }

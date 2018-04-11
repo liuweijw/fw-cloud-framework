@@ -17,10 +17,7 @@ import com.github.liuweijw.core.commons.constants.MessageConstant;
 import com.github.liuweijw.core.commons.constants.ServiceIdConstant;
 
 /**
- * @author liuweijw
- * 
- * Auth 模块异常回调
- * 
+ * @author liuweijw Auth 模块异常回调
  */
 @Slf4j
 @Component
@@ -39,24 +36,25 @@ public class AuthFallbackProvider implements FallbackProvider {
 	@Override
 	public ClientHttpResponse fallbackResponse(Throwable cause) {
 
-		return new ClientHttpResponse(){
+		return new ClientHttpResponse() {
 
 			@Override
 			public InputStream getBody() throws IOException {
 				if (cause != null && cause.getMessage() != null) {
 					log.error("调用:{} 异常：{}", getRoute(), cause.getMessage());
-                    return new ByteArrayInputStream(cause.getMessage().getBytes());
-                } else {
-                	log.error("调用:{} 异常：{}", getRoute(), MessageConstant.SYSTEM_AUTH_NOTSUPPORT);
-                    return new ByteArrayInputStream(MessageConstant.SYSTEM_AUTH_NOTSUPPORT.getBytes());
-                }
+					return new ByteArrayInputStream(cause.getMessage().getBytes());
+				} else {
+					log.error("调用:{} 异常：{}", getRoute(), MessageConstant.SYSTEM_AUTH_NOTSUPPORT);
+					return new ByteArrayInputStream(MessageConstant.SYSTEM_AUTH_NOTSUPPORT
+							.getBytes());
+				}
 			}
 
 			@Override
 			public HttpHeaders getHeaders() {
 				HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(MediaType.APPLICATION_JSON);
-                return headers;
+				headers.setContentType(MediaType.APPLICATION_JSON);
+				return headers;
 			}
 
 			@Override
@@ -76,9 +74,9 @@ public class AuthFallbackProvider implements FallbackProvider {
 
 			@Override
 			public void close() {
-				
+
 			}
-			
+
 		};
 	}
 

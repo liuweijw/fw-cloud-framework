@@ -7,7 +7,7 @@ spring:
   profiles:
     active: native #native访问本地配置 dev 打开git配置
   cloud:
-    config: 
+    config:
       server:
         #git:
           #uri: https://github.com/liuweijw/fw-cloud-framework-config.git # 配置git仓库的地址
@@ -53,5 +53,4 @@ eureka:
     prefer-ip-address: true
   client:
     serviceUrl:
-      defaultZone: http://localhost:1001/eureka
-    registry-fetch-interval-seconds: 10
+      defaultZone: http://admin:liuweijw@localhost:1001/eureka

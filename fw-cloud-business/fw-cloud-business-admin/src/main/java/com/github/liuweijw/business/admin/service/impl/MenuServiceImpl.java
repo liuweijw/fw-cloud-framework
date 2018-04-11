@@ -31,35 +31,33 @@ import com.github.liuweijw.core.utils.StringHelper;
 public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 
 	@Autowired
-	private RoleRepository roleRepository;
-	
+	private RoleRepository	roleRepository;
+
 	@Autowired
-	private MenuRepository menuRepository;
-	
+	private MenuRepository	menuRepository;
+
 	@Override
 	@Cacheable(value = AdminCacheKey.MENU_INFO, key = AdminCacheKey.MENU_INFO_KEY_ROLECODE)
 	public Set<AuthMenu> findMenuByRole(String roleCode) {
-		if(StringHelper.isBlank(roleCode)) return null;
+		if (StringHelper.isBlank(roleCode)) return null;
 
 		Role role = roleRepository.findRoleByRoleCode(roleCode.trim());
-		if(null == role) return null;
+		if (null == role) return null;
 
 		QRoleMenu qRoleMenu = QRoleMenu.roleMenu;
 		QMenu qMenu = QMenu.menu;
-		List<Menu> rList = this.queryFactory.select(qMenu)
-											.from(qRoleMenu,qMenu)
-											.where(qRoleMenu.roleId.eq(role.getRoleId()))
-											.where(qRoleMenu.menuId.eq(qMenu.menuId))
-											.fetch();
-		
-		if(null == rList || rList.size() == 0) return null;
-		
+		List<Menu> rList = this.queryFactory.select(qMenu).from(qRoleMenu, qMenu).where(
+				qRoleMenu.roleId.eq(role.getRoleId())).where(qRoleMenu.menuId.eq(qMenu.menuId))
+				.fetch();
+
+		if (null == rList || rList.size() == 0) return null;
+
 		Set<AuthMenu> mList = new HashSet<AuthMenu>();
-    	for(Menu m : rList){
-    		AuthMenu authMenu = new AuthMenu();
-    		BeanUtils.copyProperties(m, authMenu);
-    		mList.add(authMenu);
-    	}
+		for (Menu m : rList) {
+			AuthMenu authMenu = new AuthMenu();
+			BeanUtils.copyProperties(m, authMenu);
+			mList.add(authMenu);
+		}
 		return mList;
 	}
 
@@ -68,23 +66,21 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 	public Set<String> findMenuPermissions(String roleCode) {
 		Set<String> permissions = new HashSet<>();
 		// 查询Role
-    	Role role = roleRepository.findRoleByRoleCode(roleCode.trim());
-		if(null == role) return permissions;
+		Role role = roleRepository.findRoleByRoleCode(roleCode.trim());
+		if (null == role) return permissions;
 		// 查询菜单
 		QRoleMenu qRoleMenu = QRoleMenu.roleMenu;
 		QRoleMenuPermission qRoleMenuPermission = QRoleMenuPermission.roleMenuPermission;
-		List<RoleMenuPermission> rList = this.queryFactory.select(qRoleMenuPermission)
-											.from(qRoleMenuPermission,qRoleMenu)
-											.where(qRoleMenu.roleId.eq(role.getRoleId()))
-											.where(qRoleMenuPermission.roleMenuId.eq(qRoleMenu.id))
-											.fetch();
-		
-        if(null == rList || rList.size() == 0) return permissions;
-        
-        rList.stream().forEach(r -> {
-        	permissions.add(r.getPermission());
-        });
-        
+		List<RoleMenuPermission> rList = this.queryFactory.select(qRoleMenuPermission).from(
+				qRoleMenuPermission, qRoleMenu).where(qRoleMenu.roleId.eq(role.getRoleId())).where(
+				qRoleMenuPermission.roleMenuId.eq(qRoleMenu.id)).fetch();
+
+		if (null == rList || rList.size() == 0) return permissions;
+
+		rList.stream().forEach(r -> {
+			permissions.add(r.getPermission());
+		});
+
 		return permissions;
 	}
 
@@ -93,29 +89,27 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 	@Transactional
 	public Boolean deleteMenu(Integer menuId, String roleCode) {
 		Assert.isNull(menuId, "菜单ID不能为空");
-		
+
 		// 删除当前节点 -- 假删除
 		QMenu qMenu = QMenu.menu;
-		this.queryFactory.update(qMenu)
-						 .set(qMenu.statu, CommonConstant.STATUS_DEL)
-						 .where(qMenu.menuId.eq(menuId)).execute();
-		
-        // 删除父节点为当前节点的节点 -- 假删除
-		this.queryFactory.update(qMenu)
-		 				 .set(qMenu.statu, CommonConstant.STATUS_DEL)
-		 				 .where(qMenu.pid.eq(menuId)).execute();
-		
-        return true;
+		this.queryFactory.update(qMenu).set(qMenu.statu, CommonConstant.STATUS_DEL).where(
+				qMenu.menuId.eq(menuId)).execute();
+
+		// 删除父节点为当前节点的节点 -- 假删除
+		this.queryFactory.update(qMenu).set(qMenu.statu, CommonConstant.STATUS_DEL).where(
+				qMenu.pid.eq(menuId)).execute();
+
+		return true;
 	}
 
 	@Override
 	@CacheEvict(value = AdminCacheKey.MENU_INFO, key = AdminCacheKey.MENU_INFO_KEY_ROLECODE)
-	public Boolean updateMenuById(Menu menu,String roleCode) {
-		
-		if(null == menu || null == menu.getMenuId()) return null;
-		
+	public Boolean updateMenuById(Menu menu, String roleCode) {
+
+		if (null == menu || null == menu.getMenuId()) return null;
+
 		menuRepository.saveAndFlush(menu);
-		
+
 		return true;
 	}
 

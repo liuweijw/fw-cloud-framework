@@ -13,7 +13,6 @@ import com.github.liuweijw.business.commons.web.aop.PrePermissions;
  * 菜单服务
  * 
  * @author liuweijw
- *
  */
 @RestController
 @RequestMapping("/menu")
@@ -21,6 +20,6 @@ import com.github.liuweijw.business.commons.web.aop.PrePermissions;
 public class MenuController extends BaseController {
 
 	@Autowired
-	private MenuService menuService;
-	
+	private MenuService	menuService;
+
 }

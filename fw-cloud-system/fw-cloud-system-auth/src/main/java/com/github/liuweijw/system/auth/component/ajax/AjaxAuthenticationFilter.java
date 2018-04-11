@@ -18,46 +18,42 @@ import com.github.liuweijw.core.utils.StringHelper;
  * @author liuweijw
  */
 public class AjaxAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
-	
-    private boolean postOnly = true;
 
-    public AjaxAuthenticationFilter() {
-        super(new AntPathRequestMatcher(SecurityConstant.MOBILE_TOKEN_URL, "POST"));
-    }
+	private boolean	postOnly	= true;
 
-    @Override
-    public Authentication attemptAuthentication(HttpServletRequest request,
-                                                HttpServletResponse response) throws AuthenticationException {
-        if (postOnly && !request.getMethod().equals(HttpMethod.POST.name())) {
-            throw new AuthenticationServiceException(
-                    "Authentication method not supported: " + request.getMethod());
-        }
+	public AjaxAuthenticationFilter() {
+		super(new AntPathRequestMatcher(SecurityConstant.MOBILE_TOKEN_URL, "POST"));
+	}
 
-        String mobile = obtainMobile(request);
-        if (StringHelper.isBlank(mobile)) mobile = "";
-        
-        AjaxAuthenticationToken ajaxAuthenticationToken = new AjaxAuthenticationToken(mobile.trim());
+	@Override
+	public Authentication attemptAuthentication(HttpServletRequest request,
+			HttpServletResponse response) throws AuthenticationException {
+		if (postOnly && !request.getMethod().equals(HttpMethod.POST.name())) { throw new AuthenticationServiceException(
+				"Authentication method not supported: " + request.getMethod()); }
 
-        setDetails(request, ajaxAuthenticationToken);
+		String mobile = obtainMobile(request);
+		if (StringHelper.isBlank(mobile)) mobile = "";
 
-        return this.getAuthenticationManager().authenticate(ajaxAuthenticationToken);
-    }
+		AjaxAuthenticationToken ajaxAuthenticationToken = new AjaxAuthenticationToken(mobile.trim());
 
-    private String obtainMobile(HttpServletRequest request) {
-        return request.getParameter(CommonConstant.SPRING_SECURITY_FORM_MOBILE_KEY);
-    }
+		setDetails(request, ajaxAuthenticationToken);
 
-    private void setDetails(HttpServletRequest request,
-                              AjaxAuthenticationToken authRequest) {
-        authRequest.setDetails(authenticationDetailsSource.buildDetails(request));
-    }
+		return this.getAuthenticationManager().authenticate(ajaxAuthenticationToken);
+	}
 
-    public void setPostOnly(boolean postOnly) {
-        this.postOnly = postOnly;
-    }
+	private String obtainMobile(HttpServletRequest request) {
+		return request.getParameter(CommonConstant.SPRING_SECURITY_FORM_MOBILE_KEY);
+	}
 
-    public boolean isPostOnly() {
-        return postOnly;
-    }
+	private void setDetails(HttpServletRequest request, AjaxAuthenticationToken authRequest) {
+		authRequest.setDetails(authenticationDetailsSource.buildDetails(request));
+	}
+
+	public void setPostOnly(boolean postOnly) {
+		this.postOnly = postOnly;
+	}
+
+	public boolean isPostOnly() {
+		return postOnly;
+	}
 }
-
