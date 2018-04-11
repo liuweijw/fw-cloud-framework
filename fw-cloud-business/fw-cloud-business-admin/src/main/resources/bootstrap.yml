@@ -27,16 +27,21 @@ eureka:
 business:
   permission:
     enabled: true
+fw:
+  jwt:
+    jwtkey: jwt:token:liuweijw
 ---
 spring:
-  profiles: prd
+  profiles: proj
 eureka:
   instance:
     prefer-ip-address: true
   client:
     serviceUrl:
       defaultZone: http://admin:liuweijw@localhost:1001/eureka
-    registry-fetch-interval-seconds: 10
 business:
   permission:
     enabled: true
+fw:
+  jwt:
+    jwtkey: jwt:token:liuweijw

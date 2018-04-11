@@ -8,6 +8,6 @@ import com.github.liuweijw.core.utils.R;
 public interface WxUnifiedOrderService {
 
 	public R<Map<String, Object>> doWxUnifiedOrderRequest(String tradeTypeApp, PayOrder payOrder,
-			Map<String,String> params);
-	
+			Map<String, String> params);
+
 }

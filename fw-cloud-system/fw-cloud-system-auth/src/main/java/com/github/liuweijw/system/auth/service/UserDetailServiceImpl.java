@@ -12,24 +12,21 @@ import com.github.liuweijw.core.beans.system.AuthUser;
 import com.github.liuweijw.core.utils.StringHelper;
 
 @Service("userDetailService")
-public class UserDetailServiceImpl implements UserDetailsService,Serializable{
+public class UserDetailServiceImpl implements UserDetailsService, Serializable {
 
-	private static final long serialVersionUID = 5181442448895412779L;
-	
+	private static final long	serialVersionUID	= 5181442448895412779L;
+
 	@Autowired
-	private UserService userService;
-	
+	private UserService			userService;
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		if (StringHelper.isBlank(username)) {
-            throw new UsernameNotFoundException("用户不存在:" + username);
-        }
-		
+		if (StringHelper.isBlank(username)) { throw new UsernameNotFoundException("用户不存在:"
+				+ username); }
+
 		AuthUser user = userService.findUserByUsername(username);
-		if(null == user){
-			throw new UsernameNotFoundException("用户不存在:" + username);
-		}
-		
+		if (null == user) { throw new UsernameNotFoundException("用户不存在:" + username); }
+
 		return new UserDetailsImpl(user);
 	}
 

@@ -19,7 +19,6 @@ import com.github.liuweijw.core.utils.R;
  * 部门管理服务
  * 
  * @author liuweijw
- *
  */
 @RestController
 @RequestMapping("/dept")
@@ -27,12 +26,12 @@ import com.github.liuweijw.core.utils.R;
 public class DeptController extends BaseController {
 
 	@Autowired
-	private DeptService deptService;
-	
-    @GetMapping(value = "/tree")
-    @PrePermissions(value = Functional.VIEW)
-    public R<List<DeptTree>> getDeptTreeList() {
-        return new R<List<DeptTree>>().data(deptService.getDeptTreeList());
-    }
+	private DeptService	deptService;
+
+	@GetMapping(value = "/tree")
+	@PrePermissions(value = Functional.VIEW)
+	public R<List<DeptTree>> getDeptTreeList() {
+		return new R<List<DeptTree>>().data(deptService.getDeptTreeList());
+	}
 
 }

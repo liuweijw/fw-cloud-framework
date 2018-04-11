@@ -11,7 +11,7 @@ spring:
         enabled: true
       profile: ${spring.profiles.active}
       label: ${spring.profiles.active}
-      
+
 ---
 spring:
   profiles: dev
@@ -24,7 +24,9 @@ eureka:
     serviceUrl:
       defaultZone: http://admin:liuweijw@localhost:1001/eureka
     registry-fetch-interval-seconds: 10
-
+fw:
+  jwt:
+    jwtkey: jwt:token:liuweijw
 ---
 spring:
   profiles: proj
@@ -34,4 +36,6 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://admin:liuweijw@localhost:1001/eureka
-    registry-fetch-interval-seconds: 10 #默认30s
+fw:
+  jwt:
+    jwtkey: jwt:token:liuweijw

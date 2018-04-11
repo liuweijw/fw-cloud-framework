@@ -5,6 +5,7 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
 import com.github.liuweijw.business.admin.domain.Menu;
 
-public interface MenuRepository extends JpaRepository<Menu, Integer>, QueryDslPredicateExecutor<Menu> {
+public interface MenuRepository extends JpaRepository<Menu, Integer>,
+		QueryDslPredicateExecutor<Menu> {
 
 }

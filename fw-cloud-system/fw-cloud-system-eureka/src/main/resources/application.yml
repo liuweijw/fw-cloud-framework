@@ -4,13 +4,8 @@ server:
 spring:
   application:
     name: system-eureka-server
-
-security:
-  basic:
-    enabled: true
-  user:
-    name: admin
-    password: liuweijw
+  profiles:
+    active: dev
 
 eureka:
   client:
@@ -20,6 +15,26 @@ eureka:
           defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
   instance:
     hostname: localhost
-  server: 
+  server:
     enable-self-preservation: false #Eureka自我保护机制以及心跳周期长会遇到 Eureka不剔除已关停的节点的问题，默认打开状态。建议生产环境打开此配置
     eviction-interval-timer-in-ms: 4000 #清理间隔（单位毫秒，默认是60*1000）
+
+---
+spring:
+  profiles: dev
+security:
+  basic:
+    enabled: true
+  user:
+    name: admin
+    password: liuweijw
+
+---
+spring:
+  profiles: proj
+security:
+  basic:
+    enabled: true
+  user:
+    name: admin
+    password: liuweijw

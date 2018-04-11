@@ -15,23 +15,25 @@ import com.github.liuweijw.system.auth.service.UserService;
  * @author liuweijw
  */
 @Component
-public class AjaxSecurityConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
-    
-	@Autowired
-    private AuthenticationSuccessHandler jwtLoginSuccessHandler;
-    
-	@Autowired
-    private UserService userService;
+public class AjaxSecurityConfigurer extends
+		SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-        AjaxAuthenticationFilter ajaxAuthenticationFilter = new AjaxAuthenticationFilter();
-        ajaxAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
-        ajaxAuthenticationFilter.setAuthenticationSuccessHandler(jwtLoginSuccessHandler);
+	@Autowired
+	private AuthenticationSuccessHandler	jwtLoginSuccessHandler;
 
-        AjaxAuthenticationProvider ajaxAuthenticationProvider = new AjaxAuthenticationProvider();
-        ajaxAuthenticationProvider.setUserService(userService);
-        http.authenticationProvider(ajaxAuthenticationProvider)
-                .addFilterAfter(ajaxAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-    }
+	@Autowired
+	private UserService						userService;
+
+	@Override
+	public void configure(HttpSecurity http) throws Exception {
+		AjaxAuthenticationFilter ajaxAuthenticationFilter = new AjaxAuthenticationFilter();
+		ajaxAuthenticationFilter.setAuthenticationManager(http
+				.getSharedObject(AuthenticationManager.class));
+		ajaxAuthenticationFilter.setAuthenticationSuccessHandler(jwtLoginSuccessHandler);
+
+		AjaxAuthenticationProvider ajaxAuthenticationProvider = new AjaxAuthenticationProvider();
+		ajaxAuthenticationProvider.setUserService(userService);
+		http.authenticationProvider(ajaxAuthenticationProvider).addFilterAfter(
+				ajaxAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+	}
 }

@@ -6,21 +6,20 @@ import java.io.Serializable;
  * 回调通知Bean
  * 
  * @author liuweijw
- *
  */
 public class NotifyBean implements Serializable {
 
-	private static final long serialVersionUID = -235116261615512831L;
+	private static final long	serialVersionUID	= -235116261615512831L;
 
-	private String method;
-	
-	private String url;
-	
-	private String orderId;
-	
-	private Integer count;
-	
-	private Long createTime;
+	private String				method;
+
+	private String				url;
+
+	private String				orderId;
+
+	private Integer				count;
+
+	private Long				createTime;
 
 	public String getMethod() {
 		return method;
@@ -61,5 +60,5 @@ public class NotifyBean implements Serializable {
 	public void setCreateTime(Long createTime) {
 		this.createTime = createTime;
 	}
-	
+
 }

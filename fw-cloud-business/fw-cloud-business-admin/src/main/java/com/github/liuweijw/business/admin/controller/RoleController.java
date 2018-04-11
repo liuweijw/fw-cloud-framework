@@ -20,26 +20,25 @@ import com.github.liuweijw.core.utils.R;
  * 角色服务
  * 
  * @author liuweijw
- *
  */
 @RestController
 @RequestMapping("/role")
 @PrePermissions(value = Module.ROLE)
 public class RoleController extends BaseController {
-	
+
 	@Autowired
-	private RoleService roleService;
-	
+	private RoleService	roleService;
+
 	@GetMapping(value = "/listByDeptId/{deptId}")
 	@PrePermissions(value = Functional.VIEW)
-    public R<List<Role>> getRoleListByDeptId(@PathVariable("deptId") Integer deptId) {
-        return new R<List<Role>>().data(roleService.getRoleListByDeptId(deptId));
-    }
-	
+	public R<List<Role>> getRoleListByDeptId(@PathVariable("deptId") Integer deptId) {
+		return new R<List<Role>>().data(roleService.getRoleListByDeptId(deptId));
+	}
+
 	@GetMapping(value = "/list")
 	@PrePermissions(value = Functional.VIEW)
-    public R<List<Role>> getRoleList() {
-        return new R<List<Role>>().data(roleService.getRoleList());
-    }
-	
+	public R<List<Role>> getRoleList() {
+		return new R<List<Role>>().data(roleService.getRoleList());
+	}
+
 }

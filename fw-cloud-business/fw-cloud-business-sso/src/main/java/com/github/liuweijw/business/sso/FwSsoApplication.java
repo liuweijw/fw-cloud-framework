@@ -11,15 +11,15 @@ import org.springframework.context.annotation.ComponentScan;
  * sso demo
  * 
  * @author liuweijw
- * 
  */
-@SpringBootApplication(exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
+@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class,
+		HibernateJpaAutoConfiguration.class })
 @EnableOAuth2Sso
-@ComponentScan(basePackages = {"com.github.liuweijw.business.sso"})
+@ComponentScan(basePackages = { "com.github.liuweijw.business.sso" })
 public class FwSsoApplication {
-	
-    public static void main(String[] args) {
-        SpringApplication.run(FwSsoApplication.class, args);
-    }
-    
+
+	public static void main(String[] args) {
+		SpringApplication.run(FwSsoApplication.class, args);
+	}
+
 }

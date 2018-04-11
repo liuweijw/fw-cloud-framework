@@ -14,27 +14,27 @@ import com.github.liuweijw.core.commons.constants.CommonConstant;
 
 public class UserDetailsImpl implements UserDetails {
 
-	private static final long serialVersionUID = 4996108569522332042L;
-	
-	private String username;
-    private String password;
-    private Integer status = 0;
-    private List<AuthRole> roleList = new ArrayList<>();
+	private static final long	serialVersionUID	= 4996108569522332042L;
 
-    public UserDetailsImpl(AuthUser authUser) {
-        this.username = authUser.getUsername();
-        this.password = authUser.getPassword();
-        this.status = authUser.getStatu();
-        this.roleList = authUser.getRoleList();
-    }
-    
+	private String				username;
+	private String				password;
+	private Integer				status				= 0;
+	private List<AuthRole>		roleList			= new ArrayList<>();
+
+	public UserDetailsImpl(AuthUser authUser) {
+		this.username = authUser.getUsername();
+		this.password = authUser.getPassword();
+		this.status = authUser.getStatu();
+		this.roleList = authUser.getRoleList();
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> authorityList = new ArrayList<>();
-        for (AuthRole role : roleList) {
-            authorityList.add(new SimpleGrantedAuthority(role.getRoleCode()));
-        }
-        return authorityList;
+		for (AuthRole role : roleList) {
+			authorityList.add(new SimpleGrantedAuthority(role.getRoleCode()));
+		}
+		return authorityList;
 	}
 
 	@Override
@@ -48,24 +48,24 @@ public class UserDetailsImpl implements UserDetails {
 	}
 
 	@Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+	public boolean isAccountNonExpired() {
+		return true;
+	}
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return CommonConstant.STATUS_LOCK.intValue() == status.intValue() ? false : true;
-    }
+	@Override
+	public boolean isAccountNonLocked() {
+		return CommonConstant.STATUS_LOCK.intValue() == status.intValue() ? false : true;
+	}
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return CommonConstant.STATUS_NORMAL.intValue() == status.intValue() ? true : false;
-    }
+	@Override
+	public boolean isEnabled() {
+		return CommonConstant.STATUS_NORMAL.intValue() == status.intValue() ? true : false;
+	}
 
 	public Integer getStatus() {
 		return status;

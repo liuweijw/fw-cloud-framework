@@ -4,22 +4,21 @@ package com.github.liuweijw.business.commons.beans;
  * 分页bean的扩展
  * 
  * @author liuweijw
- *
  * @param <T>
  */
-public class ExtentPageBean <T> extends PageBean<T> {
+public class ExtentPageBean<T> extends PageBean<T> {
 
-	private String key1;
-	
-	private String key2;
-	
-	private String key3;
-	
-	private String key4;
-	
-	private Integer num1 = 0;
-	
-	private Integer num2 = 0;
+	private String	key1;
+
+	private String	key2;
+
+	private String	key3;
+
+	private String	key4;
+
+	private Integer	num1	= 0;
+
+	private Integer	num2	= 0;
 
 	public String getKey1() {
 		return key1;
@@ -68,5 +67,5 @@ public class ExtentPageBean <T> extends PageBean<T> {
 	public void setNum2(Integer num2) {
 		this.num2 = num2;
 	}
-	
+
 }

@@ -11,37 +11,35 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
 /**
- * @author liuweijw
- * 
- * 网关统一异常处理
+ * @author liuweijw 网关统一异常处理
  */
 @Component
 public class ErrorHandlerFilter extends ZuulFilter {
-	
-    @Autowired
-    private LogService logService;
 
-    @Override
-    public String filterType() {
-        return ERROR_TYPE;
-    }
+	@Autowired
+	private LogService	logService;
 
-    @Override
-    public int filterOrder() {
-        return SEND_RESPONSE_FILTER_ORDER + 1;
-    }
+	@Override
+	public String filterType() {
+		return ERROR_TYPE;
+	}
 
-    @Override
-    public boolean shouldFilter() {
-        RequestContext requestContext = RequestContext.getCurrentContext();
-        return requestContext.getThrowable() != null;
-    }
+	@Override
+	public int filterOrder() {
+		return SEND_RESPONSE_FILTER_ORDER + 1;
+	}
 
-    @Override
-    public Object run() {
-        RequestContext requestContext = RequestContext.getCurrentContext();
-        logService.send(requestContext);
-        return null;
-    }
+	@Override
+	public boolean shouldFilter() {
+		RequestContext requestContext = RequestContext.getCurrentContext();
+		return requestContext.getThrowable() != null;
+	}
+
+	@Override
+	public Object run() {
+		RequestContext requestContext = RequestContext.getCurrentContext();
+		logService.send(requestContext);
+		return null;
+	}
 
 }

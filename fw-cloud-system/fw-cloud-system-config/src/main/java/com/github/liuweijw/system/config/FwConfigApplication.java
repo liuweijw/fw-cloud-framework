@@ -6,19 +6,17 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.config.server.EnableConfigServer;
 
 /**
- * 
  * Config Server 配置中心
  * 
  * @author liuweijw
- * 
  */
 @EnableDiscoveryClient
 @EnableConfigServer
 @SpringBootApplication
 public class FwConfigApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(FwConfigApplication.class, args);
-    }
-    
+	public static void main(String[] args) {
+		SpringApplication.run(FwConfigApplication.class, args);
+	}
+
 }

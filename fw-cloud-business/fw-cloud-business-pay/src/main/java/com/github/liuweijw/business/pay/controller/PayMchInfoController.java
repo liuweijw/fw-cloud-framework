@@ -15,18 +15,17 @@ import com.github.liuweijw.core.utils.R;
  * 支付渠道商户信息获取
  * 
  * @author liuweijw
- *
  */
 @RestController
 @RequestMapping(value = "/pay/mchinfo")
 public class PayMchInfoController extends BaseController {
 
 	@Autowired
-    private MchInfoService mchInfoService;
-	
+	private MchInfoService	mchInfoService;
+
 	@GetMapping("/find/{mchId}")
-    public R<PayMchInfo> findMchInfoByMchId(@PathVariable String mchId) {
-        return new R<PayMchInfo>().data(mchInfoService.findMchInfoByMchId(mchId));
-    }
-	
+	public R<PayMchInfo> findMchInfoByMchId(@PathVariable String mchId) {
+		return new R<PayMchInfo>().data(mchInfoService.findMchInfoByMchId(mchId));
+	}
+
 }

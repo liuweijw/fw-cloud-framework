@@ -4,41 +4,41 @@ import java.io.Serializable;
 
 public class AuthRole implements Serializable {
 
-	private static final long serialVersionUID = -213874145064828983L;
+	private static final long	serialVersionUID	= -213874145064828983L;
 
 	/**
 	 * 角色ID
 	 */
-    private Integer roleId;
-    
-    /**
-     * 角色名称
-     */
-    private String roleName;
-    
-    /**
-     * 角色编码，唯一
-     */
-    private String roleCode;
-    
-    /**
-     * 描述
-     */
-    private String roleDesc;
-    
-    /**
-     * 0-正常，1-删除
-     */
-    private Integer statu;
+	private Integer				roleId;
 
-    public AuthRole(){
-    	
-    }
-    
-    public AuthRole(String roleCode){
-    	this.roleCode = roleCode;
-    }
-    
+	/**
+	 * 角色名称
+	 */
+	private String				roleName;
+
+	/**
+	 * 角色编码，唯一
+	 */
+	private String				roleCode;
+
+	/**
+	 * 描述
+	 */
+	private String				roleDesc;
+
+	/**
+	 * 0-正常，1-删除
+	 */
+	private Integer				statu;
+
+	public AuthRole() {
+
+	}
+
+	public AuthRole(String roleCode) {
+		this.roleCode = roleCode;
+	}
+
 	public Integer getRoleId() {
 		return roleId;
 	}

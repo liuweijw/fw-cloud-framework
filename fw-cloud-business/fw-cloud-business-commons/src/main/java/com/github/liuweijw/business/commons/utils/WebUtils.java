@@ -14,7 +14,6 @@ import com.github.liuweijw.exception.CheckedException;
  * Web相关工具类
  * 
  * @author liuweijw
- *
  */
 public class WebUtils extends com.github.liuweijw.core.utils.WebUtils {
 
@@ -23,15 +22,15 @@ public class WebUtils extends com.github.liuweijw.core.utils.WebUtils {
 	 * 
 	 * @param userAgent
 	 */
-	public static boolean isWxRequest(String userAgent){
+	public static boolean isWxRequest(String userAgent) {
 		return userAgent.indexOf("micromessenger") > -1;
 	}
-	
+
 	public static void handleWithResponse(HttpServletResponse response, String responseStr) {
-        PrintWriter printWriter;
+		PrintWriter printWriter;
 		try {
 			response.setCharacterEncoding(CommonConstant.UTF8);
-	        response.setContentType(CommonConstant.CONTENT_TYPE);
+			response.setContentType(CommonConstant.CONTENT_TYPE);
 			printWriter = response.getWriter();
 			printWriter.append(responseStr);
 		} catch (IOException e) {
@@ -39,7 +38,7 @@ public class WebUtils extends com.github.liuweijw.core.utils.WebUtils {
 			throw new CheckedException("Failed to response");
 		}
 	}
-	
+
 	public static String buildURLParams(String returnUrl, String filterKey) {
 		if (StringHelper.isBlank(returnUrl)) return "";
 		if (!returnUrl.contains("?")) return returnUrl;
@@ -60,7 +59,7 @@ public class WebUtils extends com.github.liuweijw.core.utils.WebUtils {
 		return urls[0] + "?" + returnUrlBuffer.toString();
 	}
 
-	public static String buildAppendURLParams(String returnUrl,String... params) {
+	public static String buildAppendURLParams(String returnUrl, String... params) {
 		if (StringHelper.isBlank(returnUrl) || params.length == 0) return returnUrl;
 		StringBuilder builder = new StringBuilder();
 		builder.append(returnUrl).append((returnUrl.contains("?") ? "&" : "?"));
@@ -72,7 +71,7 @@ public class WebUtils extends com.github.liuweijw.core.utils.WebUtils {
 		}
 		return builder.toString();
 	}
-	
+
 	public static String buildRequestBaseURL(HttpServletRequest request) {
 		return request.getScheme() + "://" + request.getServerName() + ":"
 				+ request.getServerPort() + request.getContextPath();

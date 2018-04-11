@@ -19,17 +19,17 @@ public class AuthController {
 
 	@Autowired
 	@Qualifier("consumerTokenServices")
-	private ConsumerTokenServices consumerTokenServices;
+	private ConsumerTokenServices	consumerTokenServices;
 
-    @PostMapping("/removeToken")
-    @CacheEvict(value = SecurityConstant.TOKEN_USER_DETAIL, key = "#accesstoken")
-    public R<Boolean> removeToken(String accesstoken) {
-    	boolean isRemoved = consumerTokenServices.revokeToken(accesstoken);
-        return new R<Boolean>().data(isRemoved);
-    }
-    
-    @GetMapping("/login")
-    public ModelAndView login() {
-        return new ModelAndView("ftl/login");
-    }
+	@PostMapping("/removeToken")
+	@CacheEvict(value = SecurityConstant.TOKEN_USER_DETAIL, key = "#accesstoken")
+	public R<Boolean> removeToken(String accesstoken) {
+		boolean isRemoved = consumerTokenServices.revokeToken(accesstoken);
+		return new R<Boolean>().data(isRemoved);
+	}
+
+	@GetMapping("/login")
+	public ModelAndView login() {
+		return new ModelAndView("ftl/login");
+	}
 }

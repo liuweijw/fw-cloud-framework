@@ -10,11 +10,11 @@ import com.github.liuweijw.core.beans.system.AuthUser;
 public interface UserService {
 
 	public AuthUser findUserByUsername(String username);
-	
+
 	public User findUserByUsername(String username, boolean isLoadRole);
-	
+
 	public AuthUser findUserByMobile(String mobile);
-	
+
 	public void saveImageCode(String randomStr, String text);
 
 	public UserBean findUserInfo(AuthUser user);
@@ -30,5 +30,5 @@ public interface UserService {
 	public boolean updateUserAndRole(UserForm userForm);
 
 	public boolean updateUser(User user);
-	
+
 }

@@ -33,71 +33,69 @@ import com.xiaoleilu.hutool.map.MapUtil;
  */
 @Component
 public class AjaxLoginSuccessHandler implements AuthenticationSuccessHandler {
-	
-    @Autowired
-    private ObjectMapper objectMapper;
-    
-    @Autowired
-    private ClientDetailsService clientDetailsService;
-    
-    @Autowired
-    private AuthorizationServerTokenServices authorizationServerTokenServices;
 
-    @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        String header = request.getHeader(SecurityConstant.AUTHORIZATION);
-        if (StringHelper.isBlank(header) || !header.startsWith(SecurityConstant.BASIC)) {
-            throw new UnapprovedClientAuthenticationException("请求头中client信息为空");
-        }
+	@Autowired
+	private ObjectMapper						objectMapper;
 
-        try {
-            String[] tokens = extractAndDecodeHeader(header);
-            assert tokens.length == 2;
-            String clientId = tokens[0];
-            String clientSecret = tokens[1];
+	@Autowired
+	private ClientDetailsService				clientDetailsService;
 
-            JSONObject params = new JSONObject();
-            params.put("clientId", clientId);
-            params.put("clientSecret", clientSecret);
-            params.put("authentication", authentication);
+	@Autowired
+	private AuthorizationServerTokenServices	authorizationServerTokenServices;
 
-            ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
-            TokenRequest tokenRequest = new TokenRequest(MapUtil.newHashMap(), clientId, clientDetails.getScope(), "mobile");
-            OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
+	@Override
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+			Authentication authentication) {
+		String header = request.getHeader(SecurityConstant.AUTHORIZATION);
+		if (StringHelper.isBlank(header) || !header.startsWith(SecurityConstant.BASIC)) { throw new UnapprovedClientAuthenticationException(
+				"请求头中client信息为空"); }
 
-            OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, authentication);
-            OAuth2AccessToken oAuth2AccessToken = authorizationServerTokenServices.createAccessToken(oAuth2Authentication);
+		try {
+			String[] tokens = extractAndDecodeHeader(header);
+			assert tokens.length == 2;
+			String clientId = tokens[0];
+			String clientSecret = tokens[1];
 
-            response.setCharacterEncoding(CommonConstant.UTF8);
-            response.setContentType(CommonConstant.CONTENT_TYPE);
-            PrintWriter printWriter = response.getWriter();
-            printWriter.append(objectMapper.writeValueAsString(oAuth2AccessToken));
-            
-        } catch (IOException e) {
-            throw new BadCredentialsException(
-                    "Failed to decode basic authentication token");
-        }
-    }
+			JSONObject params = new JSONObject();
+			params.put("clientId", clientId);
+			params.put("clientSecret", clientSecret);
+			params.put("authentication", authentication);
 
-    private String[] extractAndDecodeHeader(String header)
-            throws IOException {
+			ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
+			TokenRequest tokenRequest = new TokenRequest(MapUtil.newHashMap(), clientId,
+					clientDetails.getScope(), "mobile");
+			OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
 
-        byte[] base64Token = header.substring(6).getBytes("UTF-8");
-        byte[] decoded;
-        try {
-            decoded = Base64.decode(base64Token);
-        } catch (IllegalArgumentException e) {
-            throw new BadCredentialsException(
-                    "Failed to decode basic authentication token");
-        }
+			OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request,
+					authentication);
+			OAuth2AccessToken oAuth2AccessToken = authorizationServerTokenServices
+					.createAccessToken(oAuth2Authentication);
 
-        String token = new String(decoded, CommonConstant.UTF8);
+			response.setCharacterEncoding(CommonConstant.UTF8);
+			response.setContentType(CommonConstant.CONTENT_TYPE);
+			PrintWriter printWriter = response.getWriter();
+			printWriter.append(objectMapper.writeValueAsString(oAuth2AccessToken));
 
-        int delim = token.indexOf(":");
+		} catch (IOException e) {
+			throw new BadCredentialsException("Failed to decode basic authentication token");
+		}
+	}
 
-        if (delim == -1) {
-            throw new BadCredentialsException("Invalid basic authentication token");
-        }
-        return new String[]{token.substring(0, delim), token.substring(delim + 1)};
-    }
+	private String[] extractAndDecodeHeader(String header) throws IOException {
+
+		byte[] base64Token = header.substring(6).getBytes("UTF-8");
+		byte[] decoded;
+		try {
+			decoded = Base64.decode(base64Token);
+		} catch (IllegalArgumentException e) {
+			throw new BadCredentialsException("Failed to decode basic authentication token");
+		}
+
+		String token = new String(decoded, CommonConstant.UTF8);
+
+		int delim = token.indexOf(":");
+
+		if (delim == -1) { throw new BadCredentialsException("Invalid basic authentication token"); }
+		return new String[] { token.substring(0, delim), token.substring(delim + 1) };
+	}
 }
