@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
+import com.alibaba.ttl.TransmittableThreadLocal;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
 import com.github.liuweijw.core.commons.constants.SecurityConstant;
 import com.github.liuweijw.core.utils.StringHelper;
@@ -27,7 +28,7 @@ public class JwtUtil {
 
     private static Logger logger = LoggerFactory.getLogger(JwtUtil.class);
 
-    private static final ThreadLocal<String> THREAD_LOCAL_USER = new ThreadLocal<>();
+    private static final ThreadLocal<String> THREAD_LOCAL_USER = new TransmittableThreadLocal<>();
 
     public static String getUserName(String token) {
     	Claims claims = buildClaims(buildToken(token));

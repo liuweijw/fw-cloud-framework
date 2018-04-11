@@ -19,6 +19,7 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.util.CollectionUtils;
 
 import com.github.liuweijw.core.beans.system.AuthPermission;
+import com.github.liuweijw.core.commons.constants.SecurityConstant;
 import com.github.liuweijw.core.commons.jwt.JwtUtil;
 import com.github.liuweijw.core.utils.StringHelper;
 
@@ -55,6 +56,7 @@ public class PermissionServiceImpl implements PermissionService {
         
         if(!"anonymousUser".equals(principal.toString())) {
         	RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
+        	tokenStore.setPrefix(SecurityConstant.PREFIX);
             OAuth2AccessToken accessToken = tokenStore.readAccessToken(token);
             if(null == accessToken || accessToken.isExpired()){
             	log.warn("==> gateway|permissionService token 过期或者不存在");

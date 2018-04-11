@@ -1,3 +1,12 @@
+<br/>
+<p align="center">
+ <img src="https://img.shields.io/circleci/project/vuejs/vue/dev.svg" alt="Build Status">
+ <img src="https://img.shields.io/badge/Spring%20Cloud-Edgware-blue.svg" alt="Coverage Status">
+ <img src="https://img.shields.io/badge/Spring%20Boot-1.5.9-blue.svg" alt="Downloads">
+ <img src="https://img.shields.io/npm/l/vue.svg" alt="License">
+</p>
+<br/>
+
 # fw-cloud-framework
 基于springcloud全家桶开发分布式框架（支持oauth2认证授权、统一下单、Shardingdbc分库分表、常见服务监控、链路监控、异步日志、redis缓存等功能），实现基于Vue全家桶等前后端分离项目工程。[其它说明](https://github.com/liuweijw/fw-cloud-framework/wiki)
 

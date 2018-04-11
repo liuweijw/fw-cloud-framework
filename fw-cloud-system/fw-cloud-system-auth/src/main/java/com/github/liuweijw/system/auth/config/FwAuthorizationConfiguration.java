@@ -1,5 +1,9 @@
 package com.github.liuweijw.system.auth.config;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,17 +13,20 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import com.github.liuweijw.core.commons.constants.CommonConstant;
 import com.github.liuweijw.core.commons.constants.SecurityConstant;
-import com.github.liuweijw.system.auth.component.FwWebResponseExceptionTranslator;
 
 /**
  * @author liuweijw
@@ -43,9 +50,6 @@ public class FwAuthorizationConfiguration extends AuthorizationServerConfigurerA
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
 
-    @Autowired
-    private FwWebResponseExceptionTranslator fwWebResponseExceptionTranslator;
-
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
@@ -59,11 +63,12 @@ public class FwAuthorizationConfiguration extends AuthorizationServerConfigurerA
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
+    	TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), jwtAccessTokenConverter()));
         endpoints
-                .tokenStore(new RedisTokenStore(redisConnectionFactory))
-                .accessTokenConverter(jwtAccessTokenConverter())
+		        .tokenStore(redisTokenStore())
+		        .tokenEnhancer(tokenEnhancerChain)
                 .authenticationManager(authenticationManager)
-                .exceptionTranslator(fwWebResponseExceptionTranslator)
                 .reuseRefreshTokens(false)
                 .userDetailsService(userDetailsService);
     }
@@ -84,7 +89,7 @@ public class FwAuthorizationConfiguration extends AuthorizationServerConfigurerA
 
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
+        JwtAccessTokenConverter jwtAccessTokenConverter = new FwJwtAccessTokenConverter();
         jwtAccessTokenConverter.setSigningKey(CommonConstant.SIGN_KEY);
     	// log.info("Initializing JWT with public key:\n" + authServerConfiguration.getPublicKey());
         
@@ -95,4 +100,27 @@ public class FwAuthorizationConfiguration extends AuthorizationServerConfigurerA
         return jwtAccessTokenConverter;
     }
 
+    /**
+     * tokenstore 定制化处理
+     */
+    @Bean
+    public TokenStore redisTokenStore() {
+        RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
+        tokenStore.setPrefix(SecurityConstant.PREFIX);
+        return tokenStore;
+    }
+
+    /**
+     * jwt 生成token 定制化处理
+     * @return TokenEnhancer
+     */
+    @Bean
+    public TokenEnhancer tokenEnhancer() {
+        return (accessToken, authentication) -> {
+            final Map<String, Object> additionalInfo = new HashMap<>(1);
+            additionalInfo.put("license", SecurityConstant.LICENSE);
+            ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
+            return accessToken;
+        };
+    }
 }
