@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
 import com.github.liuweijw.core.commons.constants.SecurityConstant;
 import com.github.liuweijw.core.utils.StringHelper;
-import com.xiaoleilu.hutool.util.MapUtil;
+import com.xiaoleilu.hutool.map.MapUtil;
 
 /**
  * @author liuweijw

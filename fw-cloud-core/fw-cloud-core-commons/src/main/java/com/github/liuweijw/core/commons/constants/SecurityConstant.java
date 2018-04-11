@@ -110,4 +110,12 @@ public interface SecurityConstant {
      * 默认的social的注册地址
      */
     String DEFAULT_SOCIAL_SIGNUP_URL = "/social/signup";
+    /**
+     * LICENSE
+     */
+    String LICENSE = "Copyright (c) 2018 liuweijw";
+    /**
+     * 前缀
+     */
+    String PREFIX = "liuweijw_";
 }

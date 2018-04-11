@@ -81,6 +81,7 @@
         <lombok.version>1.16.20</lombok.version>
         <swagger2.version>2.8.0</swagger2.version>
         <zuul-ratelimit>1.5.0.RELEASE</zuul-ratelimit>
+        <ttl.version>2.2.0</ttl.version>
         <fw.version>1.0.2-SNAPSHOT</fw.version>
         <fw.system.version>${fw.version}</fw.system.version>
         <fw.business.version>${fw.version}</fw.business.version>
