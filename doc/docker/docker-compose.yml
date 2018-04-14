@@ -28,7 +28,7 @@ services:
     ports:
       - 1004:1004
     volumes:
-      - /usr/web/logs/:/usr/web/logs/
+      - /usr/web/logs/auth/:/usr/web/logs/auth/
 
   admin-server:
     links:
@@ -40,7 +40,7 @@ services:
     ports:
       - 2002:2002
     volumes:
-      - /usr/web/logs/:/usr/web/logs/
+      - /usr/web/logs/admin/:/usr/web/logs/admin/
 
   pay-server:
     links:
@@ -52,14 +52,28 @@ services:
     ports:
       - 2003:2003
     volumes:
-      - /usr/web/logs/:/usr/web/logs/
+      - /usr/web/logs/pay/:/usr/web/logs/pay/
+      - /usr/web/cert/:/usr/web/cert/
 
+  wechat-server:
+    links:
+      - eureka-server:eureka
+    build:
+      context: ./
+      dockerfile: Dockerfile-wechat
+    restart: always
+    ports:
+      - 2004:2004
+    volumes:
+      - /usr/web/logs/wechat/:/usr/web/logs/wechat/
+  
   gateway-server:
     links:
       - eureka-server:eureka
       - auth-server:auth
       - admin-server:admin
       - pay-server:pay
+      - wechat-server:wechat
     build:
       context: ./
       dockerfile: Dockerfile-gateway

@@ -1,0 +1,18 @@
+package com.github.liuweijw.business.wechat.service;
+
+import me.chanjar.weixin.common.exception.WxErrorException;
+
+import com.github.liuweijw.business.pay.commons.beans.MsgBean;
+import com.github.liuweijw.business.pay.commons.enums.WxTemplateEnum;
+
+public interface MessageService {
+
+	/**
+	 * 发送微信模板消息通知
+	 * 
+	 * @param wxTemplateEnum
+	 */
+	boolean sendWeixinTemplateMessage(WxTemplateEnum wxTemplateEnum, MsgBean msgBean)
+			throws WxErrorException;
+
+}

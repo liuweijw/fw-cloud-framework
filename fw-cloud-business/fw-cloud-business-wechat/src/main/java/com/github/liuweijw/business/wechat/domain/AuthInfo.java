@@ -1,0 +1,142 @@
+package com.github.liuweijw.business.wechat.domain;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = AuthInfo.TABLE_NAME)
+public class AuthInfo implements Serializable {
+
+	private static final long	serialVersionUID	= 49262005715559358L;
+
+	public static final String	TABLE_NAME			= "t_wechat_auth_info";
+
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
+	private Long				id;
+
+	@Column(name = "open_id", length = 64)
+	private String				openId;
+
+	@Column(name = "wechat_id", length = 32)
+	private String				wechatId;
+
+	@Column(name = "nick_name", length = 255)
+	private String				nickName;
+
+	@Column(name = "sex", length = 11)
+	private String				sex;
+
+	@Column(name = "language", length = 64)
+	private String				language;
+
+	@Column(name = "city", length = 64)
+	private String				city;
+
+	@Column(name = "province", length = 64)
+	private String				province;
+
+	@Column(name = "country", length = 64)
+	private String				country;
+
+	@Column(name = "head_imgurl", length = 255)
+	private String				headImgUrl;
+
+	@Column(name = "remark", length = 255)
+	private String				remark;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getOpenId() {
+		return openId;
+	}
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getWechatId() {
+		return wechatId;
+	}
+
+	public void setWechatId(String wechatId) {
+		this.wechatId = wechatId;
+	}
+
+	public String getHeadImgUrl() {
+		return headImgUrl;
+	}
+
+	public void setHeadImgUrl(String headImgUrl) {
+		this.headImgUrl = headImgUrl;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+}
