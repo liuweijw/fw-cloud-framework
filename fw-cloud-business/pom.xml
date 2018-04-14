@@ -30,6 +30,7 @@
 		<module>fw-cloud-business-client</module>
 		<module>fw-cloud-business-sso</module>
 		<module>fw-cloud-business-pay</module>
+		<module>fw-cloud-business-wechat</module>
 	</modules>
 
 	<dependencies>

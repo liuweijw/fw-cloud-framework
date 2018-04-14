@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: business-wechat-server
+  profiles:
+    active: proj
+  cloud:
+    config:
+      fail-fast: true
+      discovery:
+        service-id: system-config-server
+        enabled: true
+      profile: ${spring.profiles.active}
+      label: ${spring.profiles.active}
+
+---
+spring:
+  profiles: dev
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
+  client:
+    serviceUrl:
+      defaultZone: http://admin:liuweijw@localhost:1001/eureka
+business:
+  permission:
+    enabled: true
+  config:
+    wechat:
+      mp:
+        appId: xxx
+        secret: xxxxxx
+        token:
+        aesKey:
+        authUrl: https://xxxxxx
+
+---
+spring:
+  profiles: proj
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://admin:liuweijw@localhost:1001/eureka
+business:
+  permission:
+    enabled: true
+  config:
+    wechat:
+      mp:
+        appId: xxx
+        secret: xxxxxx
+        token:
+        aesKey:
+        authUrl: https://xxxxxx
