@@ -8,13 +8,14 @@
 <br/>
 
 # fw-cloud-framework
-基于springcloud全家桶开发分布式框架（支持oauth2认证授权、统一下单、Shardingdbc分库分表、常见服务监控、链路监控、异步日志、redis缓存等功能），实现基于Vue全家桶等前后端分离项目工程。[其它说明](https://github.com/liuweijw/fw-cloud-framework/wiki)
+基于springcloud全家桶开发分布式框架（支持oauth2认证授权、统一下单、公众号服务、Shardingdbc分库分表、常见服务监控、链路监控、异步日志、redis缓存等功能），实现基于Vue全家桶等前后端分离项目工程。[其它说明](https://github.com/liuweijw/fw-cloud-framework/wiki)
 
 # 项目特点
 * 框架方面独立、模块相互之间非常独立，第三方工程服务能够轻松接入
 * 服务通过网关统一接入，鉴权（网关和业务模块权限独立分开）、监控、日志、缓存等统计分析更加清晰
 * 采用分布式模式，部署方便，易于扩展
 * 统一下单服务接入（目前只支持微信、后续扩展支付宝等渠道）
+* 微信公众号服务接入
 * 采用分布式模式，[docker部署](https://github.com/liuweijw/fw-cloud-framework/wiki/08-Docker-%E9%83%A8%E7%BD%B2%E7%AE%80%E6%B4%81%E8%AF%B4%E6%98%8E)方便，易于扩展
 * 前端可以基于element ui 、Vue全家桶、React 等主流，实现前后端分离
 
@@ -43,7 +44,7 @@
 - fw-cloud-business-admin   [端口2002] 权限管理等接口服务
 - fw-cloud-business-sso     [端口3001] 单点登录模块接入demo
 - fw-cloud-business-pay     [端口2003] 微信等支付统一下单模块服务
-- fw-cloud-business-wechat  [端口待定] 微信公众号模块服务
+- fw-cloud-business-wechat  [端口2004] 微信公众号模块服务
 - fw-cloud-business-client  [端口待定] 前端接口服务
 
 4、前端模块 [Vue2-Admin](https://github.com/liuweijw/Vue2-Admin)
