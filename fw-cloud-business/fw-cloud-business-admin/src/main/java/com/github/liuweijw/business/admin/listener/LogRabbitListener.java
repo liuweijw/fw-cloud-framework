@@ -13,8 +13,6 @@ import com.github.liuweijw.core.beans.system.AuthLog;
 import com.github.liuweijw.core.beans.system.Log;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
 import com.github.liuweijw.core.commons.constants.MqQueueConstant;
-import com.github.liuweijw.core.commons.jwt.JwtUtil;
-import com.github.liuweijw.core.configuration.JwtConfiguration;
 
 /**
  * 日志队列消息监听：消息对象必须是经过序列化操作的对象
@@ -28,15 +26,10 @@ public class LogRabbitListener {
 	@Autowired
 	private LogInfoService		logInfoService;
 
-	@Autowired
-	private JwtConfiguration	jwtConfiguration;
-
 	@RabbitHandler
 	public void receive(AuthLog authLog) {
-		String username = JwtUtil.getUserName(authLog.getToken(), jwtConfiguration.getJwtkey());
-		MDC.put(CommonConstant.KEY_USER, username);
 		Log sysLog = authLog.getLog();
-		authLog.getLog().setCreateBy(username);
+		MDC.put(CommonConstant.KEY_USER, authLog.getLog().getCreateBy());
 		LogInfo logInfo = new LogInfo();
 		BeanUtils.copyProperties(sysLog, logInfo);
 		logInfoService.saveOrUpdate(logInfo);

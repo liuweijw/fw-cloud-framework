@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpStatus;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import com.github.liuweijw.core.beans.system.AuthLog;
@@ -83,12 +85,12 @@ public class LogServiceImpl implements LogService {
 			syslog.setException(throwable.getMessage());
 		}
 
-		// 保存发往MQ（只保存授权请求）
 		AuthLog authLog = new AuthLog();
-		authLog.setLog(syslog);
-		String headAuthorization = request.getHeader(CommonConstant.REQ_HEADER);
-		if (StringHelper.isNotEmpty(headAuthorization)) {
-			authLog.setToken(headAuthorization);
+		// 保存发往MQ（只保存授权）
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null && StringHelper.isNotBlank(authentication.getName())) {
+			syslog.setCreateBy(authentication.getName());
+			authLog.setLog(syslog);
 			rabbitTemplate.convertAndSend(MqQueueConstant.LOG_QUEUE, authLog);
 		}
 	}
