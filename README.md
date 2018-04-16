@@ -73,6 +73,10 @@
 - SSO单点登录模块说明[guide](https://github.com/liuweijw/fw-cloud-framework/wiki/06-%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95sso-demo)
 - pay统一下单模块扩展依赖[guide](https://github.com/liuweijw/cloud-commons)
 
+# 学习交流
+
+![image](doc/pic/cloud-framework.png)
+
 # 常见问题
 - lombok 安装
   * 下载lombok.jar包 https://projectlombok.org/download.html
