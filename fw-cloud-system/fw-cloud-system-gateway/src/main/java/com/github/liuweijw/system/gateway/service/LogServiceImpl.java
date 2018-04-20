@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -47,6 +48,9 @@ public class LogServiceImpl implements LogService {
 		syslog.setParams(HttpUtil.toParams(request.getParameterMap()));
 		Long startTime = (Long) requestContext.get("startTime");
 		syslog.setTime(System.currentTimeMillis() - startTime);
+		Date currentDate = new Date();
+		syslog.setCreateTime(currentDate);
+		syslog.setUpdateTime(currentDate);
 		if (requestContext.get(CommonConstant.SERVICE_ID) != null) {
 			syslog.setServiceId(requestContext.get(CommonConstant.SERVICE_ID).toString());
 		}

@@ -1,5 +1,7 @@
 package com.github.liuweijw.business.admin.listener;
 
+import java.util.Date;
+
 import org.slf4j.MDC;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -24,12 +26,15 @@ import com.github.liuweijw.core.commons.constants.MqQueueConstant;
 public class LogRabbitListener {
 
 	@Autowired
-	private LogInfoService		logInfoService;
+	private LogInfoService	logInfoService;
 
 	@RabbitHandler
 	public void receive(AuthLog authLog) {
 		Log sysLog = authLog.getLog();
 		MDC.put(CommonConstant.KEY_USER, authLog.getLog().getCreateBy());
+		Date currentDate = new Date();
+		if (null == sysLog.getCreateTime()) sysLog.setCreateTime(currentDate);
+		if (null == sysLog.getUpdateTime()) sysLog.setUpdateTime(currentDate);
 		LogInfo logInfo = new LogInfo();
 		BeanUtils.copyProperties(sysLog, logInfo);
 		logInfoService.saveOrUpdate(logInfo);
