@@ -16,6 +16,8 @@ public class FwGatewayApplicationTest {
 
 	@Test
 	public void testEnvironmentProperties() {
+		System.out.println("=====jwt:token:liuweijw======"
+				+ stringEncryptor.encrypt("jwt:token:liuweijw"));
 	}
 
 }
