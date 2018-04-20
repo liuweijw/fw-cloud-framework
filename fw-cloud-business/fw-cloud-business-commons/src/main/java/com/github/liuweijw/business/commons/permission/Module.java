@@ -28,6 +28,11 @@ public interface Module {
 	String	DEPT	= "dept_";
 
 	/**
+	 * 字典模块
+	 */
+	String	DICT	= "dict_";
+
+	/**
 	 * 验证码模块
 	 */
 	String	CODE	= "code_";
