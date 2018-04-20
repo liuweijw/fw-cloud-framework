@@ -32,6 +32,21 @@ fw:
     jwtkey: jwt:token:liuweijw
 ---
 spring:
+  profiles: untest
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://admin:liuweijw@47.106.144.24:1001/eureka
+business:
+  permission:
+    enabled: true
+fw:
+  jwt:
+    jwtkey: jwt:token:liuweijw
+---
+spring:
   profiles: proj
 eureka:
   instance:

@@ -47,6 +47,16 @@ eureka:
     registry-fetch-interval-seconds: 10
 ---
 spring:
+  profiles: untest
+eureka:
+  instance:
+    ip-address: 47.106.144.24
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://admin:liuweijw@47.106.144.24:1001/eureka
+---
+spring:
   profiles: proj
 eureka:
   instance:

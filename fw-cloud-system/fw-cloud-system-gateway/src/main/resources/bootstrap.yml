@@ -23,10 +23,21 @@ eureka:
     registry-fetch-interval-seconds: 5 # 默认为30秒 表示eureka client间隔多久去拉取服务注册信息，默认为30秒，对于api-gateway，如果要迅速获取服务注册状态，可以缩小该值，比如5秒
     serviceUrl:
       defaultZone: http://admin:liuweijw@localhost:1001/eureka
-
 security:
   auth:
     server: http://localhost:1004
+---
+spring:
+  profiles: untest
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://admin:liuweijw@47.106.144.24:1001/eureka
+security:
+  auth:
+    server: http://47.106.144.24:1004
 ---
 spring:
   profiles: proj
@@ -36,7 +47,6 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://admin:liuweijw@localhost:1001/eureka
-
 security:
   auth:
     server: http://localhost:1004

@@ -2,6 +2,8 @@ package com.github.liuweijw.system.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerInterceptor;
@@ -22,7 +24,12 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.github.liuweijw.system.gateway", "com.github.liuweijw.core" })
-public class FwGatewayApplication {
+public class FwGatewayApplication extends SpringBootServletInitializer {
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(FwGatewayApplication.class);
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(FwGatewayApplication.class, args);
