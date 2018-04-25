@@ -30,7 +30,7 @@ spring:
       queue: zipkin
   sleuth:
     sampler:
-      percentage: 1.0
+      percentage: 1.0 #日志记录发送给采集器的概率,配置成1全量收集日志
 
 # 对分库分表的支持
 sharding:

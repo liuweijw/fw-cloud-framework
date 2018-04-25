@@ -34,7 +34,10 @@ security:
   user:
     name: admin
     password: liuweijw
-
+eureka:
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 30000
 ---
 spring:
   profiles: proj
