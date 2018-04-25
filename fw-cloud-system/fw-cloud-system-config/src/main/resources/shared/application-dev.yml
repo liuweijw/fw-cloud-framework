@@ -45,6 +45,11 @@ feign:
       feignName:
         connectTimeout: 30000
         readTimeout: 30000
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
 
 hystrix:
   threadpool:

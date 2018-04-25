@@ -12,7 +12,7 @@ spring:
       queue: zipkin
   sleuth:
     sampler:
-      percentage: 1.0
+      percentage: 1.0 #日志记录发送给采集器的概率,配置成1全量收集日志
 
 zuul:
   ribbon:
@@ -46,8 +46,8 @@ zuul:
     behind-proxy: true
     policies:
       business-admin-server:
-        limit: 300
-        quota: 2400
+        limit: 100
+        quota: 100
         refresh-interval: 3 #3秒内允许300个访问，平均每个请求2秒，并且要求总请求时间小于2400秒
 
 security:

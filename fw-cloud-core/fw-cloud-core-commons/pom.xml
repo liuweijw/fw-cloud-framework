@@ -68,15 +68,16 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
         </dependency>
+        <!-- // retry -->
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+        </dependency>
         <!-- okhttp -->
         <!-- <dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-okhttp</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.luhuiguo</groupId>
-            <artifactId>fastdfs-spring-boot-starter</artifactId>
-            <version>0.2.0</version>
-        </dependency> -->
+        -->
 	</dependencies>
 </project>

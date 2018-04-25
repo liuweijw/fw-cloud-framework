@@ -7,9 +7,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.apache.http.HttpStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
@@ -24,10 +24,9 @@ import com.github.liuweijw.exception.DeniedException;
 /**
  * @author liuweijw 授权拒绝处理器，覆盖默认的OAuth2AccessDeniedHandler 包装失败信息到DeniedException
  */
+@Slf4j
 @Component
 public class AccessDeniedHandler extends OAuth2AccessDeniedHandler {
-
-	private static Logger	logger	= LoggerFactory.getLogger(AccessDeniedHandler.class);
 
 	@Autowired
 	private ObjectMapper	objectMapper;
@@ -35,7 +34,7 @@ public class AccessDeniedHandler extends OAuth2AccessDeniedHandler {
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException authException) throws IOException, ServletException {
-		logger.info("授权失败，禁止访问");
+		log.info("授权失败，禁止访问 {}", request.getRequestURI());
 		response.setCharacterEncoding(CommonConstant.UTF8);
 		response.setContentType(CommonConstant.CONTENT_TYPE);
 		R<String> result = new R<String>().failure(new DeniedException(

@@ -11,6 +11,7 @@ spring:
       server:
         #git:
           #uri: https://github.com/liuweijw/fw-cloud-framework-config.git # 配置git仓库的地址
+          #default-label: ${spring.profiles.active}
           #search-paths:                                                  # git仓库地址下的相对地址，可以配置多个，用,分割。
         native:
           searchLocations: classpath:/shared							 # 本地环境配置
@@ -48,6 +49,13 @@ eureka:
 ---
 spring:
   profiles: untest
+  cloud:
+    config:
+      retry:
+        initial-interval: 3000
+        multiplier: 1.5
+        max-interval: 20000
+        max-attempts: 6
 eureka:
   instance:
     ip-address: 47.106.144.24
@@ -58,6 +66,13 @@ eureka:
 ---
 spring:
   profiles: proj
+  cloud:
+    config:
+      retry:
+        initial-interval: 3000
+        multiplier: 1.5
+        max-interval: 20000
+        max-attempts: 6
 eureka:
   instance:
     prefer-ip-address: true

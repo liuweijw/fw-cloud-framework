@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `t_wechat_auth_info` (
   `head_imgurl` varchar(255) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1;
 
 -- 正在导出表  fw-cloud-wechat.t_wechat_auth_info 的数据：~6 rows (大约)
 DELETE FROM `t_wechat_auth_info`;

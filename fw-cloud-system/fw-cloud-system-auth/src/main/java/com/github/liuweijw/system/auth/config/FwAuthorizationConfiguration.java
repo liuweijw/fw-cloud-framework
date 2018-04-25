@@ -86,7 +86,7 @@ public class FwAuthorizationConfiguration extends AuthorizationServerConfigurerA
 
 	@Bean
 	public JwtAccessTokenConverter jwtAccessTokenConverter() {
-		JwtAccessTokenConverter jwtAccessTokenConverter = new FwJwtAccessTokenConverter();
+		FwJwtAccessTokenConverter jwtAccessTokenConverter = new FwJwtAccessTokenConverter();
 		jwtAccessTokenConverter.setSigningKey(jwtConfiguration.getJwtkey());
 		// log.info("Initializing JWT with public key:\n" + authServerConfiguration.getPublicKey());
 
@@ -98,7 +98,7 @@ public class FwAuthorizationConfiguration extends AuthorizationServerConfigurerA
 	}
 
 	/**
-	 * tokenstore 定制化处理
+	 * tokenstore 定制化处理 1. 如果使用的 redis-cluster 模式请使用 FwRedisTokenStore FwRedisTokenStore tokenStore = new FwRedisTokenStore(); tokenStore.setRedisTemplate(redisTemplate);
 	 */
 	@Bean
 	public TokenStore redisTokenStore() {

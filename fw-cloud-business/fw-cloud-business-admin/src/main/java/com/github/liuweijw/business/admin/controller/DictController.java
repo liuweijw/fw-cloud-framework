@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.liuweijw.business.admin.domain.Dict;
 import com.github.liuweijw.business.admin.service.DictService;
+import com.github.liuweijw.business.commons.permission.Functional;
 import com.github.liuweijw.business.commons.permission.Module;
 import com.github.liuweijw.business.commons.web.BaseController;
 import com.github.liuweijw.business.commons.web.aop.PrePermissions;
@@ -24,6 +25,7 @@ public class DictController extends BaseController {
 	private DictService	dictService;
 
 	@GetMapping("/{id}")
+	@PrePermissions(value = Functional.VIEW)
 	public R<Dict> dict(@PathVariable Integer id) {
 		return new R<Dict>().data(dictService.findById(id));
 	}
@@ -35,6 +37,7 @@ public class DictController extends BaseController {
 	 *            类型
 	 */
 	@GetMapping("/type/{type}")
+	@PrePermissions(value = Functional.VIEW)
 	public R<List<Dict>> findDictByType(@PathVariable String type) {
 		return new R<List<Dict>>().data(dictService.getDictList(type));
 	}
