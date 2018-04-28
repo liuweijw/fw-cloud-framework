@@ -8,9 +8,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -27,20 +28,19 @@ import com.github.liuweijw.exception.ValidateCodeException;
 /**
  * @author liuweijw 验证码校验，true开启，false关闭校验 更细化可以 clientId 进行区分
  */
+@Slf4j
 @Component("validateCodeFilter")
 public class ValidateCodeFilter extends OncePerRequestFilter {
 
-	private static final Logger	logger	= LoggerFactory.getLogger(ValidateCodeFilter.class);
-
 	@Value("${security.validate.code:true}")
-	private boolean				isValidate;
+	private boolean			isValidate;
 
 	@SuppressWarnings("rawtypes")
 	@Autowired
-	private RedisTemplate		redisTemplate;
+	private RedisTemplate	redisTemplate;
 
 	@Autowired
-	private ObjectMapper		objectMapper;
+	private ObjectMapper	objectMapper;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -55,7 +55,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 			try {
 				checkCode(request, response, filterChain);
 			} catch (ValidateCodeException e) {
-				logger.info("登录失败：{}", e.getMessage());
+				log.info("登录失败：{}", e.getMessage());
 				response.setCharacterEncoding(CommonConstant.UTF8);
 				response.setContentType(CommonConstant.CONTENT_TYPE);
 				R<String> result = new R<String>().failure(e);
@@ -75,34 +75,32 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 			HttpServletResponse httpServletResponse, FilterChain filterChain) throws IOException,
 			ServletException {
 		String code = httpServletRequest.getParameter("code");
+		if (StringUtils.isBlank(code)) { throw new ValidateCodeException("请输入验证码"); }
+
 		String randomStr = httpServletRequest.getParameter("randomStr");
-		if (StringHelper.isBlank(randomStr)) {
+		if (StringUtils.isBlank(randomStr)) {
 			randomStr = httpServletRequest.getParameter("mobile");
 		}
-		Object codeObj = redisTemplate.opsForValue().get(
-				SecurityConstant.DEFAULT_CODE_KEY + randomStr);
 
-		if (codeObj == null) { throw new ValidateCodeException("验证码为空或已过期"); }
+		String key = SecurityConstant.DEFAULT_CODE_KEY + randomStr;
+		if (!redisTemplate.hasKey(key)) { throw new ValidateCodeException("验证码已过期，请重新获取"); }
+
+		Object codeObj = redisTemplate.opsForValue().get(key);
+
+		if (codeObj == null) { throw new ValidateCodeException("验证码已过期，请重新获取"); }
+
 		String saveCode = codeObj.toString();
-
-		if (StringHelper.isBlank(code)) {
-			redisTemplate.delete(SecurityConstant.DEFAULT_CODE_KEY + randomStr);
-			throw new ValidateCodeException("验证码的值不能为空");
+		if (StringUtils.isBlank(saveCode)) {
+			redisTemplate.delete(key);
+			throw new ValidateCodeException("验证码已过期，请重新获取");
 		}
 
-		if (StringHelper.isEmpty(saveCode)) {
-			redisTemplate.delete(SecurityConstant.DEFAULT_CODE_KEY + randomStr);
-			throw new ValidateCodeException("验证码已过期或已过期");
+		if (!StringUtils.equals(saveCode, code)) {
+			redisTemplate.delete(key);
+			throw new ValidateCodeException("验证码错误，请重新输入");
 		}
 
-		if (!StringHelper.equals(saveCode, code)) {
-			redisTemplate.delete(SecurityConstant.DEFAULT_CODE_KEY + randomStr);
-			throw new ValidateCodeException("验证码不匹配");
-		}
-
-		if (StringHelper.equals(code, saveCode)) {
-			redisTemplate.delete(SecurityConstant.DEFAULT_CODE_KEY + randomStr);
-			filterChain.doFilter(httpServletRequest, httpServletResponse);
-		}
+		redisTemplate.delete(key);
+		filterChain.doFilter(httpServletRequest, httpServletResponse);
 	}
 }
