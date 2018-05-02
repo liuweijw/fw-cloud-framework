@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.liuweijw.business.admin.beans.UserBean;
 import com.github.liuweijw.business.admin.service.MenuService;
+import com.github.liuweijw.business.admin.service.PermissionService;
 import com.github.liuweijw.business.admin.service.UserService;
 import com.github.liuweijw.business.commons.permission.Module;
 import com.github.liuweijw.business.commons.web.BaseController;
@@ -36,6 +37,9 @@ public class ApiController extends BaseController {
 
 	@Autowired
 	private MenuService			menuService;
+
+	@Autowired
+	private PermissionService	permissionService;
 
 	@Autowired
 	private JwtConfiguration	jwtConfiguration;
@@ -106,6 +110,6 @@ public class ApiController extends BaseController {
 	@GetMapping(value = "/findMenuPermissions/{roleCode}")
 	public Set<String> findMenuPermissions(@PathVariable("roleCode") String roleCode) {
 
-		return menuService.findMenuPermissions(roleCode);
+		return permissionService.findMenuPermissions(roleCode);
 	}
 }

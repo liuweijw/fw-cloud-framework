@@ -42,4 +42,5 @@ public class DeptServiceImpl extends JPAFactoryImpl implements DeptService {
 		}
 		return TreeUtil.build(treeList, 0);
 	}
+
 }

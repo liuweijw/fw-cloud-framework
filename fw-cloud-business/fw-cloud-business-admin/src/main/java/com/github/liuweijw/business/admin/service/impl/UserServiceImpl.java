@@ -27,7 +27,7 @@ import com.github.liuweijw.business.admin.domain.User;
 import com.github.liuweijw.business.admin.domain.UserRole;
 import com.github.liuweijw.business.admin.repository.UserRepository;
 import com.github.liuweijw.business.admin.repository.UserRoleRepository;
-import com.github.liuweijw.business.admin.service.MenuService;
+import com.github.liuweijw.business.admin.service.PermissionService;
 import com.github.liuweijw.business.admin.service.UserService;
 import com.github.liuweijw.business.commons.beans.PageBean;
 import com.github.liuweijw.business.commons.beans.PageParams;
@@ -49,7 +49,7 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 	private RedisTemplate		redisTemplate;
 
 	@Autowired
-	private MenuService			menuService;
+	private PermissionService	permissionService;
 
 	@Autowired
 	private UserRoleRepository	userRoleRepository;
@@ -131,7 +131,7 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 		// 设置权限列表（menu.permission）
 		Set<String> permissions = new HashSet<String>();
 		for (String roleCode : roles) {
-			permissions.addAll(menuService.findMenuPermissions(roleCode));
+			permissions.addAll(permissionService.findMenuPermissions(roleCode));
 		}
 
 		userInfo.setPermissions(permissions.toArray(new String[permissions.size()]));

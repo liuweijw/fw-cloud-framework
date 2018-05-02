@@ -15,9 +15,7 @@ import com.github.liuweijw.business.admin.cache.AdminCacheKey;
 import com.github.liuweijw.business.admin.domain.Menu;
 import com.github.liuweijw.business.admin.domain.QMenu;
 import com.github.liuweijw.business.admin.domain.QRoleMenu;
-import com.github.liuweijw.business.admin.domain.QRoleMenuPermission;
 import com.github.liuweijw.business.admin.domain.Role;
-import com.github.liuweijw.business.admin.domain.RoleMenuPermission;
 import com.github.liuweijw.business.admin.repository.MenuRepository;
 import com.github.liuweijw.business.admin.repository.RoleRepository;
 import com.github.liuweijw.business.admin.service.MenuService;
@@ -59,29 +57,6 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 			mList.add(authMenu);
 		}
 		return mList;
-	}
-
-	@Override
-	@Cacheable(value = AdminCacheKey.PERMISSION_INFO, key = AdminCacheKey.PERMISSION_INFO_KEY_ROLECODE)
-	public Set<String> findMenuPermissions(String roleCode) {
-		Set<String> permissions = new HashSet<>();
-		// 查询Role
-		Role role = roleRepository.findRoleByRoleCode(roleCode.trim());
-		if (null == role) return permissions;
-		// 查询菜单
-		QRoleMenu qRoleMenu = QRoleMenu.roleMenu;
-		QRoleMenuPermission qRoleMenuPermission = QRoleMenuPermission.roleMenuPermission;
-		List<RoleMenuPermission> rList = this.queryFactory.select(qRoleMenuPermission).from(
-				qRoleMenuPermission, qRoleMenu).where(qRoleMenu.roleId.eq(role.getRoleId())).where(
-				qRoleMenuPermission.roleMenuId.eq(qRoleMenu.id)).fetch();
-
-		if (null == rList || rList.size() == 0) return permissions;
-
-		rList.stream().forEach(r -> {
-			permissions.add(r.getPermission());
-		});
-
-		return permissions;
 	}
 
 	@Override
