@@ -74,10 +74,9 @@
             <artifactId>spring-retry</artifactId>
         </dependency>
         <!-- okhttp -->
-        <!-- <dependency>
+        <dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-okhttp</artifactId>
         </dependency>
-        -->
 	</dependencies>
 </project>
