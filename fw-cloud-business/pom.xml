@@ -16,7 +16,7 @@
     </parent>
 
     <properties>
-    	<querydsl.version>4.1.4</querydsl.version>
+    	<querydsl.version>4.2.1</querydsl.version>
     	<weixin.business.version>2.9.0</weixin.business.version>
     	<business-pay-commons.version>1.0.2-SNAPSHOT</business-pay-commons.version>
     </properties>
@@ -42,6 +42,14 @@
 	       <groupId>org.springframework.boot</groupId>
 	       <artifactId>spring-boot-starter-data-jpa</artifactId>
 	    </dependency>
+	    <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+	    <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
 	    <!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>

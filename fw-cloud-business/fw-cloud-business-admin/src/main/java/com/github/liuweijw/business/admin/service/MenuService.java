@@ -5,7 +5,7 @@ import java.util.Set;
 import com.github.liuweijw.business.admin.domain.Menu;
 import com.github.liuweijw.core.beans.system.AuthMenu;
 
-public interface MenuService extends PermissionService {
+public interface MenuService {
 
 	/**
 	 * 通过角色名称查询URL 权限
