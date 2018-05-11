@@ -1,7 +1,9 @@
 package com.github.liuweijw.system.auth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -13,6 +15,7 @@ import com.github.liuweijw.system.auth.component.ajax.AjaxSecurityConfigurer;
 /**
  * @author liuweijw 认证服务器开放接口配置
  */
+@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER - 2)
 @Configuration
 // @EnableResourceServer
 @EnableWebSecurity

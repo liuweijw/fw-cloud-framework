@@ -22,7 +22,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
 import com.github.liuweijw.core.commons.constants.SecurityConstant;
 import com.github.liuweijw.core.utils.R;
-import com.github.liuweijw.core.utils.StringHelper;
 import com.github.liuweijw.exception.ValidateCodeException;
 
 /**
@@ -46,11 +45,8 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
 			FilterChain filterChain) throws ServletException, IOException {
 		if (isValidate
-				&& (StringHelper
-						.contains(request.getRequestURI(), SecurityConstant.OAUTH_TOKEN_URL)
-						|| StringHelper.contains(request.getRequestURI(),
-								SecurityConstant.REFRESH_TOKEN) || StringHelper.contains(request
-						.getRequestURI(), SecurityConstant.MOBILE_TOKEN_URL))) {
+				&& (StringUtils.contains(request.getRequestURI(), SecurityConstant.OAUTH_TOKEN_URL) || StringUtils
+						.contains(request.getRequestURI(), SecurityConstant.MOBILE_TOKEN_URL))) {
 			PrintWriter printWriter = null;
 			try {
 				checkCode(request, response, filterChain);

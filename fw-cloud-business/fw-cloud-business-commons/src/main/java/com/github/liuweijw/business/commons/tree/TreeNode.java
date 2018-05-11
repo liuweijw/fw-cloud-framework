@@ -10,11 +10,11 @@ import java.util.List;
  */
 public class TreeNode {
 
-	private int				id;
+	protected int				id;
 
-	private int				pid;
+	protected int				pid;
 
-	private List<TreeNode>	children	= new ArrayList<TreeNode>();
+	protected List<TreeNode>	children	= new ArrayList<TreeNode>();
 
 	public void add(TreeNode node) {
 		children.add(node);

@@ -1,8 +1,10 @@
 package com.github.liuweijw.business.admin.service;
 
+import java.util.List;
 import java.util.Set;
 
 import com.github.liuweijw.business.admin.domain.Menu;
+import com.github.liuweijw.business.commons.tree.MenuTree;
 import com.github.liuweijw.core.beans.system.AuthMenu;
 
 public interface MenuService {
@@ -36,4 +38,12 @@ public interface MenuService {
 	 */
 	Boolean updateMenuById(Menu sysMenu, String roleCode);
 
+	/**
+	 * 返回角色的菜单
+	 *
+	 * @param roleName
+	 *            角色
+	 * @return 菜单列表
+	 */
+	public List<MenuTree> findUserMenuTree(String roleName);
 }

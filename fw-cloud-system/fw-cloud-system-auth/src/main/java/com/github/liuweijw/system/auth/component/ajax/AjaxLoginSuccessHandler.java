@@ -6,6 +6,8 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
@@ -21,7 +23,6 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
 import com.github.liuweijw.core.commons.constants.SecurityConstant;
@@ -31,6 +32,7 @@ import com.xiaoleilu.hutool.map.MapUtil;
 /**
  * @author liuweijw
  */
+@Slf4j
 @Component
 public class AjaxLoginSuccessHandler implements AuthenticationSuccessHandler {
 
@@ -54,12 +56,6 @@ public class AjaxLoginSuccessHandler implements AuthenticationSuccessHandler {
 			String[] tokens = extractAndDecodeHeader(header);
 			assert tokens.length == 2;
 			String clientId = tokens[0];
-			String clientSecret = tokens[1];
-
-			JSONObject params = new JSONObject();
-			params.put("clientId", clientId);
-			params.put("clientSecret", clientSecret);
-			params.put("authentication", authentication);
 
 			ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
 			TokenRequest tokenRequest = new TokenRequest(MapUtil.newHashMap(), clientId,
@@ -70,12 +66,12 @@ public class AjaxLoginSuccessHandler implements AuthenticationSuccessHandler {
 					authentication);
 			OAuth2AccessToken oAuth2AccessToken = authorizationServerTokenServices
 					.createAccessToken(oAuth2Authentication);
+			log.info("获取token 成功：{}", oAuth2AccessToken.getValue());
 
 			response.setCharacterEncoding(CommonConstant.UTF8);
 			response.setContentType(CommonConstant.CONTENT_TYPE);
 			PrintWriter printWriter = response.getWriter();
 			printWriter.append(objectMapper.writeValueAsString(oAuth2AccessToken));
-
 		} catch (IOException e) {
 			throw new BadCredentialsException("Failed to decode basic authentication token");
 		}

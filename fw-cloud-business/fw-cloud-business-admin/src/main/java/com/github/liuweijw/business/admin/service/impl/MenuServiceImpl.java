@@ -1,5 +1,6 @@
 package com.github.liuweijw.business.admin.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,6 +20,8 @@ import com.github.liuweijw.business.admin.domain.Role;
 import com.github.liuweijw.business.admin.repository.MenuRepository;
 import com.github.liuweijw.business.admin.repository.RoleRepository;
 import com.github.liuweijw.business.admin.service.MenuService;
+import com.github.liuweijw.business.commons.tree.MenuTree;
+import com.github.liuweijw.business.commons.tree.TreeUtil;
 import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
 import com.github.liuweijw.core.beans.system.AuthMenu;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
@@ -88,4 +91,13 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 		return true;
 	}
 
+	@Override
+	public List<MenuTree> findUserMenuTree(String roleName) {
+		Set<AuthMenu> menuList = findMenuByRole(roleName);
+		List<MenuTree> menuTreeList = new ArrayList<MenuTree>();
+		menuList.forEach(menu -> {
+			menuTreeList.add(new MenuTree(menu));
+		});
+		return TreeUtil.build(menuTreeList, 0);
+	}
 }

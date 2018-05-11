@@ -1,10 +1,9 @@
 package com.github.liuweijw.system.gateway;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerInterceptor;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
@@ -19,10 +18,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
  * @author liuweijw
  */
 @EnableZuulProxy
-@EnableDiscoveryClient
 @EnableFeignClients
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@SpringBootApplication
+@SpringCloudApplication
 @ComponentScan(basePackages = { "com.github.liuweijw.system.gateway", "com.github.liuweijw.core" })
 public class FwGatewayApplication extends SpringBootServletInitializer {
 
