@@ -32,6 +32,22 @@ business:
       notifyUrl: http://localhost:2003/pay/notify/result
 ---
 spring:
+  profiles: untest
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://admin:liuweijw@47.106.144.24:1001/eureka
+business:
+  permission:
+    enabled: true
+  config:
+    wxpay:
+      certRootPath: /usr/web/cert/pay #最终证书真实地址/xxx/pay/wx/apiclient_cert.p12
+      notifyUrl: http://47.106.144.24/pay/notify/result
+---
+spring:
   profiles: proj
 eureka:
   instance:

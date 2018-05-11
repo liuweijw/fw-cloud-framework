@@ -2,11 +2,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>fw-cloud-business-wechat</artifactId>
-	<packaging>jar</packaging>
+    <artifactId>fw-cloud-business-pay</artifactId>
+	<packaging>war</packaging>
 
-    <name>fw-cloud-business-wechat</name>
-    <description>微信公众号服务</description>
+    <name>fw-cloud-business-pay</name>
+    <description>支付平台服务</description>
 
     <parent>
     	<groupId>com.github.liuweijw</groupId>
@@ -20,6 +20,11 @@
             <artifactId>fw-cloud-business-commons</artifactId>
             <version>${fw.business.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.liuweijw</groupId>
+            <artifactId>fw-cloud-core-commons</artifactId>
+            <version>${fw.business.version}</version>
+		</dependency>
 		<!-- 远程依赖 // https://github.com/liuweijw/cloud-commons.git -->
     	<dependency>
 			<groupId>com.github.liuweijw</groupId>
@@ -27,25 +32,19 @@
             <version>${business-pay-commons.version}</version>
 		</dependency>
 		<dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-mp</artifactId>
-            <version>${weixin.business.version}</version>
-        </dependency>
-		<dependency>
-		  <groupId>com.github.binarywang</groupId>
-		  <artifactId>java-emoji-converter</artifactId>
-		  <version>${weixin.emoji.converter.version}</version>
+			<groupId>com.github.binarywang</groupId>
+			<artifactId>weixin-java-pay</artifactId>
+			<version>${weixin.business.version}</version>
 		</dependency>
     </dependencies>
 
     <build>
+    	<!-- Tomcat ROOT 方式部署 -->
+	    <finalName>ROOT</finalName>
     	<plugins>
 			<plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <finalName>${project.name}</finalName>
-                </configuration>
             </plugin>
 			<plugin>
 			    <groupId>com.mysema.maven</groupId>

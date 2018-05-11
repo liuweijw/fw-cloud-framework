@@ -75,6 +75,7 @@ spring:
         max-attempts: 6
 eureka:
   instance:
+    ip-address: 127.0.0.1
     prefer-ip-address: true
   client:
     serviceUrl:

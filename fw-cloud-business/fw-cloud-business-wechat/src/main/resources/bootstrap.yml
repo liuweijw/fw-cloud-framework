@@ -2,7 +2,7 @@ spring:
   application:
     name: business-wechat-server
   profiles:
-    active: proj
+    active: dev
   cloud:
     config:
       fail-fast: true
@@ -34,6 +34,27 @@ business:
         token:
         aesKey:
         authUrl: https://xxxxxx
+
+---
+spring:
+  profiles: untest
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://admin:liuweijw@47.106.144.24:1001/eureka
+business:
+  permission:
+    enabled: true
+  config:
+    wechat:
+      mp:
+        appId:
+        secret:
+        token:
+        aesKey:
+        authUrl: http://47.106.144.24
 
 ---
 spring:

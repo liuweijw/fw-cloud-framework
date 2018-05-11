@@ -17,8 +17,9 @@
 
     <properties>
     	<querydsl.version>4.2.1</querydsl.version>
-    	<weixin.business.version>2.9.0</weixin.business.version>
-    	<business-pay-commons.version>1.0.2-SNAPSHOT</business-pay-commons.version>
+    	<weixin.business.version>3.0.0</weixin.business.version>
+    	<weixin.emoji.converter.version>0.1.1</weixin.emoji.converter.version>
+    	<business-pay-commons.version>1.0.3-SNAPSHOT</business-pay-commons.version>
     </properties>
 
 	<modules>
