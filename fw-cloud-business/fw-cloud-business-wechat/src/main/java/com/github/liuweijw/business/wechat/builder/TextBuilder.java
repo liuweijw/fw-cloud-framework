@@ -5,6 +5,11 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutTextMessage;
 
+/**
+ * 文本消息
+ * 
+ * @author liuweijw
+ */
 public class TextBuilder extends AbstractBuilder {
 
 	@Override

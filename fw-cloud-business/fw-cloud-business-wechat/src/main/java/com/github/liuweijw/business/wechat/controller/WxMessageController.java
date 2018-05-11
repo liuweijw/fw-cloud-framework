@@ -22,6 +22,11 @@ import com.github.liuweijw.business.wechat.service.MessageService;
 import com.github.liuweijw.business.wechat.service.WechatInfoService;
 import com.github.liuweijw.core.utils.StringHelper;
 
+/**
+ * 微信公众号消息通过openId发送
+ * 
+ * @author liuweijw
+ */
 @Slf4j
 @Controller
 @RequestMapping("/wechat/message")

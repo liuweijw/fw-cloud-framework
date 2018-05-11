@@ -4,6 +4,11 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * 微信公众号相关配置
+ * 
+ * @author liuweijw
+ */
 @ConfigurationProperties(prefix = "business.config.wechat.mp")
 public class WechatMpProperties {
 	/**

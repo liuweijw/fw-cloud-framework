@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.github.liuweijw.core.utils.R;
 
+/**
+ * 微信商户信息获取
+ * 
+ * @author liuweijw
+ */
 @Controller
 @RequestMapping("/wechat/material")
 public class WxMaterialController {

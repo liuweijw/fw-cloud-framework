@@ -17,6 +17,11 @@ import com.github.liuweijw.business.commons.utils.WebUtils;
 import com.github.liuweijw.business.pay.commons.beans.HttpResult;
 import com.github.liuweijw.core.utils.StringHelper;
 
+/**
+ * 获取微信jsdk签名信息
+ * 
+ * @author liuweijw
+ */
 @Slf4j
 @Controller
 @RequestMapping("/wechat/jsdk")

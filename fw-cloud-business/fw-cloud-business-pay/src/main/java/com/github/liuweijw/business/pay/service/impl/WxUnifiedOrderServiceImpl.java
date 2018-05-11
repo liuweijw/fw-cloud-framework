@@ -188,7 +188,7 @@ public class WxUnifiedOrderServiceImpl implements WxUnifiedOrderService {
 		request.setTimeStart(timeStart);
 		request.setTimeExpire(timeExpire);
 		request.setGoodsTag(goodsTag);
-		request.setNotifyURL(notifyUrl);
+		request.setNotifyUrl(notifyUrl);
 		request.setTradeType(tradeType);
 		request.setProductId(productId);
 		request.setLimitPay(limitPay);

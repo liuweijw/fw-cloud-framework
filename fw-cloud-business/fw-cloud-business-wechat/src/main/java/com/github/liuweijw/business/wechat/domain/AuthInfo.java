@@ -8,6 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * 微信用户信息保存
+ * 
+ * @author liuweijw
+ */
 @Entity
 @Table(name = AuthInfo.TABLE_NAME)
 public class AuthInfo implements Serializable {
@@ -30,8 +35,11 @@ public class AuthInfo implements Serializable {
 	@Column(name = "nick_name", length = 255)
 	private String				nickName;
 
-	@Column(name = "sex", length = 11)
-	private String				sex;
+	@Column(name = "sex_desc", length = 20)
+	private String				sexDesc;
+
+	@Column(name = "sex_int", length = 11)
+	private Integer				sex;
 
 	@Column(name = "language", length = 64)
 	private String				language;
@@ -73,14 +81,6 @@ public class AuthInfo implements Serializable {
 
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
-	}
-
-	public String getSex() {
-		return sex;
-	}
-
-	public void setSex(String sex) {
-		this.sex = sex;
 	}
 
 	public String getLanguage() {
@@ -137,6 +137,22 @@ public class AuthInfo implements Serializable {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getSexDesc() {
+		return sexDesc;
+	}
+
+	public void setSexDesc(String sexDesc) {
+		this.sexDesc = sexDesc;
+	}
+
+	public Integer getSex() {
+		return sex;
+	}
+
+	public void setSex(Integer sex) {
+		this.sex = sex;
 	}
 
 }

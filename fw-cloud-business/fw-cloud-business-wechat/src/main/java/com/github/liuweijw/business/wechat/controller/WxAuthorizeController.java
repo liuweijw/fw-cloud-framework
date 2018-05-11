@@ -21,6 +21,7 @@ import com.github.liuweijw.business.wechat.domain.AuthInfo;
 import com.github.liuweijw.business.wechat.domain.UrlInfo;
 import com.github.liuweijw.business.wechat.service.AuthInfoService;
 import com.github.liuweijw.business.wechat.service.UrlInfoService;
+import com.github.liuweijw.business.wechat.utils.EmojiUtils;
 import com.github.liuweijw.core.utils.RandomHelper;
 
 /**
@@ -108,12 +109,15 @@ public class WxAuthorizeController {
 				authInfo = null == authInfo ? new AuthInfo() : authInfo;
 				authInfo.setOpenId(openId);
 				authInfo.setWechatId(wechatId);
-				authInfo.setNickName(WebUtils.buildURLEncoder(wxMpUser.getNickname()));
+				// 优化转换为html
+				authInfo.setNickName(WebUtils.buildURLEncoder(EmojiUtils.toHtml(wxMpUser
+						.getNickname())));
 				authInfo.setHeadImgUrl(wxMpUser.getHeadImgUrl());
 				authInfo.setCity(wxMpUser.getCity());
 				authInfo.setProvince(wxMpUser.getProvince());
 				authInfo.setLanguage(wxMpUser.getLanguage());
 				authInfo.setRemark(wxMpUser.getRemark());
+				authInfo.setSexDesc(wxMpUser.getSexDesc());
 				authInfo.setSex(wxMpUser.getSex());
 				authInfo.setCountry(wxMpUser.getCountry());
 				log.info("【wxauth微信网页授权imgUrl】:" + wxMpUser.getHeadImgUrl());
