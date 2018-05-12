@@ -27,7 +27,6 @@ public class FwSwaggerResourcesProvider implements SwaggerResourcesProvider {
 	@Override
 	public List<SwaggerResource> get() {
 		List<SwaggerResource> resources = new ArrayList<>();
-
 		List<Route> routes = routeLocator.getRoutes();
 		routes.forEach(route -> {
 			// swagger排除 auth 模块

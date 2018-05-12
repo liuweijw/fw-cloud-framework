@@ -1,5 +1,9 @@
 package com.github.liuweijw.business.admin.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +34,7 @@ import com.github.liuweijw.core.utils.R;
  * @author liuweijw
  */
 @RestController
+@Api(value = "用户信息", tags = "1.0.2-SNAPSHOT")
 @RequestMapping("/user")
 @PrePermissions(value = Module.USER)
 public class UserController extends BaseController {
@@ -50,6 +55,8 @@ public class UserController extends BaseController {
 	/**
 	 * 通过userId删除数据
 	 */
+	@ApiOperation(value = "删除用户", notes = "根据userId删除用户")
+	@ApiImplicitParam(name = "userId", value = "用户userId", required = true, dataType = "int", paramType = "path")
 	@RequestMapping(value = "/del/{userId}", method = RequestMethod.POST)
 	@PrePermissions(value = Functional.DEL)
 	public R<Boolean> list(HttpServletRequest request, @PathVariable("userId") Integer userId) {
@@ -59,6 +66,8 @@ public class UserController extends BaseController {
 	/**
 	 * 通过userId 查询信息
 	 */
+	@ApiOperation(value = "查询用户信息", notes = "根据userId查询用户信息")
+	@ApiImplicitParam(name = "userId", value = "用户userId", required = true, dataType = "int", paramType = "path")
 	@RequestMapping(value = "/find/{userId}", method = RequestMethod.GET)
 	@PrePermissions(value = Functional.VIEW)
 	public R<AuthUser> findByUserId(HttpServletRequest request,

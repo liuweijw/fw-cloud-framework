@@ -33,8 +33,10 @@ public class SwaggerConfiguration {
 	public Docket createRestApi() {
 		List<Parameter> operationParameters = new ArrayList<Parameter>();
 		ParameterBuilder parameterBuilder = new ParameterBuilder();
-		parameterBuilder.name("Authorization").defaultValue("请求中获取heard中token参数").description("令牌")
+		parameterBuilder.name("Authorization").defaultValue(
+				"Bearer 请求中获取heard中token参数|获取cookie中的x-access-token值").description("Bearer 令牌值")
 				.modelRef(new ModelRef("string")).parameterType("header").required(true).build();
+		operationParameters.add(parameterBuilder.build());
 		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select().apis(
 				RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class)).paths(
 				PathSelectors.any()).build().globalOperationParameters(operationParameters);
