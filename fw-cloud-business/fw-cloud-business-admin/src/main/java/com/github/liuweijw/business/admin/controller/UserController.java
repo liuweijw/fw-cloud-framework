@@ -26,6 +26,7 @@ import com.github.liuweijw.business.commons.permission.Module;
 import com.github.liuweijw.business.commons.web.BaseController;
 import com.github.liuweijw.business.commons.web.aop.PrePermissions;
 import com.github.liuweijw.core.beans.system.AuthUser;
+import com.github.liuweijw.core.configuration.ApiTag;
 import com.github.liuweijw.core.utils.R;
 
 /**
@@ -34,7 +35,7 @@ import com.github.liuweijw.core.utils.R;
  * @author liuweijw
  */
 @RestController
-@Api(value = "用户信息", tags = "1.0.2-SNAPSHOT")
+@Api(value = "用户信息", tags = ApiTag.TAG_DEFAULT)
 @RequestMapping("/user")
 @PrePermissions(value = Module.USER)
 public class UserController extends BaseController {

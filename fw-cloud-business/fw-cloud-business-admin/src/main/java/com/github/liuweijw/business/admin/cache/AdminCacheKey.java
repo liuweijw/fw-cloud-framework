@@ -23,4 +23,6 @@ public interface AdminCacheKey {
 	String	PERMISSION_INFO_KEY_ROLECODE	= "#roleCode";
 
 	String	ROLE_INFO_LIST					= "role_info_list";
+
+	String	DICT_INFO_LIST					= "dict_list_";
 }

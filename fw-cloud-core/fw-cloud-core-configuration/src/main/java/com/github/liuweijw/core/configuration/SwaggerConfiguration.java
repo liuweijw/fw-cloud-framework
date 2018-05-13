@@ -47,7 +47,6 @@ public class SwaggerConfiguration {
 				"https://github.com/liuweijw/fw-cloud-framework/wiki").termsOfServiceUrl(
 				"https://github.com/liuweijw/fw-cloud-framework").contact(
 				new Contact("liuweijw", "https://github.com/liuweijw/fw-cloud-framework",
-						"liuweijw.github@foxmail.com")).version("1.0").build();
+						"liuweijw.github@foxmail.com")).version(ApiTag.TAG_DEFAULT).build();
 	}
-
 }
