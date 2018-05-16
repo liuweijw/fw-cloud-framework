@@ -37,10 +37,10 @@ public class DictServiceImpl extends JPAFactoryImpl implements DictService {
 		Predicate qLabelPredicate = null;
 		Predicate qTypePredicate = null;
 		if (null != dict) {
-			if (null != dict && StringHelper.isNotBlank(dict.getLabel())) {
+			if (StringHelper.isNotBlank(dict.getLabel())) {
 				qLabelPredicate = qDict.label.like("%" + dict.getLabel().trim() + "%");
 			}
-			if (null != dict && StringHelper.isNotBlank(dict.getType())) {
+			if (StringHelper.isNotBlank(dict.getType())) {
 				qTypePredicate = qDict.type.like("%" + dict.getType().trim() + "%");
 			}
 		}
@@ -48,13 +48,13 @@ public class DictServiceImpl extends JPAFactoryImpl implements DictService {
 		Predicate predicate = qDict.id.goe(0).and(qTypePredicate).and(qLabelPredicate);
 
 		Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "id"));
-		PageRequest pageRequest = new PageRequest(pageParams.getPageNo(), pageParams.getPageNum(),
-				sort);
+		PageRequest pageRequest = new PageRequest(pageParams.getCurrentPage(), pageParams
+				.getPageSize(), sort);
 		Page<Dict> pageList = dictRepository.findAll(predicate, pageRequest);
 
 		PageBean<Dict> pageData = new PageBean<Dict>();
-		pageData.setPageNo(pageParams.getPageNo());
-		pageData.setPageNum(pageParams.getPageNum());
+		pageData.setCurrentPage(pageParams.getCurrentPage());
+		pageData.setPageSize(pageParams.getPageSize());
 		pageData.setTotal(pageList.getTotalElements());
 		pageData.setList(pageList.getContent());
 

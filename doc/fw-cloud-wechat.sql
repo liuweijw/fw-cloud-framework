@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
--- 主机:                           120.79.84.65
--- 服务器版本:                        5.6.39 - MySQL Community Server (GPL)
+-- 主机:                           47.106.144.24
+-- 服务器版本:                        5.7.21 - MySQL Community Server (GPL)
 -- 服务器操作系统:                      Linux
 -- HeidiSQL 版本:                  8.0.0.4396
 -- --------------------------------------------------------
@@ -14,7 +14,6 @@
 DROP DATABASE IF EXISTS `fw-cloud-wechat`;
 CREATE DATABASE IF NOT EXISTS `fw-cloud-wechat` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `fw-cloud-wechat`;
-
 
 -- 导出  表 fw-cloud-wechat.t_wechat_auth_info 结构
 DROP TABLE IF EXISTS `t_wechat_auth_info`;
@@ -32,10 +31,12 @@ CREATE TABLE IF NOT EXISTS `t_wechat_auth_info` (
   `head_imgurl` varchar(255) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 COMMENT='公众号用户信息表';
 
--- 正在导出表  fw-cloud-wechat.t_wechat_auth_info 的数据：~6 rows (大约)
+-- 正在导出表  fw-cloud-wechat.t_wechat_auth_info 的数据：~0 rows (大约)
 DELETE FROM `t_wechat_auth_info`;
+/*!40000 ALTER TABLE `t_wechat_auth_info` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_wechat_auth_info` ENABLE KEYS */;
 
 
 -- 导出  表 fw-cloud-wechat.t_wechat_info 结构
@@ -51,9 +52,9 @@ CREATE TABLE IF NOT EXISTS `t_wechat_info` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_t_wechat_info_wechat_id` (`wechat_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='公众号信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='公众号信息表';
 
--- 正在导出表  fw-cloud-wechat.t_wechat_info 的数据：~2 rows (大约)
+-- 正在导出表  fw-cloud-wechat.t_wechat_info 的数据：~1 rows (大约)
 DELETE FROM `t_wechat_info`;
 /*!40000 ALTER TABLE `t_wechat_info` DISABLE KEYS */;
 INSERT INTO `t_wechat_info` (`id`, `wechat_id`, `wechat_name`, `req_key`, `res_key`, `statu`, `create_time`, `update_time`) VALUES
@@ -68,7 +69,12 @@ CREATE TABLE IF NOT EXISTS `t_wechat_url` (
   `uuid` varchar(32) DEFAULT NULL,
   `url` varchar(510) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
--- 正在导出表  fw-cloud-wechat.t_wechat_url 的数据：~38 rows (大约)
+-- 正在导出表  fw-cloud-wechat.t_wechat_url 的数据：~0 rows (大约)
 DELETE FROM `t_wechat_url`;
+/*!40000 ALTER TABLE `t_wechat_url` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_wechat_url` ENABLE KEYS */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

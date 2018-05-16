@@ -10,9 +10,9 @@ import java.util.List;
  */
 public class TreeNode {
 
-	protected int				id;
+	protected String			id;
 
-	protected int				pid;
+	protected String			pid;
 
 	protected List<TreeNode>	children	= new ArrayList<TreeNode>();
 
@@ -20,19 +20,19 @@ public class TreeNode {
 		children.add(node);
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public int getPid() {
+	public String getPid() {
 		return pid;
 	}
 
-	public void setPid(int pid) {
+	public void setPid(String pid) {
 		this.pid = pid;
 	}
 

@@ -76,4 +76,5 @@ public class WebUtils extends com.github.liuweijw.core.utils.WebUtils {
 		return request.getScheme() + "://" + request.getServerName() + ":"
 				+ request.getServerPort() + request.getContextPath();
 	}
+
 }

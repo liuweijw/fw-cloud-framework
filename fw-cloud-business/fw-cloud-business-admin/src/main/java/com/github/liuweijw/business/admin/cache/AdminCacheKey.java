@@ -25,4 +25,6 @@ public interface AdminCacheKey {
 	String	ROLE_INFO_LIST					= "role_info_list";
 
 	String	DICT_INFO_LIST					= "dict_list_";
+
+	String	MODULE_INFO_LIST				= "module_list_";
 }

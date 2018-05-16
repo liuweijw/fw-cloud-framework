@@ -4,65 +4,29 @@ import com.github.liuweijw.core.beans.system.AuthMenu;
 
 public class MenuTree extends TreeNode {
 
-	private String	menuName;
-	private String	url;
-	private String	path;
-	private Integer	statu;
+	private String	label;
 
 	public MenuTree() {
 	}
 
-	public MenuTree(int id, int pid, String menuName) {
+	public MenuTree(String id, String pid, String label) {
 		this.id = id;
 		this.pid = pid;
-		this.menuName = menuName;
-	}
-
-	public MenuTree(int id, String menuName, MenuTree parent) {
-		this.id = id;
-		this.pid = parent.getId();
-		this.menuName = menuName;
+		this.label = label;
 	}
 
 	public MenuTree(AuthMenu authMenu) {
-		this.id = authMenu.getMenuId();
-		this.pid = authMenu.getPid();
-		this.menuName = authMenu.getMenuName();
-		this.url = authMenu.getUrl();
-		this.path = authMenu.getPath();
-		this.statu = authMenu.getStatu();
+		this.id = authMenu.getMenuId() + "";
+		this.pid = authMenu.getPid() + "";
+		this.label = authMenu.getMenuName();
 	}
 
-	public String getMenuName() {
-		return menuName;
+	public String getLabel() {
+		return label;
 	}
 
-	public void setMenuName(String menuName) {
-		this.menuName = menuName;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	public Integer getStatu() {
-		return statu;
-	}
-
-	public void setStatu(Integer statu) {
-		this.statu = statu;
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 }

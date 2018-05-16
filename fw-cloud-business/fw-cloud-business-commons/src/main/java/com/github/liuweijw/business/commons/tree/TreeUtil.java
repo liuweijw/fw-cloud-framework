@@ -22,7 +22,7 @@ public class TreeUtil {
 
 	private static <T extends TreeNode> T findChildren(T node, List<T> treeNodes) {
 		for (T n : treeNodes) {
-			if (node.getId() == n.getPid()) {
+			if (node.getId().equals(n.getPid())) {
 				if (node.getChildren() == null) {
 					node.setChildren(new ArrayList<TreeNode>());
 				}

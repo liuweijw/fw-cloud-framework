@@ -61,6 +61,7 @@ public class DictController extends BaseController {
 		return new R<Dict>().data(dictService.findById(id));
 	}
 
+	@ApiOperation(value = "查询", notes = "根据type查询字典数据")
 	@ApiImplicitParam(name = "type", value = "", required = true, dataType = "string", paramType = "path")
 	@GetMapping("/type/{type}")
 	@PrePermissions(value = Functional.VIEW)

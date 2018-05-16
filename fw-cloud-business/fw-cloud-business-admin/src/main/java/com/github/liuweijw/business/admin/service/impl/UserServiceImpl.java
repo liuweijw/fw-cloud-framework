@@ -188,8 +188,8 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 		Predicate predicate = qUser.statu.eq(0).and(qUserNamePredicate);
 
 		Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "createTime"));
-		PageRequest pageRequest = new PageRequest(pageParams.getPageNo(), pageParams.getPageNum(),
-				sort);
+		PageRequest pageRequest = new PageRequest(pageParams.getCurrentPage(), pageParams
+				.getPageSize(), sort);
 		Page<User> pageList = userRepository.findAll(predicate, pageRequest);
 
 		if (null != pageList && null != pageList.getContent()) {
@@ -199,8 +199,8 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 		}
 
 		PageBean<User> pageData = new PageBean<User>();
-		pageData.setPageNo(pageParams.getPageNo());
-		pageData.setPageNum(pageParams.getPageNum());
+		pageData.setCurrentPage(pageParams.getCurrentPage());
+		pageData.setPageSize(pageParams.getPageSize());
 		pageData.setTotal(pageList.getTotalElements());
 		pageData.setList(pageList.getContent());
 

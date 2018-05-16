@@ -12,27 +12,28 @@ public class PageParams {
 	/**
 	 * 当前页码
 	 */
-	private Integer	pageNo;
+	private Integer	currentPage;
 
 	/**
 	 * 每页多少条 limit
 	 */
-	private Integer	pageNum;
+	private Integer	pageSize;
 
-	public void setPageNo(Integer pageNo) {
-		this.pageNo = pageNo;
+	public Integer getCurrentPage() {
+		currentPage = (null == currentPage || currentPage <= 0) ? 1 : currentPage;
+		return currentPage - 1;
 	}
 
-	public Integer getPageNo() {
-		return (null == pageNo || pageNo < 0) ? 0 : pageNo;
+	public void setCurrentPage(Integer currentPage) {
+		this.currentPage = currentPage;
 	}
 
-	public Integer getPageNum() {
-		return (null == pageNum || pageNum < 0) ? PageConstant.PAGE_NUM : pageNum;
+	public Integer getPageSize() {
+		return (null == pageSize || pageSize < 0) ? PageConstant.PAGE_NUM : pageSize;
 	}
 
-	public void setPageNum(Integer pageNum) {
-		this.pageNum = pageNum;
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
 	}
 
 }

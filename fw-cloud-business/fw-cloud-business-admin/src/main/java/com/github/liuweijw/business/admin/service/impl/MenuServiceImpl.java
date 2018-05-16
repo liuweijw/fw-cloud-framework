@@ -14,12 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.liuweijw.business.admin.cache.AdminCacheKey;
 import com.github.liuweijw.business.admin.domain.Menu;
+import com.github.liuweijw.business.admin.domain.Module;
 import com.github.liuweijw.business.admin.domain.QMenu;
 import com.github.liuweijw.business.admin.domain.QRoleMenu;
 import com.github.liuweijw.business.admin.domain.Role;
 import com.github.liuweijw.business.admin.repository.MenuRepository;
 import com.github.liuweijw.business.admin.repository.RoleRepository;
 import com.github.liuweijw.business.admin.service.MenuService;
+import com.github.liuweijw.business.admin.service.ModuleService;
 import com.github.liuweijw.business.commons.tree.MenuTree;
 import com.github.liuweijw.business.commons.tree.TreeUtil;
 import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
@@ -36,6 +38,9 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 
 	@Autowired
 	private MenuRepository	menuRepository;
+
+	@Autowired
+	private ModuleService	moduleService;
 
 	@Override
 	@Cacheable(value = AdminCacheKey.MENU_INFO, key = AdminCacheKey.MENU_INFO_KEY_ROLECODE)
@@ -63,7 +68,7 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 	}
 
 	@Override
-	@CacheEvict(value = AdminCacheKey.MENU_INFO, key = AdminCacheKey.MENU_INFO_KEY_ROLECODE)
+	@CacheEvict(value = AdminCacheKey.MENU_INFO, allEntries = true)
 	@Transactional
 	public Boolean deleteMenu(Integer menuId, String roleCode) {
 		Assert.isNull(menuId, "菜单ID不能为空");
@@ -81,7 +86,7 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 	}
 
 	@Override
-	@CacheEvict(value = AdminCacheKey.MENU_INFO, key = AdminCacheKey.MENU_INFO_KEY_ROLECODE)
+	@CacheEvict(value = AdminCacheKey.MENU_INFO, allEntries = true)
 	public Boolean updateMenuById(Menu menu, String roleCode) {
 
 		if (null == menu || null == menu.getMenuId()) return null;
@@ -99,5 +104,29 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 			menuTreeList.add(new MenuTree(menu));
 		});
 		return TreeUtil.build(menuTreeList, 0);
+	}
+
+	// 目前只支持二级菜单，若有三级，则改递归即可
+	@Override
+	@Cacheable(value = AdminCacheKey.MENU_INFO)
+	public List<MenuTree> findUserMenuTree() {
+		QMenu qMenu = QMenu.menu;
+		List<Menu> rList = this.queryFactory.selectFrom(qMenu).fetch();
+		if (null == rList || rList.size() == 0) return null;
+
+		List<Module> moduleList = moduleService.getAllList();
+		List<MenuTree> menuTreeList = new ArrayList<MenuTree>();
+		rList.forEach(menu -> {
+			if (menu.getPid() != 0 && null != moduleList && moduleList.size() > 0) {
+				moduleList.forEach(m -> {
+					String id = menu.getPath() + "_" + m.getCode();
+					menuTreeList.add(new MenuTree(id, menu.getMenuId() + "", m.getName()));
+				});
+			}
+			menuTreeList.add(new MenuTree(menu.getMenuId() + "", menu.getPid() + "", menu
+					.getMenuName()));
+		});
+
+		return TreeUtil.build(menuTreeList, "0");
 	}
 }

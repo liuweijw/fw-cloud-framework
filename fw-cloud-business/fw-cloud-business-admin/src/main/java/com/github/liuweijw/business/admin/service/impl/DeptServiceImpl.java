@@ -35,12 +35,12 @@ public class DeptServiceImpl extends JPAFactoryImpl implements DeptService {
 			// 排除父节点和自己节点相同的数据
 			if (dept.getPid().intValue() == dept.getId().intValue()) continue;
 			DeptTree node = new DeptTree();
-			node.setId(dept.getId());
-			node.setPid(dept.getPid());
+			node.setId(dept.getId() + "");
+			node.setPid(dept.getPid() + "");
 			node.setName(dept.getDeptName());
 			treeList.add(node);
 		}
-		return TreeUtil.build(treeList, 0);
+		return TreeUtil.build(treeList, "0");
 	}
 
 }

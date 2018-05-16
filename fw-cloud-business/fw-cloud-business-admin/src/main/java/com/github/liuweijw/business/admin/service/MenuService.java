@@ -46,4 +46,9 @@ public interface MenuService {
 	 * @return 菜单列表
 	 */
 	public List<MenuTree> findUserMenuTree(String roleName);
+
+	/**
+	 * 返回所有菜单树形数据
+	 */
+	List<MenuTree> findUserMenuTree();
 }

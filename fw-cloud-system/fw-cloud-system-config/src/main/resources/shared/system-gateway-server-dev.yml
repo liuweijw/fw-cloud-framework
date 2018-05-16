@@ -84,6 +84,7 @@ urls:
     - /admin/code/*
     - /admin/api/info
     - /admin/api/userTree
+    - /admin/api/dictType/*
     - /swagger-resources/**
     - /swagger-ui.html
     - /*/v2/api-docs

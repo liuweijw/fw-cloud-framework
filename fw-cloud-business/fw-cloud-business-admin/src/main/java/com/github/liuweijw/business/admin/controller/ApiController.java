@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.liuweijw.business.admin.beans.UserBean;
+import com.github.liuweijw.business.admin.domain.Dict;
+import com.github.liuweijw.business.admin.service.DictService;
 import com.github.liuweijw.business.admin.service.MenuService;
 import com.github.liuweijw.business.admin.service.PermissionService;
 import com.github.liuweijw.business.admin.service.UserService;
@@ -27,6 +29,11 @@ import com.github.liuweijw.core.commons.jwt.JwtUtil;
 import com.github.liuweijw.core.configuration.JwtConfiguration;
 import com.github.liuweijw.core.utils.R;
 
+/**
+ * 无须经过网关权限的接口
+ * 
+ * @author liuweijw
+ */
 @RestController
 @RequestMapping("/api")
 @PrePermissions(value = Module.API, required = false)
@@ -40,6 +47,9 @@ public class ApiController extends BaseController {
 
 	@Autowired
 	private PermissionService	permissionService;
+
+	@Autowired
+	private DictService			dictService;
 
 	@Autowired
 	private JwtConfiguration	jwtConfiguration;
@@ -111,5 +121,13 @@ public class ApiController extends BaseController {
 	public Set<String> findMenuPermissions(@PathVariable("roleCode") String roleCode) {
 
 		return permissionService.findMenuPermissions(roleCode);
+	}
+
+	/**
+	 * 通过type获取字典数据
+	 */
+	@GetMapping("/dictType/{type}")
+	public R<List<Dict>> findDictByType(@PathVariable String type) {
+		return new R<List<Dict>>().data(dictService.getDictList(type));
 	}
 }

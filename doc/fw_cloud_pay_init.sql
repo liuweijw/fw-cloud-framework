@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
--- 主机:                           120.79.84.65
--- 服务器版本:                        5.6.39 - MySQL Community Server (GPL)
+-- 主机:                           47.106.144.24
+-- 服务器版本:                        5.7.21 - MySQL Community Server (GPL)
 -- 服务器操作系统:                      Linux
 -- HeidiSQL 版本:                  8.0.0.4396
 -- --------------------------------------------------------
@@ -14,7 +14,6 @@
 DROP DATABASE IF EXISTS `fw-cloud-pay`;
 CREATE DATABASE IF NOT EXISTS `fw-cloud-pay` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `fw-cloud-pay`;
-
 
 -- 导出  表 fw-cloud-pay.t_pay_channel 结构
 DROP TABLE IF EXISTS `t_pay_channel`;
@@ -31,7 +30,14 @@ CREATE TABLE IF NOT EXISTS `t_pay_channel` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_mchid_channelid` (`channel_id`,`mch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='支付渠道表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='支付渠道表';
+
+-- 正在导出表  fw-cloud-pay.t_pay_channel 的数据：~1 rows (大约)
+DELETE FROM `t_pay_channel`;
+/*!40000 ALTER TABLE `t_pay_channel` DISABLE KEYS */;
+INSERT INTO `t_pay_channel` (`id`, `channel_id`, `channel_name`, `channel_mch_id`, `mch_id`, `statu`, `param`, `remark`, `create_time`, `update_time`) VALUES
+	(1, 'WX_JSAPI', 'WX', '111111', '10000001', 1, '{"mchId":"111111", "appId":"xxxsss", "key":"xxxxxx", "certLocalPath":"wx/apiclient_cert.p12", "certPassword":"xxxxxx"}', '', '2017-11-20 10:08:54', '2018-05-16 13:41:34');
+/*!40000 ALTER TABLE `t_pay_channel` ENABLE KEYS */;
 
 
 -- 导出  表 fw-cloud-pay.t_pay_iap_receipt 结构
@@ -70,7 +76,15 @@ CREATE TABLE IF NOT EXISTS `t_pay_mch_info` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_t_mch_info_mch_id` (`mch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='商户信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='商户信息表';
+
+-- 正在导出表  fw-cloud-pay.t_pay_mch_info 的数据：~1 rows (大约)
+DELETE FROM `t_pay_mch_info`;
+/*!40000 ALTER TABLE `t_pay_mch_info` DISABLE KEYS */;
+INSERT INTO `t_pay_mch_info` (`id`, `mch_id`, `mch_name`, `type`, `req_key`, `res_key`, `statu`, `create_time`, `update_time`) VALUES
+	(1, '10000001', '广东xxxxx', '1', 'REQKEY_xxxxxx', 'RESKEY_xxxxx', 1, '2018-03-19 11:07:55', '2018-05-16 13:42:19');
+/*!40000 ALTER TABLE `t_pay_mch_info` ENABLE KEYS */;
+
 
 -- 导出  表 fw-cloud-pay.t_pay_mch_notify 结构
 DROP TABLE IF EXISTS `t_pay_mch_notify`;
@@ -128,19 +142,24 @@ CREATE TABLE IF NOT EXISTS `t_pay_order` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `index_mchid_mchorderno` (`mch_id`,`mch_order_no`),
-  UNIQUE KEY `index_pay_order_id` (`pay_order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='支付订单表';
+  UNIQUE KEY `index_payorderid` (`pay_order_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COMMENT='支付订单表';
+
+-- 正在导出表  fw-cloud-pay.t_pay_order 的数据：~0 rows (大约)
+DELETE FROM `t_pay_order`;
+/*!40000 ALTER TABLE `t_pay_order` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_pay_order` ENABLE KEYS */;
+
 
 -- 导出  表 fw-cloud-pay.t_pay_refund_order 结构
 DROP TABLE IF EXISTS `t_pay_refund_order`;
 CREATE TABLE IF NOT EXISTS `t_pay_refund_order` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `refund_order_id` varchar(32) NOT NULL COMMENT '退款订单号',
+  `mch_refund_no` varchar(32) NOT NULL COMMENT '商户退款单号',
+  `mch_id` varchar(32) NOT NULL COMMENT '商户ID',
   `pay_order_id` varchar(32) NOT NULL COMMENT '支付订单号',
   `channel_payorderno` varchar(64) DEFAULT NULL COMMENT '渠道支付单号',
-  `mch_id` varchar(32) NOT NULL COMMENT '商户ID',
-  `mch_refund_no` varchar(32) NOT NULL COMMENT '商户退款单号',
   `channel_id` varchar(24) NOT NULL COMMENT '渠道ID',
   `pay_amount` bigint(20) NOT NULL COMMENT '支付金额,单位分',
   `refund_amount` bigint(20) NOT NULL COMMENT '退款金额,单位分',
@@ -205,8 +224,8 @@ CREATE TABLE IF NOT EXISTS `t_pay_trans_order` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `IDX_MchId_MchOrderNo` (`mch_id`,`mch_trans_no`),
-  UNIQUE KEY `index_trans_order_id` (`trans_order_id`)
+  UNIQUE KEY `index_trans_order_id` (`trans_order_id`),
+  UNIQUE KEY `index_mch_id_mchorderno` (`mch_id`,`mch_trans_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='转账订单表';
 
 -- 正在导出表  fw-cloud-pay.t_pay_trans_order 的数据：~0 rows (大约)

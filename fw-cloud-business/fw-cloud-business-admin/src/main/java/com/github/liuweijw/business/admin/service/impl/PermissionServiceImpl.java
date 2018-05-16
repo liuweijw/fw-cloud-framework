@@ -1,27 +1,41 @@
 package com.github.liuweijw.business.admin.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.liuweijw.business.admin.cache.AdminCacheKey;
 import com.github.liuweijw.business.admin.domain.QRoleMenu;
 import com.github.liuweijw.business.admin.domain.QRoleMenuPermission;
 import com.github.liuweijw.business.admin.domain.Role;
+import com.github.liuweijw.business.admin.domain.RoleMenu;
 import com.github.liuweijw.business.admin.domain.RoleMenuPermission;
+import com.github.liuweijw.business.admin.repository.RoleMenuPermissionRepository;
+import com.github.liuweijw.business.admin.repository.RoleMenuRepository;
 import com.github.liuweijw.business.admin.repository.RoleRepository;
 import com.github.liuweijw.business.admin.service.PermissionService;
+import com.github.liuweijw.business.commons.utils.WebUtils;
 import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
+import com.github.liuweijw.core.utils.StringHelper;
 
 @Component
 public class PermissionServiceImpl extends JPAFactoryImpl implements PermissionService {
 
 	@Autowired
-	private RoleRepository	roleRepository;
+	private RoleRepository					roleRepository;
+	@Autowired
+	private RoleMenuRepository				roleMenuRepository;
+	@Autowired
+	private RoleMenuPermissionRepository	roleMenuPermissionRepository;
 
 	@Override
 	@Cacheable(value = AdminCacheKey.PERMISSION_INFO, key = AdminCacheKey.PERMISSION_INFO_KEY_ROLECODE)
@@ -44,6 +58,71 @@ public class PermissionServiceImpl extends JPAFactoryImpl implements PermissionS
 		});
 
 		return permissions;
+	}
+
+	@Override
+	@CacheEvict(value = { AdminCacheKey.MENU_INFO, AdminCacheKey.ROLE_INFO_LIST,
+			AdminCacheKey.MODULE_INFO_LIST }, allEntries = true)
+	@Transactional
+	public boolean updateRoleMenuPermissions(String roleCode, String... permissions) {
+		Role role = roleRepository.findRoleByRoleCode(roleCode.trim());
+		if (null == role) return false;
+
+		// 菜单集合
+		Map<Integer, List<String>> roleMenuIdList = new HashMap<Integer, List<String>>();
+		for (String permission : permissions) {
+			if (!permission.contains("|")) continue;
+			String[] menuPermissions = permission.split("\\|");
+			Integer menuId = WebUtils.parseStrToInteger(menuPermissions[0], null);
+			if (null == menuId || StringHelper.isBlank(menuPermissions[1])) continue;
+			if (!roleMenuIdList.containsKey(menuId)) {
+				roleMenuIdList.put(menuId, new ArrayList<String>());
+			}
+			roleMenuIdList.get(menuId).add(menuPermissions[1].trim());
+		}
+
+		// 删除RoleMenu和RoleMenuPermission
+		this.delRoleMenuPermission(role.getRoleId());
+
+		if (roleMenuIdList.size() > 0) {
+			roleMenuIdList.forEach((menuId, menuPermissions) -> {
+				RoleMenu menuRole = new RoleMenu();
+				menuRole.setMenuId(menuId);
+				menuRole.setRoleId(role.getRoleId());
+				menuRole = roleMenuRepository.saveAndFlush(menuRole);
+				Integer menuRoleId = menuRole.getId();
+				menuPermissions.forEach(p -> {
+					RoleMenuPermission roleMenuPermission = new RoleMenuPermission();
+					roleMenuPermission.setRoleMenuId(menuRoleId);
+					roleMenuPermission.setPermission(p.trim());
+					roleMenuPermissionRepository.saveAndFlush(roleMenuPermission);
+				});
+			});
+		}
+
+		return true;
+	}
+
+	private boolean delRoleMenuPermission(Integer roleId) {
+		QRoleMenu qRoleMenu = QRoleMenu.roleMenu;
+		List<RoleMenu> roleMeunList = this.queryFactory.selectFrom(qRoleMenu).where(
+				qRoleMenu.roleId.eq(roleId.intValue())).fetch();
+
+		Set<Integer> roleMenuIdList = new HashSet<Integer>();
+		roleMeunList.forEach(r -> {
+			roleMenuIdList.add(r.getId());
+			roleMenuRepository.delete(r.getId());
+		});
+
+		Integer[] roleMenuIdArray = new Integer[roleMenuIdList.size()];
+		return this.delRoleMenuPermissionByRoleMenuId(roleMenuIdList.toArray(roleMenuIdArray));
+	}
+
+	private boolean delRoleMenuPermissionByRoleMenuId(Integer... roleMenuArray) {
+		QRoleMenuPermission qRoleMenuPermission = QRoleMenuPermission.roleMenuPermission;
+		long num = this.queryFactory.delete(qRoleMenuPermission).where(
+				qRoleMenuPermission.roleMenuId.in(roleMenuArray)).execute();
+		return num > 0;
 	}
 
 }
