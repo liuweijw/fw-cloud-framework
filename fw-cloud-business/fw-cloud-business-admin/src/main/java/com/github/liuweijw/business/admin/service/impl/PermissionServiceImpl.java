@@ -21,8 +21,8 @@ import com.github.liuweijw.business.admin.domain.RoleMenu;
 import com.github.liuweijw.business.admin.domain.RoleMenuPermission;
 import com.github.liuweijw.business.admin.repository.RoleMenuPermissionRepository;
 import com.github.liuweijw.business.admin.repository.RoleMenuRepository;
-import com.github.liuweijw.business.admin.repository.RoleRepository;
 import com.github.liuweijw.business.admin.service.PermissionService;
+import com.github.liuweijw.business.admin.service.RoleService;
 import com.github.liuweijw.business.commons.utils.WebUtils;
 import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
 import com.github.liuweijw.core.utils.StringHelper;
@@ -31,26 +31,33 @@ import com.github.liuweijw.core.utils.StringHelper;
 public class PermissionServiceImpl extends JPAFactoryImpl implements PermissionService {
 
 	@Autowired
-	private RoleRepository					roleRepository;
+	private RoleService						roleService;
 	@Autowired
 	private RoleMenuRepository				roleMenuRepository;
 	@Autowired
 	private RoleMenuPermissionRepository	roleMenuPermissionRepository;
 
 	@Override
-	@Cacheable(value = AdminCacheKey.PERMISSION_INFO, key = AdminCacheKey.PERMISSION_INFO_KEY_ROLECODE)
-	public Set<String> findMenuPermissions(String roleCode) {
-		Set<String> permissions = new HashSet<>();
-		// 查询Role
-		Role role = roleRepository.findRoleByRoleCode(roleCode.trim());
-		if (null == role) return permissions;
+	@Cacheable(value = AdminCacheKey.PERMISSION_INFO, key = "'permission_' + #roleId")
+	public List<RoleMenuPermission> findMenuPermissionByRoleId(Integer roleId) {
+		if (null == roleId) return null;
 		// 查询菜单
 		QRoleMenu qRoleMenu = QRoleMenu.roleMenu;
 		QRoleMenuPermission qRoleMenuPermission = QRoleMenuPermission.roleMenuPermission;
 		List<RoleMenuPermission> rList = this.queryFactory.select(qRoleMenuPermission).from(
-				qRoleMenuPermission, qRoleMenu).where(qRoleMenu.roleId.eq(role.getRoleId())).where(
+				qRoleMenuPermission, qRoleMenu).where(qRoleMenu.roleId.eq(roleId)).where(
 				qRoleMenuPermission.roleMenuId.eq(qRoleMenu.id)).fetch();
+		return rList;
+	}
 
+	@Override
+	public Set<String> findMenuPermissions(String roleCode) {
+		Set<String> permissions = new HashSet<>();
+		// 查询Role
+		Role role = roleService.findRoleByCode(roleCode.trim());
+		if (null == role) return permissions;
+		// 查询菜单
+		List<RoleMenuPermission> rList = this.findMenuPermissionByRoleId(role.getRoleId());
 		if (null == rList || rList.size() == 0) return permissions;
 
 		rList.stream().forEach(r -> {
@@ -61,11 +68,9 @@ public class PermissionServiceImpl extends JPAFactoryImpl implements PermissionS
 	}
 
 	@Override
-	@CacheEvict(value = { AdminCacheKey.MENU_INFO, AdminCacheKey.ROLE_INFO_LIST,
-			AdminCacheKey.MODULE_INFO_LIST }, allEntries = true)
 	@Transactional
 	public boolean updateRoleMenuPermissions(String roleCode, String... permissions) {
-		Role role = roleRepository.findRoleByRoleCode(roleCode.trim());
+		Role role = roleService.findRoleByCode(roleCode.trim());
 		if (null == role) return false;
 
 		// 菜单集合
@@ -100,6 +105,7 @@ public class PermissionServiceImpl extends JPAFactoryImpl implements PermissionS
 			});
 		}
 
+		this.redisCacheClear();
 		return true;
 	}
 
@@ -123,6 +129,11 @@ public class PermissionServiceImpl extends JPAFactoryImpl implements PermissionS
 		long num = this.queryFactory.delete(qRoleMenuPermission).where(
 				qRoleMenuPermission.roleMenuId.in(roleMenuArray)).execute();
 		return num > 0;
+	}
+
+	@CacheEvict(value = { AdminCacheKey.PERMISSION_INFO, AdminCacheKey.MENU_INFO,
+			AdminCacheKey.MODULE_INFO, AdminCacheKey.ROLE_INFO }, allEntries = true)
+	public void redisCacheClear() {
 	}
 
 }

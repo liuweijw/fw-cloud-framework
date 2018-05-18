@@ -8,6 +8,9 @@ server:
     min-spare-threads: 50
 
 spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   redis:
     remote: true        #是否是开启缓存
     host: 127.0.0.1

@@ -1,30 +1,24 @@
 package com.github.liuweijw.business.admin.cache;
 
 /**
- * 各种缓存Key定义
+ * 各种缓存模块Key定义
  * 
  * @author liuweijw
  */
 public interface AdminCacheKey {
 
-	String	USER_INFO						= "user_info_";
-	String	USER_INFO_KEY_USERNAME			= "#username";
+	String	USER_INFO		= "user_info_";
 
-	String	USER_INFO_MOBILE				= "user_info_mobile";
-	String	USER_INFO_MOBILE_KEY_USERNAME	= "#mobile";
+	String	MENU_INFO		= "menu_info_";
 
-	String	USER_INFO_USERID				= "user_info_userId";
-	String	USER_INFO_USERID_KEY_USERID		= "#userId";
+	String	PERMISSION_INFO	= "permission_info_";
 
-	String	MENU_INFO						= "menu_info_";
-	String	MENU_INFO_KEY_ROLECODE			= "#roleCode + '_menu'";
+	String	ROLE_INFO		= "role_info_";
 
-	String	PERMISSION_INFO					= "permission_info_";
-	String	PERMISSION_INFO_KEY_ROLECODE	= "#roleCode";
+	String	DICT_INFO		= "dict_info_";
 
-	String	ROLE_INFO_LIST					= "role_info_list";
+	String	MODULE_INFO		= "module_info_";
 
-	String	DICT_INFO_LIST					= "dict_list_";
+	String	DEPT_INFO		= "dept_info_";
 
-	String	MODULE_INFO_LIST				= "module_list_";
 }

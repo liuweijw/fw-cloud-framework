@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -55,7 +56,7 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 	private UserRoleRepository	userRoleRepository;
 
 	@Override
-	@Cacheable(value = AdminCacheKey.USER_INFO, key = AdminCacheKey.USER_INFO_KEY_USERNAME)
+	@Cacheable(value = AdminCacheKey.USER_INFO, key = "'user_' + #username")
 	public AuthUser findUserByUsername(String username) {
 		User user = findUserByUsername(username, true);
 
@@ -76,7 +77,7 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 	}
 
 	@Override
-	@Cacheable(value = AdminCacheKey.USER_INFO_MOBILE, key = AdminCacheKey.USER_INFO_MOBILE_KEY_USERNAME)
+	@Cacheable(value = AdminCacheKey.USER_INFO, key = "'user_' + #mobile")
 	public AuthUser findUserByMobile(String mobile) {
 		User user = userRepository.findUserByMobile(mobile.trim());
 		if (null == user) return null;
@@ -98,8 +99,8 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 		return rList;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
+	@SuppressWarnings("unchecked")
 	public void saveImageCode(String randomStr, String imageCode) {
 		redisTemplate.opsForValue().set(SecurityConstant.DEFAULT_CODE_KEY + randomStr, imageCode,
 				SecurityConstant.DEFAULT_IMAGE_EXPIRE, TimeUnit.SECONDS);
@@ -140,7 +141,7 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 	}
 
 	@Override
-	@Cacheable(value = AdminCacheKey.USER_INFO_USERID, key = AdminCacheKey.USER_INFO_USERID_KEY_USERID)
+	@Cacheable(value = AdminCacheKey.USER_INFO, key = "'user_' + #userId")
 	public AuthUser findByUserId(String userId) {
 		User user = userRepository.findUserByUserId(Integer.valueOf(userId));
 		if (null == user) return null;
@@ -215,6 +216,8 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 		QUser qUser = QUser.user;
 		long num = this.queryFactory.update(qUser).set(qUser.statu, 1) // 0 正常 1删除
 				.where(qUser.userId.eq(userId.intValue())).execute();
+
+		this.redisCacheClear();
 		return num > 0;
 	}
 
@@ -229,7 +232,7 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 		uRole.setUserId(dbUser.getUserId());
 
 		this.userRoleRepository.saveAndFlush(uRole);
-
+		this.redisCacheClear();
 		return true;
 	}
 
@@ -258,6 +261,7 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 
 		this.userRoleRepository.saveAndFlush(uRole);
 
+		this.redisCacheClear();
 		return true;
 	}
 
@@ -268,7 +272,11 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 
 		this.userRepository.saveAndFlush(user);
 
+		this.redisCacheClear();
 		return true;
 	}
 
+	@CacheEvict(value = { AdminCacheKey.USER_INFO }, allEntries = true)
+	public void redisCacheClear() {
+	}
 }

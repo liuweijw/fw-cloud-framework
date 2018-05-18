@@ -7,7 +7,9 @@ package com.github.liuweijw.business.commons.tree;
  */
 public class DeptTree extends TreeNode {
 
-	private String	name;
+	private static final long	serialVersionUID	= 2764058970186728117L;
+
+	private String				name;
 
 	public String getName() {
 		return name;

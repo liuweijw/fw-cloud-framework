@@ -8,8 +8,6 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.apache.http.HttpStatus;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +25,6 @@ import com.xiaoleilu.hutool.http.HttpUtil;
 import com.xiaoleilu.hutool.io.IoUtil;
 import com.xiaoleilu.hutool.util.URLUtil;
 
-@Slf4j
 @Component
 public class LogServiceImpl implements LogService {
 
@@ -73,7 +70,6 @@ public class LogServiceImpl implements LogService {
 				syslog.setException(response);
 				requestContext.setResponseDataStream(responseDataStream);
 			} catch (IOException e) {
-				log.error("响应流解析异常：", e);
 				throw new RuntimeException(e);
 			} finally {
 				IoUtil.close(responseDataStream);
@@ -85,7 +81,6 @@ public class LogServiceImpl implements LogService {
 		// 网关内部异常
 		Throwable throwable = requestContext.getThrowable();
 		if (throwable != null) {
-			log.error("网关异常", throwable);
 			syslog.setException(throwable.getMessage());
 		}
 

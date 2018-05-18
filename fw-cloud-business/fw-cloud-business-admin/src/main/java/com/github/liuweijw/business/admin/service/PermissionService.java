@@ -1,6 +1,9 @@
 package com.github.liuweijw.business.admin.service;
 
+import java.util.List;
 import java.util.Set;
+
+import com.github.liuweijw.business.admin.domain.RoleMenuPermission;
 
 /**
  * 权限服务
@@ -28,5 +31,10 @@ public interface PermissionService {
 	 * @return
 	 */
 	boolean updateRoleMenuPermissions(String roleCode, String... permissions);
+
+	/**
+	 * 通过roleId 获取相关菜单功能权限
+	 */
+	List<RoleMenuPermission> findMenuPermissionByRoleId(Integer roleId);
 
 }

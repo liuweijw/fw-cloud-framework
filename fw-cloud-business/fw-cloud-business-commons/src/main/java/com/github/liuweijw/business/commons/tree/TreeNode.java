@@ -1,5 +1,6 @@
 package com.github.liuweijw.business.commons.tree;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,13 +9,15 @@ import java.util.List;
  * 
  * @author liuweijw
  */
-public class TreeNode {
+public class TreeNode implements Serializable {
+
+	private static final long	serialVersionUID	= -8275451158911413692L;
 
 	protected String			id;
 
 	protected String			pid;
 
-	protected List<TreeNode>	children	= new ArrayList<TreeNode>();
+	protected List<TreeNode>	children			= new ArrayList<TreeNode>();
 
 	public void add(TreeNode node) {
 		children.add(node);

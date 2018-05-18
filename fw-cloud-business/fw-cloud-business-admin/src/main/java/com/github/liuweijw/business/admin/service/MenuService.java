@@ -41,14 +41,39 @@ public interface MenuService {
 	/**
 	 * 返回角色的菜单
 	 *
-	 * @param roleName
+	 * @param roleCode
 	 *            角色
 	 * @return 菜单列表
 	 */
-	public List<MenuTree> findUserMenuTree(String roleName);
+	List<MenuTree> findRoleMenuTree(String roleCode);
 
 	/**
-	 * 返回所有菜单树形数据
+	 * 返回所有菜单树形数据 带用户功能权限
 	 */
-	List<MenuTree> findUserMenuTree();
+	List<MenuTree> findAllMenuTree();
+
+	/**
+	 * 仅返回所有菜单树形数据
+	 */
+	List<MenuTree> findAllMenuTreeList();
+
+	/**
+	 * 通过id删除
+	 */
+	boolean delById(Integer menuId);
+
+	/**
+	 * 菜单新增修改
+	 */
+	Menu saveOrUpdate(Menu menu);
+
+	/**
+	 * 仅返回所有菜单数据
+	 */
+	List<Menu> findMenuList();
+
+	/**
+	 * 返回roleId关联所有菜单数据
+	 */
+	List<Menu> findMenuByRoleId(Integer roleId);
 }

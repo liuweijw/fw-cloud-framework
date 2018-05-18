@@ -31,7 +31,7 @@ import com.github.liuweijw.exception.ValidateCodeException;
 @Component("validateCodeFilter")
 public class ValidateCodeFilter extends OncePerRequestFilter {
 
-	@Value("${security.validate.code:true}")
+	@Value("${security.validate.code:false}")
 	private boolean			isValidate;
 
 	@SuppressWarnings("rawtypes")

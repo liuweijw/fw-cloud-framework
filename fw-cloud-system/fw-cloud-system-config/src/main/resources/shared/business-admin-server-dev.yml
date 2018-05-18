@@ -23,8 +23,8 @@ spring:
   rabbitmq:
     host: 127.0.0.1
     port: 5672
-    username: ENC(tbrYcuNRFv1gflhdhpuY0g==)
-    password: ENC(tbrYcuNRFv1gflhdhpuY0g==)
+    username: guest
+    password: guest
   zipkin:
     rabbitmq:
       queue: zipkin

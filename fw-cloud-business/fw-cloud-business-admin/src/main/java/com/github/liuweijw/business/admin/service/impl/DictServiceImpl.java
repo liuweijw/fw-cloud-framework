@@ -62,14 +62,14 @@ public class DictServiceImpl extends JPAFactoryImpl implements DictService {
 	}
 
 	@Override
-	@Cacheable(value = AdminCacheKey.DICT_INFO_LIST)
+	@Cacheable(value = AdminCacheKey.DICT_INFO, key = "'dict_list'")
 	public List<Dict> getAllList() {
 		QDict qDict = QDict.dict;
 		return this.queryFactory.selectFrom(qDict).fetch();
 	}
 
 	@Override
-	@Cacheable(value = AdminCacheKey.DICT_INFO_LIST, key = "#id")
+	@Cacheable(value = AdminCacheKey.DICT_INFO, key = "'dict_' + #id")
 	public Dict findById(Integer id) {
 		if (null == id || id < 0) return null;
 
@@ -77,7 +77,7 @@ public class DictServiceImpl extends JPAFactoryImpl implements DictService {
 	}
 
 	@Override
-	@Cacheable(value = AdminCacheKey.DICT_INFO_LIST, key = "#type")
+	@Cacheable(value = AdminCacheKey.DICT_INFO, key = "'dict_' + #type")
 	public List<Dict> getDictList(String type) {
 		List<Dict> dictList = new ArrayList<Dict>();
 		if (StringHelper.isBlank(type)) return dictList;
@@ -86,18 +86,19 @@ public class DictServiceImpl extends JPAFactoryImpl implements DictService {
 		return this.queryFactory.selectFrom(qDict).where(qDict.type.eq(type.trim())).fetch();
 	}
 
-	// 当指定了allEntries为true时，Spring Cache将忽略指定的key
 	@Override
-	@CacheEvict(value = AdminCacheKey.DICT_INFO_LIST, allEntries = true)
 	@Transactional
 	public Dict saveOrUpdate(Dict dict) {
 		if (null == dict) return null;
 
-		return this.dictRepository.saveAndFlush(dict);
+		Dict dbDict = this.dictRepository.saveAndFlush(dict);
+
+		this.redisCacheClear();
+
+		return dbDict;
 	}
 
 	@Override
-	@CacheEvict(value = AdminCacheKey.DICT_INFO_LIST, allEntries = true)
 	@Transactional
 	public boolean delById(Integer id) {
 		if (null == id || id <= 0) return Boolean.FALSE;
@@ -105,7 +106,12 @@ public class DictServiceImpl extends JPAFactoryImpl implements DictService {
 		QDict qDict = QDict.dict;
 		long num = this.queryFactory.update(qDict).set(qDict.statu, 1) // 0 正常 1删除
 				.where(qDict.id.eq(id.intValue())).execute();
+
+		this.redisCacheClear();
 		return num > 0;
 	}
 
+	@CacheEvict(value = { AdminCacheKey.DICT_INFO }, allEntries = true)
+	public void redisCacheClear() {
+	}
 }

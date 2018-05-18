@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
+import com.github.liuweijw.business.admin.cache.AdminCacheKey;
 import com.github.liuweijw.business.admin.domain.Dept;
 import com.github.liuweijw.business.admin.domain.QDept;
 import com.github.liuweijw.business.admin.repository.DeptRepository;
@@ -21,6 +24,7 @@ public class DeptServiceImpl extends JPAFactoryImpl implements DeptService {
 	private DeptRepository	deptRepository;
 
 	@Override
+	@Cacheable(value = AdminCacheKey.DEPT_INFO, key = "'dept_list'")
 	public List<DeptTree> getDeptTreeList() {
 		QDept dept = QDept.dept;
 		List<Dept> list = this.queryFactory.selectFrom(dept).where(dept.statu.eq(0)).fetch();
@@ -43,4 +47,7 @@ public class DeptServiceImpl extends JPAFactoryImpl implements DeptService {
 		return TreeUtil.build(treeList, "0");
 	}
 
+	@CacheEvict(value = { AdminCacheKey.DEPT_INFO }, allEntries = true)
+	public void redisCacheClear() {
+	}
 }

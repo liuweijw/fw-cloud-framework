@@ -82,7 +82,7 @@
         <swagger2.version>2.9.0</swagger2.version>
         <zuul-ratelimit>1.7.0.RELEASE</zuul-ratelimit>
         <ttl.version>2.2.0</ttl.version>
-        <fw.version>1.0.2-SNAPSHOT</fw.version>
+        <fw.version>1.0.4-SNAPSHOT</fw.version>
         <fw.system.version>${fw.version}</fw.system.version>
         <fw.business.version>${fw.version}</fw.business.version>
         <fw.core.version>${fw.version}</fw.core.version>

@@ -30,7 +30,17 @@ public class RoleServiceImpl extends JPAFactoryImpl implements RoleService {
 	private RoleRepository	roleRepository;
 
 	@Override
-	@Cacheable(value = AdminCacheKey.ROLE_INFO_LIST, key = "deptId_#deptId")
+	@Cacheable(value = AdminCacheKey.ROLE_INFO, key = "'role_' + #roleCode")
+	public Role findRoleByCode(String roleCode) {
+		if (StringHelper.isBlank(roleCode)) return null;
+
+		QRole qRole = QRole.role;
+		return this.queryFactory.selectFrom(qRole).where(qRole.roleCode.eq(roleCode.trim()))
+				.fetchOne();
+	}
+
+	@Override
+	@Cacheable(value = AdminCacheKey.ROLE_INFO, key = "'role_' + #deptId")
 	public List<Role> getRoleListByDeptId(Integer deptId) {
 		if (null == deptId || deptId <= 0) return null;
 
@@ -44,7 +54,7 @@ public class RoleServiceImpl extends JPAFactoryImpl implements RoleService {
 	}
 
 	@Override
-	@Cacheable(value = AdminCacheKey.ROLE_INFO_LIST)
+	@Cacheable(value = AdminCacheKey.ROLE_INFO, key = "'role_list'")
 	public List<Role> getRoleList() {
 		return roleRepository.findAll();
 	}
@@ -81,16 +91,17 @@ public class RoleServiceImpl extends JPAFactoryImpl implements RoleService {
 	}
 
 	@Override
-	@CacheEvict(value = AdminCacheKey.ROLE_INFO_LIST, allEntries = true)
 	@Transactional
 	public Role saveOrUpdate(Role role) {
 		if (null == role) return null;
 
-		return this.roleRepository.saveAndFlush(role);
+		Role dbRole = this.roleRepository.saveAndFlush(role);
+		this.redisCacheClear();
+
+		return dbRole;
 	}
 
 	@Override
-	@CacheEvict(value = AdminCacheKey.ROLE_INFO_LIST, allEntries = true)
 	@Transactional
 	public boolean delById(Integer roleId) {
 		if (null == roleId || roleId <= 0) return Boolean.FALSE;
@@ -98,16 +109,13 @@ public class RoleServiceImpl extends JPAFactoryImpl implements RoleService {
 		QRole qRole = QRole.role;
 		long num = this.queryFactory.update(qRole).set(qRole.statu, 1) // 0 正常 1删除
 				.where(qRole.roleId.eq(roleId.intValue())).execute();
+
+		this.redisCacheClear();
 		return num > 0;
 	}
 
-	@Override
-	public Role findRoleByCode(String roleCode) {
-		if (StringHelper.isBlank(roleCode)) return null;
-
-		QRole qRole = QRole.role;
-		return this.queryFactory.selectFrom(qRole).where(qRole.roleCode.eq(roleCode.trim()))
-				.fetchOne();
+	@CacheEvict(value = { AdminCacheKey.ROLE_INFO }, allEntries = true)
+	public void redisCacheClear() {
 	}
 
 }
