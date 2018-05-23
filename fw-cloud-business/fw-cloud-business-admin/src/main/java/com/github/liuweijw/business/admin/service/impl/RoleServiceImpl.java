@@ -19,7 +19,7 @@ import com.github.liuweijw.business.admin.repository.RoleRepository;
 import com.github.liuweijw.business.admin.service.RoleService;
 import com.github.liuweijw.business.commons.beans.PageBean;
 import com.github.liuweijw.business.commons.beans.PageParams;
-import com.github.liuweijw.business.commons.beans.PageUtil;
+import com.github.liuweijw.business.commons.utils.PageUtils;
 import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
 import com.github.liuweijw.core.utils.StringHelper;
 import com.querydsl.core.types.Predicate;
@@ -78,9 +78,9 @@ public class RoleServiceImpl extends JPAFactoryImpl implements RoleService {
 		Predicate predicate = qRole.roleId.goe(0).and(qCodePredicate).and(qNamePredicate);
 
 		Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "roleId"));
-		PageRequest pageRequest = PageUtil.of(pageParams, sort);
+		PageRequest pageRequest = PageUtils.of(pageParams, sort);
 		Page<Role> pageList = roleRepository.findAll(predicate, pageRequest);
-		return PageUtil.of(pageList);
+		return PageUtils.of(pageList);
 	}
 
 	@Override

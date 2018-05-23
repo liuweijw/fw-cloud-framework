@@ -19,7 +19,7 @@ import com.github.liuweijw.business.admin.repository.DictRepository;
 import com.github.liuweijw.business.admin.service.DictService;
 import com.github.liuweijw.business.commons.beans.PageBean;
 import com.github.liuweijw.business.commons.beans.PageParams;
-import com.github.liuweijw.business.commons.beans.PageUtil;
+import com.github.liuweijw.business.commons.utils.PageUtils;
 import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
 import com.github.liuweijw.core.utils.StringHelper;
 import com.querydsl.core.types.Predicate;
@@ -49,9 +49,9 @@ public class DictServiceImpl extends JPAFactoryImpl implements DictService {
 		Predicate predicate = qDict.id.goe(0).and(qTypePredicate).and(qLabelPredicate);
 
 		Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "id"));
-		PageRequest pageRequest = PageUtil.of(pageParams, sort);
+		PageRequest pageRequest = PageUtils.of(pageParams, sort);
 		Page<Dict> pageList = dictRepository.findAll(predicate, pageRequest);
-		return PageUtil.of(pageList);
+		return PageUtils.of(pageList);
 	}
 
 	@Override

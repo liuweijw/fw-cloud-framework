@@ -32,7 +32,7 @@ import com.github.liuweijw.business.admin.service.PermissionService;
 import com.github.liuweijw.business.admin.service.UserService;
 import com.github.liuweijw.business.commons.beans.PageBean;
 import com.github.liuweijw.business.commons.beans.PageParams;
-import com.github.liuweijw.business.commons.beans.PageUtil;
+import com.github.liuweijw.business.commons.utils.PageUtils;
 import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
 import com.github.liuweijw.core.beans.system.AuthRole;
 import com.github.liuweijw.core.beans.system.AuthUser;
@@ -190,14 +190,14 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 		Predicate predicate = qUser.statu.eq(0).and(qUserNamePredicate);
 
 		Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "createTime"));
-		PageRequest pageRequest = PageUtil.of(pageParams, sort);
+		PageRequest pageRequest = PageUtils.of(pageParams, sort);
 		Page<User> pageList = userRepository.findAll(predicate, pageRequest);
 		if (null != pageList && null != pageList.getContent()) {
 			for (User dbUser : pageList.getContent()) {
 				dbUser.setRoleList(findRoleListByUserId(dbUser.getUserId()));
 			}
 		}
-		return PageUtil.of(pageList);
+		return PageUtils.of(pageList);
 	}
 
 	@Override

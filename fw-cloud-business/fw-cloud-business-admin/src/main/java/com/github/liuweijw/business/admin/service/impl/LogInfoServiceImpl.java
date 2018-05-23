@@ -13,7 +13,7 @@ import com.github.liuweijw.business.admin.repository.LogInfoRepository;
 import com.github.liuweijw.business.admin.service.LogInfoService;
 import com.github.liuweijw.business.commons.beans.PageBean;
 import com.github.liuweijw.business.commons.beans.PageParams;
-import com.github.liuweijw.business.commons.beans.PageUtil;
+import com.github.liuweijw.business.commons.utils.PageUtils;
 import com.github.liuweijw.core.utils.StringHelper;
 import com.querydsl.core.types.Predicate;
 
@@ -48,9 +48,9 @@ public class LogInfoServiceImpl implements LogInfoService {
 		Predicate predicate = qLogInfo.statu.eq(0).and(qServiceIdPredicate);
 
 		Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "id"));
-		PageRequest pageRequest = PageUtil.of(pageParams, sort);
+		PageRequest pageRequest = PageUtils.of(pageParams, sort);
 		Page<LogInfo> pageList = logInfoRepository.findAll(predicate, pageRequest);
-		return PageUtil.of(pageList);
+		return PageUtils.of(pageList);
 	}
 
 	@Override
