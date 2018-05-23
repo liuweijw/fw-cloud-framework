@@ -21,7 +21,7 @@ public class PageParams {
 
 	public Integer getCurrentPage() {
 		currentPage = (null == currentPage || currentPage <= 0) ? 1 : currentPage;
-		return currentPage - 1;
+		return currentPage;
 	}
 
 	public void setCurrentPage(Integer currentPage) {

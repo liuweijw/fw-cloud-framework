@@ -100,6 +100,11 @@ public class LogInfo implements Serializable {
 	@Column(name = "update_time")
 	private Date				updateTime;
 
+	/**
+	 * id = 18 丢失精度适配
+	 */
+	private transient String	idView;
+
 	public long getId() {
 		return id;
 	}
@@ -218,6 +223,15 @@ public class LogInfo implements Serializable {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public String getIdView() {
+		if (null == idView) idView = id + "";
+		return idView;
+	}
+
+	public void setIdView(String idView) {
+		this.idView = idView;
 	}
 
 }

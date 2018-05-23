@@ -33,6 +33,11 @@ public interface Module {
 	String	DICT	= "dict_";
 
 	/**
+	 * 日志模块
+	 */
+	String	LOG		= "logs_";
+
+	/**
 	 * 验证码模块
 	 */
 	String	CODE	= "code_";
