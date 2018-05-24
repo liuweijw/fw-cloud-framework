@@ -100,7 +100,7 @@ You need to run build with JDK or have tools.jar on the classpath. If this occur
   * idea 导入工程方法建议参考[guide](http://blog.csdn.net/sinat_36246371/article/details/52914448)
 
 # 服务相关图片
-- eureka服务注册 [点击访问](http://47.106.144.24:1001/)
+- eureka服务注册 [点击访问，用户名：admin 密码：liuweijw](http://47.106.144.24:1001/)
 
 ![image](doc/pic/1001.png)
 
