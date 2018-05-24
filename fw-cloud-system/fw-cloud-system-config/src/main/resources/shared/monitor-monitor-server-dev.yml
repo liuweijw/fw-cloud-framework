@@ -1,0 +1,15 @@
+server:
+  port: 1010
+
+spring:
+  boot:
+    admin:
+      turbine:
+        location: monitor-monitor-server
+      routes:
+        endpoints: env,metrics,trace,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,loggers,auditevents,hystrix.stream,turbine.stream
+
+turbine:
+    app-config: system-gateway-server
+    combine-host-port: true
+    cluster-name-expression: new String('default')

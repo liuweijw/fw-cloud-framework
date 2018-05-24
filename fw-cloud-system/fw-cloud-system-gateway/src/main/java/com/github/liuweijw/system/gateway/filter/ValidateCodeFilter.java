@@ -8,8 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +25,6 @@ import com.github.liuweijw.exception.ValidateCodeException;
 /**
  * @author liuweijw 验证码校验，true开启，false关闭校验 更细化可以 clientId 进行区分
  */
-@Slf4j
 @Component("validateCodeFilter")
 public class ValidateCodeFilter extends OncePerRequestFilter {
 
@@ -51,7 +48,6 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 			try {
 				checkCode(request, response, filterChain);
 			} catch (ValidateCodeException e) {
-				log.info("登录失败：{}", e.getMessage());
 				response.setCharacterEncoding(CommonConstant.UTF8);
 				response.setContentType(CommonConstant.CONTENT_TYPE);
 				R<String> result = new R<String>().failure(e);

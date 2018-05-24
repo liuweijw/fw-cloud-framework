@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>fw-cloud-monitor</artifactId>
+    <packaging>pom</packaging>
+    <version>${fw.monitor.version}</version>
+
+    <name>fw-cloud-monitor</name>
+    <description>系统模块</description>
+
+    <parent>
+    	<groupId>com.github.liuweijw</groupId>
+        <artifactId>fw-cloud-framework</artifactId>
+        <version>${fw.version}</version>
+    </parent>
+
+	<properties>
+		<zipkin-autoconfigure.version>2.8.4</zipkin-autoconfigure.version>
+	</properties>
+
+	<modules>
+		<!-- monitor 系统监控模块 -->
+		<module>fw-cloud-monitor-monitor</module>
+		<!-- zipkin database 数据库监控
+		<module>fw-cloud-monitor-zipkin-db</module>-->
+		<!-- zipkin elk 分布式链路追踪监控
+		<module>fw-cloud-monitor-zipkin-elk</module> -->
+	</modules>
+</project>

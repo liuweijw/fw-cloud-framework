@@ -21,16 +21,10 @@
 
 # 技术模块相关说明
 1、 fw-cloud-system 模块
-- fw-cloud-system-eureka  [端口1001] 服务注册中心
+- fw-cloud-system-eureka  [端口1001] 服务注册中心[在线访问](http://47.106.144.24:1001/)
 - fw-cloud-system-config  [端口1002] 服务配置和发现[远程配置 guide](https://github.com/liuweijw/fw-cloud-framework/wiki/02-%E9%83%A8%E5%88%86%E6%8A%80%E6%9C%AF%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E)
 - fw-cloud-system-gateway [端口1003] zuul服务网关（外部接口接入入口）
 - fw-cloud-system-auth    [端口1004] 权限接入服务(支持oauth2、单点登录) [查看详情 guide](https://github.com/liuweijw/fw-cloud-framework/wiki/05-Auth-%E6%A8%A1%E5%9D%97%E5%90%AF%E5%8A%A8%E8%AF%B4%E6%98%8E)
-- fw-cloud-system-xxx     [端口待定] 服务状态监控
-- fw-cloud-system-xxx     [端口待定] zipkin监控
-- fw-cloud-system-xxx     [端口待定] elk监控
-- fw-cloud-system-xxx     [端口待定] 缓存监控
-- fw-cloud-system-xxx     [端口待定] 日志等监控
-- fw-cloud-system-commons system各模块基础功能依赖
 
 2、fw-cloud-core 基础公共模块
 - fw-cloud-core-beans 常用全局bean
@@ -44,10 +38,19 @@
 - fw-cloud-business-admin   [端口2002] 权限管理等接口服务
 - fw-cloud-business-sso     [端口3001] 单点登录模块接入demo
 - fw-cloud-business-pay     [端口2003] 微信等支付统一下单模块服务
-- fw-cloud-business-wechat  [端口2004] 微信公众号模块服务
+- fw-cloud-business-wechat  [端口2004] 微信公众号模
+块服务
 - fw-cloud-business-client  [端口待定] 前端接口服务
+- fw-cloud-system-commons system各模块基础功能依赖
 
-4、前端模块 [Vue2-Admin](https://github.com/liuweijw/Vue2-Admin)
+4、系统监控模块
+- fw-cloud-monitor-monitor    [端口1010] 服务状态监控[服务在线访问](http://47.106.144.24:1010/)
+- fw-cloud-monitor-zipkin-db  [端口待定] 数据库db监控
+- fw-cloud-monitor-zipkin-elk [端口待定] elk监控
+- fw-cloud-system-xxx         [端口待定] 缓存监控
+- fw-cloud-system-xxx         [端口待定] 日志等监控
+
+5、前端模块 [Vue2-Admin](https://github.com/liuweijw/Vue2-Admin)
 - 基于element ui 的Vue全家桶
 - Webpack3
 - Axios
@@ -95,3 +98,20 @@ You need to run build with JDK or have tools.jar on the classpath. If this occur
 - idea 安装
   * 查看地址[guide](http://blog.csdn.net/zhglance/article/details/54931430)
   * idea 导入工程方法建议参考[guide](http://blog.csdn.net/sinat_36246371/article/details/52914448)
+
+# 服务相关图片
+- eureka服务注册 [点击访问](http://47.106.144.24:1001/)
+
+![image](doc/pic/1001.png)
+
+- Swagger Api 文档 [点击访问](http://47.106.144.24:1003/swagger-ui.html)
+
+![image](doc/pic/1002.png)
+
+- 服务状态监控 [点击访问](http://47.106.144.24:1010/)
+
+![image](doc/pic/1003.png)
+![image](doc/pic/1004.png)
+![image](doc/pic/1005.png)
+![image](doc/pic/1006.png)
+![image](doc/pic/1007.png)

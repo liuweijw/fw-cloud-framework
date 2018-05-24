@@ -82,10 +82,16 @@
         <swagger2.version>2.9.0</swagger2.version>
         <zuul-ratelimit>1.7.0.RELEASE</zuul-ratelimit>
         <ttl.version>2.2.0</ttl.version>
+        <!--  // https://github.com/codecentric/spring-boot-admin -->
+        <!--  // http://codecentric.github.io/spring-boot-admin/1.5.7/ -->
+        <spring-boot-admin-server.version>1.5.7</spring-boot-admin-server.version>
+        <spring-boot-admin-server-ui.version>1.5.7</spring-boot-admin-server-ui.version>
+        <spring-boot-admin-server-ui-turbine.version>1.5.7</spring-boot-admin-server-ui-turbine.version>
         <fw.version>1.0.4-SNAPSHOT</fw.version>
         <fw.system.version>${fw.version}</fw.system.version>
         <fw.business.version>${fw.version}</fw.business.version>
         <fw.core.version>${fw.version}</fw.core.version>
+        <fw.monitor.version>${fw.version}</fw.monitor.version>
     </properties>
 
 	<modules>
@@ -93,6 +99,8 @@
 		<module>fw-cloud-core</module>
 		<!-- 业务模块 -->
 		<module>fw-cloud-business</module>
+		<!-- 监控模块 -->
+		<module>fw-cloud-monitor</module>
 		<!-- 框架核心 -->
 		<module>fw-cloud-system</module>
 	</modules>
