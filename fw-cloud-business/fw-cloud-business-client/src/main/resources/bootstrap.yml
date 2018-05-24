@@ -28,7 +28,7 @@ business:
     enabled: true
 ---
 spring:
-  profiles: prd
+  profiles: prod
 eureka:
   instance:
     prefer-ip-address: true

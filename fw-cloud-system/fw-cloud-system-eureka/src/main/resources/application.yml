@@ -40,7 +40,7 @@ eureka:
     eviction-interval-timer-in-ms: 30000
 ---
 spring:
-  profiles: proj
+  profiles: prod
 security:
   basic:
     enabled: true

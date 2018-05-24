@@ -34,7 +34,7 @@ eureka:
       defaultZone: http://admin:liuweijw@47.106.144.24:1001/eureka
 ---
 spring:
-  profiles: proj
+  profiles: prod
 eureka:
   instance:
     prefer-ip-address: true

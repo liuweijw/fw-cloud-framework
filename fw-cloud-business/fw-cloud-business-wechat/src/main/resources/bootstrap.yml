@@ -58,7 +58,7 @@ business:
 
 ---
 spring:
-  profiles: proj
+  profiles: prod
 eureka:
   instance:
     prefer-ip-address: true

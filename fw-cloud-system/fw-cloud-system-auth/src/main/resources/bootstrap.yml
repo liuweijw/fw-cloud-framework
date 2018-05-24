@@ -41,7 +41,7 @@ fw:
     jwtkey: jwt:token:liuweijw
 ---
 spring:
-  profiles: proj
+  profiles: prod
 eureka:
   instance:
     prefer-ip-address: true

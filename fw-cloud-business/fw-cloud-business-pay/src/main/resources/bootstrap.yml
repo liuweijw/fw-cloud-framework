@@ -48,7 +48,7 @@ business:
       notifyUrl: http://47.106.144.24/pay/notify/result
 ---
 spring:
-  profiles: proj
+  profiles: prod
 eureka:
   instance:
     prefer-ip-address: true

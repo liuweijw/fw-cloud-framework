@@ -40,7 +40,7 @@ security:
     server: http://47.106.144.24:1004
 ---
 spring:
-  profiles: proj
+  profiles: prod
 eureka:
   instance:
     prefer-ip-address: true
