@@ -35,7 +35,7 @@
 
     <build>
 		<!-- // ROOT 方式部署 -->
-    	<finalName>ROOT</finalName>
+    	<finalName>ADMIN</finalName>
     	<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

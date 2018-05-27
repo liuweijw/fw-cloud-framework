@@ -28,7 +28,7 @@
 
     <build>
     	<!-- Tomcat ROOT 方式部署 -->
-	    <finalName>ROOT</finalName>
+	    <finalName>CONFIG</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

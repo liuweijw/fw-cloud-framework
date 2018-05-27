@@ -40,7 +40,7 @@
 
     <build>
     	<!-- // ROOT 方式部署 -->
-    	<finalName>ROOT</finalName>
+    	<finalName>WECHAT</finalName>
     	<plugins>
 			<plugin>
                 <groupId>org.springframework.boot</groupId>
