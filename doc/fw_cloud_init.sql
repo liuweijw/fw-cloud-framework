@@ -14,6 +14,10 @@
 DROP DATABASE IF EXISTS `fw-cloud`;
 CREATE DATABASE IF NOT EXISTS `fw-cloud` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `fw-cloud`;
+
+SET NAMES utf8;
+SET FOREIGN_KEY_CHECKS = 0;
+
 -- 导出  表 fw-cloud.t_sys_dept 结构
 DROP TABLE IF EXISTS `t_sys_dept`;
 CREATE TABLE IF NOT EXISTS `t_sys_dept` (
@@ -92,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `t_sys_log_0` (
   `service_id` varchar(32) DEFAULT NULL COMMENT '服务ID',
   `create_by` varchar(32) DEFAULT NULL COMMENT '创建者',
   `remote_addr` varchar(255) DEFAULT NULL COMMENT '操作IP地址',
-  `user_agent` varchar(255) DEFAULT NULL COMMENT '用户代理',
+  `user_agent` varchar(500) DEFAULT NULL COMMENT '用户代理',
   `request_uri` varchar(255) DEFAULT NULL COMMENT '请求URI',
   `method` varchar(10) DEFAULT NULL COMMENT '操作方式',
   `params` text COMMENT '操作提交的数据',
@@ -106,13 +110,12 @@ CREATE TABLE IF NOT EXISTS `t_sys_log_0` (
   KEY `t_sys_log_0_request_uri` (`request_uri`) USING BTREE,
   KEY `t_sys_log_0_type` (`type`) USING BTREE,
   KEY `t_sys_log_0_create_date` (`create_time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=179631651272261633 DEFAULT CHARSET=utf8 COMMENT='日志表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='日志表';
 
--- 正在导出表  fw-cloud.t_sys_log_0 的数据：~291 rows (大约)
+-- 正在导出表  fw-cloud.t_sys_log_0 的数据：~0 rows (大约)
 DELETE FROM `t_sys_log_0`;
 /*!40000 ALTER TABLE `t_sys_log_0` DISABLE KEYS */;
 /*!40000 ALTER TABLE `t_sys_log_0` ENABLE KEYS */;
-
 
 -- 导出  表 fw-cloud.t_sys_log_1 结构
 DROP TABLE IF EXISTS `t_sys_log_1`;
@@ -123,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `t_sys_log_1` (
   `service_id` varchar(32) DEFAULT NULL COMMENT '服务ID',
   `create_by` varchar(32) DEFAULT NULL COMMENT '创建者',
   `remote_addr` varchar(255) DEFAULT NULL COMMENT '操作IP地址',
-  `user_agent` varchar(255) DEFAULT NULL COMMENT '用户代理',
+  `user_agent` varchar(500) DEFAULT NULL COMMENT '用户代理',
   `request_uri` varchar(255) DEFAULT NULL COMMENT '请求URI',
   `method` varchar(10) DEFAULT NULL COMMENT '操作方式',
   `params` text COMMENT '操作提交的数据',
@@ -144,10 +147,11 @@ DELETE FROM `t_sys_log_1`;
 /*!40000 ALTER TABLE `t_sys_log_1` DISABLE KEYS */;
 /*!40000 ALTER TABLE `t_sys_log_1` ENABLE KEYS */;
 
+
 -- 导出  表 fw-cloud.t_sys_menu 结构
 DROP TABLE IF EXISTS `t_sys_menu`;
 CREATE TABLE IF NOT EXISTS `t_sys_menu` (
-  `menu_id` int(11) NOT NULL COMMENT '菜单ID',
+  `menu_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
   `menu_name` varchar(32) NOT NULL COMMENT '菜单名称',
   `path` varchar(128) DEFAULT NULL COMMENT '前端URL',
   `url` varchar(128) DEFAULT NULL COMMENT '请求链接',
@@ -156,9 +160,9 @@ CREATE TABLE IF NOT EXISTS `t_sys_menu` (
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `statu` smallint(1) DEFAULT '0' COMMENT '0--正常 1--删除',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='菜单权限表';
 
--- 正在导出表  fw-cloud.t_sys_menu 的数据：~15 rows (大约)
+-- 正在导出表  fw-cloud.t_sys_menu 的数据：~14 rows (大约)
 DELETE FROM `t_sys_menu`;
 /*!40000 ALTER TABLE `t_sys_menu` DISABLE KEYS */;
 INSERT INTO `t_sys_menu` (`menu_id`, `menu_name`, `path`, `url`, `pid`, `create_time`, `update_time`, `statu`) VALUES
@@ -220,7 +224,7 @@ DELETE FROM `t_sys_role`;
 /*!40000 ALTER TABLE `t_sys_role` DISABLE KEYS */;
 INSERT INTO `t_sys_role` (`role_id`, `role_name`, `role_code`, `role_desc`, `create_time`, `update_time`, `statu`) VALUES
 	(1, 'SUPER管理员', 'ROLE_SUPER_ADMIN', '超级管理员', '2018-04-13 11:37:40', '2018-04-13 11:37:55', 0),
-	(2, '超级管理员', 'ROLE_ADMIN', '系统管理员', '2018-03-08 23:56:00', '2018-04-13 11:38:01', 0),
+	(2, '系统管理员', 'ROLE_ADMIN', '系统管理员', '2018-03-08 23:56:00', '2018-05-26 13:02:05', 0),
 	(3, '测试Test', 'ROLE_TEST', '测试权限', '2018-03-08 23:56:00', '2018-05-16 13:16:41', 0);
 /*!40000 ALTER TABLE `t_sys_role` ENABLE KEYS */;
 
@@ -234,7 +238,7 @@ CREATE TABLE IF NOT EXISTS `t_sys_role_dept` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色与部门对应关系';
 
--- 正在导出表  fw-cloud.t_sys_role_dept 的数据：~0 rows (大约)
+-- 正在导出表  fw-cloud.t_sys_role_dept 的数据：~1 rows (大约)
 DELETE FROM `t_sys_role_dept`;
 /*!40000 ALTER TABLE `t_sys_role_dept` DISABLE KEYS */;
 INSERT INTO `t_sys_role_dept` (`id`, `role_id`, `dept_id`) VALUES
@@ -249,27 +253,33 @@ CREATE TABLE IF NOT EXISTS `t_sys_role_menu` (
   `role_id` int(11) NOT NULL COMMENT '角色ID',
   `menu_id` int(11) NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8 COMMENT='角色菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=188 DEFAULT CHARSET=utf8 COMMENT='角色菜单表';
 
--- 正在导出表  fw-cloud.t_sys_role_menu 的数据：~15 rows (大约)
+-- 正在导出表  fw-cloud.t_sys_role_menu 的数据：~21 rows (大约)
 DELETE FROM `t_sys_role_menu`;
 /*!40000 ALTER TABLE `t_sys_role_menu` DISABLE KEYS */;
 INSERT INTO `t_sys_role_menu` (`id`, `role_id`, `menu_id`) VALUES
-	(124, 2, 2),
-	(125, 2, 3),
-	(126, 2, 4),
-	(127, 1, 2),
-	(128, 1, 3),
-	(129, 1, 4),
-	(130, 1, 5),
-	(131, 1, 6),
-	(132, 1, 7),
-	(133, 1, 9),
-	(134, 1, 10),
-	(135, 1, 11),
-	(136, 1, 12),
-	(137, 1, 13),
-	(138, 1, 14);
+	(188, 1, 1),
+	(189, 1, 2),
+	(190, 1, 3),
+	(191, 1, 4),
+	(192, 1, 5),
+	(193, 1, 6),
+	(194, 1, 7),
+	(195, 1, 8),
+	(196, 1, 9),
+	(197, 1, 10),
+	(198, 1, 11),
+	(199, 1, 12),
+	(200, 1, 13),
+	(201, 1, 14),
+	(203, 3, 6),
+	(204, 2, 2),
+	(205, 2, 3),
+	(206, 2, 4),
+	(207, 2, 5),
+	(208, 2, 6),
+	(209, 2, 7);
 /*!40000 ALTER TABLE `t_sys_role_menu` ENABLE KEYS */;
 
 
@@ -280,96 +290,92 @@ CREATE TABLE IF NOT EXISTS `t_sys_role_menu_permission` (
   `role_menu_id` int(11) NOT NULL,
   `permission` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=257 DEFAULT CHARSET=utf8 COMMENT='功能权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=416 DEFAULT CHARSET=utf8 COMMENT='功能权限表';
 
--- 正在导出表  fw-cloud.t_sys_role_menu_permission 的数据：~84 rows (大约)
+-- 正在导出表  fw-cloud.t_sys_role_menu_permission 的数据：~92 rows (大约)
 DELETE FROM `t_sys_role_menu_permission`;
 /*!40000 ALTER TABLE `t_sys_role_menu_permission` DISABLE KEYS */;
 INSERT INTO `t_sys_role_menu_permission` (`id`, `role_menu_id`, `permission`) VALUES
-	(169, 124, 'user_add'),
-	(170, 124, 'user_view'),
-	(171, 124, 'user_upd'),
-	(172, 124, 'user_del'),
-	(173, 125, 'menu_add'),
-	(174, 125, 'menu_view'),
-	(175, 125, 'menu_upd'),
-	(176, 125, 'menu_del'),
-	(177, 126, 'role_add'),
-	(178, 126, 'role_view'),
-	(179, 126, 'role_upd'),
-	(180, 126, 'role_del'),
-	(181, 127, 'user_add'),
-	(182, 127, 'user_view'),
-	(183, 127, 'user_upd'),
-	(184, 127, 'user_del'),
-	(185, 127, 'user_export'),
-	(186, 127, 'user_import'),
-	(187, 128, 'menu_add'),
-	(188, 128, 'menu_view'),
-	(189, 128, 'menu_upd'),
-	(190, 128, 'menu_del'),
-	(191, 128, 'menu_export'),
-	(192, 128, 'menu_import'),
-	(193, 129, 'role_add'),
-	(194, 129, 'role_view'),
-	(195, 129, 'role_upd'),
-	(196, 129, 'role_del'),
-	(197, 129, 'role_export'),
-	(198, 129, 'role_import'),
-	(199, 130, 'logs_add'),
-	(200, 130, 'logs_view'),
-	(201, 130, 'logs_upd'),
-	(202, 130, 'logs_del'),
-	(203, 130, 'logs_export'),
-	(204, 130, 'logs_import'),
-	(205, 131, 'dict_add'),
-	(206, 131, 'dict_view'),
-	(207, 131, 'dict_upd'),
-	(208, 131, 'dict_del'),
-	(209, 131, 'dict_export'),
-	(210, 131, 'dict_import'),
-	(211, 132, 'dept_add'),
-	(212, 132, 'dept_view'),
-	(213, 132, 'dept_upd'),
-	(214, 132, 'dept_del'),
-	(215, 132, 'dept_export'),
-	(216, 132, 'dept_import'),
-	(217, 133, 'server_add'),
-	(218, 133, 'server_view'),
-	(219, 133, 'server_upd'),
-	(220, 133, 'server_del'),
-	(221, 133, 'server_export'),
-	(222, 133, 'server_import'),
-	(223, 134, 'zipkin_add'),
-	(224, 134, 'zipkin_view'),
-	(225, 134, 'zipkin_upd'),
-	(226, 134, 'zipkin_del'),
-	(227, 134, 'zipkin_export'),
-	(228, 134, 'zipkin_import'),
-	(229, 135, 'pinpoint_add'),
-	(230, 135, 'pinpoint_view'),
-	(231, 135, 'pinpoint_upd'),
-	(232, 135, 'pinpoint_del'),
-	(233, 135, 'pinpoint_export'),
-	(234, 135, 'pinpoint_import'),
-	(235, 136, 'cache_add'),
-	(236, 136, 'cache_view'),
-	(237, 136, 'cache_upd'),
-	(238, 136, 'cache_del'),
-	(239, 136, 'cache_export'),
-	(240, 136, 'cache_import'),
-	(241, 137, 'elk_add'),
-	(242, 137, 'elk_view'),
-	(243, 137, 'elk_upd'),
-	(244, 137, 'elk_del'),
-	(245, 137, 'elk_export'),
-	(246, 137, 'elk_import'),
-	(247, 138, 'swagger_add'),
-	(248, 138, 'swagger_view'),
-	(249, 138, 'swagger_upd'),
-	(250, 138, 'swagger_del'),
-	(251, 138, 'swagger_export'),
-	(252, 138, 'swagger_import');
+	(416, 189, 'user_add'),
+	(417, 189, 'user_view'),
+	(418, 189, 'user_upd'),
+	(419, 189, 'user_del'),
+	(420, 189, 'user_export'),
+	(421, 189, 'user_import'),
+	(422, 190, 'menu_add'),
+	(423, 190, 'menu_view'),
+	(424, 190, 'menu_upd'),
+	(425, 190, 'menu_del'),
+	(426, 190, 'menu_export'),
+	(427, 190, 'menu_import'),
+	(428, 191, 'role_add'),
+	(429, 191, 'role_view'),
+	(430, 191, 'role_upd'),
+	(431, 191, 'role_del'),
+	(432, 191, 'role_export'),
+	(433, 191, 'role_import'),
+	(434, 192, 'logs_add'),
+	(435, 192, 'logs_view'),
+	(436, 192, 'logs_upd'),
+	(437, 192, 'logs_del'),
+	(438, 192, 'logs_export'),
+	(439, 192, 'logs_import'),
+	(440, 193, 'dict_add'),
+	(441, 193, 'dict_view'),
+	(442, 193, 'dict_upd'),
+	(443, 193, 'dict_del'),
+	(444, 193, 'dict_export'),
+	(445, 193, 'dict_import'),
+	(446, 194, 'dept_add'),
+	(447, 194, 'dept_view'),
+	(448, 194, 'dept_upd'),
+	(449, 194, 'dept_del'),
+	(450, 194, 'dept_export'),
+	(451, 194, 'dept_import'),
+	(452, 196, 'server_add'),
+	(453, 196, 'server_view'),
+	(454, 196, 'server_upd'),
+	(455, 196, 'server_del'),
+	(456, 196, 'server_export'),
+	(457, 196, 'server_import'),
+	(458, 197, 'zipkin_add'),
+	(459, 197, 'zipkin_view'),
+	(460, 197, 'zipkin_upd'),
+	(461, 197, 'zipkin_del'),
+	(462, 197, 'zipkin_export'),
+	(463, 197, 'zipkin_import'),
+	(464, 198, 'pinpoint_add'),
+	(465, 198, 'pinpoint_view'),
+	(466, 198, 'pinpoint_upd'),
+	(467, 198, 'pinpoint_del'),
+	(468, 198, 'pinpoint_export'),
+	(469, 198, 'pinpoint_import'),
+	(470, 199, 'cache_add'),
+	(471, 199, 'cache_view'),
+	(472, 199, 'cache_upd'),
+	(473, 199, 'cache_del'),
+	(474, 199, 'cache_export'),
+	(475, 199, 'cache_import'),
+	(476, 200, 'elk_add'),
+	(477, 200, 'elk_view'),
+	(478, 200, 'elk_upd'),
+	(479, 200, 'elk_del'),
+	(480, 200, 'elk_export'),
+	(481, 200, 'elk_import'),
+	(482, 201, 'swagger_add'),
+	(483, 201, 'swagger_view'),
+	(484, 201, 'swagger_upd'),
+	(485, 201, 'swagger_del'),
+	(486, 201, 'swagger_export'),
+	(487, 201, 'swagger_import'),
+	(489, 203, 'dict_view'),
+	(490, 204, 'user_view'),
+	(491, 205, 'menu_view'),
+	(492, 206, 'role_view'),
+	(493, 207, 'logs_view'),
+	(494, 208, 'dict_view'),
+	(495, 208, 'dict_upd'),
+	(496, 209, 'dept_view');
 /*!40000 ALTER TABLE `t_sys_role_menu_permission` ENABLE KEYS */;
 
 
@@ -387,18 +393,19 @@ CREATE TABLE IF NOT EXISTS `t_sys_user` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_idx1_username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='用户表';
 
--- 正在导出表  fw-cloud.t_sys_user 的数据：~6 rows (大约)
+-- 正在导出表  fw-cloud.t_sys_user 的数据：~7 rows (大约)
 DELETE FROM `t_sys_user`;
 /*!40000 ALTER TABLE `t_sys_user` DISABLE KEYS */;
 INSERT INTO `t_sys_user` (`user_id`, `username`, `password`, `open_id`, `mobile`, `pic_url`, `statu`, `create_time`, `update_time`) VALUES
 	(1, 'admin', '$2a$10$e.ufNW4gkFny3EkhAsp8qO/y8TZ8Mj0CWOqBpxuvBW4REPJHbfCMy', NULL, '13801233210', 'https://avatars0.githubusercontent.com/u/21272196?s=40&v=4', 0, '2017-10-29 15:45:13', '2018-05-04 15:12:44'),
 	(2, 'test', '$2a$10$bvIjvNMsFP0d.wkF2yb9puXn00.q086DInosQsCjXIA9zDINbvIBq', NULL, NULL, 'https://avatars0.githubusercontent.com/u/21272196?s=40&v=4', 0, '2018-02-27 18:24:58', '2018-05-03 08:38:13'),
 	(3, 'test2', '$2a$10$1QLEolaGWQmXGf7woa8G1.UYT17YV3TWPG/WK9Xlc8xP70prErpsC', NULL, NULL, NULL, 0, '2018-03-07 18:12:39', '2018-04-24 17:28:46'),
-	(4, 'test3', '$2a$10$10ntdT66NtRvsw1A0b3veu1g/JE0XGwlVHhS3i2FztgHNmOa/j/oi', NULL, '15002009676', NULL, 0, '2018-03-09 14:42:03', '2018-05-15 19:49:54'),
+	(4, 'test3', '$2a$10$10ntdT66NtRvsw1A0b3veu1g/JE0XGwlVHhS3i2FztgHNmOa/j/oi', NULL, '15002009676', NULL, 0, '2018-03-09 14:42:03', '2018-05-17 16:52:50'),
 	(5, 'superAdmin', '$2a$10$e.ufNW4gkFny3EkhAsp8qO/y8TZ8Mj0CWOqBpxuvBW4REPJHbfCMy', NULL, '13800138000', 'https://avatars0.githubusercontent.com/u/21272196?s=40&v=4', 0, '2018-04-13 11:39:11', '2018-05-07 14:10:43'),
-	(8, 'yankai', '$2a$10$FM01qgiFrFA4ylTeGYG/b.WW0JL3XuOTNzh5DV21YbSYxfXtN75c6', NULL, NULL, NULL, 1, '2018-05-11 06:17:52', '2018-05-11 06:17:52');
+	(8, 'yankai', '$2a$10$FM01qgiFrFA4ylTeGYG/b.WW0JL3XuOTNzh5DV21YbSYxfXtN75c6', NULL, NULL, NULL, 1, '2018-05-11 06:17:52', '2018-05-11 06:17:52'),
+	(9, 'testlw', '$2a$10$xM8a4AHkR3HxJBZ8kN2U1eAWbqKMdr1r8iz328XR302e53qakQvsu', NULL, NULL, NULL, 1, '2018-05-17 17:15:40', '2018-05-17 17:15:40');
 /*!40000 ALTER TABLE `t_sys_user` ENABLE KEYS */;
 
 
@@ -409,9 +416,9 @@ CREATE TABLE IF NOT EXISTS `t_sys_user_role` (
   `user_id` int(11) NOT NULL COMMENT '用户ID',
   `role_id` int(11) NOT NULL COMMENT '角色ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='用户角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COMMENT='用户角色表';
 
--- 正在导出表  fw-cloud.t_sys_user_role 的数据：~7 rows (大约)
+-- 正在导出表  fw-cloud.t_sys_user_role 的数据：~9 rows (大约)
 DELETE FROM `t_sys_user_role`;
 /*!40000 ALTER TABLE `t_sys_user_role` DISABLE KEYS */;
 INSERT INTO `t_sys_user_role` (`id`, `user_id`, `role_id`) VALUES
@@ -421,8 +428,68 @@ INSERT INTO `t_sys_user_role` (`id`, `user_id`, `role_id`) VALUES
 	(20, 5, 1),
 	(24, 7, 3),
 	(27, 6, 3),
-	(28, 8, 3);
+	(28, 8, 3),
+	(29, 4, 3),
+	(30, 9, 3);
 /*!40000 ALTER TABLE `t_sys_user_role` ENABLE KEYS */;
+
+
+-- 导出  表 fw-cloud.zipkin_annotations 结构
+DROP TABLE IF EXISTS `zipkin_annotations`;
+CREATE TABLE IF NOT EXISTS `zipkin_annotations` (
+  `trace_id_high` bigint(20) NOT NULL DEFAULT '0' COMMENT 'If non zero, this means the trace uses 128 bit traceIds instead of 64 bit',
+  `trace_id` bigint(20) NOT NULL COMMENT 'coincides with zipkin_spans.trace_id',
+  `span_id` bigint(20) NOT NULL COMMENT 'coincides with zipkin_spans.id',
+  `a_key` varchar(255) NOT NULL COMMENT 'BinaryAnnotation.key or Annotation.value if type == -1',
+  `a_value` blob COMMENT 'BinaryAnnotation.value(), which must be smaller than 64KB',
+  `a_type` int(11) NOT NULL COMMENT 'BinaryAnnotation.type() or -1 if Annotation',
+  `a_timestamp` bigint(20) DEFAULT NULL COMMENT 'Used to implement TTL; Annotation.timestamp or zipkin_spans.timestamp',
+  `endpoint_ipv4` int(11) DEFAULT NULL COMMENT 'Null when Binary/Annotation.endpoint is null',
+  `endpoint_ipv6` binary(16) DEFAULT NULL COMMENT 'Null when Binary/Annotation.endpoint is null, or no IPv6 address',
+  `endpoint_port` smallint(6) DEFAULT NULL COMMENT 'Null when Binary/Annotation.endpoint is null',
+  `endpoint_service_name` varchar(255) DEFAULT NULL COMMENT 'Null when Binary/Annotation.endpoint is null',
+  UNIQUE KEY `trace_id_high` (`trace_id_high`,`trace_id`,`span_id`,`a_key`,`a_timestamp`) COMMENT 'Ignore insert on duplicate',
+  KEY `trace_id_high_2` (`trace_id_high`,`trace_id`,`span_id`) COMMENT 'for joining with zipkin_spans',
+  KEY `trace_id_high_3` (`trace_id_high`,`trace_id`) COMMENT 'for getTraces/ByIds',
+  KEY `endpoint_service_name` (`endpoint_service_name`) COMMENT 'for getTraces and getServiceNames',
+  KEY `a_type` (`a_type`) COMMENT 'for getTraces',
+  KEY `a_key` (`a_key`) COMMENT 'for getTraces',
+  KEY `trace_id` (`trace_id`,`span_id`,`a_key`) COMMENT 'for dependencies job'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
+
+
+-- 导出  表 fw-cloud.zipkin_dependencies 结构
+DROP TABLE IF EXISTS `zipkin_dependencies`;
+CREATE TABLE IF NOT EXISTS `zipkin_dependencies` (
+  `day` date NOT NULL,
+  `parent` varchar(255) NOT NULL,
+  `child` varchar(255) NOT NULL,
+  `call_count` bigint(20) DEFAULT NULL,
+  `error_count` bigint(20) DEFAULT NULL,
+  UNIQUE KEY `day` (`day`,`parent`,`child`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
+
+
+-- 导出  表 fw-cloud.zipkin_spans 结构
+DROP TABLE IF EXISTS `zipkin_spans`;
+CREATE TABLE IF NOT EXISTS `zipkin_spans` (
+  `trace_id_high` bigint(20) NOT NULL DEFAULT '0' COMMENT 'If non zero, this means the trace uses 128 bit traceIds instead of 64 bit',
+  `trace_id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `parent_id` bigint(20) DEFAULT NULL,
+  `debug` bit(1) DEFAULT NULL,
+  `start_ts` bigint(20) DEFAULT NULL COMMENT 'Span.timestamp(): epoch micros used for endTs query and to implement TTL',
+  `duration` bigint(20) DEFAULT NULL COMMENT 'Span.duration(): micros used for minDuration and maxDuration query',
+  UNIQUE KEY `trace_id_high` (`trace_id_high`,`trace_id`,`id`) COMMENT 'ignore insert on duplicate',
+  KEY `trace_id_high_2` (`trace_id_high`,`trace_id`,`id`) COMMENT 'for joining with zipkin_annotations',
+  KEY `trace_id_high_3` (`trace_id_high`,`trace_id`) COMMENT 'for getTracesByIds',
+  KEY `name` (`name`) COMMENT 'for getTraces and getSpanNames',
+  KEY `start_ts` (`start_ts`) COMMENT 'for getTraces ordering and range'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+
+SET FOREIGN_KEY_CHECKS = 1;
