@@ -96,11 +96,15 @@ public class PermissionServiceImpl extends JPAFactoryImpl implements PermissionS
 				menuRole.setRoleId(role.getRoleId());
 				menuRole = roleMenuRepository.saveAndFlush(menuRole);
 				Integer menuRoleId = menuRole.getId();
+
 				menuPermissions.forEach(p -> {
-					RoleMenuPermission roleMenuPermission = new RoleMenuPermission();
-					roleMenuPermission.setRoleMenuId(menuRoleId);
-					roleMenuPermission.setPermission(p.trim());
-					roleMenuPermissionRepository.saveAndFlush(roleMenuPermission);
+					String permission = p.trim();
+					if (permission.contains("_")) {
+						RoleMenuPermission roleMenuPermission = new RoleMenuPermission();
+						roleMenuPermission.setRoleMenuId(menuRoleId);
+						roleMenuPermission.setPermission(permission);
+						roleMenuPermissionRepository.saveAndFlush(roleMenuPermission);
+					}
 				});
 			});
 		}
