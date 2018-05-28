@@ -18,4 +18,9 @@ public interface MqQueueConstant {
 	 * 服务状态队列
 	 */
 	String	SERVICE_STATUS_CHANGE	= "service_status_change";
+
+	/**
+	 * wechat rabbit队列名称
+	 */
+	String	WECHAT_QUEUE			= "wechat";
 }

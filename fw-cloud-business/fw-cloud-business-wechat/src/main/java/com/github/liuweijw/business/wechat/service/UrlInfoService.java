@@ -8,5 +8,5 @@ public interface UrlInfoService {
 
 	UrlInfo saveOrUpdate(UrlInfo urlInfo);
 
-	boolean clearAll();
+	long clearAllExpire();
 }

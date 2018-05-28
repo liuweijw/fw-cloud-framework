@@ -30,8 +30,11 @@ CREATE TABLE IF NOT EXISTS `t_wechat_auth_info` (
   `country` varchar(64) DEFAULT NULL,
   `head_imgurl` varchar(255) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
+  `refresh_token` varchar(255) DEFAULT NULL,
+  `create_time` timestamp NULL DEFAULT NULL,
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 COMMENT='公众号用户信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 正在导出表  fw-cloud-wechat.t_wechat_auth_info 的数据：~0 rows (大约)
 DELETE FROM `t_wechat_auth_info`;
@@ -68,8 +71,10 @@ CREATE TABLE IF NOT EXISTS `t_wechat_url` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `uuid` varchar(32) DEFAULT NULL,
   `url` varchar(510) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+  `time` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_uuid` (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 正在导出表  fw-cloud-wechat.t_wechat_url 的数据：~0 rows (大约)
 DELETE FROM `t_wechat_url`;

@@ -1,6 +1,7 @@
 package com.github.liuweijw.business.wechat.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -58,6 +59,21 @@ public class AuthInfo implements Serializable {
 
 	@Column(name = "remark", length = 255)
 	private String				remark;
+
+	@Column(name = "refresh_token", length = 255)
+	private String				refreshToken;
+
+	/**
+	 * 创建时间
+	 */
+	@Column(name = "create_time")
+	private Date				createTime;
+
+	/**
+	 * 更新时间
+	 */
+	@Column(name = "update_time")
+	private Date				updateTime			= new Date();
 
 	public Long getId() {
 		return id;
@@ -153,6 +169,30 @@ public class AuthInfo implements Serializable {
 
 	public void setSex(Integer sex) {
 		this.sex = sex;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public String getRefreshToken() {
+		return refreshToken;
+	}
+
+	public void setRefreshToken(String refreshToken) {
+		this.refreshToken = refreshToken;
 	}
 
 }

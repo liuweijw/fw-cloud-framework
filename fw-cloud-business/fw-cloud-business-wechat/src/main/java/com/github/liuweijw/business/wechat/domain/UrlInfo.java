@@ -27,6 +27,9 @@ public class UrlInfo implements Serializable {
 	@Column(name = "url", length = 510, nullable = true)
 	private String				url;
 
+	@Column(name = "time")
+	private long				time;
+
 	public Long getId() {
 		return id;
 	}
@@ -49,6 +52,14 @@ public class UrlInfo implements Serializable {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public long getTime() {
+		return time;
+	}
+
+	public void setTime(long time) {
+		this.time = time;
 	}
 
 }

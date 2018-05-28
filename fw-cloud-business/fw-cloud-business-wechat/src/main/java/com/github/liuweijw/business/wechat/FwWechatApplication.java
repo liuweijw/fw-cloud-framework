@@ -6,12 +6,14 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * 微信公众号服务
  * 
  * @author liuweijw
  */
+@EnableScheduling
 @SpringBootApplication
 @EnableDiscoveryClient
 @ComponentScan(basePackages = { "com.github.liuweijw.business.wechat" })

@@ -2,6 +2,7 @@ package com.github.liuweijw.business.wechat.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
 import com.github.liuweijw.business.wechat.domain.QUrlInfo;
@@ -24,6 +25,7 @@ public class UrlInfoServiceImpl extends JPAFactoryImpl implements UrlInfoService
 	}
 
 	@Override
+	@Transactional
 	public UrlInfo saveOrUpdate(UrlInfo urlInfo) {
 		if (null == urlInfo) return null;
 
@@ -31,9 +33,14 @@ public class UrlInfoServiceImpl extends JPAFactoryImpl implements UrlInfoService
 	}
 
 	@Override
-	public boolean clearAll() {
-		urlInfoRepository.deleteAllInBatch();
-		return true;
+	@Transactional
+	public long clearAllExpire() {
+		QUrlInfo qUrlInfo = QUrlInfo.urlInfo;
+
+		// 删除十分钟前的历史数据
+		long beforeTime = System.currentTimeMillis() - 600000;
+		return this.queryFactory.delete(qUrlInfo).where(qUrlInfo.time.longValue().lt(beforeTime))
+				.execute();
 	}
 
 }
