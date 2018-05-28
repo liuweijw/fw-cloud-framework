@@ -128,6 +128,7 @@ public class WxAuthorizeController {
 			// authInfoService.saveOrUpdate(authInfo);
 			// }
 			// }
+			// 采用异步方式拉取用户信息
 			WechatNotifyBean wechatNotifyBean = new WechatNotifyBean();
 			wechatNotifyBean.setSopeBase(isSopeBase);
 			wechatNotifyBean.setWechatId(wechatId);
