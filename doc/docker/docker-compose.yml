@@ -29,6 +29,7 @@ services:
       - 1004:1004
     volumes:
       - /usr/web/logs/auth/:/usr/web/logs/auth/
+      - /etc/localtime/:/etc/localtime/
 
   admin-server:
     links:
@@ -41,6 +42,7 @@ services:
       - 2002:2002
     volumes:
       - /usr/web/logs/admin/:/usr/web/logs/admin/
+      - /etc/localtime/:/etc/localtime/
 
   pay-server:
     links:
@@ -54,6 +56,7 @@ services:
     volumes:
       - /usr/web/logs/pay/:/usr/web/logs/pay/
       - /usr/web/cert/:/usr/web/cert/
+      - /etc/localtime/:/etc/localtime/
 
   wechat-server:
     links:
@@ -66,6 +69,7 @@ services:
       - 2004:2004
     volumes:
       - /usr/web/logs/wechat/:/usr/web/logs/wechat/
+      - /etc/localtime/:/etc/localtime/
   
   gateway-server:
     links:
@@ -82,4 +86,5 @@ services:
       - 1003:1003
     volumes:
       - /usr/web/logs/:/usr/web/logs/
+      - /etc/localtime/:/etc/localtime/
 
