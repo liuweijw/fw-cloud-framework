@@ -143,9 +143,17 @@
     <!--<logger name="com.ibatis.common.jdbc.ScriptRunner" level="DEBUG"/>-->
     <!--<logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate" level="DEBUG" />-->
     
-    <logger name="com.github.liuweijw" level="DEBUG" additivity="true">
-        <appender-ref ref="STDOUT"/>
-    </logger>
+    <logger name="org.springframework" value="WARN" />
+	<logger name="org.apache" value="WARN" />
+	<logger name="com.netflix" value="WARN" />
+	<logger name="me.chanjar" value="WARN" />
+	<logger name="com.ulisesbocchio" value="WARN" />
+	<logger name="org.hibernate" value="WARN" />
+	<logger name="com.github.liuweijw" value="INFO" />
+	<logger name="c.n.discovery" value="WARN" />
+	<logger name="o.s.c.s" value="WARN" />
+	<logger name="c.u.j.encryptor" value="WARN" />
+	<logger name="o.s.boot" value="WARN" />
 
     <!-- root级别   DEBUG -->
     <root level="INFO">
@@ -154,8 +162,8 @@
         <!-- 文件输出 -->
         <appender-ref ref="ERROR" />
         <appender-ref ref="INFO" />
-        <appender-ref ref="WARN" />
+        <!-- <appender-ref ref="WARN" />
         <appender-ref ref="DEBUG" />
-        <appender-ref ref="TRACE" />
+        <appender-ref ref="TRACE" /> -->
     </root>
 </configuration>
