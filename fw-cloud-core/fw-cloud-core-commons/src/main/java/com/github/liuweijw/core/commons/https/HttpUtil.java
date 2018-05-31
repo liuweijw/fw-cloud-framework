@@ -1,4 +1,4 @@
-package com.github.liuweijw.business.commons.web.https;
+package com.github.liuweijw.core.commons.https;
 
 import org.springframework.web.client.RestTemplate;
 
