@@ -22,8 +22,8 @@
 	<modules>
 		<!-- monitor 系统监控模块 -->
 		<module>fw-cloud-monitor-monitor</module>
-		<!-- zipkin database 数据库监控
-		<module>fw-cloud-monitor-zipkin-db</module>-->
+		<!-- zipkin database 数据库监控-->
+		<module>fw-cloud-monitor-zipkin-db</module>
 		<!-- zipkin elk 分布式链路追踪监控
 		<module>fw-cloud-monitor-zipkin-elk</module> -->
 	</modules>
