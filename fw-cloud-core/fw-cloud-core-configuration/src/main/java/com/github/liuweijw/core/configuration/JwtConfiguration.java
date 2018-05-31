@@ -12,12 +12,38 @@ public class JwtConfiguration {
 	 */
 	private String	jwtkey;
 
+	/**
+	 * JWT TOKEN PREFIX
+	 */
+	private String	prefix;
+
+	/**
+	 * JWT AUTH REQUEST URL
+	 */
+	private String	jwtAuthUrl;
+
 	public String getJwtkey() {
 		return jwtkey;
 	}
 
 	public void setJwtkey(String jwtkey) {
 		this.jwtkey = jwtkey;
+	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+	public String getJwtAuthUrl() {
+		return jwtAuthUrl;
+	}
+
+	public void setJwtAuthUrl(String jwtAuthUrl) {
+		this.jwtAuthUrl = jwtAuthUrl;
 	}
 
 }
