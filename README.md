@@ -45,7 +45,7 @@
 
 4、系统监控模块
 - fw-cloud-monitor-monitor    [端口1010] 服务状态监控[服务在线访问](http://47.106.144.24:1010/)
-- fw-cloud-monitor-zipkin-db  [端口待定] 数据库db监控
+- fw-cloud-monitor-zipkin-db  [端口1011] 数据库db监控[服务在线访问](http://47.106.144.24:1011/)
 - fw-cloud-monitor-zipkin-elk [端口待定] elk监控
 - fw-cloud-system-xxx         [端口待定] 缓存监控
 - fw-cloud-system-xxx         [端口待定] 日志等监控
@@ -81,7 +81,7 @@
 
 ![image](doc/pic/cloud-framework.png)
 
-# 常见问题 
+# 常见问题
 
 - 找不到带Q开头的类
 - lombok 安装
