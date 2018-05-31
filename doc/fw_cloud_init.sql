@@ -378,7 +378,6 @@ INSERT INTO `t_sys_role_menu_permission` (`id`, `role_menu_id`, `permission`) VA
 	(496, 209, 'dept_view');
 /*!40000 ALTER TABLE `t_sys_role_menu_permission` ENABLE KEYS */;
 
-
 -- 导出  表 fw-cloud.t_sys_user 结构
 DROP TABLE IF EXISTS `t_sys_user`;
 CREATE TABLE IF NOT EXISTS `t_sys_user` (
