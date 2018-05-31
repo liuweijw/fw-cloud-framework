@@ -1,5 +1,8 @@
 package com.github.liuweijw.business.commons.beans;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import com.github.liuweijw.business.commons.constants.PageConstant;
 
 /**
@@ -7,16 +10,19 @@ import com.github.liuweijw.business.commons.constants.PageConstant;
  * 
  * @author liuweijw
  */
+@ApiModel(description = "分页查询表单")
 public class PageParams {
 
 	/**
 	 * 当前页码
 	 */
+	@ApiModelProperty(value = "当前页码")
 	private Integer	currentPage;
 
 	/**
 	 * 每页多少条 limit
 	 */
+	@ApiModelProperty(value = "每页多少条")
 	private Integer	pageSize;
 
 	public Integer getCurrentPage() {

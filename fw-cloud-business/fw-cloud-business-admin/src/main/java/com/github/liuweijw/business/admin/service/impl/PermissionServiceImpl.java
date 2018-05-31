@@ -68,6 +68,8 @@ public class PermissionServiceImpl extends JPAFactoryImpl implements PermissionS
 	}
 
 	@Override
+	@CacheEvict(value = { AdminCacheKey.PERMISSION_INFO, AdminCacheKey.MENU_INFO,
+			AdminCacheKey.MODULE_INFO, AdminCacheKey.ROLE_INFO }, allEntries = true)
 	@Transactional
 	public boolean updateRoleMenuPermissions(String roleCode, String... permissions) {
 		Role role = roleService.findRoleByCode(roleCode.trim());
@@ -109,7 +111,6 @@ public class PermissionServiceImpl extends JPAFactoryImpl implements PermissionS
 			});
 		}
 
-		this.redisCacheClear();
 		return true;
 	}
 
@@ -133,11 +134,6 @@ public class PermissionServiceImpl extends JPAFactoryImpl implements PermissionS
 		long num = this.queryFactory.delete(qRoleMenuPermission).where(
 				qRoleMenuPermission.roleMenuId.in(roleMenuArray)).execute();
 		return num > 0;
-	}
-
-	@CacheEvict(value = { AdminCacheKey.PERMISSION_INFO, AdminCacheKey.MENU_INFO,
-			AdminCacheKey.MODULE_INFO, AdminCacheKey.ROLE_INFO }, allEntries = true)
-	public void redisCacheClear() {
 	}
 
 }

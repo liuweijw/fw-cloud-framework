@@ -1,24 +1,29 @@
 package com.github.liuweijw.business.commons.beans;
 
+import io.swagger.annotations.ApiModel;
+
 /**
  * 分页bean的扩展
  * 
  * @author liuweijw
  * @param <T>
  */
+@ApiModel(description = "分页数据扩展Bean")
 public class ExtentPageBean<T> extends PageBean<T> {
 
-	private String	key1;
+	private static final long	serialVersionUID	= -6753009299925938654L;
 
-	private String	key2;
+	private String				key1;
 
-	private String	key3;
+	private String				key2;
 
-	private String	key4;
+	private String				key3;
 
-	private Integer	num1	= 0;
+	private String				key4;
 
-	private Integer	num2	= 0;
+	private Integer				num1				= 0;
+
+	private Integer				num2				= 0;
 
 	public String getKey1() {
 		return key1;

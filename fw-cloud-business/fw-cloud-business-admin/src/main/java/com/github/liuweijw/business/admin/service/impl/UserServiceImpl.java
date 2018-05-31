@@ -201,6 +201,7 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 	}
 
 	@Override
+	@CacheEvict(value = { AdminCacheKey.USER_INFO }, allEntries = true)
 	@Transactional
 	public Boolean delByUserId(Integer userId) {
 		if (null == userId || userId <= 0) return Boolean.FALSE;
@@ -209,11 +210,11 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 		long num = this.queryFactory.update(qUser).set(qUser.statu, 1) // 0 正常 1删除
 				.where(qUser.userId.eq(userId.intValue())).execute();
 
-		this.redisCacheClear();
 		return num > 0;
 	}
 
 	@Override
+	@CacheEvict(value = { AdminCacheKey.USER_INFO }, allEntries = true)
 	@Transactional
 	public boolean addUserAndRole(User user, Integer roleId) {
 
@@ -224,11 +225,11 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 		uRole.setUserId(dbUser.getUserId());
 
 		this.userRoleRepository.saveAndFlush(uRole);
-		this.redisCacheClear();
 		return true;
 	}
 
 	@Override
+	@CacheEvict(value = { AdminCacheKey.USER_INFO }, allEntries = true)
 	@Transactional
 	public boolean updateUserAndRole(UserForm userForm) {
 		if (null == userForm.getUserId() || userForm.getUserId() <= 0) return Boolean.FALSE;
@@ -253,22 +254,17 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 
 		this.userRoleRepository.saveAndFlush(uRole);
 
-		this.redisCacheClear();
 		return true;
 	}
 
 	@Override
+	@CacheEvict(value = { AdminCacheKey.USER_INFO }, allEntries = true)
 	@Transactional
 	public boolean updateUser(User user) {
 		if (null == user || null == user.getUserId()) return false;
 
 		this.userRepository.saveAndFlush(user);
 
-		this.redisCacheClear();
 		return true;
-	}
-
-	@CacheEvict(value = { AdminCacheKey.USER_INFO }, allEntries = true)
-	public void redisCacheClear() {
 	}
 }

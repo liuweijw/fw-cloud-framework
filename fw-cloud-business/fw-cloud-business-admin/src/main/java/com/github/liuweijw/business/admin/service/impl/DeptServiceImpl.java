@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
@@ -47,7 +46,4 @@ public class DeptServiceImpl extends JPAFactoryImpl implements DeptService {
 		return TreeUtil.build(treeList, "0");
 	}
 
-	@CacheEvict(value = { AdminCacheKey.DEPT_INFO }, allEntries = true)
-	public void redisCacheClear() {
-	}
 }

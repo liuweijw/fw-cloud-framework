@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,7 @@ import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
 import com.github.liuweijw.core.utils.StringHelper;
 import com.querydsl.core.types.Predicate;
 
+@CacheConfig(cacheNames = AdminCacheKey.DICT_INFO)
 @Component
 public class DictServiceImpl extends JPAFactoryImpl implements DictService {
 
@@ -55,14 +57,14 @@ public class DictServiceImpl extends JPAFactoryImpl implements DictService {
 	}
 
 	@Override
-	@Cacheable(value = AdminCacheKey.DICT_INFO, key = "'dict_list'")
+	@Cacheable(key = "'dict_list'")
 	public List<Dict> getAllList() {
 		QDict qDict = QDict.dict;
 		return this.queryFactory.selectFrom(qDict).fetch();
 	}
 
 	@Override
-	@Cacheable(value = AdminCacheKey.DICT_INFO, key = "'dict_' + #id")
+	@Cacheable(key = "'dict_' + #id")
 	public Dict findById(Integer id) {
 		if (null == id || id < 0) return null;
 
@@ -70,7 +72,7 @@ public class DictServiceImpl extends JPAFactoryImpl implements DictService {
 	}
 
 	@Override
-	@Cacheable(value = AdminCacheKey.DICT_INFO, key = "'dict_' + #type")
+	@Cacheable(key = "'dict_' + #type")
 	public List<Dict> getDictList(String type) {
 		List<Dict> dictList = new ArrayList<Dict>();
 		if (StringHelper.isBlank(type)) return dictList;
@@ -80,18 +82,18 @@ public class DictServiceImpl extends JPAFactoryImpl implements DictService {
 	}
 
 	@Override
+	@CacheEvict(allEntries = true)
 	@Transactional
 	public Dict saveOrUpdate(Dict dict) {
 		if (null == dict) return null;
 
 		Dict dbDict = this.dictRepository.saveAndFlush(dict);
 
-		this.redisCacheClear();
-
 		return dbDict;
 	}
 
 	@Override
+	@CacheEvict(allEntries = true)
 	@Transactional
 	public boolean delById(Integer id) {
 		if (null == id || id <= 0) return Boolean.FALSE;
@@ -100,11 +102,6 @@ public class DictServiceImpl extends JPAFactoryImpl implements DictService {
 		long num = this.queryFactory.update(qDict).set(qDict.statu, 1) // 0 正常 1删除
 				.where(qDict.id.eq(id.intValue())).execute();
 
-		this.redisCacheClear();
 		return num > 0;
-	}
-
-	@CacheEvict(value = { AdminCacheKey.DICT_INFO }, allEntries = true)
-	public void redisCacheClear() {
 	}
 }

@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
@@ -30,6 +31,7 @@ import com.github.liuweijw.core.commons.constants.CommonConstant;
 import com.github.liuweijw.core.utils.Assert;
 import com.github.liuweijw.core.utils.StringHelper;
 
+@CacheConfig(cacheNames = AdminCacheKey.MENU_INFO)
 @Component
 public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 
@@ -107,7 +109,7 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 	}
 
 	@Override
-	@Cacheable(value = AdminCacheKey.MENU_INFO, key = "'menu_list'")
+	@Cacheable(key = "'menu_list'")
 	public List<Menu> findMenuList() {
 		QMenu qMenu = QMenu.menu;
 		List<Menu> rList = this.queryFactory.selectFrom(qMenu).fetch();
@@ -116,7 +118,7 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 	}
 
 	@Override
-	@Cacheable(value = AdminCacheKey.MENU_INFO, key = "'menu_' + #roleId")
+	@Cacheable(key = "'menu_' + #roleId")
 	public List<Menu> findMenuByRoleId(Integer roleId) {
 		if (null == roleId) return null;
 
@@ -128,25 +130,26 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 	}
 
 	@Override
+	@CacheEvict(allEntries = true)
 	@Transactional
 	public boolean delById(Integer menuId) {
 		QMenu qMenu = QMenu.menu;
 		long num = this.queryFactory.delete(qMenu).where(qMenu.menuId.eq(menuId.intValue()))
 				.execute();
-		this.redisCacheClear();
 		return num > 0;
 	}
 
 	@Override
+	@CacheEvict(allEntries = true)
 	@Transactional
 	public Menu saveOrUpdate(Menu menu) {
 		if (null == menu) return null;
 
-		this.redisCacheClear();
 		return menuRepository.saveAndFlush(menu);
 	}
 
 	@Override
+	@CacheEvict(allEntries = true)
 	@Transactional
 	public Boolean deleteMenu(Integer menuId, String roleCode) {
 		Assert.isNull(menuId, "菜单ID不能为空");
@@ -160,20 +163,16 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 		this.queryFactory.update(qMenu).set(qMenu.statu, CommonConstant.STATUS_DEL).where(
 				qMenu.pid.eq(menuId)).execute();
 
-		this.redisCacheClear();
 		return true;
 	}
 
 	@Override
+	@CacheEvict(allEntries = true)
+	@Transactional
 	public Boolean updateMenuById(Menu menu, String roleCode) {
 		if (null == menu || null == menu.getMenuId()) return null;
 		menuRepository.saveAndFlush(menu);
-		this.redisCacheClear();
 		return true;
-	}
-
-	@CacheEvict(value = { AdminCacheKey.MENU_INFO }, allEntries = true)
-	public void redisCacheClear() {
 	}
 
 }

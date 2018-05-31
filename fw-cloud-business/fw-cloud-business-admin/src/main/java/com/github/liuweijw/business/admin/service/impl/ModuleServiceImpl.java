@@ -2,7 +2,7 @@ package com.github.liuweijw.business.admin.service.impl;
 
 import java.util.List;
 
-import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
@@ -12,18 +12,16 @@ import com.github.liuweijw.business.admin.domain.QModule;
 import com.github.liuweijw.business.admin.service.ModuleService;
 import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
 
+@CacheConfig(cacheNames = AdminCacheKey.MODULE_INFO)
 @Component
 public class ModuleServiceImpl extends JPAFactoryImpl implements ModuleService {
 
 	@Override
-	@Cacheable(value = AdminCacheKey.MODULE_INFO, key = "'module_list'")
+	@Cacheable(key = "'module_list'")
 	public List<Module> getAllList() {
 		QModule qModule = QModule.module;
 
 		return this.queryFactory.selectFrom(qModule).fetch();
 	}
 
-	@CacheEvict(value = { AdminCacheKey.MODULE_INFO }, allEntries = true)
-	public void redisCacheClear() {
-	}
 }

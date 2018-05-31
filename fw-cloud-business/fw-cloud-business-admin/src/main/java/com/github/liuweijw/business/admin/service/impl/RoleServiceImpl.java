@@ -84,17 +84,18 @@ public class RoleServiceImpl extends JPAFactoryImpl implements RoleService {
 	}
 
 	@Override
+	@CacheEvict(value = { AdminCacheKey.ROLE_INFO }, allEntries = true)
 	@Transactional
 	public Role saveOrUpdate(Role role) {
 		if (null == role) return null;
 
 		Role dbRole = this.roleRepository.saveAndFlush(role);
-		this.redisCacheClear();
 
 		return dbRole;
 	}
 
 	@Override
+	@CacheEvict(value = { AdminCacheKey.ROLE_INFO }, allEntries = true)
 	@Transactional
 	public boolean delById(Integer roleId) {
 		if (null == roleId || roleId <= 0) return Boolean.FALSE;
@@ -103,12 +104,7 @@ public class RoleServiceImpl extends JPAFactoryImpl implements RoleService {
 		long num = this.queryFactory.update(qRole).set(qRole.statu, 1) // 0 正常 1删除
 				.where(qRole.roleId.eq(roleId.intValue())).execute();
 
-		this.redisCacheClear();
 		return num > 0;
-	}
-
-	@CacheEvict(value = { AdminCacheKey.ROLE_INFO }, allEntries = true)
-	public void redisCacheClear() {
 	}
 
 }
