@@ -33,13 +33,14 @@ public class WxJsdkController {
 	@RequestMapping(value = "/wechatParam")
 	@ResponseBody
 	public HttpResult wechatParam(HttpServletRequest request, @RequestParam("url") String url) {
+		long start = System.currentTimeMillis();
 		if (StringHelper.isBlank(url)) return new HttpResult().failure("url 参数验证失败！");
 
 		String jsdkUrl = WebUtils.buildURLDecoder(url);
-		log.info("===WxJsdkController==" + jsdkUrl);
 		try {
 			WxJsapiSignature jsapi = wxService.createJsapiSignature(WebUtils
 					.buildURLDecoder(jsdkUrl));
+			log.info("[微信jsdk]，请求{}，获取耗时{}", jsdkUrl, (System.currentTimeMillis() - start));
 			return new HttpResult().data(jsapi).success();
 		} catch (WxErrorException e) {
 			e.printStackTrace();
@@ -48,14 +49,14 @@ public class WxJsdkController {
 		return new HttpResult().failure("获取微信签名数据失败！");
 	}
 
-	@RequestMapping(value = "/wechatTest")
-	@ResponseBody
-	public HttpResult wechatTest(HttpServletRequest request) {
-		try {
-			return new HttpResult().data(this.wxService.getAccessToken()).success();
-		} catch (WxErrorException e) {
-			e.printStackTrace();
-		}
-		return new HttpResult().failure("微信数据配置失败！");
-	}
+	// @RequestMapping(value = "/wechatTest")
+	// @ResponseBody
+	// public HttpResult wechatTest(HttpServletRequest request) {
+	// try {
+	// return new HttpResult().data(this.wxService.getAccessToken()).success();
+	// } catch (WxErrorException e) {
+	// e.printStackTrace();
+	// }
+	// return new HttpResult().failure("微信数据配置失败！");
+	// }
 }

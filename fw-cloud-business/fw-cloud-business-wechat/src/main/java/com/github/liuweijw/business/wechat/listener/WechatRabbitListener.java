@@ -39,7 +39,8 @@ public class WechatRabbitListener {
 
 	@RabbitHandler
 	public void receive(WechatNotifyBean wechatNotifyBean) {
-		log.info("【wxauth.wechatRabbit】:exec receive");
+		long start = System.currentTimeMillis();
+		log.info("【wxauth.wechatRabbit】:exec receive start|" + start);
 		WxMpOAuth2AccessToken wxMpOAuth2AccessToken = wechatNotifyBean.getWxMpOAuth2AccessToken();
 		if (null == wxMpOAuth2AccessToken || StringHelper.isBlank(wechatNotifyBean.getWechatId())
 				|| StringHelper.isBlank(wxMpOAuth2AccessToken.getOpenId())) return;
@@ -88,6 +89,6 @@ public class WechatRabbitListener {
 			ex.printStackTrace();
 			log.info("【wxauth.wechatRabbit】exception:" + ex.getError().getErrorMsg());
 		}
-		log.info("【wxauth.wechatRabbit】:exec finished");
+		log.info("【wxauth.wechatRabbit】:exec finished 耗时：" + (System.currentTimeMillis() - start));
 	}
 }

@@ -16,10 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.liuweijw.business.commons.utils.WebUtils;
+import com.github.liuweijw.business.wechat.beans.UrlInfoBean;
 import com.github.liuweijw.business.wechat.beans.WechatNotifyBean;
 import com.github.liuweijw.business.wechat.config.WechatMpProperties;
-import com.github.liuweijw.business.wechat.domain.UrlInfo;
-import com.github.liuweijw.business.wechat.service.AuthInfoService;
 import com.github.liuweijw.business.wechat.service.UrlInfoService;
 import com.github.liuweijw.core.commons.constants.MqQueueConstant;
 import com.github.liuweijw.core.utils.R;
@@ -43,40 +42,42 @@ public class WxAuthorizeController {
 	private UrlInfoService		urlInfoService;
 
 	@Autowired
-	private AuthInfoService		authInfoService;
-
-	@Autowired
 	private RabbitTemplate		rabbitTemplate;
 
 	@Autowired
 	private WechatMpProperties	properties;
+
+	// @Autowired
+	// private TaskExecutor taskExecutor;
 
 	private static final String	OPENID	= "openId";
 
 	// https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842
 	@RequestMapping(value = "/authorize", method = RequestMethod.GET)
 	public String authorize(HttpServletRequest request, @RequestParam("_backUrl") String _backUrl,
-			Integer from, @RequestParam("wechatId") String wechatId) {
+			Integer from, @RequestParam("wechatId") String wechatId, Long t) {
+		long start = System.currentTimeMillis();
+		log.info("【wxauth.authorize】_backUrl:" + _backUrl);
 		from = null == from || from < 0 ? 0 : from;
+		t = null == t || t < 0 ? 0 : t;
 		String returnUrl = properties.getAuthUrl() + "/wechat/auth/openId?wechatId=" + wechatId
-				+ "&from=" + from;
+				+ "&from=" + from + "&t=" + t;
 		// from == 1 已经关注（静默登录） from == 0 通过网页（用户授权）
-		_backUrl = WebUtils.buildURLParams(_backUrl, OPENID);
 		String state = WebUtils.buildURLEncoder(_backUrl);
+		log.info("【wxauth.authorize】state:" + state);
+
 		if (state.length() > 112) { // 微信端最长允许128-16(#wechat_redirect),长度超过改为项目段链接标识替换
-			UrlInfo urlInfo = new UrlInfo();
-			urlInfo.setUuid(RandomHelper.randomStringUpper());
-			urlInfo.setUrl(_backUrl);
-			urlInfo.setTime(System.currentTimeMillis());
-			state = urlInfo.getUuid();
-			urlInfoService.saveOrUpdate(urlInfo);
-			// state = RandomHelper.randomStringUpper();
-			// UrlInMemory.getInstance().getUrls().put(state, new UrlMemory(_backUrl));
+			state = RandomHelper.randomStringUpper();
+			UrlInfoBean urlInfoBean = new UrlInfoBean(state, _backUrl);
+			urlInfoService.cacheUrlInfo(urlInfoBean);
 		}
 		String redirectURL = wxService.oauth2buildAuthorizationUrl(returnUrl,
 				from.intValue() == 1 ? WxConsts.OAuth2Scope.SNSAPI_BASE
 						: WxConsts.OAuth2Scope.SNSAPI_USERINFO, state);
 		log.info("【wxauth.authorize】redirect:" + redirectURL);
+		long end = System.currentTimeMillis();
+		log.info("【wxauth.authorize】耗时:" + (end - start));
+		log.info("【wxauth.authorize】请求从第三方应用到跳转授权开始[" + t + "],耗时:" + (end - t));
 		return "redirect:" + redirectURL;
 	}
 
@@ -84,57 +85,25 @@ public class WxAuthorizeController {
 	@RequestMapping(value = "/openId", method = RequestMethod.GET)
 	public String openId(HttpServletRequest request, @RequestParam("code") String code,
 			@RequestParam("state") String state, @RequestParam("from") Integer from,
-			@RequestParam("wechatId") String wechatId) {
+			@RequestParam("wechatId") String wechatId, @RequestParam("t") Long t) {
 
+		long start = System.currentTimeMillis();
 		String openId = "";
 		try {
 			boolean isSopeBase = from.intValue() == 1;
 			WxMpOAuth2AccessToken wxMpOAuth2AccessToken = wxService.oauth2getAccessToken(code);
 			openId = wxMpOAuth2AccessToken.getOpenId();
-
 			log.info("【wxauth.openId】:state|" + state);
-			// AuthInfo authInfo = authInfoService.findByOpenIdAndWechatId(openId, wechatId);
-			// if (null == authInfo // 大于2小时
-			// || System.currentTimeMillis() - authInfo.getUpdateTime().getTime() > 7200000) {
-			// WxMpUser wxMpUser = null;
-			// if (isSopeBase) {
-			// log.info("【wxauth.openId】静默登录");
-			// wxMpUser = wxService.getUserService().userInfo(openId);
-			// } else {
-			// // refresh_token有效期为30天，当refresh_token失效之后，需要用户重新授权。
-			// String refreshToken = wxMpOAuth2AccessToken.getRefreshToken();
-			// wxMpOAuth2AccessToken = wxService.oauth2refreshAccessToken(refreshToken);
-			// log.info("【wxauth.openId】主动登录");
-			// // 拉取用户信息(需scope为 snsapi_userinfo)
-			// wxMpUser = wxService.oauth2getUserInfo(wxMpOAuth2AccessToken, null);
-			// }
-			// if (null != wxMpUser) {
-			// openId = wxMpUser.getOpenId();
-			// if (null == authInfo) authInfo = new AuthInfo();
-			// authInfo.setOpenId(openId);
-			// authInfo.setWechatId(wechatId);
-			// authInfo.setNickName(WebUtils.buildURLEncoder(EmojiUtils.toHtml(wxMpUser
-			// .getNickname())));
-			// authInfo.setHeadImgUrl(wxMpUser.getHeadImgUrl());
-			// authInfo.setCity(wxMpUser.getCity());
-			// authInfo.setProvince(wxMpUser.getProvince());
-			// authInfo.setLanguage(wxMpUser.getLanguage());
-			// authInfo.setRemark(wxMpUser.getRemark());
-			// authInfo.setSexDesc(wxMpUser.getSexDesc());
-			// authInfo.setSex(wxMpUser.getSex());
-			// authInfo.setCountry(wxMpUser.getCountry());
-			// authInfo.setRefreshToken(wxMpOAuth2AccessToken.getRefreshToken());
-			// authInfo.setUpdateTime(new Date());
-			// authInfoService.saveOrUpdate(authInfo);
-			// }
-			// }
 			// 采用异步方式拉取用户信息
+			// taskExecutor.execute(() -> {})
+			long mqStart = System.currentTimeMillis();
+			log.info("【wxauth.openId】发送MQ:" + mqStart);
 			WechatNotifyBean wechatNotifyBean = new WechatNotifyBean();
 			wechatNotifyBean.setSopeBase(isSopeBase);
 			wechatNotifyBean.setWechatId(wechatId);
 			wechatNotifyBean.setWxMpOAuth2AccessToken(wxMpOAuth2AccessToken);
 			rabbitTemplate.convertAndSend(MqQueueConstant.WECHAT_QUEUE, wechatNotifyBean);
-
+			log.info("【wxauth.openId】发送MQ耗时:" + (System.currentTimeMillis() - mqStart));
 			log.info("【wxauth.openId】:openId|" + openId);
 		} catch (WxErrorException ex) {
 			ex.printStackTrace();
@@ -143,13 +112,16 @@ public class WxAuthorizeController {
 
 		String returnUrl = "";
 		if (state.length() == 32 && !state.startsWith("http")) { // key
-			UrlInfo urlInfo = urlInfoService.findByUuid(state);
-			returnUrl = urlInfo.getUrl();
-			// returnUrl = UrlInMemory.getInstance().getAndRemoveMemoryUrl(state);
+			UrlInfoBean urlInfoBean = urlInfoService.findFromCacheByUuid(state);
+			returnUrl = urlInfoBean.getUrl();
 		}
 
-		String redirectUrl = WebUtils.buildAppendURLParams(returnUrl, OPENID + "=" + openId);
+		String redirectUrl = WebUtils.buildAppendURLParams(WebUtils.buildURLParams(returnUrl,
+				OPENID), OPENID + "=" + openId, "t=" + t);
 		log.info("【wxauth.openId】:redirect|" + redirectUrl);
+		long end = System.currentTimeMillis();
+		log.info("【wxauth.openId】耗时:" + (end - start));
+		log.info("【wxauth.authorize】请求从第三方应用到跳转授权开始[" + t + "],耗时:" + (end - t));
 		return "redirect:" + redirectUrl;
 	}
 

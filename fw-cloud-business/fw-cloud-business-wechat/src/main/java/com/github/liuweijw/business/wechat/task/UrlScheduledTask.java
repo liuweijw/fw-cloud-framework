@@ -15,16 +15,7 @@ public class UrlScheduledTask {
 	@Autowired
 	private UrlInfoService	urlInfoService;
 
-	// @Scheduled(cron = "0 0/10 * * * ?")
-	// public void execMemoryUrlScheduledTask() {
-	// log.info("【execMemoryUrlScheduledTask】:清除内存数据记录");
-	// Map<String, UrlMemory> mapUrls = UrlInMemory.getInstance().getUrls();
-	// mapUrls.forEach((k, v) -> {
-	// if (v.isExpire()) mapUrls.remove(k);
-	// });
-	// }
-
-	@Scheduled(cron = "0 0/30 * * * ?")
+	@Scheduled(cron = "0 0/50 * * * ?")
 	public void execUrlScheduledTask() {
 		log.info("【execUrlScheduledTask】:清除失效数据记录");
 		long l = urlInfoService.clearAllExpire();
