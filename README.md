@@ -38,10 +38,9 @@
 - fw-cloud-business-admin   [端口2002] 权限管理等接口服务
 - fw-cloud-business-sso     [端口3001] 单点登录模块接入demo
 - fw-cloud-business-pay     [端口2003] 微信等支付统一下单模块服务
-- fw-cloud-business-wechat  [端口2004] 微信公众号模
-块服务
-- fw-cloud-business-client  [端口待定] 前端接口服务
-- fw-cloud-system-commons system各模块基础功能依赖
+- fw-cloud-business-pay-demo 微信、支付宝等支付相关demo待开发
+- fw-cloud-business-wechat  [端口2004] 微信公众号模块服务
+- fw-cloud-business-wechat-demo 微信公众号相关demo待开发
 
 4、系统监控模块
 - fw-cloud-monitor-monitor    [端口1010] 服务状态监控[服务在线访问](http://47.106.144.24:1010/)
@@ -66,8 +65,11 @@
 - Feign
 - docker
 - nginx
+- git
 
 # 项目说明
+- 从github 获取代码 [guide](https://github.com/liuweijw/fw-cloud-framework)
+- 从gitee 获取代码获取 [guide](https://gitee.com/liuweijw/fw-cloud-framework)
 - xxx 待开发和完善的模块
 - 登录账户密码 superAdmin\test1234 | admin\test1234 | test\test1234
 - 项目部分技术配置说明[guide](https://github.com/liuweijw/fw-cloud-framework/wiki/02-%E9%83%A8%E5%88%86%E6%8A%80%E6%9C%AF%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E)

@@ -3,21 +3,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>fw-cloud-monitor</artifactId>
+    <groupId>com.github.liuweijw.monitor</groupId>
     <packaging>pom</packaging>
     <version>${fw.monitor.version}</version>
 
     <name>fw-cloud-monitor</name>
-    <description>系统模块</description>
+    <description>监控模块</description>
 
     <parent>
-    	<groupId>com.github.liuweijw</groupId>
-        <artifactId>fw-cloud-framework</artifactId>
-        <version>${fw.version}</version>
-    </parent>
-
-	<properties>
-		<zipkin-autoconfigure.version>2.8.4</zipkin-autoconfigure.version>
-	</properties>
+		<groupId>com.github.liuweijw</groupId>
+		<artifactId>fw-cloud-framework</artifactId>
+		<version>${fw.version}</version>
+	</parent>
 
 	<modules>
 		<!-- monitor 系统监控模块 -->
@@ -27,4 +24,5 @@
 		<!-- zipkin elk 分布式链路追踪监控
 		<module>fw-cloud-monitor-zipkin-elk</module> -->
 	</modules>
+
 </project>

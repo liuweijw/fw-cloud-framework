@@ -74,6 +74,13 @@ public class WxAuthorizeController {
 		String redirectURL = wxService.oauth2buildAuthorizationUrl(returnUrl,
 				from.intValue() == 1 ? WxConsts.OAuth2Scope.SNSAPI_BASE
 						: WxConsts.OAuth2Scope.SNSAPI_USERINFO, state);
+		// 微信默认会发送两次回调请求问题处理 -设置之后还是一样问题暂未解决,目前调用服务端采用其它方式规避此问题
+		// https://blog.csdn.net/jiangguilong2000/article/details/79416615
+		// https://open.weixin.qq.com/connect/oauth2/authorize?appid=xxx&redirect_uri=https&response_type=code&scope=snsapi_base&state=xxx#wechat_redirect
+		// if (!redirectURL.contains("connect_redirect=")) {
+		// redirectURL = redirectURL.replace("#wechat_redirect",
+		// "&connect_redirect=1#wechat_redirect");
+		// }
 		log.info("【wxauth.authorize】redirect:" + redirectURL);
 		long end = System.currentTimeMillis();
 		log.info("【wxauth.authorize】耗时:" + (end - start));

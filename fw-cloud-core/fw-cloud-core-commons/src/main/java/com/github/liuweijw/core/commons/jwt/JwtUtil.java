@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -105,7 +104,7 @@ public class JwtUtil {
 	private static String buildToken(String token) {
 		if (StringHelper.isBlank(token)) return null;
 		if (!token.contains(CommonConstant.TOKEN_SPLIT)) return token;
-		return StringUtils.substringAfter(token, CommonConstant.TOKEN_SPLIT);
+		return StringHelper.substringAfter(token, CommonConstant.TOKEN_SPLIT);
 	}
 
 	/**

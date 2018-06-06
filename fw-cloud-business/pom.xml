@@ -1,26 +1,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <artifactId>fw-cloud-business</artifactId>
-    <packaging>pom</packaging>
+	<artifactId>fw-cloud-business</artifactId>
+	<groupId>com.github.liuweijw.business</groupId>
+	<packaging>pom</packaging>
 	<version>${fw.business.version}</version>
 
-    <name>fw-cloud-business</name>
-    <description>业务模块</description>
+	<name>fw-cloud-business</name>
+	<description>业务模块</description>
 
-    <parent>
-    	<groupId>com.github.liuweijw</groupId>
-        <artifactId>fw-cloud-framework</artifactId>
-        <version>${fw.version}</version>
-    </parent>
-
-    <properties>
-    	<querydsl.version>4.2.1</querydsl.version>
-    	<weixin.business.version>3.0.0</weixin.business.version>
-    	<weixin.emoji.converter.version>0.1.1</weixin.emoji.converter.version>
-    	<business-pay-commons.version>1.0.3-SNAPSHOT</business-pay-commons.version>
-    </properties>
+	<parent>
+		<groupId>com.github.liuweijw</groupId>
+		<artifactId>fw-cloud-framework</artifactId>
+		<version>${fw.version}</version>
+	</parent>
 
 	<modules>
 		<!-- business-commons 基础公共模块 -->
@@ -28,66 +22,9 @@
 
 		<!-- business 业务相关模块服务 -->
 		<module>fw-cloud-business-admin</module>
-		<module>fw-cloud-business-client</module>
 		<module>fw-cloud-business-sso</module>
 		<module>fw-cloud-business-pay</module>
 		<module>fw-cloud-business-wechat</module>
 	</modules>
 
-	<dependencies>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-		</dependency>
-		<dependency>
-	       <groupId>org.springframework.boot</groupId>
-	       <artifactId>spring-boot-starter-data-jpa</artifactId>
-	    </dependency>
-	    <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-	    <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
-        </dependency>
-	    <!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-		</dependency> -->
-		<dependency>
-            <groupId>com.querydsl</groupId>
-            <artifactId>querydsl-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.querydsl</groupId>
-            <artifactId>querydsl-apt</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.querydsl</groupId>
-            <artifactId>querydsl-jpa</artifactId>
-        </dependency>
-
-		<dependency>
-			<groupId>javax.inject</groupId>
-			<artifactId>javax.inject</artifactId>
-		</dependency>
-
-		<!--HikariCP连接池 //https://github.com/brettwooldridge/HikariCP -->
-		<dependency>
-			<groupId>com.zaxxer</groupId>
-			<artifactId>HikariCP</artifactId>
-		</dependency>
-
-		<!--rabbitMQ-->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-amqp</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-zipkin</artifactId>
-		</dependency>
-    </dependencies>
 </project>

@@ -9,12 +9,16 @@
     <description>统一配置中心模块</description>
 
     <parent>
-    	<groupId>com.github.liuweijw</groupId>
+    	<groupId>com.github.liuweijw.system</groupId>
         <artifactId>fw-cloud-system</artifactId>
         <version>${fw.system.version}</version>
     </parent>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka-server</artifactId>
+		</dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-config-server</artifactId>

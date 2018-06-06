@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>fw-cloud-system-eureka</artifactId>
-    <packaging>jar</packaging>
-
+	<packaging>jar</packaging>
+	
     <name>fw-cloud-system-eureka</name>
     <description>eureka server 模块</description>
 
     <parent>
-    	<groupId>com.github.liuweijw</groupId>
+    	<groupId>com.github.liuweijw.system</groupId>
         <artifactId>fw-cloud-system</artifactId>
         <version>${fw.system.version}</version>
     </parent>
