@@ -3,7 +3,7 @@ package com.github.liuweijw.business.commons.utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.github.liuweijw.core.utils.StringHelper;
+import com.github.liuweijw.commons.utils.StringHelper;
 
 /**
  * 日期工具类

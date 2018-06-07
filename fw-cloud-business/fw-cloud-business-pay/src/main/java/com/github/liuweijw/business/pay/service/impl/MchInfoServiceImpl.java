@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import com.github.liuweijw.business.pay.domain.PayMchInfo;
 import com.github.liuweijw.business.pay.repository.MchInfoRepository;
 import com.github.liuweijw.business.pay.service.MchInfoService;
-import com.github.liuweijw.core.utils.StringHelper;
+import com.github.liuweijw.commons.utils.StringHelper;
 
 @Component
 public class MchInfoServiceImpl implements MchInfoService {

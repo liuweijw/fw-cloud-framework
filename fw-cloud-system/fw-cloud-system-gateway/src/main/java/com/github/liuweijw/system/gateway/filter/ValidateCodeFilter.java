@@ -17,9 +17,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.liuweijw.commons.base.R;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
 import com.github.liuweijw.core.commons.constants.SecurityConstant;
-import com.github.liuweijw.core.utils.R;
 import com.github.liuweijw.exception.ValidateCodeException;
 
 /**

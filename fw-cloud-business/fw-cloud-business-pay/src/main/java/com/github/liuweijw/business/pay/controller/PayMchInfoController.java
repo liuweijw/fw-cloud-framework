@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.liuweijw.business.commons.web.BaseController;
 import com.github.liuweijw.business.pay.domain.PayMchInfo;
 import com.github.liuweijw.business.pay.service.MchInfoService;
-import com.github.liuweijw.core.utils.R;
+import com.github.liuweijw.commons.base.R;
 
 /**
  * 支付渠道商户信息获取

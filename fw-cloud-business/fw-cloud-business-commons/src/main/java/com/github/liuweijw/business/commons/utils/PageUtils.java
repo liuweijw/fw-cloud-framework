@@ -7,8 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
-import com.github.liuweijw.business.commons.beans.PageBean;
-import com.github.liuweijw.business.commons.beans.PageParams;
+import com.github.liuweijw.commons.base.page.PageBean;
+import com.github.liuweijw.commons.base.page.PageParams;
 
 /**
  * 分页工具 注意分页是从0开始的

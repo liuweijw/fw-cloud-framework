@@ -18,10 +18,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.CollectionUtils;
 
+import com.github.liuweijw.commons.utils.StringHelper;
 import com.github.liuweijw.core.beans.system.AuthPermission;
 import com.github.liuweijw.core.commons.constants.SecurityConstant;
 import com.github.liuweijw.core.commons.jwt.JwtUtil;
-import com.github.liuweijw.core.utils.StringHelper;
 
 @Slf4j
 @Service("permissionService")

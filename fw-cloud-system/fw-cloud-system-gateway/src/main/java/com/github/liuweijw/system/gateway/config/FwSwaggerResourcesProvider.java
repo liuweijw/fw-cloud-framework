@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 import springfox.documentation.swagger.web.SwaggerResource;
 import springfox.documentation.swagger.web.SwaggerResourcesProvider;
 
+import com.github.liuweijw.commons.utils.StringHelper;
 import com.github.liuweijw.core.commons.constants.ServiceIdConstant;
-import com.github.liuweijw.core.utils.StringHelper;
 
 @Component
 @Primary

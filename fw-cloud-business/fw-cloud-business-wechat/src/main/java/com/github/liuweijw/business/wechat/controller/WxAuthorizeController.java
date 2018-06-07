@@ -15,15 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.github.liuweijw.business.commons.utils.WebUtils;
+import com.github.liuweijw.business.commons.utils.MyWebUtils;
 import com.github.liuweijw.business.wechat.beans.UrlInfoBean;
 import com.github.liuweijw.business.wechat.beans.WechatNotifyBean;
 import com.github.liuweijw.business.wechat.config.WechatMpProperties;
 import com.github.liuweijw.business.wechat.service.UrlInfoService;
+import com.github.liuweijw.commons.base.R;
+import com.github.liuweijw.commons.utils.RandomHelper;
+import com.github.liuweijw.commons.utils.StringHelper;
+import com.github.liuweijw.commons.utils.WebUtils;
 import com.github.liuweijw.core.commons.constants.MqQueueConstant;
-import com.github.liuweijw.core.utils.R;
-import com.github.liuweijw.core.utils.RandomHelper;
-import com.github.liuweijw.core.utils.StringHelper;
 
 /**
  * 微信公众号授权管理
@@ -123,7 +124,7 @@ public class WxAuthorizeController {
 			returnUrl = urlInfoBean.getUrl();
 		}
 
-		String redirectUrl = WebUtils.buildAppendURLParams(WebUtils.buildURLParams(returnUrl,
+		String redirectUrl = MyWebUtils.buildAppendURLParams(MyWebUtils.buildURLParams(returnUrl,
 				OPENID), OPENID + "=" + openId, "t=" + t);
 		log.info("【wxauth.openId】:redirect|" + redirectUrl);
 		long end = System.currentTimeMillis();

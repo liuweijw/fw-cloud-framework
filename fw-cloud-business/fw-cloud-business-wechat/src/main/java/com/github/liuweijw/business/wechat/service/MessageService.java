@@ -2,8 +2,8 @@ package com.github.liuweijw.business.wechat.service;
 
 import me.chanjar.weixin.common.exception.WxErrorException;
 
-import com.github.liuweijw.business.pay.commons.beans.MsgBean;
-import com.github.liuweijw.business.pay.commons.enums.WxTemplateEnum;
+import com.github.liuweijw.commons.pay.beans.MsgBean;
+import com.github.liuweijw.commons.pay.enums.WxTemplateEnum;
 
 public interface MessageService {
 

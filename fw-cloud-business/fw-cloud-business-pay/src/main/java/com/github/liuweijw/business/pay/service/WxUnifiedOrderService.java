@@ -3,7 +3,7 @@ package com.github.liuweijw.business.pay.service;
 import java.util.Map;
 
 import com.github.liuweijw.business.pay.domain.PayOrder;
-import com.github.liuweijw.core.utils.R;
+import com.github.liuweijw.commons.base.R;
 
 public interface WxUnifiedOrderService {
 

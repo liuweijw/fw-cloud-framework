@@ -2,7 +2,7 @@ package com.github.liuweijw.core.commons.https;
 
 import org.springframework.web.client.RestTemplate;
 
-import com.github.liuweijw.core.utils.StringHelper;
+import com.github.liuweijw.commons.utils.StringHelper;
 
 /**
  * 通过请求URL获取不同类别的RestTemplate

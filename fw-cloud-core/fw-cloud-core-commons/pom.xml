@@ -49,7 +49,18 @@
 			<groupId>com.github.liuweijw.core</groupId>
 			<artifactId>fw-cloud-core-utils</artifactId>
 		</dependency>
-
+		
+		<!-- 远程依赖 // https://github.com/liuweijw/cloud-commons.git -->
+		<!-- 方便其它项目工程调用 -->
+		<dependency>
+			<groupId>com.github.liuweijw.commons</groupId>
+			<artifactId>cloud-commons-utils</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.liuweijw.commons</groupId>
+			<artifactId>cloud-commons-base</artifactId>
+		</dependency>
+			
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>

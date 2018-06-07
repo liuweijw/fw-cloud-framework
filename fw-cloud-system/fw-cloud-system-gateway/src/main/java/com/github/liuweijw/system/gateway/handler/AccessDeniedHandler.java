@@ -16,9 +16,9 @@ import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHand
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.liuweijw.commons.base.R;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
 import com.github.liuweijw.core.commons.constants.MessageConstant;
-import com.github.liuweijw.core.utils.R;
 import com.github.liuweijw.exception.DeniedException;
 
 /**

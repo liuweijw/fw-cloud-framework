@@ -18,11 +18,11 @@ import com.github.liuweijw.business.admin.domain.Dict;
 import com.github.liuweijw.business.admin.domain.QDict;
 import com.github.liuweijw.business.admin.repository.DictRepository;
 import com.github.liuweijw.business.admin.service.DictService;
-import com.github.liuweijw.business.commons.beans.PageBean;
-import com.github.liuweijw.business.commons.beans.PageParams;
 import com.github.liuweijw.business.commons.utils.PageUtils;
 import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
-import com.github.liuweijw.core.utils.StringHelper;
+import com.github.liuweijw.commons.base.page.PageBean;
+import com.github.liuweijw.commons.base.page.PageParams;
+import com.github.liuweijw.commons.utils.StringHelper;
 import com.querydsl.core.types.Predicate;
 
 @CacheConfig(cacheNames = AdminCacheKey.DICT_INFO)

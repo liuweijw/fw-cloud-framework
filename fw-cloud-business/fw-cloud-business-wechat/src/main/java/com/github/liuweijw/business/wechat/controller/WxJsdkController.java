@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.liuweijw.business.commons.utils.WebUtils;
-import com.github.liuweijw.business.pay.commons.beans.HttpResult;
-import com.github.liuweijw.core.utils.StringHelper;
+import com.github.liuweijw.commons.pay.beans.HttpResult;
+import com.github.liuweijw.commons.utils.StringHelper;
+import com.github.liuweijw.commons.utils.WebUtils;
 
 /**
  * 获取微信jsdk签名信息

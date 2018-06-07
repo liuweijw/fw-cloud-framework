@@ -24,12 +24,11 @@ import com.github.liuweijw.business.admin.service.MenuService;
 import com.github.liuweijw.business.admin.service.ModuleService;
 import com.github.liuweijw.business.admin.service.RoleService;
 import com.github.liuweijw.business.commons.tree.MenuTree;
-import com.github.liuweijw.business.commons.tree.TreeUtil;
 import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
+import com.github.liuweijw.commons.base.tree.TreeUtil;
+import com.github.liuweijw.commons.utils.StringHelper;
 import com.github.liuweijw.core.beans.system.AuthMenu;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
-import com.github.liuweijw.core.utils.Assert;
-import com.github.liuweijw.core.utils.StringHelper;
 
 @CacheConfig(cacheNames = AdminCacheKey.MENU_INFO)
 @Component
@@ -152,8 +151,6 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 	@CacheEvict(allEntries = true)
 	@Transactional
 	public Boolean deleteMenu(Integer menuId, String roleCode) {
-		Assert.isNull(menuId, "菜单ID不能为空");
-
 		// 删除当前节点 -- 假删除
 		QMenu qMenu = QMenu.menu;
 		this.queryFactory.update(qMenu).set(qMenu.statu, CommonConstant.STATUS_DEL).where(

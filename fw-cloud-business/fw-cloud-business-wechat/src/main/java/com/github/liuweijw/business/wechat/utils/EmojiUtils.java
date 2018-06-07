@@ -1,8 +1,8 @@
 package com.github.liuweijw.business.wechat.utils;
 
 import com.github.binarywang.java.emoji.EmojiConverter;
-import com.github.liuweijw.business.commons.utils.WebUtils;
-import com.github.liuweijw.core.utils.StringHelper;
+import com.github.liuweijw.commons.utils.StringHelper;
+import com.github.liuweijw.commons.utils.WebUtils;
 
 /**
  * 微信昵称带特殊字符和Emoji图标的入库处理

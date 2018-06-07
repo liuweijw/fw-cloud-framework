@@ -13,13 +13,13 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.liuweijw.business.commons.utils.WebUtils;
 import com.github.liuweijw.business.wechat.beans.WechatNotifyBean;
 import com.github.liuweijw.business.wechat.domain.AuthInfo;
 import com.github.liuweijw.business.wechat.service.AuthInfoService;
 import com.github.liuweijw.business.wechat.utils.EmojiUtils;
+import com.github.liuweijw.commons.utils.StringHelper;
+import com.github.liuweijw.commons.utils.WebUtils;
 import com.github.liuweijw.core.commons.constants.MqQueueConstant;
-import com.github.liuweijw.core.utils.StringHelper;
 
 /**
  * 日志队列消息监听：消息对象必须是经过序列化操作的对象

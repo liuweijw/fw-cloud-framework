@@ -23,9 +23,9 @@ import com.github.liuweijw.business.admin.repository.RoleMenuPermissionRepositor
 import com.github.liuweijw.business.admin.repository.RoleMenuRepository;
 import com.github.liuweijw.business.admin.service.PermissionService;
 import com.github.liuweijw.business.admin.service.RoleService;
-import com.github.liuweijw.business.commons.utils.WebUtils;
 import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
-import com.github.liuweijw.core.utils.StringHelper;
+import com.github.liuweijw.commons.utils.StringHelper;
+import com.github.liuweijw.commons.utils.WebUtils;
 
 @Component
 public class PermissionServiceImpl extends JPAFactoryImpl implements PermissionService {

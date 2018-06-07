@@ -15,7 +15,7 @@ import com.github.liuweijw.business.wechat.beans.UrlInfoBean;
 import com.github.liuweijw.business.wechat.domain.QUrlInfo;
 import com.github.liuweijw.business.wechat.domain.UrlInfo;
 import com.github.liuweijw.business.wechat.repository.UrlInfoRepository;
-import com.github.liuweijw.core.utils.StringHelper;
+import com.github.liuweijw.commons.utils.StringHelper;
 
 @Slf4j
 @Component

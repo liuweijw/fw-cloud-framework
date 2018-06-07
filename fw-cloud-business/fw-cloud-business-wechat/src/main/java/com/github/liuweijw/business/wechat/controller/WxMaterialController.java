@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.github.liuweijw.core.utils.R;
+import com.github.liuweijw.commons.base.R;
 
 /**
  * 微信商户信息获取

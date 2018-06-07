@@ -1,5 +1,6 @@
 package com.github.liuweijw.business.commons.tree;
 
+import com.github.liuweijw.commons.base.tree.TreeNode;
 import com.github.liuweijw.core.beans.system.AuthMenu;
 
 public class MenuTree extends TreeNode {

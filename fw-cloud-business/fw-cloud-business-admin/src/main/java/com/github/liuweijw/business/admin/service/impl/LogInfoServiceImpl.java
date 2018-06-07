@@ -11,10 +11,10 @@ import com.github.liuweijw.business.admin.domain.LogInfo;
 import com.github.liuweijw.business.admin.domain.QLogInfo;
 import com.github.liuweijw.business.admin.repository.LogInfoRepository;
 import com.github.liuweijw.business.admin.service.LogInfoService;
-import com.github.liuweijw.business.commons.beans.PageBean;
-import com.github.liuweijw.business.commons.beans.PageParams;
 import com.github.liuweijw.business.commons.utils.PageUtils;
-import com.github.liuweijw.core.utils.StringHelper;
+import com.github.liuweijw.commons.base.page.PageBean;
+import com.github.liuweijw.commons.base.page.PageParams;
+import com.github.liuweijw.commons.utils.StringHelper;
 import com.querydsl.core.types.Predicate;
 
 @Component

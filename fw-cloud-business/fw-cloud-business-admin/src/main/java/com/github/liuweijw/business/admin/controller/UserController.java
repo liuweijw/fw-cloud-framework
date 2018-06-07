@@ -19,15 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.liuweijw.business.admin.beans.UserForm;
 import com.github.liuweijw.business.admin.domain.User;
 import com.github.liuweijw.business.admin.service.UserService;
-import com.github.liuweijw.business.commons.beans.PageBean;
-import com.github.liuweijw.business.commons.beans.PageParams;
 import com.github.liuweijw.business.commons.permission.Functional;
 import com.github.liuweijw.business.commons.permission.Module;
 import com.github.liuweijw.business.commons.web.BaseController;
 import com.github.liuweijw.business.commons.web.aop.PrePermissions;
+import com.github.liuweijw.commons.base.R;
+import com.github.liuweijw.commons.base.page.PageBean;
+import com.github.liuweijw.commons.base.page.PageParams;
 import com.github.liuweijw.core.beans.system.AuthUser;
 import com.github.liuweijw.core.configuration.ApiTag;
-import com.github.liuweijw.core.utils.R;
 
 /**
  * 用户管理服务

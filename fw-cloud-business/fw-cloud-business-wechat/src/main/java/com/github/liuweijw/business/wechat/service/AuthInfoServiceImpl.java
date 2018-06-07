@@ -7,7 +7,7 @@ import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
 import com.github.liuweijw.business.wechat.domain.AuthInfo;
 import com.github.liuweijw.business.wechat.domain.QAuthInfo;
 import com.github.liuweijw.business.wechat.repository.AuthInfoRepository;
-import com.github.liuweijw.core.utils.StringHelper;
+import com.github.liuweijw.commons.utils.StringHelper;
 
 /**
  * 微信授权信息保存

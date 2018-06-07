@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.liuweijw.business.pay.commons.beans.HttpResult;
-import com.github.liuweijw.business.pay.commons.beans.MsgBean;
-import com.github.liuweijw.business.pay.commons.enums.WxTemplateEnum;
-import com.github.liuweijw.business.pay.commons.utils.Crypt;
 import com.github.liuweijw.business.wechat.domain.WechatInfo;
 import com.github.liuweijw.business.wechat.service.MessageService;
 import com.github.liuweijw.business.wechat.service.WechatInfoService;
-import com.github.liuweijw.core.utils.StringHelper;
+import com.github.liuweijw.commons.pay.beans.HttpResult;
+import com.github.liuweijw.commons.pay.beans.MsgBean;
+import com.github.liuweijw.commons.pay.enums.WxTemplateEnum;
+import com.github.liuweijw.commons.utils.Crypt;
+import com.github.liuweijw.commons.utils.StringHelper;
 
 /**
  * 微信公众号消息通过openId发送

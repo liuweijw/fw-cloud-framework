@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.liuweijw.business.pay.commons.beans.HttpResult;
 import com.github.liuweijw.business.wechat.domain.AuthInfo;
 import com.github.liuweijw.business.wechat.domain.WechatInfo;
 import com.github.liuweijw.business.wechat.service.AuthInfoService;
 import com.github.liuweijw.business.wechat.service.WechatInfoService;
+import com.github.liuweijw.commons.pay.beans.HttpResult;
 
 /**
  * 通过openId 获取用户信息

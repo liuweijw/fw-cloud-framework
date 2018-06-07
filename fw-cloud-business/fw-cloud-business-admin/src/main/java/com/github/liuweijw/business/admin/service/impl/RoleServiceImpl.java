@@ -17,11 +17,11 @@ import com.github.liuweijw.business.admin.domain.QRoleDept;
 import com.github.liuweijw.business.admin.domain.Role;
 import com.github.liuweijw.business.admin.repository.RoleRepository;
 import com.github.liuweijw.business.admin.service.RoleService;
-import com.github.liuweijw.business.commons.beans.PageBean;
-import com.github.liuweijw.business.commons.beans.PageParams;
 import com.github.liuweijw.business.commons.utils.PageUtils;
 import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
-import com.github.liuweijw.core.utils.StringHelper;
+import com.github.liuweijw.commons.base.page.PageBean;
+import com.github.liuweijw.commons.base.page.PageParams;
+import com.github.liuweijw.commons.utils.StringHelper;
 import com.querydsl.core.types.Predicate;
 
 @Component

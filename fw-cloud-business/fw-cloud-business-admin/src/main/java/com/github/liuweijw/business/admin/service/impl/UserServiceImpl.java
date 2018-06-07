@@ -30,14 +30,14 @@ import com.github.liuweijw.business.admin.repository.UserRepository;
 import com.github.liuweijw.business.admin.repository.UserRoleRepository;
 import com.github.liuweijw.business.admin.service.PermissionService;
 import com.github.liuweijw.business.admin.service.UserService;
-import com.github.liuweijw.business.commons.beans.PageBean;
-import com.github.liuweijw.business.commons.beans.PageParams;
 import com.github.liuweijw.business.commons.utils.PageUtils;
 import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
+import com.github.liuweijw.commons.base.page.PageBean;
+import com.github.liuweijw.commons.base.page.PageParams;
+import com.github.liuweijw.commons.utils.StringHelper;
 import com.github.liuweijw.core.beans.system.AuthRole;
 import com.github.liuweijw.core.beans.system.AuthUser;
 import com.github.liuweijw.core.commons.constants.SecurityConstant;
-import com.github.liuweijw.core.utils.StringHelper;
 import com.querydsl.core.types.Predicate;
 
 @Component

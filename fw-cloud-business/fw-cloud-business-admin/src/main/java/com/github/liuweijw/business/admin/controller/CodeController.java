@@ -17,7 +17,6 @@ import com.github.liuweijw.business.admin.service.UserService;
 import com.github.liuweijw.business.commons.permission.Module;
 import com.github.liuweijw.business.commons.web.aop.PrePermissions;
 import com.github.liuweijw.core.commons.constants.SecurityConstant;
-import com.github.liuweijw.core.utils.Assert;
 import com.google.code.kaptcha.Producer;
 
 /**
@@ -41,7 +40,6 @@ public class CodeController {
 	@GetMapping(SecurityConstant.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/{randomStr}")
 	public void createCode(@PathVariable String randomStr, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		Assert.isBlank(randomStr, "随机码不能为空");
 		response.setHeader("Cache-Control", "no-store, no-cache");
 		response.setContentType("image/jpeg");
 		// 生成文字验证码

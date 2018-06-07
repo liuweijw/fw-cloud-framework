@@ -6,8 +6,8 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.github.liuweijw.commons.utils.StringHelper;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
-import com.github.liuweijw.core.utils.StringHelper;
 import com.github.liuweijw.exception.CheckedException;
 
 /**
@@ -15,7 +15,7 @@ import com.github.liuweijw.exception.CheckedException;
  * 
  * @author liuweijw
  */
-public class WebUtils extends com.github.liuweijw.core.utils.WebUtils {
+public class MyWebUtils {
 
 	/**
 	 * 判断是否是微信浏览器发出的请求

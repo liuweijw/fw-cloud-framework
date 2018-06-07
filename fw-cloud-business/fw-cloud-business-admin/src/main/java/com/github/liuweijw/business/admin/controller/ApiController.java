@@ -22,12 +22,12 @@ import com.github.liuweijw.business.admin.service.UserService;
 import com.github.liuweijw.business.commons.permission.Module;
 import com.github.liuweijw.business.commons.web.BaseController;
 import com.github.liuweijw.business.commons.web.aop.PrePermissions;
+import com.github.liuweijw.commons.base.R;
 import com.github.liuweijw.core.beans.system.AuthMenu;
 import com.github.liuweijw.core.beans.system.AuthPermission;
 import com.github.liuweijw.core.beans.system.AuthUser;
 import com.github.liuweijw.core.commons.jwt.JwtUtil;
 import com.github.liuweijw.core.configuration.JwtConfiguration;
-import com.github.liuweijw.core.utils.R;
 
 /**
  * 无须经过网关权限的接口

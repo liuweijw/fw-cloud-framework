@@ -15,11 +15,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import com.github.liuweijw.commons.utils.StringHelper;
 import com.github.liuweijw.core.beans.system.AuthLog;
 import com.github.liuweijw.core.beans.system.Log;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
 import com.github.liuweijw.core.commons.constants.MqQueueConstant;
-import com.github.liuweijw.core.utils.StringHelper;
 import com.netflix.zuul.context.RequestContext;
 import com.xiaoleilu.hutool.http.HttpUtil;
 import com.xiaoleilu.hutool.io.IoUtil;

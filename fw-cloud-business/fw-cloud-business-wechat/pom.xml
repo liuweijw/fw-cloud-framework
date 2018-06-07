@@ -22,8 +22,8 @@
 
 		<!-- 远程依赖 // https://github.com/liuweijw/cloud-commons.git -->
 		<dependency>
-			<groupId>com.github.liuweijw</groupId>
-			<artifactId>business-pay-commons</artifactId>
+			<groupId>com.github.liuweijw.commons</groupId>
+			<artifactId>cloud-commons-pay</artifactId>
 		</dependency>
 
 		<dependency>

@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
+import com.github.liuweijw.commons.utils.StringHelper;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
 import com.github.liuweijw.core.commons.constants.SecurityConstant;
-import com.github.liuweijw.core.utils.StringHelper;
 
 /**
  * @author liuweijw 用户相关工具类

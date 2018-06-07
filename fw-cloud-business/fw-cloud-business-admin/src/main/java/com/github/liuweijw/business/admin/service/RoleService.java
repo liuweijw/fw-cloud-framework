@@ -3,8 +3,8 @@ package com.github.liuweijw.business.admin.service;
 import java.util.List;
 
 import com.github.liuweijw.business.admin.domain.Role;
-import com.github.liuweijw.business.commons.beans.PageBean;
-import com.github.liuweijw.business.commons.beans.PageParams;
+import com.github.liuweijw.commons.base.page.PageBean;
+import com.github.liuweijw.commons.base.page.PageParams;
 
 public interface RoleService {
 

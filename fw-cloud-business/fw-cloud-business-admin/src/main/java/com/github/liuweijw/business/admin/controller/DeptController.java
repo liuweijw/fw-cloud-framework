@@ -13,7 +13,7 @@ import com.github.liuweijw.business.commons.permission.Module;
 import com.github.liuweijw.business.commons.tree.DeptTree;
 import com.github.liuweijw.business.commons.web.BaseController;
 import com.github.liuweijw.business.commons.web.aop.PrePermissions;
-import com.github.liuweijw.core.utils.R;
+import com.github.liuweijw.commons.base.R;
 
 /**
  * 部门管理服务

@@ -90,7 +90,7 @@
 		<hutool-all>3.3.2</hutool-all>
 		<weixin.business.version>3.0.0</weixin.business.version>
 		<weixin.emoji.converter.version>0.1.1</weixin.emoji.converter.version>
-		<business-pay-commons.version>1.0.3-SNAPSHOT</business-pay-commons.version>
+		<cloud-commons.version>1.0.5-SNAPSHOT</cloud-commons.version>
 		<kaptcha.version>0.0.9</kaptcha.version>
 		<shardingjdbc.version>2.0.3</shardingjdbc.version>
 		<hibernate.validator.version>5.3.6.Final</hibernate.validator.version>
@@ -202,9 +202,19 @@
 			
 			<!-- 远程依赖 // https://github.com/liuweijw/cloud-commons.git -->
 			<dependency>
-				<groupId>com.github.liuweijw</groupId>
-				<artifactId>business-pay-commons</artifactId>
-				<version>${business-pay-commons.version}</version>
+				<groupId>com.github.liuweijw.commons</groupId>
+				<artifactId>cloud-commons-utils</artifactId> 
+				<version>${cloud-commons.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.liuweijw.commons</groupId>
+				<artifactId>cloud-commons-base</artifactId>
+				<version>${cloud-commons.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.liuweijw.commons</groupId>
+				<artifactId>cloud-commons-pay</artifactId>
+				<version>${cloud-commons.version}</version>
 			</dependency>
 		
 			<!-- 支持数据库分库分表 // https://github.com/shardingjdbc -->

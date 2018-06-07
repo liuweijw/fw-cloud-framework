@@ -8,7 +8,7 @@ import com.github.liuweijw.business.pay.domain.PayChannel;
 import com.github.liuweijw.business.pay.domain.QPayChannel;
 import com.github.liuweijw.business.pay.repository.PayChannelRepository;
 import com.github.liuweijw.business.pay.service.PayChannelService;
-import com.github.liuweijw.core.utils.StringHelper;
+import com.github.liuweijw.commons.utils.StringHelper;
 
 @Component
 public class PayChannelServiceImpl extends JPAFactoryImpl implements PayChannelService {

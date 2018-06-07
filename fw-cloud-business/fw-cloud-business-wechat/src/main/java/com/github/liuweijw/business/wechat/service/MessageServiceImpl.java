@@ -13,9 +13,9 @@ import me.chanjar.weixin.mp.bean.template.WxMpTemplateMessage.WxMpTemplateMessag
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.liuweijw.business.pay.commons.beans.MsgBean;
-import com.github.liuweijw.business.pay.commons.enums.WxTemplateEnum;
-import com.github.liuweijw.core.utils.StringHelper;
+import com.github.liuweijw.commons.pay.beans.MsgBean;
+import com.github.liuweijw.commons.pay.enums.WxTemplateEnum;
+import com.github.liuweijw.commons.utils.StringHelper;
 
 @Slf4j
 @Component

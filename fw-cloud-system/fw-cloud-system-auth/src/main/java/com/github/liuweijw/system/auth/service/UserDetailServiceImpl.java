@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.github.liuweijw.commons.utils.StringHelper;
 import com.github.liuweijw.core.beans.system.AuthUser;
-import com.github.liuweijw.core.utils.StringHelper;
 
 @Service("userDetailService")
 public class UserDetailServiceImpl implements UserDetailsService, Serializable {

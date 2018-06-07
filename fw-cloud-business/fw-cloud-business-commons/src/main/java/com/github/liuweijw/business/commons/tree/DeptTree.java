@@ -1,5 +1,7 @@
 package com.github.liuweijw.business.commons.tree;
 
+import com.github.liuweijw.commons.base.tree.TreeNode;
+
 /**
  * 部门树形结构
  * 
