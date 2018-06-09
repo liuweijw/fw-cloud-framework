@@ -5,7 +5,7 @@ import com.github.liuweijw.business.admin.beans.UserForm;
 import com.github.liuweijw.business.admin.domain.User;
 import com.github.liuweijw.commons.base.page.PageBean;
 import com.github.liuweijw.commons.base.page.PageParams;
-import com.github.liuweijw.core.beans.system.AuthUser;
+import com.github.liuweijw.system.api.model.AuthUser;
 
 public interface UserService {
 

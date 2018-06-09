@@ -1,7 +1,6 @@
-package com.github.liuweijw.business.admin.controller;
+package com.github.liuweijw.business.admin.web.controller;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -24,10 +23,9 @@ import com.github.liuweijw.business.commons.web.BaseController;
 import com.github.liuweijw.business.commons.web.aop.PrePermissions;
 import com.github.liuweijw.commons.base.R;
 import com.github.liuweijw.core.beans.system.AuthMenu;
-import com.github.liuweijw.core.beans.system.AuthPermission;
-import com.github.liuweijw.core.beans.system.AuthUser;
 import com.github.liuweijw.core.commons.jwt.JwtUtil;
 import com.github.liuweijw.core.configuration.JwtConfiguration;
+import com.github.liuweijw.system.api.model.AuthUser;
 
 /**
  * 无须经过网关权限的接口
@@ -63,22 +61,6 @@ public class ApiController extends BaseController {
 	}
 
 	/**
-	 * 通过用户名查询用户及其角色信息
-	 */
-	@GetMapping("/findUserByUsername/{username}")
-	public AuthUser findUserByUsername(@PathVariable String username) {
-		return userService.findUserByUsername(username);
-	}
-
-	/**
-	 * 通过手机号码查询用户及其角色信息
-	 */
-	@GetMapping("/findUserByMobile/{mobile}")
-	public AuthUser findUserByMobile(@PathVariable("mobile") String mobile) {
-		return userService.findUserByMobile(mobile);
-	}
-
-	/**
 	 * 返回当前用户树形菜单集合
 	 * 
 	 * @return 树形菜单
@@ -96,22 +78,6 @@ public class ApiController extends BaseController {
 		});
 
 		return new R<List<Integer>>().data(menuList);
-	}
-
-	/**
-	 * 通过用户名查询用户菜单
-	 */
-	@GetMapping("/findMenuByRole/{roleCode}")
-	public Set<AuthPermission> findMenuByRole(@PathVariable String roleCode) {
-		Set<AuthPermission> permissions = new HashSet<AuthPermission>();
-		Set<AuthMenu> menus = menuService.findMenuByRole(roleCode);
-
-		if (null == menus || menus.size() == 0) return permissions;
-
-		menus.stream().forEach(r -> {
-			permissions.add(new AuthPermission(r.getUrl()));
-		});
-		return permissions;
 	}
 
 	/**

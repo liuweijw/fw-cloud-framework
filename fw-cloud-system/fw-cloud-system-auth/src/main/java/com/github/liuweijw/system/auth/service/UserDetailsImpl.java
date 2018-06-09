@@ -8,9 +8,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.github.liuweijw.core.beans.system.AuthRole;
-import com.github.liuweijw.core.beans.system.AuthUser;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
+import com.github.liuweijw.system.api.model.AuthRole;
+import com.github.liuweijw.system.api.model.AuthUser;
 
 public class UserDetailsImpl implements UserDetails {
 

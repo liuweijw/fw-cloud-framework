@@ -19,16 +19,18 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.util.CollectionUtils;
 
 import com.github.liuweijw.commons.utils.StringHelper;
-import com.github.liuweijw.core.beans.system.AuthPermission;
 import com.github.liuweijw.core.commons.constants.SecurityConstant;
 import com.github.liuweijw.core.commons.jwt.JwtUtil;
+import com.github.liuweijw.system.api.PermissionFeignApi;
+import com.github.liuweijw.system.api.model.AuthPermission;
 
 @Slf4j
 @Service("permissionService")
 public class PermissionServiceImpl implements PermissionService {
 
 	@Autowired
-	private MenuPermissionService	apiPermissionService;
+	private PermissionFeignApi		permissionFeignApi;
+
 	@Autowired
 	private RedisConnectionFactory	redisConnectionFactory;
 
@@ -68,7 +70,7 @@ public class PermissionServiceImpl implements PermissionService {
 		// 接口层面做了缓存处理，后续可以继续优化
 		Set<AuthPermission> permissions = new HashSet<AuthPermission>();
 		for (SimpleGrantedAuthority authority : grantedAuthorityList) {
-			permissions.addAll(apiPermissionService.findMenuByRole(authority.getAuthority()));
+			permissions.addAll(permissionFeignApi.findMenuByRole(authority.getAuthority()));
 		}
 
 		// 网关处理是否拥有菜单权限，菜单下的功能权限校验由调用子模块负责

@@ -1,13 +1,14 @@
-package com.github.liuweijw.system.auth.service;
+package com.github.liuweijw.system.api;
 
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.github.liuweijw.core.beans.system.AuthUser;
+import com.github.liuweijw.system.api.hystrix.UserFeignApiHystrix;
+import com.github.liuweijw.system.api.model.AuthUser;
 
-@FeignClient(name = "business-admin-server", fallback = UserServiceFallback.class)
-public interface UserService {
+@FeignClient(name = "business-admin-server", fallback = UserFeignApiHystrix.class)
+public interface UserFeignApi {
 
 	/**
 	 * 通过用户名查询用户、角色信息

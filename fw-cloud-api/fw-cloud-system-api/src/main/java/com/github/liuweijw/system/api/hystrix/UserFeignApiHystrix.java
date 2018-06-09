@@ -1,14 +1,15 @@
-package com.github.liuweijw.system.auth.service;
+package com.github.liuweijw.system.api.hystrix;
 
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
 
-import com.github.liuweijw.core.beans.system.AuthUser;
+import com.github.liuweijw.system.api.UserFeignApi;
+import com.github.liuweijw.system.api.model.AuthUser;
 
 @Slf4j
 @Service
-public class UserServiceFallback implements UserService {
+public class UserFeignApiHystrix implements UserFeignApi {
 
 	@Override
 	public AuthUser findUserByUsername(String username) {

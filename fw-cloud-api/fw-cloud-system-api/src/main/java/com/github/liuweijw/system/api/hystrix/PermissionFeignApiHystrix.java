@@ -1,4 +1,4 @@
-package com.github.liuweijw.system.gateway.service;
+package com.github.liuweijw.system.api.hystrix;
 
 import java.util.Set;
 
@@ -6,11 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
 
-import com.github.liuweijw.core.beans.system.AuthPermission;
+import com.github.liuweijw.system.api.PermissionFeignApi;
+import com.github.liuweijw.system.api.model.AuthPermission;
 
 @Slf4j
 @Service
-public class MenuPermissionServiceFallback implements MenuPermissionService {
+public class PermissionFeignApiHystrix implements PermissionFeignApi {
 
 	@Override
 	public Set<AuthPermission> findMenuByRole(String roleCode) {

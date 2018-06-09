@@ -1,6 +1,7 @@
 package com.github.liuweijw.business.wechat.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,7 @@ import com.github.liuweijw.business.wechat.domain.WechatInfo;
 import com.github.liuweijw.business.wechat.repository.WechatInfoRepository;
 import com.github.liuweijw.commons.utils.StringHelper;
 
+@CacheConfig(cacheNames = "wechat_info_")
 @Component
 public class WechatInfoServiceImpl extends JPAFactoryImpl implements WechatInfoService {
 
@@ -17,7 +19,7 @@ public class WechatInfoServiceImpl extends JPAFactoryImpl implements WechatInfoS
 	private WechatInfoRepository	wechatInfoRepository;
 
 	@Override
-	@Cacheable(value = "wechat_info_", key = "#wechatId")
+	@Cacheable(key = "#wechatId")
 	public WechatInfo findByWechatId(String wechatId) {
 		if (StringHelper.isBlank(wechatId)) return null;
 

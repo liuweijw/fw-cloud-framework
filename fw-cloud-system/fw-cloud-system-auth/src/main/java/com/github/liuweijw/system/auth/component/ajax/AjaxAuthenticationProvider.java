@@ -6,9 +6,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.github.liuweijw.core.beans.system.AuthUser;
+import com.github.liuweijw.system.api.UserFeignApi;
+import com.github.liuweijw.system.api.model.AuthUser;
 import com.github.liuweijw.system.auth.service.UserDetailsImpl;
-import com.github.liuweijw.system.auth.service.UserService;
 
 /**
  * 自定义参数验证 <br/>
@@ -27,13 +27,13 @@ import com.github.liuweijw.system.auth.service.UserService;
  */
 public class AjaxAuthenticationProvider implements AuthenticationProvider {
 
-	private UserService	userService;
+	private UserFeignApi	userFeignApi;
 
 	@Override
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
 		AjaxAuthenticationToken ajaxAuthenticationToken = (AjaxAuthenticationToken) authentication;
-		AuthUser user = userService.findUserByMobile((String) ajaxAuthenticationToken
+		AuthUser user = userFeignApi.findUserByMobile((String) ajaxAuthenticationToken
 				.getPrincipal());
 
 		if (null == user)
@@ -61,12 +61,12 @@ public class AjaxAuthenticationProvider implements AuthenticationProvider {
 		return AjaxAuthenticationToken.class.isAssignableFrom(authentication);
 	}
 
-	public UserService getUserService() {
-		return userService;
+	public UserFeignApi getUserFeignApi() {
+		return userFeignApi;
 	}
 
-	public void setUserService(UserService userService) {
-		this.userService = userService;
+	public void setUserFeignApi(UserFeignApi userFeignApi) {
+		this.userFeignApi = userFeignApi;
 	}
 
 }

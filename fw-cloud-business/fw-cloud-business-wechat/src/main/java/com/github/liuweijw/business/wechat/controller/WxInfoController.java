@@ -1,7 +1,5 @@
 package com.github.liuweijw.business.wechat.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +29,8 @@ public class WxInfoController {
 	private WechatInfoService	wechatInfoService;
 
 	@RequestMapping(value = "/{wechatId}/{openId}")
-	public HttpResult getWechatInfoByOpenId(HttpServletRequest request,
-			@PathVariable String wechatId, @PathVariable String openId) {
+	public HttpResult getWechatInfoByOpenId(@PathVariable("wechatId") String wechatId,
+			@PathVariable("openId") String openId) {
 
 		WechatInfo wechatInfo = wechatInfoService.findByWechatId(wechatId);
 		if (null == wechatInfo) {

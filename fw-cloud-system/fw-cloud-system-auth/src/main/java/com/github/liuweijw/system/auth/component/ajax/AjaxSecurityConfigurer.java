@@ -9,7 +9,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
-import com.github.liuweijw.system.auth.service.UserService;
+import com.github.liuweijw.system.api.UserFeignApi;
 
 /**
  * @author liuweijw
@@ -22,7 +22,7 @@ public class AjaxSecurityConfigurer extends
 	private AuthenticationSuccessHandler	jwtLoginSuccessHandler;
 
 	@Autowired
-	private UserService						userService;
+	private UserFeignApi					userFeignApi;
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
@@ -32,7 +32,7 @@ public class AjaxSecurityConfigurer extends
 		ajaxAuthenticationFilter.setAuthenticationSuccessHandler(jwtLoginSuccessHandler);
 
 		AjaxAuthenticationProvider ajaxAuthenticationProvider = new AjaxAuthenticationProvider();
-		ajaxAuthenticationProvider.setUserService(userService);
+		ajaxAuthenticationProvider.setUserFeignApi(userFeignApi);
 		http.authenticationProvider(ajaxAuthenticationProvider).addFilterAfter(
 				ajaxAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 	}

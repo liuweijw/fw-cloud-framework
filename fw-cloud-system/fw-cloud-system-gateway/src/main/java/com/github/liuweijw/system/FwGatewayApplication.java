@@ -1,4 +1,4 @@
-package com.github.liuweijw.system.gateway;
+package com.github.liuweijw.system;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -21,7 +21,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @EnableFeignClients
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @SpringCloudApplication
-@ComponentScan(basePackages = { "com.github.liuweijw.system.gateway", "com.github.liuweijw.core" })
+@ComponentScan(basePackages = { "com.github.liuweijw.system", "com.github.liuweijw.core" })
 public class FwGatewayApplication extends SpringBootServletInitializer {
 
 	@Override

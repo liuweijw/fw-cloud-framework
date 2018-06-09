@@ -1,4 +1,4 @@
-package com.github.liuweijw.business.admin.controller;
+package com.github.liuweijw.business.admin.web.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

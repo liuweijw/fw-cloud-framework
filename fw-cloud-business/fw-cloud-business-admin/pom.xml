@@ -20,11 +20,16 @@
             <artifactId>fw-cloud-business-commons</artifactId>
 		</dependency>
 		
+		<dependency>
+            <groupId>com.github.liuweijw.api</groupId>
+            <artifactId>fw-cloud-system-api</artifactId>
+        </dependency>
+		
 		<!-- 支持数据库分库分表 // https://github.com/shardingjdbc -->
 		<dependency>
 			<groupId>io.shardingjdbc</groupId>
 			<artifactId>sharding-jdbc-core-spring-boot-starter</artifactId>
-		</dependency> 
+		</dependency>
 		
 		<dependency>
 			<groupId>com.github.axet</groupId>

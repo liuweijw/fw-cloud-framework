@@ -16,9 +16,9 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import com.github.liuweijw.commons.utils.StringHelper;
-import com.github.liuweijw.core.beans.system.AuthRole;
-import com.github.liuweijw.core.beans.system.AuthUser;
 import com.github.liuweijw.core.commons.constants.SecurityConstant;
+import com.github.liuweijw.system.api.model.AuthRole;
+import com.github.liuweijw.system.api.model.AuthUser;
 
 /**
  * 将AuthUser参数转换为用户对象

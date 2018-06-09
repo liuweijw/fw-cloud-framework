@@ -35,9 +35,9 @@ import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
 import com.github.liuweijw.commons.base.page.PageBean;
 import com.github.liuweijw.commons.base.page.PageParams;
 import com.github.liuweijw.commons.utils.StringHelper;
-import com.github.liuweijw.core.beans.system.AuthRole;
-import com.github.liuweijw.core.beans.system.AuthUser;
 import com.github.liuweijw.core.commons.constants.SecurityConstant;
+import com.github.liuweijw.system.api.model.AuthRole;
+import com.github.liuweijw.system.api.model.AuthUser;
 import com.querydsl.core.types.Predicate;
 
 @Component

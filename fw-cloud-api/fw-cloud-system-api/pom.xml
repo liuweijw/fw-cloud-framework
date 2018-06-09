@@ -1,0 +1,17 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>fw-cloud-system-api</artifactId>
+	<packaging>jar</packaging>
+
+    <name>fw-cloud-system-api</name>
+    <description>独立 system feign api 供其它工程调用</description>
+
+    <parent>
+    	<groupId>com.github.liuweijw.api</groupId>
+        <artifactId>fw-cloud-api</artifactId> 
+        <version>${fw.api.version}</version>
+    </parent>
+    
+</project>

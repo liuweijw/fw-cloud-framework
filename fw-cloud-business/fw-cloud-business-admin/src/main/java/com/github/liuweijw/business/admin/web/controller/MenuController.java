@@ -1,4 +1,4 @@
-package com.github.liuweijw.business.admin.controller;
+package com.github.liuweijw.business.admin.web.controller;
 
 import java.util.Date;
 import java.util.HashSet;

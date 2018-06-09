@@ -1,4 +1,4 @@
-package com.github.liuweijw.business.admin.controller;
+package com.github.liuweijw.business.admin.web.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -26,8 +26,8 @@ import com.github.liuweijw.business.commons.web.aop.PrePermissions;
 import com.github.liuweijw.commons.base.R;
 import com.github.liuweijw.commons.base.page.PageBean;
 import com.github.liuweijw.commons.base.page.PageParams;
-import com.github.liuweijw.core.beans.system.AuthUser;
 import com.github.liuweijw.core.configuration.ApiTag;
+import com.github.liuweijw.system.api.model.AuthUser;
 
 /**
  * 用户管理服务

@@ -1,7 +1,5 @@
 package com.github.liuweijw.business.wechat.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.WxJsapiSignature;
 import me.chanjar.weixin.common.exception.WxErrorException;
@@ -32,7 +30,7 @@ public class WxJsdkController {
 
 	@RequestMapping(value = "/wechatParam")
 	@ResponseBody
-	public HttpResult wechatParam(HttpServletRequest request, @RequestParam("url") String url) {
+	public HttpResult wechatParam(@RequestParam("url") String url) {
 		long start = System.currentTimeMillis();
 		if (StringHelper.isBlank(url)) return new HttpResult().failure("url 参数验证失败！");
 

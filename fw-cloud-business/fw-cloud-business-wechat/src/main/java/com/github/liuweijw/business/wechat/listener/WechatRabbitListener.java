@@ -80,6 +80,7 @@ public class WechatRabbitListener {
 					authInfo.setSex(wxMpUser.getSex());
 					authInfo.setCountry(wxMpUser.getCountry());
 					authInfo.setRefreshToken(wxMpOAuth2AccessToken.getRefreshToken());
+					if (null == authInfo.getCreateTime()) authInfo.setCreateTime(new Date());
 					authInfo.setUpdateTime(new Date());
 					authInfoService.saveOrUpdate(authInfo);
 				}
