@@ -27,6 +27,7 @@
 - fw-cloud-system-auth    [端口1004] 权限接入服务(支持oauth2、单点登录) [查看详情 guide](https://github.com/liuweijw/fw-cloud-framework/wiki/05-Auth-%E6%A8%A1%E5%9D%97%E5%90%AF%E5%8A%A8%E8%AF%B4%E6%98%8E)
 
 2、fw-cloud-core 基础公共模块
+- cloud-commons 抽离底层基础部分依赖 [guide](https://github.com/liuweijw/cloud-commons.git)
 - fw-cloud-core-beans 常用全局bean
 - fw-cloud-core-commons 常量、切面等
 - fw-cloud-core-configuration 基础配置
@@ -42,14 +43,17 @@
 - fw-cloud-business-wechat  [端口2004] 微信公众号模块服务
 - fw-cloud-business-wechat-demo 微信公众号相关demo待开发
 
-4、系统监控模块
+4、fw-cloud-api 抽离feign api供其它工程调用
+- fw-cloud-system-api admin工程相关的feign api
+
+5、系统监控模块
 - fw-cloud-monitor-monitor    [端口1010] 服务状态监控[服务在线访问](http://47.106.144.24:1010/)
 - fw-cloud-monitor-zipkin-db  [端口1011] 数据库db监控[服务在线访问](http://47.106.144.24:1011/)
 - fw-cloud-monitor-zipkin-elk [端口待定] elk监控
 - fw-cloud-system-xxx         [端口待定] 缓存监控
 - fw-cloud-system-xxx         [端口待定] 日志等监控
 
-5、前端模块 [Vue2-Admin](https://github.com/liuweijw/Vue2-Admin)
+6、前端模块 [Vue2-Admin](https://github.com/liuweijw/Vue2-Admin)
 - 基于element ui 的Vue全家桶
 - Webpack3
 - Axios
