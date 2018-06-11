@@ -15,7 +15,7 @@ import com.github.liuweijw.exception.CheckedException;
  * 
  * @author liuweijw
  */
-public class MyWebUtils {
+public class RequestUtil {
 
 	/**
 	 * 判断是否是微信浏览器发出的请求

@@ -9,11 +9,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 商户信息表
  * 
  * @author liuweijw
  */
+@Setter
+@Getter
 @Entity
 @Table(name = PayMchInfo.TABLE_NAME)
 public class PayMchInfo implements Serializable {
@@ -77,77 +82,5 @@ public class PayMchInfo implements Serializable {
 	 */
 	@Column(name = "update_time")
 	private Date				updateTime;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getMchId() {
-		return mchId;
-	}
-
-	public void setMchId(String mchId) {
-		this.mchId = mchId;
-	}
-
-	public String getMchName() {
-		return mchName;
-	}
-
-	public void setMchName(String mchName) {
-		this.mchName = mchName;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getReqKey() {
-		return reqKey;
-	}
-
-	public void setReqKey(String reqKey) {
-		this.reqKey = reqKey;
-	}
-
-	public String getResKey() {
-		return resKey;
-	}
-
-	public void setResKey(String resKey) {
-		this.resKey = resKey;
-	}
-
-	public Integer getStatu() {
-		return statu;
-	}
-
-	public void setStatu(Integer statu) {
-		this.statu = statu;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
 
 }

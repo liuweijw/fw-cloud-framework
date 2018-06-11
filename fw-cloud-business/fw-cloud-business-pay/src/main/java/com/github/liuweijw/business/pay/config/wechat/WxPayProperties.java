@@ -1,5 +1,8 @@
 package com.github.liuweijw.business.pay.config.wechat;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,6 +11,8 @@ import org.springframework.context.annotation.Configuration;
  * 
  * @author liuweijw
  */
+@Setter
+@Getter
 @Configuration
 @ConfigurationProperties(prefix = "business.config.wxpay")
 public class WxPayProperties {
@@ -16,19 +21,4 @@ public class WxPayProperties {
 
 	private String	notifyUrl;
 
-	public String getCertRootPath() {
-		return certRootPath;
-	}
-
-	public void setCertRootPath(String certRootPath) {
-		this.certRootPath = certRootPath;
-	}
-
-	public String getNotifyUrl() {
-		return notifyUrl;
-	}
-
-	public void setNotifyUrl(String notifyUrl) {
-		this.notifyUrl = notifyUrl;
-	}
 }

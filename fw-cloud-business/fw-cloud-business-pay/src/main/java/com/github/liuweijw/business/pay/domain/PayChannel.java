@@ -9,11 +9,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 支付渠道信息表
  * 
  * @author liuweijw
  */
+@Setter
+@Getter
 @Entity
 @Table(name = PayChannel.TABLE_NAME)
 public class PayChannel implements Serializable {
@@ -83,85 +88,5 @@ public class PayChannel implements Serializable {
 	 */
 	@Column(name = "update_time")
 	private Date				updateTime;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getChannelId() {
-		return channelId;
-	}
-
-	public void setChannelId(String channelId) {
-		this.channelId = channelId;
-	}
-
-	public String getChannelName() {
-		return channelName;
-	}
-
-	public void setChannelName(String channelName) {
-		this.channelName = channelName;
-	}
-
-	public String getChannelMchId() {
-		return channelMchId;
-	}
-
-	public void setChannelMchId(String channelMchId) {
-		this.channelMchId = channelMchId;
-	}
-
-	public String getMchId() {
-		return mchId;
-	}
-
-	public void setMchId(String mchId) {
-		this.mchId = mchId;
-	}
-
-	public Integer getStatu() {
-		return statu;
-	}
-
-	public void setStatu(Integer statu) {
-		this.statu = statu;
-	}
-
-	public String getParam() {
-		return param;
-	}
-
-	public void setParam(String param) {
-		this.param = param;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
 
 }

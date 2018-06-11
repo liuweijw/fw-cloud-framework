@@ -9,11 +9,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 部门信息
  * 
  * @author liuweijw
  */
+@Setter
+@Getter
 @Entity
 @Table(name = Dept.TABLE_NAME)
 public class Dept implements Serializable {
@@ -66,69 +71,12 @@ public class Dept implements Serializable {
 	private Date				updateTime;
 
 	public Dept() {
-
 	}
 
 	public Dept(Integer id, Integer pid, String deptName) {
 		this.id = id;
 		this.pid = pid;
 		this.deptName = deptName;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Integer getPid() {
-		return pid;
-	}
-
-	public void setPid(Integer pid) {
-		this.pid = pid;
-	}
-
-	public String getDeptName() {
-		return deptName;
-	}
-
-	public void setDeptName(String deptName) {
-		this.deptName = deptName;
-	}
-
-	public Integer getStatu() {
-		return statu;
-	}
-
-	public void setStatu(Integer statu) {
-		this.statu = statu;
-	}
-
-	public Integer getPos() {
-		return pos;
-	}
-
-	public void setPos(Integer pos) {
-		this.pos = pos;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
 	}
 
 }

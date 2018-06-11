@@ -9,11 +9,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 支付通知
  * 
  * @author liuweijw
  */
+@Setter
+@Getter
 @Entity
 @Table(name = PayMchNotify.TABLE_NAME)
 public class PayMchNotify implements Serializable {
@@ -95,101 +100,5 @@ public class PayMchNotify implements Serializable {
 	 */
 	@Column(name = "update_time")
 	private Date				updateTime;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getOrderId() {
-		return orderId;
-	}
-
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
-	}
-
-	public String getMchId() {
-		return mchId;
-	}
-
-	public void setMchId(String mchId) {
-		this.mchId = mchId;
-	}
-
-	public String getMchOrderNo() {
-		return mchOrderNo;
-	}
-
-	public void setMchOrderNo(String mchOrderNo) {
-		this.mchOrderNo = mchOrderNo;
-	}
-
-	public String getOrderType() {
-		return orderType;
-	}
-
-	public void setOrderType(String orderType) {
-		this.orderType = orderType;
-	}
-
-	public String getNotifyUrl() {
-		return notifyUrl;
-	}
-
-	public void setNotifyUrl(String notifyUrl) {
-		this.notifyUrl = notifyUrl;
-	}
-
-	public Integer getNotifyCount() {
-		return notifyCount;
-	}
-
-	public void setNotifyCount(Integer notifyCount) {
-		this.notifyCount = notifyCount;
-	}
-
-	public String getResult() {
-		return result;
-	}
-
-	public void setResult(String result) {
-		this.result = result;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
-	public Date getLastNotifyTime() {
-		return lastNotifyTime;
-	}
-
-	public void setLastNotifyTime(Date lastNotifyTime) {
-		this.lastNotifyTime = lastNotifyTime;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
 
 }

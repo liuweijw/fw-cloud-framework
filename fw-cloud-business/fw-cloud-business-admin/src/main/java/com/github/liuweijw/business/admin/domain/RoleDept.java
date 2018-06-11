@@ -8,9 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @author liuweijw
  */
+@Setter
+@Getter
 @Entity
 @Table(name = RoleDept.TABLE_NAME)
 public class RoleDept implements Serializable {
@@ -29,29 +34,5 @@ public class RoleDept implements Serializable {
 
 	@Column(name = "dept_id")
 	private Integer				deptId;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Integer getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
-	}
-
-	public Integer getDeptId() {
-		return deptId;
-	}
-
-	public void setDeptId(Integer deptId) {
-		this.deptId = deptId;
-	}
 
 }

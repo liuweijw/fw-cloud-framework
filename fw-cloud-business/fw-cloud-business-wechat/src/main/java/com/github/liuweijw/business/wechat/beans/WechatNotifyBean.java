@@ -2,6 +2,8 @@ package com.github.liuweijw.business.wechat.beans;
 
 import java.io.Serializable;
 
+import lombok.Getter;
+import lombok.Setter;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 
 /**
@@ -9,6 +11,8 @@ import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
  * 
  * @author liuweijw
  */
+@Setter
+@Getter
 public class WechatNotifyBean implements Serializable {
 
 	private static final long		serialVersionUID	= 6492587838792423788L;
@@ -18,29 +22,5 @@ public class WechatNotifyBean implements Serializable {
 	private String					wechatId;
 
 	private boolean					isSopeBase;
-
-	public WxMpOAuth2AccessToken getWxMpOAuth2AccessToken() {
-		return wxMpOAuth2AccessToken;
-	}
-
-	public void setWxMpOAuth2AccessToken(WxMpOAuth2AccessToken wxMpOAuth2AccessToken) {
-		this.wxMpOAuth2AccessToken = wxMpOAuth2AccessToken;
-	}
-
-	public String getWechatId() {
-		return wechatId;
-	}
-
-	public void setWechatId(String wechatId) {
-		this.wechatId = wechatId;
-	}
-
-	public boolean isSopeBase() {
-		return isSopeBase;
-	}
-
-	public void setSopeBase(boolean isSopeBase) {
-		this.isSopeBase = isSopeBase;
-	}
 
 }

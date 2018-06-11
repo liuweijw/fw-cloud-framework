@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel("用户信息")
+@ApiModel(description = "用户信息")
 public class AuthUser implements Serializable {
 
 	private static final long	serialVersionUID	= 5350461830095965990L;

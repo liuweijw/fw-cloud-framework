@@ -9,11 +9,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 多公众号信息表
  * 
  * @author liuweijw
  */
+@Setter
+@Getter
 @Entity
 @Table(name = WechatInfo.TABLE_NAME)
 public class WechatInfo implements Serializable {
@@ -68,69 +73,5 @@ public class WechatInfo implements Serializable {
 	 */
 	@Column(name = "update_time")
 	private Date				updateTime;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getWechatId() {
-		return wechatId;
-	}
-
-	public void setWechatId(String wechatId) {
-		this.wechatId = wechatId;
-	}
-
-	public String getWechatName() {
-		return wechatName;
-	}
-
-	public void setWechatName(String wechatName) {
-		this.wechatName = wechatName;
-	}
-
-	public String getReqKey() {
-		return reqKey;
-	}
-
-	public void setReqKey(String reqKey) {
-		this.reqKey = reqKey;
-	}
-
-	public String getResKey() {
-		return resKey;
-	}
-
-	public void setResKey(String resKey) {
-		this.resKey = resKey;
-	}
-
-	public Integer getStatu() {
-		return statu;
-	}
-
-	public void setStatu(Integer statu) {
-		this.statu = statu;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
 
 }

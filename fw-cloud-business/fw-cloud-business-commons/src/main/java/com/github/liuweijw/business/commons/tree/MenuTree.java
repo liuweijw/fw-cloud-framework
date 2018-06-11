@@ -1,8 +1,13 @@
 package com.github.liuweijw.business.commons.tree;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import com.github.liuweijw.commons.base.tree.TreeNode;
 import com.github.liuweijw.core.beans.system.AuthMenu;
 
+@Setter
+@Getter
 public class MenuTree extends TreeNode {
 
 	private static final long	serialVersionUID	= 3878699444870356572L;
@@ -28,30 +33,6 @@ public class MenuTree extends TreeNode {
 		this.label = authMenu.getMenuName();
 		this.url = authMenu.getUrl();
 		this.path = authMenu.getPath();
-	}
-
-	public String getLabel() {
-		return label;
-	}
-
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
 	}
 
 }

@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel("用户菜单权限")
+@ApiModel(description = "用户菜单权限")
 public class AuthPermission implements Serializable {
 
 	private static final long	serialVersionUID	= 4566420419542436770L;

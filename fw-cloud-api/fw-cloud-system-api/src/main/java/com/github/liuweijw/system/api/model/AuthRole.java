@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@ApiModel("用户角色")
+@ApiModel(description = "用户角色")
 public class AuthRole implements Serializable {
 
 	private static final long	serialVersionUID	= -213874145064828983L;

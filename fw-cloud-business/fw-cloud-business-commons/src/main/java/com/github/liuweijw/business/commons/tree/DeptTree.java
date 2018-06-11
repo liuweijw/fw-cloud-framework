@@ -1,5 +1,8 @@
 package com.github.liuweijw.business.commons.tree;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import com.github.liuweijw.commons.base.tree.TreeNode;
 
 /**
@@ -7,18 +10,12 @@ import com.github.liuweijw.commons.base.tree.TreeNode;
  * 
  * @author liuweijw
  */
+@Setter
+@Getter
 public class DeptTree extends TreeNode {
 
 	private static final long	serialVersionUID	= 2764058970186728117L;
 
 	private String				name;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 }

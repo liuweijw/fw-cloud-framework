@@ -8,11 +8,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 系统菜单功能权限
  * 
  * @author liuweijw
  */
+@Setter
+@Getter
 @Entity
 @Table(name = RoleMenuPermission.TABLE_NAME)
 public class RoleMenuPermission implements Serializable {
@@ -40,29 +45,5 @@ public class RoleMenuPermission implements Serializable {
 	 */
 	@Column(name = "permission")
 	private String				permission;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Integer getRoleMenuId() {
-		return roleMenuId;
-	}
-
-	public void setRoleMenuId(Integer roleMenuId) {
-		this.roleMenuId = roleMenuId;
-	}
-
-	public String getPermission() {
-		return permission;
-	}
-
-	public void setPermission(String permission) {
-		this.permission = permission;
-	}
 
 }

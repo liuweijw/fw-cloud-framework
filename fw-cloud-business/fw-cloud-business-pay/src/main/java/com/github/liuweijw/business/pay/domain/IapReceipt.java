@@ -9,11 +9,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 苹果支付凭据表
  * 
  * @author liuweijw
  */
+@Setter
+@Getter
 @Entity
 @Table(name = IapReceipt.TABLE_NAME)
 public class IapReceipt implements Serializable {
@@ -77,77 +82,5 @@ public class IapReceipt implements Serializable {
 	 */
 	@Column(name = "receipt_data")
 	private String				receiptData;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getPayOrderId() {
-		return payOrderId;
-	}
-
-	public void setPayOrderId(String payOrderId) {
-		this.payOrderId = payOrderId;
-	}
-
-	public String getMchId() {
-		return mchId;
-	}
-
-	public void setMchId(String mchId) {
-		this.mchId = mchId;
-	}
-
-	public String getTransactionId() {
-		return transactionId;
-	}
-
-	public void setTransactionId(String transactionId) {
-		this.transactionId = transactionId;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
-	public Integer getHandleCount() {
-		return handleCount;
-	}
-
-	public void setHandleCount(Integer handleCount) {
-		this.handleCount = handleCount;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
-	public String getReceiptData() {
-		return receiptData;
-	}
-
-	public void setReceiptData(String receiptData) {
-		this.receiptData = receiptData;
-	}
 
 }

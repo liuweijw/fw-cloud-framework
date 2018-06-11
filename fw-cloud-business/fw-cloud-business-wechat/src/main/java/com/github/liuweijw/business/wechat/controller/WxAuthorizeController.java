@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.github.liuweijw.business.commons.utils.MyWebUtils;
+import com.github.liuweijw.business.commons.utils.RequestUtil;
 import com.github.liuweijw.business.wechat.beans.UrlInfoBean;
 import com.github.liuweijw.business.wechat.beans.WechatNotifyBean;
 import com.github.liuweijw.business.wechat.config.WechatMpProperties;
@@ -124,7 +124,7 @@ public class WxAuthorizeController {
 			returnUrl = urlInfoBean.getUrl();
 		}
 
-		String redirectUrl = MyWebUtils.buildAppendURLParams(MyWebUtils.buildURLParams(returnUrl,
+		String redirectUrl = RequestUtil.buildAppendURLParams(RequestUtil.buildURLParams(returnUrl,
 				OPENID), OPENID + "=" + openId, "t=" + t);
 		log.info("【wxauth.openId】:redirect|" + redirectUrl);
 		long end = System.currentTimeMillis();

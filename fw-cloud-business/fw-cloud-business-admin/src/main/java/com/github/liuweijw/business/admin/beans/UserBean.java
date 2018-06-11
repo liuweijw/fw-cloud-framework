@@ -2,11 +2,16 @@ package com.github.liuweijw.business.admin.beans;
 
 import java.io.Serializable;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import com.github.liuweijw.business.admin.domain.User;
 
 /**
  * @author liuweijw
  */
+@Setter
+@Getter
 public class UserBean implements Serializable {
 
 	private static final long	serialVersionUID	= 4100476652382025202L;
@@ -24,29 +29,5 @@ public class UserBean implements Serializable {
 	 * 角色集合
 	 */
 	private String[]			roles;
-
-	public String[] getPermissions() {
-		return permissions;
-	}
-
-	public void setPermissions(String[] permissions) {
-		this.permissions = permissions;
-	}
-
-	public String[] getRoles() {
-		return roles;
-	}
-
-	public void setRoles(String[] roles) {
-		this.roles = roles;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 
 }

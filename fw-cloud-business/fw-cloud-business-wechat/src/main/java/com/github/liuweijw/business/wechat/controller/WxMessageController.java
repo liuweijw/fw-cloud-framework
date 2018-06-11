@@ -1,7 +1,5 @@
 package com.github.liuweijw.business.wechat.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.exception.WxErrorException;
 
@@ -39,8 +37,8 @@ public class WxMessageController {
 
 	@RequestMapping(value = "/send/{wechatId}")
 	@ResponseBody
-	public HttpResult sendWeixinTemplateMessage(HttpServletRequest request,
-			@PathVariable String wechatId, @RequestParam("message") String message) {
+	public HttpResult sendWeixinTemplateMessage(@PathVariable("wechatId") String wechatId,
+			@RequestParam("message") String message) {
 		if (StringHelper.isBlank(message)) return new HttpResult().failure("发送消息内容不能为空");
 
 		WechatInfo wechatInfo = wechatInfoService.findByWechatId(wechatId);

@@ -18,7 +18,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.liuweijw.business.admin.service.PermissionService;
-import com.github.liuweijw.business.commons.utils.MyWebUtils;
+import com.github.liuweijw.business.commons.utils.RequestUtil;
 import com.github.liuweijw.business.commons.web.aop.PrePermissions;
 import com.github.liuweijw.business.commons.web.config.PermissionConfiguration;
 import com.github.liuweijw.commons.base.R;
@@ -132,7 +132,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 
 	public void handleWithResponse(HttpServletResponse response, R<Boolean> responseWithR) {
 		try {
-			MyWebUtils.handleWithResponse(response, this.objectMapper
+			RequestUtil.handleWithResponse(response, this.objectMapper
 					.writeValueAsString(responseWithR));
 		} catch (IOException e) {
 			e.printStackTrace();
