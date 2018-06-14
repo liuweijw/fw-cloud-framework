@@ -7,6 +7,6 @@ package com.github.liuweijw.core.configuration;
  */
 public interface ApiTag {
 
-	String	TAG_DEFAULT	= "1.0.4-SNAPSHOT";
+	String	TAG_DEFAULT	= "1.0.5";
 
 }
