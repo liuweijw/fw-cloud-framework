@@ -16,6 +16,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @ConfigurationProperties(prefix = "business.config.wechat.mp")
 public class WechatMpProperties {
+
 	/**
 	 * 设置微信公众号的appid
 	 */

@@ -4,6 +4,7 @@ package com.github.liuweijw.core.commons.constants;
  * @author liuweijw MQ 消息队列
  */
 public interface MqQueueConstant {
+
 	/**
 	 * log rabbit队列名称
 	 */

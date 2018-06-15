@@ -208,7 +208,8 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 
 		QUser qUser = QUser.user;
 		long num = this.queryFactory.update(qUser).set(qUser.statu, 1) // 0 正常 1删除
-				.where(qUser.userId.eq(userId.intValue())).execute();
+				.where(qUser.userId.eq(userId.intValue()))
+				.execute();
 
 		return num > 0;
 	}

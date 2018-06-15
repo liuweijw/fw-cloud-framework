@@ -17,8 +17,11 @@ public class UserDetailsImpl implements UserDetails {
 	private static final long	serialVersionUID	= 4996108569522332042L;
 
 	private String				username;
+
 	private String				password;
+
 	private Integer				status				= 0;
+
 	private List<AuthRole>		roleList			= new ArrayList<>();
 
 	public UserDetailsImpl(AuthUser authUser) {

@@ -48,6 +48,7 @@ public class NotifyServiceImpl implements NotifyService {
 	public void notifyPayOrder(NotifyBean notifyBean, int count) {
 		rabbitTemplate.convertAndSend(RabbitConfiguration.PAY_NOTIFY_DELAY_PRE_MESSAGE_TTL,
 				notifyBean, new MessagePostProcessor() {
+
 					@Override
 					public Message postProcessMessage(Message message) throws AmqpException {
 						message.getMessageProperties().setExpiration(count + "");

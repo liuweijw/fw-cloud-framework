@@ -38,51 +38,61 @@ public class LogInfo implements Serializable {
 	 */
 	@Column(name = "type")
 	private Integer				type;
+
 	/**
 	 * 日志标题
 	 */
 	@Column(name = "title")
 	private Integer				title;
+
 	/**
 	 * 服务ID
 	 */
 	@Column(name = "service_id")
 	private String				serviceId;
+
 	/**
 	 * 创建者
 	 */
 	@Column(name = "create_by")
 	private String				createBy;
+
 	/**
 	 * 操作IP地址
 	 */
 	@Column(name = "remote_addr")
 	private String				remoteAddr;
+
 	/**
 	 * 用户代理
 	 */
 	@Column(name = "user_agent")
 	private String				userAgent;
+
 	/**
 	 * 请求URI
 	 */
 	@Column(name = "request_uri")
 	private String				requestUri;
+
 	/**
 	 * 操作方式
 	 */
 	@Column(name = "method")
 	private String				method;
+
 	/**
 	 * 操作提交的数据
 	 */
 	@Column(name = "params")
 	private String				params;
+
 	/**
 	 * 执行时间
 	 */
 	@Column(name = "time")
 	private Long				time;
+
 	/**
 	 * 删除标记
 	 */
@@ -94,11 +104,13 @@ public class LogInfo implements Serializable {
 	 */
 	@Column(name = "exception")
 	private String				exception;
+
 	/**
 	 * 创建时间
 	 */
 	@Column(name = "create_time")
 	private Date				createTime;
+
 	/**
 	 * 更新时间
 	 */

@@ -19,7 +19,7 @@ import de.codecentric.boot.admin.notify.Notifier;
 import de.codecentric.boot.admin.notify.RemindingNotifier;
 import de.codecentric.boot.admin.notify.filter.FilteringNotifier;
 
-//注解开启监控
+// 注解开启监控
 @EnableAdminServer
 @EnableTurbine
 @EnableDiscoveryClient

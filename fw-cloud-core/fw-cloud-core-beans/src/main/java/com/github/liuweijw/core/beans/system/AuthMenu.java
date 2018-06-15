@@ -15,22 +15,27 @@ public class AuthMenu implements Serializable {
 	 * 菜单id
 	 */
 	private Integer				menuId;
+
 	/**
 	 * 菜单名称
 	 */
 	private String				menuName;
+
 	/**
 	 * 请求路径
 	 */
 	private String				path;
+
 	/**
 	 * 请求链接
 	 */
 	private String				url;
+
 	/**
 	 * 父菜单ID
 	 */
 	private Integer				pid;
+
 	/**
 	 * 0-正常，1-删除
 	 */

@@ -4,22 +4,27 @@ package com.github.liuweijw.core.commons.constants;
  * @author liuweijw
  */
 public interface SecurityConstant {
+
 	/**
 	 * 授权
 	 */
 	String	AUTHORIZATION						= "Authorization";
+
 	/**
 	 * clinet授权模式
 	 */
 	String	BASIC								= "Basic ";
+
 	/**
 	 * 授权码模式
 	 */
 	String	AUTHORIZATION_CODE					= "authorization_code";
+
 	/**
 	 * 密码模式
 	 */
 	String	PASSWORD							= "password";
+
 	/**
 	 * 刷新token
 	 */
@@ -74,6 +79,7 @@ public interface SecurityConstant {
 	 * 默认生成图形验证码过期时间
 	 */
 	int		DEFAULT_IMAGE_EXPIRE				= 60;
+
 	/**
 	 * 边框颜色，合法值： r,g,b (and optional alpha) 或者 white,black,blue.
 	 */
@@ -83,6 +89,7 @@ public interface SecurityConstant {
 	 * 图片边框
 	 */
 	String	DEFAULT_IMAGE_BORDER				= "no";
+
 	/**
 	 * 默认图片间隔
 	 */
@@ -92,6 +99,7 @@ public interface SecurityConstant {
 	 * 默认保存code的前缀
 	 */
 	String	DEFAULT_CODE_KEY					= "DEFAULT_CODE_KEY";
+
 	/**
 	 * 验证码文字大小
 	 */
@@ -106,22 +114,27 @@ public interface SecurityConstant {
 	 * 默认的social的登录地址
 	 */
 	String	DEFAULT_SOCIAL_PROCESS_URL			= "/social";
+
 	/**
 	 * 默认的social的注册地址
 	 */
 	String	DEFAULT_SOCIAL_SIGNUP_URL			= "/social/signup";
+
 	/**
 	 * 用户信息头
 	 */
 	String	USER_HEADER							= "request-user-header";
+
 	/**
 	 * 角色信息头
 	 */
 	String	ROLE_HEADER							= "request-role-header";
+
 	/**
 	 * LICENSE
 	 */
 	String	LICENSE								= "Copyright (c) 2018 liuweijw";
+
 	/**
 	 * 前缀
 	 */

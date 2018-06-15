@@ -31,24 +31,34 @@ import com.github.liuweijw.business.wechat.handler.UnsubscribeHandler;
 @ConditionalOnClass(WxMpService.class)
 @EnableConfigurationProperties(WechatMpProperties.class)
 public class WechatMpConfiguration {
+
 	@Autowired
 	protected LogHandler				logHandler;
+
 	@Autowired
 	protected NullHandler				nullHandler;
+
 	@Autowired
 	protected KfSessionHandler			kfSessionHandler;
+
 	@Autowired
 	protected StoreCheckNotifyHandler	storeCheckNotifyHandler;
+
 	@Autowired
 	private WechatMpProperties			properties;
+
 	@Autowired
 	private LocationHandler				locationHandler;
+
 	@Autowired
 	private MenuHandler					menuHandler;
+
 	@Autowired
 	private MsgHandler					msgHandler;
+
 	@Autowired
 	private UnsubscribeHandler			unsubscribeHandler;
+
 	@Autowired
 	private SubscribeHandler			subscribeHandler;
 

@@ -25,6 +25,7 @@ public class WxInfoController {
 
 	@Autowired
 	private AuthInfoService		authInfoService;
+
 	@Autowired
 	private WechatInfoService	wechatInfoService;
 

@@ -102,7 +102,8 @@ public class RoleServiceImpl extends JPAFactoryImpl implements RoleService {
 
 		QRole qRole = QRole.role;
 		long num = this.queryFactory.update(qRole).set(qRole.statu, 1) // 0 正常 1删除
-				.where(qRole.roleId.eq(roleId.intValue())).execute();
+				.where(qRole.roleId.eq(roleId.intValue()))
+				.execute();
 
 		return num > 0;
 	}

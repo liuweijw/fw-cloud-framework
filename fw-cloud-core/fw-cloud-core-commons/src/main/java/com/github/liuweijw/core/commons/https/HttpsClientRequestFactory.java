@@ -33,6 +33,7 @@ class HttpsClientRequestFactory extends SimpleClientHttpRequestFactory {
 			HttpsURLConnection httpsConnection = (HttpsURLConnection) connection;
 
 			TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+
 				public java.security.cert.X509Certificate[] getAcceptedIssuers() {
 					return null;
 				}
@@ -50,6 +51,7 @@ class HttpsClientRequestFactory extends SimpleClientHttpRequestFactory {
 					.getSocketFactory()));
 
 			httpsConnection.setHostnameVerifier(new HostnameVerifier() {
+
 				@Override
 				public boolean verify(String s, SSLSession sslSession) {
 					return true;

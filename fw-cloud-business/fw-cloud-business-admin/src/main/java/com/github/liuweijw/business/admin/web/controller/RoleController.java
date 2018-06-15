@@ -45,6 +45,7 @@ public class RoleController extends BaseController {
 
 	@Autowired
 	private RoleService			roleService;
+
 	@Autowired
 	private PermissionService	permissionService;
 

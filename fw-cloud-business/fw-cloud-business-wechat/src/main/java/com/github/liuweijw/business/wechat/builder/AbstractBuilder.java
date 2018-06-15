@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
  * @author liuweijw
  */
 public abstract class AbstractBuilder {
+
 	protected final Logger	logger	= LoggerFactory.getLogger(getClass());
 
 	public abstract WxMpXmlOutMessage build(String content, WxMpXmlMessage wxMessage,

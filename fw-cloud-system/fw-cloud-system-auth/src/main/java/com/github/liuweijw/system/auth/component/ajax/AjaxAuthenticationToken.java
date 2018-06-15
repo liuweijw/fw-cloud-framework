@@ -21,8 +21,7 @@ public class AjaxAuthenticationToken extends AbstractAuthenticationToken {
 		setAuthenticated(false);
 	}
 
-	public AjaxAuthenticationToken(Object principal,
-			Collection<? extends GrantedAuthority> authorities) {
+	public AjaxAuthenticationToken(Object principal, Collection<? extends GrantedAuthority> authorities) {
 		super(authorities);
 		this.principal = principal;
 		super.setAuthenticated(true);
@@ -40,8 +39,9 @@ public class AjaxAuthenticationToken extends AbstractAuthenticationToken {
 
 	@Override
 	public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-		if (isAuthenticated) { throw new IllegalArgumentException(
-				"Cannot set this token to trusted - use constructor which takes a GrantedAuthority list instead"); }
+		if (isAuthenticated)
+			throw new IllegalArgumentException(
+					"Cannot set this token to trusted - use constructor which takes a GrantedAuthority list instead");
 
 		super.setAuthenticated(false);
 	}

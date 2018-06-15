@@ -4,6 +4,7 @@ package com.github.liuweijw.core.commons.constants;
  * @author liuweijw 服务ID名称
  */
 public interface ServiceIdConstant {
+
 	/**
 	 * 认证服务的SERVICEID（zuul 配置的对应）
 	 */

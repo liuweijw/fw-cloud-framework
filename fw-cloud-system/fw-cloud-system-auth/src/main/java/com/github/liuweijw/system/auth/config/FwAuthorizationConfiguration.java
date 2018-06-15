@@ -53,29 +53,31 @@ public class FwAuthorizationConfiguration extends AuthorizationServerConfigurerA
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory().withClient(authServerConfiguration.getClientId()).secret(
-				authServerConfiguration.getClientSecret()).authorizedGrantTypes(
-				SecurityConstant.REFRESH_TOKEN, SecurityConstant.PASSWORD,
-				SecurityConstant.AUTHORIZATION_CODE).scopes(authServerConfiguration.getScope())
-		// true 直接跳转到客户端页面，false 跳转到用户确认授权页面
+		clients.inMemory()
+				.withClient(authServerConfiguration.getClientId())
+				.secret(authServerConfiguration.getClientSecret())
+				.authorizedGrantTypes(SecurityConstant.REFRESH_TOKEN, SecurityConstant.PASSWORD, SecurityConstant.AUTHORIZATION_CODE)
+				.scopes(authServerConfiguration.getScope())
+				// true 直接跳转到客户端页面，false 跳转到用户确认授权页面
 				.autoApprove(true);
 	}
 
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
 		TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-		tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(),
-				jwtAccessTokenConverter()));
-		endpoints.tokenStore(redisTokenStore()).tokenEnhancer(tokenEnhancerChain)
-				.authenticationManager(authenticationManager).reuseRefreshTokens(false)
+		tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), jwtAccessTokenConverter()));
+		endpoints.tokenStore(redisTokenStore())
+				.tokenEnhancer(tokenEnhancerChain)
+				.authenticationManager(authenticationManager)
+				.reuseRefreshTokens(false)
 				.userDetailsService(userDetailsService);
 	}
 
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 		security.allowFormAuthenticationForClients()
-		// 获取JWt加密key: /oauth/token_key 采用RSA非对称加密时候使用。对称加密禁止访问
-		// .tokenKeyAccess("isAuthenticated()")
+				// 获取JWt加密key: /oauth/token_key 采用RSA非对称加密时候使用。对称加密禁止访问
+				// .tokenKeyAccess("isAuthenticated()")
 				.checkTokenAccess("permitAll()");
 	}
 
@@ -98,7 +100,9 @@ public class FwAuthorizationConfiguration extends AuthorizationServerConfigurerA
 	}
 
 	/**
-	 * tokenstore 定制化处理 1. 如果使用的 redis-cluster 模式请使用 FwRedisTokenStore FwRedisTokenStore tokenStore = new FwRedisTokenStore(); tokenStore.setRedisTemplate(redisTemplate);
+	 * tokenstore 定制化处理 1. 如果使用的 redis-cluster 模式请使用 FwRedisTokenStore FwRedisTokenStore tokenStore = new
+	 * FwRedisTokenStore();
+	 * tokenStore.setRedisTemplate(redisTemplate);
 	 */
 	@Bean
 	public TokenStore redisTokenStore() {

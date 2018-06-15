@@ -20,6 +20,7 @@ public class ZuulRateLimiterErrorHandler {
 	@Bean
 	public RateLimiterErrorHandler rateLimitErrorHandler() {
 		return new DefaultRateLimiterErrorHandler() {
+
 			@Override
 			public void handleSaveError(String key, Exception e) {
 				log.error("保存key:[{}]异常", key, e);

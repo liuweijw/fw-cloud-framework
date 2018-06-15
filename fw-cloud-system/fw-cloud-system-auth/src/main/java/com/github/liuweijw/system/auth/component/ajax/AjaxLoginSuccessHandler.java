@@ -46,11 +46,10 @@ public class AjaxLoginSuccessHandler implements AuthenticationSuccessHandler {
 	private AuthorizationServerTokenServices	authorizationServerTokenServices;
 
 	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) {
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
 		String header = request.getHeader(SecurityConstant.AUTHORIZATION);
-		if (StringHelper.isBlank(header) || !header.startsWith(SecurityConstant.BASIC)) { throw new UnapprovedClientAuthenticationException(
-				"请求头中client信息为空"); }
+		if (StringHelper.isBlank(header) || !header.startsWith(SecurityConstant.BASIC))
+			throw new UnapprovedClientAuthenticationException("请求头中client信息为空");
 
 		try {
 			String[] tokens = extractAndDecodeHeader(header);
@@ -58,14 +57,11 @@ public class AjaxLoginSuccessHandler implements AuthenticationSuccessHandler {
 			String clientId = tokens[0];
 
 			ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
-			TokenRequest tokenRequest = new TokenRequest(MapUtil.newHashMap(), clientId,
-					clientDetails.getScope(), "mobile");
+			TokenRequest tokenRequest = new TokenRequest(MapUtil.newHashMap(), clientId, clientDetails.getScope(), CommonConstant.SPRING_SECURITY_FORM_MOBILE_KEY);
 			OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
 
-			OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request,
-					authentication);
-			OAuth2AccessToken oAuth2AccessToken = authorizationServerTokenServices
-					.createAccessToken(oAuth2Authentication);
+			OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, authentication);
+			OAuth2AccessToken oAuth2AccessToken = authorizationServerTokenServices.createAccessToken(oAuth2Authentication);
 			log.info("获取token 成功：{}", oAuth2AccessToken.getValue());
 
 			response.setCharacterEncoding(CommonConstant.UTF8);
@@ -79,7 +75,8 @@ public class AjaxLoginSuccessHandler implements AuthenticationSuccessHandler {
 
 	private String[] extractAndDecodeHeader(String header) throws IOException {
 
-		byte[] base64Token = header.substring(6).getBytes("UTF-8");
+		byte[] base64Token = header.substring(6)
+				.getBytes("UTF-8");
 		byte[] decoded;
 		try {
 			decoded = Base64.decode(base64Token);

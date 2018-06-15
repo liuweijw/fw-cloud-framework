@@ -25,6 +25,7 @@ public class RabbitConfiguration {
 	 * 发送到该队列的通知会在一段时间后过期进入到pay_notify_delay_quenu 队列里所有的通知都有统一的失效时间
 	 */
 	final static String			PAY_NOTIFY_DELAY_QUENU_ALL_TTL		= "pay_notify_delay_quenu_all_ttl";
+
 	final static int			QUEUE_EXPIRATION					= 10000;								// 默认10秒
 
 	/**
@@ -65,7 +66,8 @@ public class RabbitConfiguration {
 	Queue delayQueuePerMessageTTL() {
 		return QueueBuilder.durable(PAY_NOTIFY_DELAY_PRE_MESSAGE_TTL).withArgument(
 				"x-dead-letter-exchange", PAY_NOTIFY_DELAY_EXCHANGE) // DLX，dead letter发送到的exchange
-				.withArgument("x-dead-letter-routing-key", PAY_NOTIFY_DELAY_QUENU_NAME) // dead letter携带的routing key
+				.withArgument("x-dead-letter-routing-key", PAY_NOTIFY_DELAY_QUENU_NAME)
+				// dead letter携带的routing key
 				.build();
 	}
 
@@ -76,8 +78,10 @@ public class RabbitConfiguration {
 	Queue delayQueuePerQueueTTL() {
 		return QueueBuilder.durable(PAY_NOTIFY_DELAY_QUENU_ALL_TTL).withArgument(
 				"x-dead-letter-exchange", PAY_NOTIFY_DELAY_EXCHANGE) // DLX
-				.withArgument("x-dead-letter-routing-key", PAY_NOTIFY_DELAY_QUENU_NAME) // dead letter携带的routing key
-				.withArgument("x-message-ttl", QUEUE_EXPIRATION) // 设置队列的过期时间
+				.withArgument("x-dead-letter-routing-key", PAY_NOTIFY_DELAY_QUENU_NAME)
+				// dead letter携带的routing key
+				.withArgument("x-message-ttl", QUEUE_EXPIRATION)
+				// 设置队列的过期时间
 				.build();
 	}
 

@@ -30,30 +30,25 @@ public class AjaxAuthenticationProvider implements AuthenticationProvider {
 	private UserFeignApi	userFeignApi;
 
 	@Override
-	public Authentication authenticate(Authentication authentication)
-			throws AuthenticationException {
+	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		AjaxAuthenticationToken ajaxAuthenticationToken = (AjaxAuthenticationToken) authentication;
-		AuthUser user = userFeignApi.findUserByMobile((String) ajaxAuthenticationToken
-				.getPrincipal());
+		AuthUser user = userFeignApi.findUserByMobile((String) ajaxAuthenticationToken.getPrincipal());
 
 		if (null == user)
-			throw new UsernameNotFoundException("登录账户[" + ajaxAuthenticationToken.getPrincipal()
-					+ "]不存在");
+			throw new UsernameNotFoundException("登录账户[" + ajaxAuthenticationToken.getPrincipal() + "]不存在");
 
 		UserDetailsImpl userDetails = buildUserDeatils(user);
 
 		if (null == userDetails)
-			throw new InternalAuthenticationServiceException("登录用户["
-					+ ajaxAuthenticationToken.getPrincipal() + "]不存在！");
+			throw new InternalAuthenticationServiceException("登录用户[" + ajaxAuthenticationToken.getPrincipal() + "]不存在！");
 
-		AjaxAuthenticationToken authenticationToken = new AjaxAuthenticationToken(userDetails,
-				userDetails.getAuthorities());
+		AjaxAuthenticationToken authenticationToken = new AjaxAuthenticationToken(userDetails, userDetails.getAuthorities());
 		authenticationToken.setDetails(ajaxAuthenticationToken.getDetails());
 		return authenticationToken;
 	}
 
-	private UserDetailsImpl buildUserDeatils(AuthUser user) {
-		return new UserDetailsImpl(user);
+	private UserDetailsImpl buildUserDeatils(AuthUser authUser) {
+		return new UserDetailsImpl(authUser);
 	}
 
 	@Override

@@ -4,6 +4,7 @@ package com.github.liuweijw.core.commons.constants;
  * @author liuweijw
  */
 public interface CommonConstant {
+
 	/**
 	 * token请求头名称
 	 */

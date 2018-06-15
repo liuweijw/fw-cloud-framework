@@ -32,6 +32,7 @@ public class WxMessageController {
 
 	@Autowired
 	private MessageService		messageService;
+
 	@Autowired
 	private WechatInfoService	wechatInfoService;
 

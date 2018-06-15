@@ -27,7 +27,8 @@ public class DeptServiceImpl extends JPAFactoryImpl implements DeptService {
 	public List<DeptTree> getDeptTreeList() {
 		QDept dept = QDept.dept;
 		List<Dept> list = this.queryFactory.selectFrom(dept).where(dept.statu.eq(0)).fetch();
-		if (null == list || list.size() == 0) return new ArrayList<DeptTree>();
+		if (null == list || list.size() == 0)
+			return new ArrayList<DeptTree>();
 
 		return getDeptTree(list, 0);
 	}

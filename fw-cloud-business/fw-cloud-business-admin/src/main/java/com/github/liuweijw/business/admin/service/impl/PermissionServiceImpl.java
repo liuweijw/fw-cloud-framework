@@ -32,8 +32,10 @@ public class PermissionServiceImpl extends JPAFactoryImpl implements PermissionS
 
 	@Autowired
 	private RoleService						roleService;
+
 	@Autowired
 	private RoleMenuRepository				roleMenuRepository;
+
 	@Autowired
 	private RoleMenuPermissionRepository	roleMenuPermissionRepository;
 

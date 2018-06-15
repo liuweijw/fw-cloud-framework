@@ -10,6 +10,7 @@ public abstract class BaseController {
 	// do anything
 
 	protected static final String	POST	= "POST";
+
 	protected static final String	GET		= "GET";
 
 }

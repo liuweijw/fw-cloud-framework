@@ -29,17 +29,23 @@ public class FwResourceServerConfiguration extends WebSecurityConfigurerAdapter 
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http
-				.formLogin()
+		ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http.formLogin()
 				// 可以通过授权登录进行访问
-				.loginPage("/auth/login").loginProcessingUrl("/auth/signin").and()
+				.loginPage("/auth/login")
+				.loginProcessingUrl("/auth/signin")
+				.and()
 				.authorizeRequests();
 
 		for (String url : fwUrlsConfiguration.getCollects()) {
-			registry.antMatchers(url).permitAll();
+			registry.antMatchers(url)
+					.permitAll();
 		}
 
-		registry.anyRequest().authenticated().and().csrf().disable();
+		registry.anyRequest()
+				.authenticated()
+				.and()
+				.csrf()
+				.disable();
 		http.apply(ajaxSecurityConfigurer);
 	}
 

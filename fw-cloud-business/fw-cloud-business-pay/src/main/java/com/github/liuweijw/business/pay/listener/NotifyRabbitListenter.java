@@ -32,6 +32,7 @@ public class NotifyRabbitListenter {
 
 	@Autowired
 	private PayOrderService	payOrderService;
+
 	@Autowired
 	private NotifyService	notifyService;
 

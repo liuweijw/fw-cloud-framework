@@ -22,6 +22,7 @@ public class WxErrorController implements ErrorController {
 
 	private static final Logger			logger		= LoggerFactory
 															.getLogger(WxErrorController.class);
+
 	private final static String			ERROR_PATH	= "/error";
 
 	private static WxErrorController	appErrorController;

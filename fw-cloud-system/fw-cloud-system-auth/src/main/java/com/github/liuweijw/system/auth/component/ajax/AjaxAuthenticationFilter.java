@@ -26,19 +26,21 @@ public class AjaxAuthenticationFilter extends AbstractAuthenticationProcessingFi
 	}
 
 	@Override
-	public Authentication attemptAuthentication(HttpServletRequest request,
-			HttpServletResponse response) throws AuthenticationException {
-		if (postOnly && !request.getMethod().equals(HttpMethod.POST.name())) { throw new AuthenticationServiceException(
-				"Authentication method not supported: " + request.getMethod()); }
+	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+			throws AuthenticationException {
+		if (postOnly && !request.getMethod().equals(HttpMethod.POST.name()))
+			throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
 
 		String mobile = obtainMobile(request);
-		if (StringHelper.isBlank(mobile)) mobile = "";
+		if (StringHelper.isBlank(mobile))
+			mobile = "";
 
 		AjaxAuthenticationToken ajaxAuthenticationToken = new AjaxAuthenticationToken(mobile.trim());
 
 		setDetails(request, ajaxAuthenticationToken);
 
-		return this.getAuthenticationManager().authenticate(ajaxAuthenticationToken);
+		return this.getAuthenticationManager()
+				.authenticate(ajaxAuthenticationToken);
 	}
 
 	private String obtainMobile(HttpServletRequest request) {

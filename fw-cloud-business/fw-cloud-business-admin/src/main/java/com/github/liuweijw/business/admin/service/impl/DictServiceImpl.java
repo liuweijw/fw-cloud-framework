@@ -100,7 +100,8 @@ public class DictServiceImpl extends JPAFactoryImpl implements DictService {
 
 		QDict qDict = QDict.dict;
 		long num = this.queryFactory.update(qDict).set(qDict.statu, 1) // 0 正常 1删除
-				.where(qDict.id.eq(id.intValue())).execute();
+				.where(qDict.id.eq(id.intValue()))
+				.execute();
 
 		return num > 0;
 	}

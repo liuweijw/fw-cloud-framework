@@ -12,10 +12,8 @@ public class FwJwtAccessTokenConverter extends JwtAccessTokenConverter {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Map<String, ?> convertAccessToken(OAuth2AccessToken token,
-			OAuth2Authentication authentication) {
-		Map<String, Object> representation = (Map<String, Object>) super.convertAccessToken(token,
-				authentication);
+	public Map<String, ?> convertAccessToken(OAuth2AccessToken token, OAuth2Authentication authentication) {
+		Map<String, Object> representation = (Map<String, Object>) super.convertAccessToken(token, authentication);
 		representation.put("license", SecurityConstant.LICENSE);
 		return representation;
 	}

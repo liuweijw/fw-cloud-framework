@@ -26,6 +26,7 @@ public class AdminFallbackProvider implements FallbackProvider {
 	public ClientHttpResponse fallbackResponse(Throwable cause) {
 
 		return new ClientHttpResponse() {
+
 			@Override
 			public HttpStatus getStatusCode() {
 				return HttpStatus.SERVICE_UNAVAILABLE;

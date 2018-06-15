@@ -18,13 +18,21 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 public class FwRedisTokenStore implements TokenStore {
 
 	private static final String				ACCESS				= "access:";
+
 	private static final String				AUTH_TO_ACCESS		= "auth_to_access:";
+
 	private static final String				AUTH				= "auth:";
+
 	private static final String				REFRESH_AUTH		= "refresh_auth:";
+
 	private static final String				ACCESS_TO_REFRESH	= "access_to_refresh:";
+
 	private static final String				REFRESH				= "refresh:";
+
 	private static final String				REFRESH_TO_ACCESS	= "refresh_to_access:";
+
 	private static final String				CLIENT_ID_TO_ACCESS	= "client_id_to_access:";
+
 	private static final String				UNAME_TO_ACCESS		= "uname_to_access:";
 
 	private RedisTemplate<String, Object>	redisTemplate;
@@ -46,11 +54,9 @@ public class FwRedisTokenStore implements TokenStore {
 	@Override
 	public OAuth2AccessToken getAccessToken(OAuth2Authentication authentication) {
 		String key = authenticationKeyGenerator.extractKey(authentication);
-		OAuth2AccessToken accessToken = (OAuth2AccessToken) redisTemplate.opsForValue().get(
-				AUTH_TO_ACCESS + key);
+		OAuth2AccessToken accessToken = (OAuth2AccessToken) redisTemplate.opsForValue().get(AUTH_TO_ACCESS + key);
 		if (accessToken != null
-				&& !key.equals(authenticationKeyGenerator.extractKey(readAuthentication(accessToken
-						.getValue())))) {
+				&& !key.equals(authenticationKeyGenerator.extractKey(readAuthentication(accessToken.getValue())))) {
 			storeAccessToken(accessToken, authentication);
 		}
 		return accessToken;
@@ -80,15 +86,12 @@ public class FwRedisTokenStore implements TokenStore {
 
 		this.redisTemplate.opsForValue().set(ACCESS + token.getValue(), token);
 		this.redisTemplate.opsForValue().set(AUTH + token.getValue(), authentication);
-		this.redisTemplate.opsForValue().set(
-				AUTH_TO_ACCESS + authenticationKeyGenerator.extractKey(authentication), token);
+		this.redisTemplate.opsForValue().set(AUTH_TO_ACCESS + authenticationKeyGenerator.extractKey(authentication), token);
 		if (!authentication.isClientOnly()) {
-			redisTemplate.opsForList().rightPush(UNAME_TO_ACCESS + getApprovalKey(authentication),
-					token);
+			this.redisTemplate.opsForList().rightPush(UNAME_TO_ACCESS + getApprovalKey(authentication), token);
 		}
 
-		redisTemplate.opsForList().rightPush(
-				CLIENT_ID_TO_ACCESS + authentication.getOAuth2Request().getClientId(), token);
+		redisTemplate.opsForList().rightPush(CLIENT_ID_TO_ACCESS + authentication.getOAuth2Request().getClientId(), token);
 
 		if (token.getExpiration() != null) {
 
@@ -96,25 +99,19 @@ public class FwRedisTokenStore implements TokenStore {
 			redisTemplate.expire(ACCESS + token.getValue(), seconds, TimeUnit.SECONDS);
 			redisTemplate.expire(AUTH + token.getValue(), seconds, TimeUnit.SECONDS);
 
-			redisTemplate.expire(AUTH_TO_ACCESS
-					+ authenticationKeyGenerator.extractKey(authentication), seconds,
-					TimeUnit.SECONDS);
-			redisTemplate.expire(CLIENT_ID_TO_ACCESS
-					+ authentication.getOAuth2Request().getClientId(), seconds, TimeUnit.SECONDS);
-			redisTemplate.expire(UNAME_TO_ACCESS + getApprovalKey(authentication), seconds,
-					TimeUnit.SECONDS);
+			redisTemplate.expire(AUTH_TO_ACCESS + authenticationKeyGenerator.extractKey(authentication), seconds, TimeUnit.SECONDS);
+			redisTemplate.expire(CLIENT_ID_TO_ACCESS + authentication.getOAuth2Request().getClientId(), seconds, TimeUnit.SECONDS);
+			redisTemplate.expire(UNAME_TO_ACCESS + getApprovalKey(authentication), seconds, TimeUnit.SECONDS);
 		}
-		if (token.getRefreshToken() != null && token.getRefreshToken().getValue() != null) {
-			this.redisTemplate.opsForValue().set(
-					REFRESH_TO_ACCESS + token.getRefreshToken().getValue(), token.getValue());
-			this.redisTemplate.opsForValue().set(ACCESS_TO_REFRESH + token.getValue(),
-					token.getRefreshToken().getValue());
+		if (token.getRefreshToken() != null && token.getRefreshToken()
+				.getValue() != null) {
+			this.redisTemplate.opsForValue().set(REFRESH_TO_ACCESS + token.getRefreshToken().getValue(), token.getValue());
+			this.redisTemplate.opsForValue().set(ACCESS_TO_REFRESH + token.getValue(), token.getRefreshToken().getValue());
 		}
 	}
 
 	private String getApprovalKey(OAuth2Authentication authentication) {
-		String userName = authentication.getUserAuthentication() == null ? "" : authentication
-				.getUserAuthentication().getName();
+		String userName = authentication.getUserAuthentication() == null ? "" : authentication.getUserAuthentication().getName();
 		return getApprovalKey(authentication.getOAuth2Request().getClientId(), userName);
 	}
 
@@ -135,34 +132,28 @@ public class FwRedisTokenStore implements TokenStore {
 	public void removeAccessToken(String tokenValue) {
 		// OAuth2AccessToken removed = (OAuth2AccessToken) redisTemplate.opsForValue().get(ACCESS + tokenValue);
 		// caller to do that
-		OAuth2Authentication authentication = (OAuth2Authentication) this.redisTemplate
-				.opsForValue().get(AUTH + tokenValue);
+		OAuth2Authentication authentication = (OAuth2Authentication) this.redisTemplate.opsForValue().get(AUTH + tokenValue);
 
 		this.redisTemplate.delete(AUTH + tokenValue);
 		redisTemplate.delete(ACCESS + tokenValue);
 		this.redisTemplate.delete(ACCESS_TO_REFRESH + tokenValue);
 
 		if (authentication != null) {
-			this.redisTemplate.delete(AUTH_TO_ACCESS
-					+ authenticationKeyGenerator.extractKey(authentication));
+			this.redisTemplate.delete(AUTH_TO_ACCESS + authenticationKeyGenerator.extractKey(authentication));
 
 			String clientId = authentication.getOAuth2Request().getClientId();
-			redisTemplate.opsForList().leftPop(
-					UNAME_TO_ACCESS + getApprovalKey(clientId, authentication.getName()));
+			redisTemplate.opsForList().leftPop(UNAME_TO_ACCESS + getApprovalKey(clientId, authentication.getName()));
 
 			redisTemplate.opsForList().leftPop(CLIENT_ID_TO_ACCESS + clientId);
 
-			this.redisTemplate.delete(AUTH_TO_ACCESS
-					+ authenticationKeyGenerator.extractKey(authentication));
+			this.redisTemplate.delete(AUTH_TO_ACCESS + authenticationKeyGenerator.extractKey(authentication));
 		}
 	}
 
 	@Override
-	public void storeRefreshToken(OAuth2RefreshToken refreshToken,
-			OAuth2Authentication authentication) {
+	public void storeRefreshToken(OAuth2RefreshToken refreshToken, OAuth2Authentication authentication) {
 		this.redisTemplate.opsForValue().set(REFRESH + refreshToken.getValue(), refreshToken);
-		this.redisTemplate.opsForValue()
-				.set(REFRESH_AUTH + refreshToken.getValue(), authentication);
+		this.redisTemplate.opsForValue().set(REFRESH_AUTH + refreshToken.getValue(), authentication);
 	}
 
 	@Override
@@ -188,8 +179,7 @@ public class FwRedisTokenStore implements TokenStore {
 
 	private void removeAccessTokenUsingRefreshToken(String refreshToken) {
 
-		String token = (String) this.redisTemplate.opsForValue().get(
-				REFRESH_TO_ACCESS + refreshToken);
+		String token = (String) this.redisTemplate.opsForValue().get(REFRESH_TO_ACCESS + refreshToken);
 
 		if (token != null) {
 			redisTemplate.delete(ACCESS + token);
@@ -197,10 +187,8 @@ public class FwRedisTokenStore implements TokenStore {
 	}
 
 	@Override
-	public Collection<OAuth2AccessToken> findTokensByClientIdAndUserName(String clientId,
-			String userName) {
-		List<Object> result = redisTemplate.opsForList().range(
-				UNAME_TO_ACCESS + getApprovalKey(clientId, userName), 0, -1);
+	public Collection<OAuth2AccessToken> findTokensByClientIdAndUserName(String clientId, String userName) {
+		List<Object> result = redisTemplate.opsForList().range(UNAME_TO_ACCESS + getApprovalKey(clientId, userName), 0, -1);
 
 		if (result == null || result.size() == 0) { return Collections.emptySet(); }
 		List<OAuth2AccessToken> accessTokens = new ArrayList<>(result.size());
@@ -215,8 +203,7 @@ public class FwRedisTokenStore implements TokenStore {
 
 	@Override
 	public Collection<OAuth2AccessToken> findTokensByClientId(String clientId) {
-		List<Object> result = redisTemplate.opsForList().range((CLIENT_ID_TO_ACCESS + clientId), 0,
-				-1);
+		List<Object> result = redisTemplate.opsForList().range((CLIENT_ID_TO_ACCESS + clientId), 0, -1);
 
 		if (result == null || result.size() == 0) { return Collections.emptySet(); }
 		List<OAuth2AccessToken> accessTokens = new ArrayList<>(result.size());

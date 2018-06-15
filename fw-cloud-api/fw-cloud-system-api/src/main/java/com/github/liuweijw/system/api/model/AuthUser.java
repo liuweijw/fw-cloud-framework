@@ -22,26 +22,31 @@ public class AuthUser implements Serializable {
 	 */
 	@ApiModelProperty("用户userId")
 	private Integer				userId;
+
 	/**
 	 * 用户名
 	 */
 	@ApiModelProperty("用户名")
 	private String				username;
+
 	/**
 	 * 密码
 	 */
 	@ApiModelProperty("用户名密码")
 	private String				password;
+
 	/**
 	 * 0-正常，1-删除
 	 */
 	@ApiModelProperty("0-正常，1-删除")
 	private Integer				statu				= 0;
+
 	/**
 	 * 头像
 	 */
 	@ApiModelProperty("用户头像")
 	private String				picUrl;
+
 	/**
 	 * 角色列表
 	 */

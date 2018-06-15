@@ -13,6 +13,7 @@ import com.github.liuweijw.business.wechat.utils.JsonUtils;
 
 @Component
 public class LogHandler extends AbstractHandler {
+
 	@Override
 	public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage, Map<String, Object> context,
 			WxMpService wxMpService, WxSessionManager sessionManager) {

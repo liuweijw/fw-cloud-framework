@@ -33,20 +33,32 @@ public class SwaggerConfiguration {
 	public Docket createRestApi() {
 		List<Parameter> operationParameters = new ArrayList<Parameter>();
 		ParameterBuilder parameterBuilder = new ParameterBuilder();
-		parameterBuilder.name("Authorization").defaultValue(
-				"Bearer 请求中获取heard中token参数|获取cookie中的x-access-token值").description("Bearer 令牌值")
-				.modelRef(new ModelRef("string")).parameterType("header").required(true).build();
+		parameterBuilder
+				.name("Authorization")
+				.defaultValue(
+						"Bearer 请求中获取heard中token参数|获取cookie中的x-access-token值")
+				.description("Bearer 令牌值")
+				.modelRef(new ModelRef("string"))
+				.parameterType("header")
+				.required(true)
+				.build();
 		operationParameters.add(parameterBuilder.build());
-		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select().apis(
-				RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class)).paths(
-				PathSelectors.any()).build().globalOperationParameters(operationParameters);
+		return new Docket(DocumentationType.SWAGGER_2)
+				.apiInfo(apiInfo())
+				.select()
+				.apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+				.paths(PathSelectors.any())
+				.build()
+				.globalOperationParameters(operationParameters);
 	}
 
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title(" Swagger API ").description(
-				"https://github.com/liuweijw/fw-cloud-framework/wiki").termsOfServiceUrl(
-				"https://github.com/liuweijw/fw-cloud-framework").contact(
-				new Contact("liuweijw", "https://github.com/liuweijw/fw-cloud-framework",
-						"liuweijw.github@foxmail.com")).version(ApiTag.TAG_DEFAULT).build();
+		return new ApiInfoBuilder()
+				.title(" Swagger API ")
+				.description("https://github.com/liuweijw/fw-cloud-framework/wiki")
+				.termsOfServiceUrl("https://github.com/liuweijw/fw-cloud-framework")
+				.contact(new Contact("liuweijw", "https://github.com/liuweijw/fw-cloud-framework", "liuweijw.github@foxmail.com"))
+				.version(ApiTag.TAG_DEFAULT)
+				.build();
 	}
 }

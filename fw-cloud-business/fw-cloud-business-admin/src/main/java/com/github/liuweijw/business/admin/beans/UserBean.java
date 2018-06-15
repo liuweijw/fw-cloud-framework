@@ -20,6 +20,7 @@ public class UserBean implements Serializable {
 	 * 用户基本信息
 	 */
 	private User				user;
+
 	/**
 	 * 权限标识集合
 	 */
