@@ -6,7 +6,6 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 /**
  * Auth Server 中心
@@ -14,7 +13,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
  * @author liuweijw
  */
 // 认证中心，以及获取用户信息
-@EnableResourceServer
+// @EnableResourceServer
 @EnableFeignClients
 @SpringCloudApplication
 // modelA的java包结构是：com.github.liuweijw.system.auth.xxx

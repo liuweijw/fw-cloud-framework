@@ -9,12 +9,11 @@ import org.springframework.context.annotation.ComponentScan;
 
 /**
  * sso demo
- * 
+ *
  * @author liuweijw
  */
-@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class,
-		HibernateJpaAutoConfiguration.class })
 @EnableOAuth2Sso
+@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 @ComponentScan(basePackages = { "com.github.liuweijw.business.sso" })
 public class FwSsoApplication {
 

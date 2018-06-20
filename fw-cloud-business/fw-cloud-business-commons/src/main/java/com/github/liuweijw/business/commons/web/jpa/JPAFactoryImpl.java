@@ -13,7 +13,7 @@ public abstract class JPAFactoryImpl {
 	protected JPAQueryFactory	queryFactory;
 
 	@Autowired
-	private EntityManager		em;
+	protected EntityManager		em;
 
 	@PostConstruct
 	public void initFactory() {
