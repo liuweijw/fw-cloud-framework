@@ -29,21 +29,22 @@ CREATE TABLE IF NOT EXISTS `t_sys_dept` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`dept_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='部门管理';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='部门管理';
 
--- 正在导出表  fw-cloud.t_sys_dept 的数据：~9 rows (大约)
+-- 正在导出表  fw-cloud.t_sys_dept 的数据：~10 rows (大约)
 DELETE FROM `t_sys_dept`;
 /*!40000 ALTER TABLE `t_sys_dept` DISABLE KEYS */;
-INSERT INTO `t_sys_dept` (`id`, `pid`, `dept_name`, `statu`, `pos`, `create_time`, `update_time`) VALUES
-	(1, 0, '一级', 0, 0, '2018-01-22 19:00:23', '2018-03-07 21:47:28'),
-	(2, 0, '并行一级', 0, 0, '2018-01-22 19:00:38', '2018-03-07 21:47:43'),
-	(3, 1, '一级子1', 0, 0, '2018-01-22 19:00:44', '2018-03-07 21:48:10'),
-	(4, 3, '一级子11', 0, 0, '2018-01-22 19:00:52', '2018-03-07 21:48:17'),
-	(5, 4, '一级子111', 0, 0, '2018-01-22 19:00:57', '2018-03-07 21:49:06'),
-	(6, 5, '一级子1111', 0, 0, '2018-01-22 19:01:06', '2018-03-07 21:49:08'),
-	(7, 2, '并行一级子1', 0, 0, '2018-01-22 19:01:57', '2018-03-07 21:48:56'),
-	(8, 7, '并行一级子11', 0, 0, '2018-01-22 19:02:03', '2018-03-07 21:48:59'),
-	(9, 8, '并行一级子111', 0, 0, '2018-01-22 19:02:14', '2018-03-07 21:49:03');
+INSERT INTO `t_sys_dept` (`dept_id`, `pid`, `dept_name`, `statu`, `pos`, `create_time`, `update_time`) VALUES
+	(1, 0, '一级部门', 0, 0, '2018-01-23 03:00:23', '2018-06-25 10:48:59'),
+	(2, 0, '并行一级', 0, 0, '2018-01-23 03:00:38', '2018-03-08 05:47:43'),
+	(3, 1, '一级子部门', 0, 0, '2018-01-23 03:00:44', '2018-06-25 10:49:32'),
+	(4, 3, '一级子11', 0, 0, '2018-01-23 03:00:52', '2018-03-08 05:48:17'),
+	(5, 4, '一级子111', 0, 0, '2018-01-23 03:00:57', '2018-03-08 05:49:06'),
+	(6, 5, '一级子1111', 0, 0, '2018-01-23 03:01:06', '2018-03-08 05:49:08'),
+	(7, 2, '并行一级子1', 0, 0, '2018-01-23 03:01:57', '2018-03-08 05:48:56'),
+	(8, 7, '并行一级子11', 0, 0, '2018-01-23 03:02:03', '2018-03-08 05:48:59'),
+	(9, 8, '并行一级子111', 0, 0, '2018-01-23 03:02:14', '2018-03-08 05:49:03'),
+	(10, 4, '一级子1112', 1, 0, '2018-06-25 10:50:13', '2018-06-25 10:50:13');
 /*!40000 ALTER TABLE `t_sys_dept` ENABLE KEYS */;
 
 
@@ -73,9 +74,9 @@ CREATE TABLE IF NOT EXISTS `t_sys_dict` (
   `statu` smallint(1) NOT NULL DEFAULT '0' COMMENT '删除标记0--正常 1--删除',
   PRIMARY KEY (`id`),
   KEY `t_sys_dict_type` (`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='字典表';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='字典表';
 
--- 正在导出表  fw-cloud.t_sys_dict 的数据：~6 rows (大约)
+-- 正在导出表  fw-cloud.t_sys_dict 的数据：~7 rows (大约)
 DELETE FROM `t_sys_dict`;
 /*!40000 ALTER TABLE `t_sys_dict` DISABLE KEYS */;
 INSERT INTO `t_sys_dict` (`id`, `type`, `value`, `label`, `statu`) VALUES
@@ -84,7 +85,8 @@ INSERT INTO `t_sys_dict` (`id`, `type`, `value`, `label`, `statu`) VALUES
 	(3, 'DEL_FLAG', '0', '正常', 0),
 	(4, 'DEL_FLAG', '1', '删除', 0),
 	(5, 'SEX', '0', '男', 0),
-	(6, 'SEX', '1', '女', 0);
+	(6, 'SEX', '1', '女', 0),
+	(7, 'Test', '1', 'ces', 1);
 /*!40000 ALTER TABLE `t_sys_dict` ENABLE KEYS */;
 
 -- 导出  表 fw-cloud.t_sys_log_0 结构
@@ -102,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `t_sys_log_0` (
   `params` text COMMENT '操作提交的数据',
   `time` mediumtext COMMENT '执行时间',
   `statu` smallint(1) NOT NULL DEFAULT '0' COMMENT '删除标记',
-  `exception` text COMMENT '异常信息',
+  `exception` LONGTEXT NULL COMMENT '异常信息',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
@@ -132,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `t_sys_log_1` (
   `params` text COMMENT '操作提交的数据',
   `time` mediumtext COMMENT '执行时间',
   `statu` smallint(1) NOT NULL DEFAULT '0' COMMENT '删除标记',
-  `exception` text COMMENT '异常信息',
+  `exception` LONGTEXT NULL COMMENT '异常信息',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
@@ -147,7 +149,6 @@ DELETE FROM `t_sys_log_1`;
 /*!40000 ALTER TABLE `t_sys_log_1` DISABLE KEYS */;
 /*!40000 ALTER TABLE `t_sys_log_1` ENABLE KEYS */;
 
-
 -- 导出  表 fw-cloud.t_sys_menu 结构
 DROP TABLE IF EXISTS `t_sys_menu`;
 CREATE TABLE IF NOT EXISTS `t_sys_menu` (
@@ -160,26 +161,26 @@ CREATE TABLE IF NOT EXISTS `t_sys_menu` (
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `statu` smallint(1) DEFAULT '0' COMMENT '0--正常 1--删除',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='菜单权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='菜单权限表';
 
 -- 正在导出表  fw-cloud.t_sys_menu 的数据：~14 rows (大约)
 DELETE FROM `t_sys_menu`;
 /*!40000 ALTER TABLE `t_sys_menu` DISABLE KEYS */;
 INSERT INTO `t_sys_menu` (`menu_id`, `menu_name`, `path`, `url`, `pid`, `create_time`, `update_time`, `statu`) VALUES
-	(1, '系统管理', '/admin', NULL, 0, '2018-03-08 23:56:00', '2018-04-12 16:03:41', 0),
-	(2, '用户管理', 'user', '/admin/user/**', 1, '2018-03-08 23:56:00', '2018-03-08 23:56:00', 0),
-	(3, '菜单管理', 'menu', '/admin/menu/**', 1, '2018-03-08 23:56:00', '2018-03-08 23:56:00', 0),
-	(4, '角色管理', 'role', '/admin/role/**', 1, '2018-03-08 23:56:00', '2018-03-08 23:56:00', 0),
-	(5, '日志管理', 'logs', '/admin/logs/**', 1, '2018-03-08 23:56:00', '2018-04-12 23:04:20', 0),
-	(6, '字典管理', 'dict', '/admin/dict/**', 1, '2018-03-08 23:56:00', '2018-03-08 23:56:00', 0),
-	(7, '部门管理', 'dept', '/admin/dept/**', 1, '2018-03-08 23:56:00', '2018-03-08 23:56:00', 0),
-	(8, '系统监控', '/monitor', NULL, 0, '2018-03-08 23:56:00', '2018-04-12 16:03:43', 0),
-	(9, '服务监控', 'server', '/admin/server/**', 8, '2018-03-08 23:56:00', '2018-03-08 23:56:00', 0),
-	(10, 'zipkin监控', 'zipkin', '/admin/zipkin/**', 8, '2018-03-08 23:56:00', '2018-03-08 23:56:00', 0),
-	(11, 'pinpoint监控', 'pinpoint', '/admin/pinpoint/**', 8, '2018-03-08 23:56:00', '2018-03-08 23:56:00', 0),
-	(12, '缓存状态', 'cache', '/admin/cache/**', 8, '2018-03-08 23:56:00', '2018-03-08 23:56:00', 0),
-	(13, 'ELK状态', 'elk', '/admin/elk/**', 8, '2018-03-08 23:56:00', '2018-03-08 23:56:00', 0),
-	(14, '接口文档', 'swagger', '/admin/swagger/**', 8, '2018-03-08 23:56:00', '2018-03-08 23:56:00', 0);
+	(1, '系统管理', '/admin', NULL, 0, '2018-03-09 07:56:00', '2018-04-13 00:03:41', 0),
+	(2, '用户管理', 'user', '/admin/user/**', 1, '2018-03-09 07:56:00', '2018-03-09 07:56:00', 0),
+	(3, '菜单管理', 'menu', '/admin/menu/**', 1, '2018-03-09 07:56:00', '2018-03-09 07:56:00', 0),
+	(4, '角色管理', 'role', '/admin/role/**', 1, '2018-03-09 07:56:00', '2018-03-09 07:56:00', 0),
+	(5, '日志管理', 'logs', '/admin/logs/**', 1, '2018-03-09 07:56:00', '2018-04-13 07:04:20', 0),
+	(6, '字典管理', 'dict', '/admin/dict/**', 1, '2018-03-09 07:56:00', '2018-03-09 07:56:00', 0),
+	(7, '部门管理', 'dept', '/admin/dept/**', 1, '2018-03-09 07:56:00', '2018-03-09 07:56:00', 0),
+	(8, '系统监控', '/monitor', NULL, 0, '2018-03-09 07:56:00', '2018-04-13 00:03:43', 0),
+	(9, '服务监控', 'server', '/admin/server/**', 8, '2018-03-09 07:56:00', '2018-03-09 07:56:00', 0),
+	(10, 'zipkin监控', 'zipkin', '/admin/zipkin/**', 8, '2018-03-09 07:56:00', '2018-03-09 07:56:00', 0),
+	(11, 'pinpoint监控', 'pinpoint', '/admin/pinpoint/**', 8, '2018-03-09 07:56:00', '2018-03-09 07:56:00', 0),
+	(12, '缓存状态', 'cache', '/admin/cache/**', 8, '2018-03-09 07:56:00', '2018-03-09 07:56:00', 0),
+	(13, 'ELK状态', 'elk', '/admin/elk/**', 8, '2018-03-09 07:56:00', '2018-03-09 07:56:00', 0),
+	(14, '接口文档', 'swagger', '/admin/swagger/**', 8, '2018-03-09 07:56:00', '2018-03-09 07:56:00', 0);
 /*!40000 ALTER TABLE `t_sys_menu` ENABLE KEYS */;
 
 
@@ -217,15 +218,15 @@ CREATE TABLE IF NOT EXISTS `t_sys_role` (
   `statu` smallint(6) NOT NULL DEFAULT '0' COMMENT '删除标识（0-正常,1-删除）',
   PRIMARY KEY (`role_id`),
   UNIQUE KEY `role_idx1_role_code` (`role_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  fw-cloud.t_sys_role 的数据：~3 rows (大约)
 DELETE FROM `t_sys_role`;
 /*!40000 ALTER TABLE `t_sys_role` DISABLE KEYS */;
 INSERT INTO `t_sys_role` (`role_id`, `role_name`, `role_code`, `role_desc`, `create_time`, `update_time`, `statu`) VALUES
-	(1, 'SUPER管理员', 'ROLE_SUPER_ADMIN', '超级管理员', '2018-04-13 11:37:40', '2018-04-13 11:37:55', 0),
-	(2, '系统管理员', 'ROLE_ADMIN', '系统管理员', '2018-03-08 23:56:00', '2018-05-26 13:02:05', 0),
-	(3, '测试Test', 'ROLE_TEST', '测试权限', '2018-03-08 23:56:00', '2018-05-16 13:16:41', 0);
+	(1, 'SUPER管理员', 'ROLE_SUPER_ADMIN', '超级管理员', '2018-04-13 19:37:40', '2018-04-13 19:37:55', 0),
+	(2, '系统管理员', 'ROLE_ADMIN', '系统管理员', '2018-03-09 07:56:00', '2018-06-25 11:02:02', 0),
+	(3, '测试Test', 'ROLE_TEST', '测试权限', '2018-03-09 07:56:00', '2018-06-24 23:35:10', 0);
 /*!40000 ALTER TABLE `t_sys_role` ENABLE KEYS */;
 
 
@@ -236,13 +237,15 @@ CREATE TABLE IF NOT EXISTS `t_sys_role_dept` (
   `role_id` int(20) DEFAULT NULL COMMENT '角色ID',
   `dept_id` int(20) DEFAULT NULL COMMENT '部门ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色与部门对应关系';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色与部门对应关系';
 
--- 正在导出表  fw-cloud.t_sys_role_dept 的数据：~1 rows (大约)
+-- 正在导出表  fw-cloud.t_sys_role_dept 的数据：~3 rows (大约)
 DELETE FROM `t_sys_role_dept`;
 /*!40000 ALTER TABLE `t_sys_role_dept` DISABLE KEYS */;
 INSERT INTO `t_sys_role_dept` (`id`, `role_id`, `dept_id`) VALUES
-	(1, 1, 1);
+	(1, 1, 1),
+	(4, 3, 4),
+	(5, 2, 3);
 /*!40000 ALTER TABLE `t_sys_role_dept` ENABLE KEYS */;
 
 
@@ -253,9 +256,9 @@ CREATE TABLE IF NOT EXISTS `t_sys_role_menu` (
   `role_id` int(11) NOT NULL COMMENT '角色ID',
   `menu_id` int(11) NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=188 DEFAULT CHARSET=utf8 COMMENT='角色菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=212 DEFAULT CHARSET=utf8 COMMENT='角色菜单表';
 
--- 正在导出表  fw-cloud.t_sys_role_menu 的数据：~21 rows (大约)
+-- 正在导出表  fw-cloud.t_sys_role_menu 的数据：~22 rows (大约)
 DELETE FROM `t_sys_role_menu`;
 /*!40000 ALTER TABLE `t_sys_role_menu` DISABLE KEYS */;
 INSERT INTO `t_sys_role_menu` (`id`, `role_id`, `menu_id`) VALUES
@@ -273,13 +276,14 @@ INSERT INTO `t_sys_role_menu` (`id`, `role_id`, `menu_id`) VALUES
 	(199, 1, 12),
 	(200, 1, 13),
 	(201, 1, 14),
-	(203, 3, 6),
 	(204, 2, 2),
 	(205, 2, 3),
 	(206, 2, 4),
 	(207, 2, 5),
 	(208, 2, 6),
-	(209, 2, 7);
+	(209, 2, 7),
+	(210, 3, 3),
+	(211, 3, 6);
 /*!40000 ALTER TABLE `t_sys_role_menu` ENABLE KEYS */;
 
 
@@ -290,9 +294,9 @@ CREATE TABLE IF NOT EXISTS `t_sys_role_menu_permission` (
   `role_menu_id` int(11) NOT NULL,
   `permission` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=416 DEFAULT CHARSET=utf8 COMMENT='功能权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=499 DEFAULT CHARSET=utf8 COMMENT='功能权限表';
 
--- 正在导出表  fw-cloud.t_sys_role_menu_permission 的数据：~92 rows (大约)
+-- 正在导出表  fw-cloud.t_sys_role_menu_permission 的数据：~81 rows (大约)
 DELETE FROM `t_sys_role_menu_permission`;
 /*!40000 ALTER TABLE `t_sys_role_menu_permission` DISABLE KEYS */;
 INSERT INTO `t_sys_role_menu_permission` (`id`, `role_menu_id`, `permission`) VALUES
@@ -368,15 +372,17 @@ INSERT INTO `t_sys_role_menu_permission` (`id`, `role_menu_id`, `permission`) VA
 	(485, 201, 'swagger_del'),
 	(486, 201, 'swagger_export'),
 	(487, 201, 'swagger_import'),
-	(489, 203, 'dict_view'),
 	(490, 204, 'user_view'),
 	(491, 205, 'menu_view'),
 	(492, 206, 'role_view'),
 	(493, 207, 'logs_view'),
 	(494, 208, 'dict_view'),
 	(495, 208, 'dict_upd'),
-	(496, 209, 'dept_view');
+	(496, 209, 'dept_view'),
+	(497, 210, 'menu_view'),
+	(498, 211, 'dict_view');
 /*!40000 ALTER TABLE `t_sys_role_menu_permission` ENABLE KEYS */;
+
 
 -- 导出  表 fw-cloud.t_sys_user 结构
 DROP TABLE IF EXISTS `t_sys_user`;
@@ -393,23 +399,21 @@ CREATE TABLE IF NOT EXISTS `t_sys_user` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_idx1_username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='用户表';
 
--- 正在导出表  fw-cloud.t_sys_user 的数据：~7 rows (大约)
+-- 正在导出表  fw-cloud.t_sys_user 的数据：~8 rows (大约)
 DELETE FROM `t_sys_user`;
 /*!40000 ALTER TABLE `t_sys_user` DISABLE KEYS */;
 INSERT INTO `t_sys_user` (`user_id`, `username`, `password`, `open_id`, `mobile`, `pic_url`, `statu`, `dept_id`, `create_time`, `update_time`) VALUES
-	(1, 'admin', '$2a$10$e.ufNW4gkFny3EkhAsp8qO/y8TZ8Mj0CWOqBpxuvBW4REPJHbfCMy', NULL, '13801233210', 'https://avatars0.githubusercontent.com/u/21272196?s=40&v=4', 0, 0, '2017-10-29 23:45:13', '2018-05-04 23:12:44'),
-	(2, 'test', '$2a$10$bvIjvNMsFP0d.wkF2yb9puXn00.q086DInosQsCjXIA9zDINbvIBq', NULL, NULL, 'https://avatars0.githubusercontent.com/u/21272196?s=40&v=4', 0, 0, '2018-02-28 02:24:58', '2018-05-03 16:38:13'),
-	(3, 'test2', '$2a$10$1QLEolaGWQmXGf7woa8G1.UYT17YV3TWPG/WK9Xlc8xP70prErpsC', NULL, NULL, NULL, 0, 0, '2018-03-08 02:12:39', '2018-04-25 01:28:46'),
-	(4, 'test3', '$2a$10$10ntdT66NtRvsw1A0b3veu1g/JE0XGwlVHhS3i2FztgHNmOa/j/oi', NULL, '15002009676', NULL, 0, 0, '2018-03-09 22:42:03', '2018-06-05 16:56:25'),
-	(5, 'superAdmin', '$2a$10$e.ufNW4gkFny3EkhAsp8qO/y8TZ8Mj0CWOqBpxuvBW4REPJHbfCMy', NULL, '13800138000', 'https://avatars0.githubusercontent.com/u/21272196?s=40&v=4', 0, 0, '2018-04-13 19:39:11', '2018-06-20 18:10:49'),
-	(8, 'yankai', '$2a$10$FM01qgiFrFA4ylTeGYG/b.WW0JL3XuOTNzh5DV21YbSYxfXtN75c6', NULL, NULL, NULL, 0, 0, '2018-05-11 14:17:52', '2018-05-11 14:17:52'),
-	(9, 'testlw', '$2a$10$xM8a4AHkR3HxJBZ8kN2U1eAWbqKMdr1r8iz328XR302e53qakQvsu', NULL, NULL, NULL, 0, 0, '2018-05-18 01:15:40', '2018-06-21 19:11:54');
+	(1, 'admin', '$2a$10$e.ufNW4gkFny3EkhAsp8qO/y8TZ8Mj0CWOqBpxuvBW4REPJHbfCMy', NULL, '13801233210', 'https://avatars0.githubusercontent.com/u/21272196?s=40&v=4', 0, 3, '2017-10-29 23:45:13', '2018-06-25 11:02:14'),
+	(2, 'test', '$2a$10$bvIjvNMsFP0d.wkF2yb9puXn00.q086DInosQsCjXIA9zDINbvIBq', NULL, '15721213111', 'https://avatars0.githubusercontent.com/u/21272196?s=40&v=4', 0, 4, '2018-02-28 02:24:58', '2018-06-25 11:01:38'),
+	(3, 'test2', '$2a$10$1QLEolaGWQmXGf7woa8G1.UYT17YV3TWPG/WK9Xlc8xP70prErpsC', NULL, '13723122221', NULL, 0, 4, '2018-03-08 02:12:39', '2018-06-25 11:01:27'),
+	(4, 'test3', '$2a$10$10ntdT66NtRvsw1A0b3veu1g/JE0XGwlVHhS3i2FztgHNmOa/j/oi', NULL, '15002009676', NULL, 0, 4, '2018-03-09 22:42:03', '2018-06-25 00:58:09'),
+	(5, 'superAdmin', '$2a$10$e.ufNW4gkFny3EkhAsp8qO/y8TZ8Mj0CWOqBpxuvBW4REPJHbfCMy', NULL, '13800138000', 'https://avatars0.githubusercontent.com/u/21272196?s=40&v=4', 0, 1, '2018-04-13 19:39:11', '2018-06-25 00:24:58'),
+	(8, 'yankai', '$2a$10$FM01qgiFrFA4ylTeGYG/b.WW0JL3XuOTNzh5DV21YbSYxfXtN75c6', NULL, '13211232123', NULL, 0, 4, '2018-05-11 14:17:52', '2018-06-25 09:39:50'),
+	(9, 'testlw', '$2a$10$xM8a4AHkR3HxJBZ8kN2U1eAWbqKMdr1r8iz328XR302e53qakQvsu', NULL, NULL, NULL, 1, 0, '2018-05-18 01:15:40', '2018-06-21 19:11:54'),
+	(10, 'test22', '$2a$10$6VDgrjdMzrPDOrglSOSfgOCWgCZDMXcxiPB5.ozX3EMzCExya/OBe', NULL, '13822219111', NULL, 0, 4, '2018-06-25 11:19:54', '2018-06-25 11:19:54');
 /*!40000 ALTER TABLE `t_sys_user` ENABLE KEYS */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 
 
 -- 导出  表 fw-cloud.t_sys_user_role 结构
@@ -419,23 +423,23 @@ CREATE TABLE IF NOT EXISTS `t_sys_user_role` (
   `user_id` int(11) NOT NULL COMMENT '用户ID',
   `role_id` int(11) NOT NULL COMMENT '角色ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COMMENT='用户角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COMMENT='用户角色表';
 
--- 正在导出表  fw-cloud.t_sys_user_role 的数据：~9 rows (大约)
+-- 正在导出表  fw-cloud.t_sys_user_role 的数据：~10 rows (大约)
 DELETE FROM `t_sys_user_role`;
 /*!40000 ALTER TABLE `t_sys_user_role` DISABLE KEYS */;
 INSERT INTO `t_sys_user_role` (`id`, `user_id`, `role_id`) VALUES
-	(9, 3, 2),
-	(16, 2, 2),
-	(18, 1, 2),
-	(20, 5, 1),
 	(24, 7, 3),
 	(27, 6, 3),
-	(28, 8, 3),
-	(29, 4, 3),
-	(30, 9, 3);
+	(35, 9, 3),
+	(37, 5, 1),
+	(39, 4, 3),
+	(42, 8, 3),
+	(43, 3, 3),
+	(44, 2, 3),
+	(45, 1, 2),
+	(46, 10, 3);
 /*!40000 ALTER TABLE `t_sys_user_role` ENABLE KEYS */;
-
 
 -- 导出  表 fw-cloud.zipkin_annotations 结构
 DROP TABLE IF EXISTS `zipkin_annotations`;
