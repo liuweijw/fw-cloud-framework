@@ -30,8 +30,8 @@ import com.github.liuweijw.commons.utils.StringHelper;
 import com.github.liuweijw.core.beans.system.AuthMenu;
 import com.github.liuweijw.core.commons.constants.CommonConstant;
 
-@CacheConfig(cacheNames = AdminCacheKey.MENU_INFO)
 @Component
+@CacheConfig(cacheNames = AdminCacheKey.MENU_INFO)
 public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 
 	@Autowired
@@ -129,8 +129,8 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 	}
 
 	@Override
-	@CacheEvict(allEntries = true)
 	@Transactional
+	@CacheEvict(allEntries = true)
 	public boolean delById(Integer menuId) {
 		QMenu qMenu = QMenu.menu;
 		long num = this.queryFactory.delete(qMenu).where(qMenu.menuId.eq(menuId.intValue()))
@@ -139,8 +139,8 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 	}
 
 	@Override
-	@CacheEvict(allEntries = true)
 	@Transactional
+	@CacheEvict(allEntries = true)
 	public Menu saveOrUpdate(Menu menu) {
 		if (null == menu) return null;
 
@@ -148,8 +148,8 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 	}
 
 	@Override
-	@CacheEvict(allEntries = true)
 	@Transactional
+	@CacheEvict(allEntries = true)
 	public Boolean deleteMenu(Integer menuId, String roleCode) {
 		// 删除当前节点 -- 假删除
 		QMenu qMenu = QMenu.menu;
@@ -164,8 +164,8 @@ public class MenuServiceImpl extends JPAFactoryImpl implements MenuService {
 	}
 
 	@Override
-	@CacheEvict(allEntries = true)
 	@Transactional
+	@CacheEvict(allEntries = true)
 	public Boolean updateMenuById(Menu menu, String roleCode) {
 		if (null == menu || null == menu.getMenuId()) return null;
 		menuRepository.saveAndFlush(menu);

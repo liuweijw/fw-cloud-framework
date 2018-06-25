@@ -12,8 +12,8 @@ import com.github.liuweijw.business.admin.domain.QModule;
 import com.github.liuweijw.business.admin.service.ModuleService;
 import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
 
-@CacheConfig(cacheNames = AdminCacheKey.MODULE_INFO)
 @Component
+@CacheConfig(cacheNames = AdminCacheKey.MODULE_INFO)
 public class ModuleServiceImpl extends JPAFactoryImpl implements ModuleService {
 
 	@Override

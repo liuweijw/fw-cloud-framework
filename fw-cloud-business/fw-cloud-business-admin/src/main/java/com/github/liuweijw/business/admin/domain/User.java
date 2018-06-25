@@ -72,6 +72,12 @@ public class User implements Serializable {
 	private Integer					statu				= 0;
 
 	/**
+	 * 部门id
+	 */
+	@Column(name = "dept_id")
+	private Integer					deptId				= 0;
+
+	/**
 	 * 创建时间
 	 */
 	@Column(name = "create_time")
@@ -87,5 +93,10 @@ public class User implements Serializable {
 	 * 角色列表
 	 */
 	private transient List<Role>	roleList			= new ArrayList<Role>();
+
+	/**
+	 * 部门名称
+	 */
+	private transient String		deptName;
 
 }

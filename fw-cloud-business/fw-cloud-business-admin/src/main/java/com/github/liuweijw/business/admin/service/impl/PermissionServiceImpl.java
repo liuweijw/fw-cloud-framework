@@ -40,7 +40,7 @@ public class PermissionServiceImpl extends JPAFactoryImpl implements PermissionS
 	private RoleMenuPermissionRepository	roleMenuPermissionRepository;
 
 	@Override
-	@Cacheable(value = AdminCacheKey.PERMISSION_INFO, key = "'permission_' + #roleId")
+	@Cacheable(cacheNames = AdminCacheKey.PERMISSION_INFO, key = "'permission_' + #roleId")
 	public List<RoleMenuPermission> findMenuPermissionByRoleId(Integer roleId) {
 		if (null == roleId) return null;
 		// 查询菜单

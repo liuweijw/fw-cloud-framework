@@ -4,8 +4,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,39 +79,35 @@ public class UserController extends BaseController {
 	/**
 	 * 添加用户
 	 */
-	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@PrePermissions(value = Functional.ADD)
-	public R<Boolean> addUser(HttpServletRequest request, @RequestBody UserForm userForm) {
+	public R<Boolean> add(HttpServletRequest request, @RequestBody UserForm userForm) {
+		if (null == userForm.getDeptId()) return new R<Boolean>().failure("请选择部门");
 		if (null == userForm.getRoleId()) return new R<Boolean>().failure("请选择角色");
-		User user = new User();
-		user.setCreateTime(new Date());
-		user.setStatu(0);
-		user.setPassword(new BCryptPasswordEncoder().encode(userForm.getPassword().trim()));
-		user.setUpdateTime(new Date());
-		user.setUsername(userForm.getUsername());
-		boolean r = this.userService.addUserAndRole(user, userForm.getRoleId());
+		boolean r = this.userService.addUserAndRoleDept(userForm);
 		return new R<Boolean>().data(r);
 	}
 
 	/**
 	 * 修改用户
 	 */
-	@RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/upd", method = RequestMethod.POST)
 	@PrePermissions(value = Functional.UPD)
-	public R<Boolean> updateUser(HttpServletRequest request, @RequestBody UserForm userForm) {
+	public R<Boolean> upd(HttpServletRequest request, @RequestBody UserForm userForm) {
 		if (null == userForm.getUserId()) return new R<Boolean>().failure("用户不存在");
+		if (null == userForm.getDeptId()) return new R<Boolean>().failure("请选择部门");
 		if (null == userForm.getRoleId()) return new R<Boolean>().failure("请选择角色");
 
-		boolean r = this.userService.updateUserAndRole(userForm);
+		boolean r = this.userService.updateUserAndRoleDept(userForm);
 		return new R<Boolean>().data(r);
 	}
 
 	/**
 	 * 修改用户密码
 	 */
-	@RequestMapping(value = "/modifyUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
 	@PrePermissions(value = Functional.UPD)
-	public R<Boolean> modifyUser(HttpServletRequest request, @RequestBody UserForm userForm) {
+	public R<Boolean> modify(HttpServletRequest request, @RequestBody UserForm userForm) {
 		if (null == userForm.getUsername()) return new R<Boolean>().failure("用户名不存在");
 		if (null == userForm.getPassword()) return new R<Boolean>().failure("请输入旧密码");
 		if (null == userForm.getNewpassword()) return new R<Boolean>().failure("请输入新密码");

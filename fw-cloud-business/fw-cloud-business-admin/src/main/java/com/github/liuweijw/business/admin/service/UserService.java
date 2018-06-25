@@ -25,9 +25,9 @@ public interface UserService {
 
 	public Boolean delByUserId(Integer userId);
 
-	public boolean addUserAndRole(User user, Integer roleId);
+	public boolean addUserAndRoleDept(UserForm userForm);
 
-	public boolean updateUserAndRole(UserForm userForm);
+	public boolean updateUserAndRoleDept(UserForm userForm);
 
 	public boolean updateUser(User user);
 

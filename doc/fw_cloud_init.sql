@@ -21,14 +21,14 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- 导出  表 fw-cloud.t_sys_dept 结构
 DROP TABLE IF EXISTS `t_sys_dept`;
 CREATE TABLE IF NOT EXISTS `t_sys_dept` (
-  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `dept_id` int(20) NOT NULL AUTO_INCREMENT,
   `pid` int(11) NOT NULL COMMENT '上级部门',
   `dept_name` varchar(64) NOT NULL COMMENT '部门名称',
   `statu` smallint(1) NOT NULL DEFAULT '0' COMMENT '是否删除  1：已删除  0：正常',
   `pos` int(11) NOT NULL DEFAULT '0' COMMENT '排序',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`dept_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='部门管理';
 
 -- 正在导出表  fw-cloud.t_sys_dept 的数据：~9 rows (大约)
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `t_sys_dept_relation` (
   PRIMARY KEY (`pre_id`,`after_id`),
   KEY `pre_id` (`pre_id`),
   KEY `after_id` (`after_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 正在导出表  fw-cloud.t_sys_dept_relation 的数据：~0 rows (大约)
 DELETE FROM `t_sys_dept_relation`;
@@ -388,6 +388,7 @@ CREATE TABLE IF NOT EXISTS `t_sys_user` (
   `mobile` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '手机号码',
   `pic_url` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '头像',
   `statu` smallint(1) NOT NULL DEFAULT '0' COMMENT '0-正常，1-删除',
+  `dept_id` int(11) NOT NULL DEFAULT '0' COMMENT '部门id',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`user_id`),
@@ -397,15 +398,18 @@ CREATE TABLE IF NOT EXISTS `t_sys_user` (
 -- 正在导出表  fw-cloud.t_sys_user 的数据：~7 rows (大约)
 DELETE FROM `t_sys_user`;
 /*!40000 ALTER TABLE `t_sys_user` DISABLE KEYS */;
-INSERT INTO `t_sys_user` (`user_id`, `username`, `password`, `open_id`, `mobile`, `pic_url`, `statu`, `create_time`, `update_time`) VALUES
-	(1, 'admin', '$2a$10$e.ufNW4gkFny3EkhAsp8qO/y8TZ8Mj0CWOqBpxuvBW4REPJHbfCMy', NULL, '13801233210', 'https://avatars0.githubusercontent.com/u/21272196?s=40&v=4', 0, '2017-10-29 15:45:13', '2018-05-04 15:12:44'),
-	(2, 'test', '$2a$10$bvIjvNMsFP0d.wkF2yb9puXn00.q086DInosQsCjXIA9zDINbvIBq', NULL, NULL, 'https://avatars0.githubusercontent.com/u/21272196?s=40&v=4', 0, '2018-02-27 18:24:58', '2018-05-03 08:38:13'),
-	(3, 'test2', '$2a$10$1QLEolaGWQmXGf7woa8G1.UYT17YV3TWPG/WK9Xlc8xP70prErpsC', NULL, NULL, NULL, 0, '2018-03-07 18:12:39', '2018-04-24 17:28:46'),
-	(4, 'test3', '$2a$10$10ntdT66NtRvsw1A0b3veu1g/JE0XGwlVHhS3i2FztgHNmOa/j/oi', NULL, '15002009676', NULL, 0, '2018-03-09 14:42:03', '2018-05-17 16:52:50'),
-	(5, 'superAdmin', '$2a$10$e.ufNW4gkFny3EkhAsp8qO/y8TZ8Mj0CWOqBpxuvBW4REPJHbfCMy', NULL, '13800138000', 'https://avatars0.githubusercontent.com/u/21272196?s=40&v=4', 0, '2018-04-13 11:39:11', '2018-05-07 14:10:43'),
-	(8, 'yankai', '$2a$10$FM01qgiFrFA4ylTeGYG/b.WW0JL3XuOTNzh5DV21YbSYxfXtN75c6', NULL, NULL, NULL, 1, '2018-05-11 06:17:52', '2018-05-11 06:17:52'),
-	(9, 'testlw', '$2a$10$xM8a4AHkR3HxJBZ8kN2U1eAWbqKMdr1r8iz328XR302e53qakQvsu', NULL, NULL, NULL, 1, '2018-05-17 17:15:40', '2018-05-17 17:15:40');
+INSERT INTO `t_sys_user` (`user_id`, `username`, `password`, `open_id`, `mobile`, `pic_url`, `statu`, `dept_id`, `create_time`, `update_time`) VALUES
+	(1, 'admin', '$2a$10$e.ufNW4gkFny3EkhAsp8qO/y8TZ8Mj0CWOqBpxuvBW4REPJHbfCMy', NULL, '13801233210', 'https://avatars0.githubusercontent.com/u/21272196?s=40&v=4', 0, 0, '2017-10-29 23:45:13', '2018-05-04 23:12:44'),
+	(2, 'test', '$2a$10$bvIjvNMsFP0d.wkF2yb9puXn00.q086DInosQsCjXIA9zDINbvIBq', NULL, NULL, 'https://avatars0.githubusercontent.com/u/21272196?s=40&v=4', 0, 0, '2018-02-28 02:24:58', '2018-05-03 16:38:13'),
+	(3, 'test2', '$2a$10$1QLEolaGWQmXGf7woa8G1.UYT17YV3TWPG/WK9Xlc8xP70prErpsC', NULL, NULL, NULL, 0, 0, '2018-03-08 02:12:39', '2018-04-25 01:28:46'),
+	(4, 'test3', '$2a$10$10ntdT66NtRvsw1A0b3veu1g/JE0XGwlVHhS3i2FztgHNmOa/j/oi', NULL, '15002009676', NULL, 0, 0, '2018-03-09 22:42:03', '2018-06-05 16:56:25'),
+	(5, 'superAdmin', '$2a$10$e.ufNW4gkFny3EkhAsp8qO/y8TZ8Mj0CWOqBpxuvBW4REPJHbfCMy', NULL, '13800138000', 'https://avatars0.githubusercontent.com/u/21272196?s=40&v=4', 0, 0, '2018-04-13 19:39:11', '2018-06-20 18:10:49'),
+	(8, 'yankai', '$2a$10$FM01qgiFrFA4ylTeGYG/b.WW0JL3XuOTNzh5DV21YbSYxfXtN75c6', NULL, NULL, NULL, 0, 0, '2018-05-11 14:17:52', '2018-05-11 14:17:52'),
+	(9, 'testlw', '$2a$10$xM8a4AHkR3HxJBZ8kN2U1eAWbqKMdr1r8iz328XR302e53qakQvsu', NULL, NULL, NULL, 0, 0, '2018-05-18 01:15:40', '2018-06-21 19:11:54');
 /*!40000 ALTER TABLE `t_sys_user` ENABLE KEYS */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 
 
 -- 导出  表 fw-cloud.t_sys_user_role 结构

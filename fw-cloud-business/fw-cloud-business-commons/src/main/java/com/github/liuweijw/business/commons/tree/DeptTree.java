@@ -18,4 +18,6 @@ public class DeptTree extends TreeNode {
 
 	private String				name;
 
+	private Integer				pos					= 0;
+
 }

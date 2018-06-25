@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -69,4 +70,6 @@ public class Role implements Serializable {
 	@Column(name = "statu")
 	private Integer				statu				= 0;
 
+	@Transient
+	private Integer				deptId;
 }

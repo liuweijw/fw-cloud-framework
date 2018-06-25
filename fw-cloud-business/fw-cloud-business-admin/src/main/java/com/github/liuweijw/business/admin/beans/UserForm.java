@@ -24,4 +24,8 @@ public class UserForm {
 
 	private Integer	userId;
 
+	private Integer	deptId;
+
+	private String	mobile;
+
 }

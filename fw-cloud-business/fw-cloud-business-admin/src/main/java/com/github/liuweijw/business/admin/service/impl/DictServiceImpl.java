@@ -25,15 +25,15 @@ import com.github.liuweijw.commons.base.page.PageParams;
 import com.github.liuweijw.commons.utils.StringHelper;
 import com.querydsl.core.types.Predicate;
 
-@CacheConfig(cacheNames = AdminCacheKey.DICT_INFO)
 @Component
+@CacheConfig(cacheNames = AdminCacheKey.DICT_INFO)
 public class DictServiceImpl extends JPAFactoryImpl implements DictService {
 
 	@Autowired
 	private DictRepository	dictRepository;
 
-	// @Cacheable(value=AdminCacheKey.DICT_INFO_LIST, key="#pageParams.pageNo_#pageParams.pageNum", condition="#user.id%2==0")
 	@Override
+	@Cacheable(key = "'page_dict_' + #p0.currentPage + '_' + #p0.pageSize + '_' + #p1.type + '_' + #p1.label")
 	public PageBean<Dict> findAll(PageParams pageParams, Dict dict) {
 		QDict qDict = QDict.dict;
 		// 用户名查询条件
@@ -57,14 +57,14 @@ public class DictServiceImpl extends JPAFactoryImpl implements DictService {
 	}
 
 	@Override
-	@Cacheable(key = "'dict_list'")
+	@Cacheable(key = "'dict_list'", unless = "#result eq null")
 	public List<Dict> getAllList() {
 		QDict qDict = QDict.dict;
 		return this.queryFactory.selectFrom(qDict).fetch();
 	}
 
 	@Override
-	@Cacheable(key = "'dict_' + #id")
+	@Cacheable(key = "'dict_' + #id", unless = "#result eq null")
 	public Dict findById(Integer id) {
 		if (null == id || id < 0) return null;
 
@@ -72,7 +72,7 @@ public class DictServiceImpl extends JPAFactoryImpl implements DictService {
 	}
 
 	@Override
-	@Cacheable(key = "'dict_' + #type")
+	@Cacheable(key = "'dict_' + #type", unless = "#result eq null")
 	public List<Dict> getDictList(String type) {
 		List<Dict> dictList = new ArrayList<Dict>();
 		if (StringHelper.isBlank(type)) return dictList;
@@ -82,8 +82,8 @@ public class DictServiceImpl extends JPAFactoryImpl implements DictService {
 	}
 
 	@Override
-	@CacheEvict(allEntries = true)
 	@Transactional
+	@CacheEvict(allEntries = true)
 	public Dict saveOrUpdate(Dict dict) {
 		if (null == dict) return null;
 
@@ -93,8 +93,8 @@ public class DictServiceImpl extends JPAFactoryImpl implements DictService {
 	}
 
 	@Override
-	@CacheEvict(allEntries = true)
 	@Transactional
+	@CacheEvict(allEntries = true)
 	public boolean delById(Integer id) {
 		if (null == id || id <= 0) return Boolean.FALSE;
 

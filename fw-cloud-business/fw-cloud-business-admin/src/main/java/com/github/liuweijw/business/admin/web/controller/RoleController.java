@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.liuweijw.business.admin.beans.RoleDeptBean;
 import com.github.liuweijw.business.admin.domain.Role;
 import com.github.liuweijw.business.admin.service.PermissionService;
 import com.github.liuweijw.business.admin.service.RoleService;
@@ -51,10 +52,10 @@ public class RoleController extends BaseController {
 
 	@ApiOperation(value = "查询", notes = "通过部门deptId查询角色列表数据")
 	@ApiImplicitParam(name = "deptId", value = "", required = true, dataType = "int", paramType = "path")
-	@GetMapping(value = "/listByDeptId/{deptId}")
+	@GetMapping(value = "/findRoleList/{deptId}")
 	@PrePermissions(value = Functional.VIEW)
-	public R<List<Role>> getRoleListByDeptId(@PathVariable("deptId") Integer deptId) {
-		return new R<List<Role>>().data(roleService.getRoleListByDeptId(deptId));
+	public R<List<Role>> findRoleList(@PathVariable("deptId") Integer deptId) {
+		return new R<List<Role>>().data(roleService.findRoleListByDeptId(deptId));
 	}
 
 	@ApiOperation(value = "查询", notes = "查询角色列表数据")
@@ -70,9 +71,9 @@ public class RoleController extends BaseController {
 			@ApiImplicitParam(name = "pageParams", value = "分页pageParams", required = true, dataType = "PageParams") })
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	@PrePermissions(value = Functional.VIEW)
-	public R<PageBean<Role>> list(HttpServletRequest request, Role role, PageParams pageParams) {
-		PageBean<Role> pageData = this.roleService.findAll(pageParams, role);
-		return new R<PageBean<Role>>().data(pageData);
+	public R<PageBean<RoleDeptBean>> list(HttpServletRequest request, Role role, PageParams pageParams) {
+		PageBean<RoleDeptBean> pageData = this.roleService.findAll(pageParams, role);
+		return new R<PageBean<RoleDeptBean>>().data(pageData);
 	}
 
 	@ApiOperation(value = "新增", notes = "角色", produces = "application/json")
@@ -84,11 +85,12 @@ public class RoleController extends BaseController {
 		// 检测权限编码是否存在
 		Role exRole = roleService.findRoleByCode(role.getRoleCode());
 		if (null != exRole) return new R<Boolean>().failure("权限编码已经存在！").data(false);
+		if (null == role.getDeptId()) return new R<Boolean>().failure("请选择角色所属部门");
 
 		role.setCreateTime(new Date());
 		role.setUpdateTime(new Date());
 		role.setStatu(0);
-		Role updateObj = roleService.saveOrUpdate(role);
+		Role updateObj = roleService.saveRoleAndDept(role);
 		return new R<Boolean>().data(null != updateObj);
 	}
 
@@ -100,7 +102,9 @@ public class RoleController extends BaseController {
 		if (null == role || null == role.getRoleId() || role.getRoleId() <= 0)
 			return new R<Boolean>().failure("角色信息为空");
 		role.setUpdateTime(new Date());
-		Role updateObj = roleService.saveOrUpdate(role);
+		if (null == role.getDeptId()) return new R<Boolean>().failure("请选择角色所属部门");
+
+		Role updateObj = roleService.saveRoleAndDept(role);
 		return new R<Boolean>().data(null != updateObj);
 	}
 

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -32,8 +33,8 @@ public class Dept implements Serializable {
 	 */
 	@Id
 	@GeneratedValue
-	@Column(name = "id")
-	private Integer				id;
+	@Column(name = "dept_id")
+	private Integer				deptId;
 
 	/**
 	 * 上级部门
@@ -71,11 +72,14 @@ public class Dept implements Serializable {
 	@Column(name = "update_time")
 	private Date				updateTime;
 
+	@Transient
+	private Integer				roleId;
+
 	public Dept() {
 	}
 
-	public Dept(Integer id, Integer pid, String deptName) {
-		this.id = id;
+	public Dept(Integer deptId, Integer pid, String deptName) {
+		this.deptId = deptId;
 		this.pid = pid;
 		this.deptName = deptName;
 	}

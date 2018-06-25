@@ -4,19 +4,24 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import javax.persistence.Query;
+
+import org.hibernate.SQLQuery;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.liuweijw.business.admin.beans.UserBean;
 import com.github.liuweijw.business.admin.beans.UserForm;
 import com.github.liuweijw.business.admin.cache.AdminCacheKey;
@@ -35,12 +40,13 @@ import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
 import com.github.liuweijw.commons.base.page.PageBean;
 import com.github.liuweijw.commons.base.page.PageParams;
 import com.github.liuweijw.commons.utils.StringHelper;
+import com.github.liuweijw.commons.utils.WebUtils;
 import com.github.liuweijw.core.commons.constants.SecurityConstant;
 import com.github.liuweijw.system.api.model.AuthRole;
 import com.github.liuweijw.system.api.model.AuthUser;
-import com.querydsl.core.types.Predicate;
 
 @Component
+@CacheConfig(cacheNames = AdminCacheKey.USER_INFO)
 public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 
 	@Autowired
@@ -57,7 +63,7 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 	private UserRoleRepository	userRoleRepository;
 
 	@Override
-	@Cacheable(value = AdminCacheKey.USER_INFO, key = "'user_' + #username")
+	@Cacheable(key = "'user_name_' + #username")
 	public AuthUser findUserByUsername(String username) {
 		User user = findUserByUsername(username, true);
 
@@ -78,7 +84,7 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 	}
 
 	@Override
-	@Cacheable(value = AdminCacheKey.USER_INFO, key = "'user_' + #mobile")
+	@Cacheable(key = "'user_mobile_' + #mobile")
 	public AuthUser findUserByMobile(String mobile) {
 		User user = userRepository.findUserByMobile(mobile.trim());
 		if (null == user) return null;
@@ -142,7 +148,7 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 	}
 
 	@Override
-	@Cacheable(value = AdminCacheKey.USER_INFO, key = "'user_' + #userId")
+	@Cacheable(key = "'user_id_' + #userId")
 	public AuthUser findByUserId(String userId) {
 		User user = userRepository.findUserByUserId(Integer.valueOf(userId));
 		if (null == user) return null;
@@ -179,30 +185,61 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 	}
 
 	@Override
+	@Cacheable(key = "'page_user_' + #p0.currentPage + '_' + #p0.pageSize + '_' + #p1.username")
 	public PageBean<User> findAll(PageParams pageParams, User user) {
-		QUser qUser = QUser.user;
-		// 用户名查询条件
-		Predicate qUserNamePredicate = null;
-		if (null != user && StringHelper.isNotBlank(user.getUsername())) {
-			qUserNamePredicate = qUser.username.like("%" + user.getUsername().trim() + "%");
+		// 复杂SQL举例查询
+		// 总记录数
+		StringBuilder countSql = new StringBuilder();
+		countSql.append("select count(t1.user_id) from " + User.TABLE_NAME + " t1 ");
+
+		// 查询语句
+		StringBuilder querySql = new StringBuilder();
+		querySql.append("select ")
+				.append("t1.user_id, t1.username, t1.open_id, t1.mobile,t1.pic_url,t1.dept_id, t1.create_time, t1.update_time, t1.statu,")
+				.append("t3.dept_name as deptName ")
+				.append("from " + User.TABLE_NAME + " t1 ")
+				.append("left join t_sys_dept t3 on t3.dept_id = t1.dept_id ");
+
+		// where语句
+		StringBuilder whereSql = new StringBuilder("where t1.statu=0 ");
+		if (StringHelper.isNotBlank(user.getUsername())) {
+			whereSql.append("and t1.username like ")
+					.append("'%" + user.getUsername().trim() + "%' escape '!' ");
 		}
 
-		Predicate predicate = qUser.statu.eq(0).and(qUserNamePredicate);
+		// 结果集列表
+		List<User> rdList = new ArrayList<User>();
 
-		Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "createTime"));
-		PageRequest pageRequest = PageUtils.of(pageParams, sort);
-		Page<User> pageList = userRepository.findAll(predicate, pageRequest);
-		if (null != pageList && null != pageList.getContent()) {
-			for (User dbUser : pageList.getContent()) {
-				dbUser.setRoleList(findRoleListByUserId(dbUser.getUserId()));
+		Object countResult = this.em.createNativeQuery(countSql.append(whereSql).toString()).getSingleResult();
+		Long resultCount = WebUtils.parseStrToLong(countResult + "", 0l);
+		if (null != resultCount && resultCount > 0) {
+			// order 语句
+			StringBuilder orderSql = new StringBuilder("order by t1.create_time desc ");
+
+			Query query = this.em.createNativeQuery(querySql.append(whereSql).append(orderSql).toString())
+					.setFirstResult((pageParams.getCurrentPage() - 1) * pageParams.getPageSize())
+					.setMaxResults(pageParams.getPageSize());
+
+			// 下面转换为map （效率相对差一点）, 否则为 object[]
+			query.unwrap(SQLQuery.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+			@SuppressWarnings("unchecked")
+			List<Map<String, Object>> dList = query.getResultList();
+			if (null != dList) {
+				dList.forEach(d -> {
+					User userBean = JSONObject.parseObject(JSONObject.toJSONString(d), User.class);
+					rdList.add(userBean);
+					userBean.setRoleList(findRoleListByUserId(userBean.getUserId()));
+				});
 			}
+
 		}
-		return PageUtils.of(pageList);
+
+		return PageUtils.of(rdList, resultCount, pageParams.getCurrentPage(), pageParams.getPageSize());
 	}
 
 	@Override
-	@CacheEvict(value = { AdminCacheKey.USER_INFO }, allEntries = true)
 	@Transactional
+	@CacheEvict(allEntries = true)
 	public Boolean delByUserId(Integer userId) {
 		if (null == userId || userId <= 0) return Boolean.FALSE;
 
@@ -215,14 +252,23 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 	}
 
 	@Override
-	@CacheEvict(value = { AdminCacheKey.USER_INFO }, allEntries = true)
 	@Transactional
-	public boolean addUserAndRole(User user, Integer roleId) {
+	@CacheEvict(allEntries = true)
+	public boolean addUserAndRoleDept(UserForm userForm) {
+
+		User user = new User();
+		user.setCreateTime(new Date());
+		user.setStatu(0);
+		user.setDeptId(userForm.getDeptId());
+		user.setPassword(new BCryptPasswordEncoder().encode(userForm.getPassword().trim()));
+		user.setUpdateTime(new Date());
+		user.setUsername(userForm.getUsername().trim());
+		user.setMobile(userForm.getMobile());
 
 		User dbUser = this.userRepository.saveAndFlush(user);
 
 		UserRole uRole = new UserRole();
-		uRole.setRoleId(roleId);
+		uRole.setRoleId(userForm.getRoleId());
 		uRole.setUserId(dbUser.getUserId());
 
 		this.userRoleRepository.saveAndFlush(uRole);
@@ -230,9 +276,9 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 	}
 
 	@Override
-	@CacheEvict(value = { AdminCacheKey.USER_INFO }, allEntries = true)
 	@Transactional
-	public boolean updateUserAndRole(UserForm userForm) {
+	@CacheEvict(allEntries = true)
+	public boolean updateUserAndRoleDept(UserForm userForm) {
 		if (null == userForm.getUserId() || userForm.getUserId() <= 0) return Boolean.FALSE;
 
 		User user = userRepository.findUserByUserId(userForm.getUserId());
@@ -241,7 +287,9 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 		user.setStatu(userForm.getStatu());
 		user.setUpdateTime(new Date());
 		user.setUserId(userForm.getUserId());
+		user.setDeptId(userForm.getDeptId());
 		user.setUsername(userForm.getUsername());
+		user.setMobile(userForm.getMobile());
 		userRepository.save(user);
 
 		QUserRole qUserRole = QUserRole.userRole;
@@ -259,8 +307,8 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 	}
 
 	@Override
-	@CacheEvict(value = { AdminCacheKey.USER_INFO }, allEntries = true)
 	@Transactional
+	@CacheEvict(allEntries = true)
 	public boolean updateUser(User user) {
 		if (null == user || null == user.getUserId()) return false;
 
