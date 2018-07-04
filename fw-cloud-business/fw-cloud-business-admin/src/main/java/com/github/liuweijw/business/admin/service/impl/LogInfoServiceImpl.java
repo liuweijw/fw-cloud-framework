@@ -1,5 +1,7 @@
 package com.github.liuweijw.business.admin.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -50,6 +52,13 @@ public class LogInfoServiceImpl implements LogInfoService {
 		Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "id"));
 		PageRequest pageRequest = PageUtils.of(pageParams, sort);
 		Page<LogInfo> pageList = logInfoRepository.findAll(predicate, pageRequest);
+
+		List<LogInfo> cList = pageList.getContent();
+		if (null != cList && cList.size() > 0) {
+			cList.forEach(log -> {
+				log.setIdView(log.getId() + "");
+			});
+		}
 		return PageUtils.of(pageList);
 	}
 

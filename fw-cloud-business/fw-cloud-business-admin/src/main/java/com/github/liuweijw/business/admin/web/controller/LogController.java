@@ -37,7 +37,9 @@ public class LogController extends BaseController {
 	@RequestMapping(value = "/del/{id}", method = RequestMethod.POST)
 	@PrePermissions(value = Functional.DEL)
 	public R<Boolean> del(HttpServletRequest request, @PathVariable Long id) {
-		if (null == id || id.intValue() <= 0) return new R<Boolean>().failure("日志id为空");
+		if (null == id || id <= 0)
+			return new R<Boolean>().data(false).failure("日志id为空");
+
 		boolean isDel = this.logInfoService.delById(id);
 		return new R<Boolean>().data(isDel);
 	}
