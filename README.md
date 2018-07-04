@@ -39,9 +39,9 @@
 - fw-cloud-business-admin   [端口2002] 权限管理等接口服务
 - fw-cloud-business-sso     [端口3001] 单点登录模块接入demo
 - fw-cloud-business-pay     [端口2003] 微信等支付统一下单模块服务
-- fw-cloud-business-pay-demo 微信、支付宝等支付相关demo待开发
+- fw-cloud-business-pay-demo [端口待定] 微信、支付宝等支付相关demo待开发
 - fw-cloud-business-wechat  [端口2004] 微信公众号模块服务
-- fw-cloud-business-wechat-demo 微信公众号相关demo待开发
+- fw-cloud-business-wechat-demo [端口待定] 微信公众号相关demo待开发
 
 4、fw-cloud-api 抽离feign api供其它工程调用
 - fw-cloud-system-api admin工程相关的feign api
