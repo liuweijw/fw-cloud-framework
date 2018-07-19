@@ -3,7 +3,7 @@ package com.github.liuweijw.business.wechat.handler;
 import java.util.Map;
 
 import me.chanjar.weixin.common.api.WxConsts.XmlMsgType;
-import me.chanjar.weixin.common.exception.WxErrorException;
+import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.session.WxSessionManager;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;

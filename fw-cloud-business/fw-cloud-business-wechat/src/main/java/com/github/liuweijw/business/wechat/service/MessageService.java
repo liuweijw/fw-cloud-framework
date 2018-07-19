@@ -1,6 +1,6 @@
 package com.github.liuweijw.business.wechat.service;
 
-import me.chanjar.weixin.common.exception.WxErrorException;
+import me.chanjar.weixin.common.error.WxErrorException;
 
 import com.github.liuweijw.commons.pay.beans.MsgBean;
 import com.github.liuweijw.commons.pay.enums.WxTemplateEnum;
