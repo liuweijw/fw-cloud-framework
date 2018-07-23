@@ -88,7 +88,7 @@
 		<ttl.version>2.2.0</ttl.version>
 		<zuul-ratelimit>1.7.0.RELEASE</zuul-ratelimit>
 		<hutool-all>3.3.2</hutool-all>
-		<weixin.business.version>3.0.0</weixin.business.version>
+		<weixin.business.version>3.1.0</weixin.business.version>
 		<weixin.emoji.converter.version>0.1.1</weixin.emoji.converter.version>
 		<cloud-commons.version>1.0.5-SNAPSHOT</cloud-commons.version>
 		<kaptcha.version>0.0.9</kaptcha.version>
@@ -197,7 +197,7 @@
 	            <version>${fw.api.version}</version>
 	        </dependency>
 	        <!-- fw-cloud-system-api //system 工程feign api -->
-        
+
 			<!-- fw-cloud-business-commons //business 工程基础依赖 -->
 			<dependency>
 				<groupId>com.github.liuweijw.business</groupId>
@@ -210,11 +210,11 @@
 				<version>${fw.business.version}</version>
 			</dependency>
 			<!-- fw-cloud-business-commons //business 工程基础依赖 -->
-			
+
 			<!-- 远程依赖 // https://github.com/liuweijw/cloud-commons.git -->
 			<dependency>
 				<groupId>com.github.liuweijw.commons</groupId>
-				<artifactId>cloud-commons-utils</artifactId> 
+				<artifactId>cloud-commons-utils</artifactId>
 				<version>${cloud-commons.version}</version>
 			</dependency>
 			<dependency>
@@ -227,41 +227,41 @@
 				<artifactId>cloud-commons-pay</artifactId>
 				<version>${cloud-commons.version}</version>
 			</dependency>
-		
+
 			<!-- 支持数据库分库分表 // https://github.com/shardingjdbc -->
 			<dependency>
 				<groupId>io.shardingjdbc</groupId>
 				<artifactId>sharding-jdbc-core-spring-boot-starter</artifactId>
 				<version>${shardingjdbc.version}</version>
 			</dependency>
-			
+
 			<!-- 图像验证码生成 -->
 			<dependency>
 				<groupId>com.github.axet</groupId>
 				<artifactId>kaptcha</artifactId>
 				<version>${kaptcha.version}</version>
 			</dependency>
-		
+
 			<!--  // 支付、公众号相关 -->
 			<dependency>
 				<groupId>com.github.binarywang</groupId>
 				<artifactId>weixin-java-pay</artifactId>
 				<version>${weixin.business.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>com.github.binarywang</groupId>
 				<artifactId>weixin-java-mp</artifactId>
 				<version>${weixin.business.version}</version>
 			</dependency>
-	
+
 			<dependency>
 				<groupId>com.github.binarywang</groupId>
 				<artifactId>java-emoji-converter</artifactId>
 				<version>${weixin.emoji.converter.version}</version>
 			</dependency>
 			<!--  // 支付、公众号相关 -->
-		
+
 			<!-- swagger -->
 			<dependency>
 				<groupId>io.springfox</groupId>
@@ -338,7 +338,7 @@
 				<artifactId>commons-lang3</artifactId>
 				<version>${commons-lang3}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>com.xiaoleilu</groupId>
 				<artifactId>hutool-all</artifactId>
