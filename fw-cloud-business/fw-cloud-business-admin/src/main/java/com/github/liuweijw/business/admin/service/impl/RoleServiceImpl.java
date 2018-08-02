@@ -22,7 +22,6 @@ import com.github.liuweijw.business.admin.domain.QRole;
 import com.github.liuweijw.business.admin.domain.QRoleDept;
 import com.github.liuweijw.business.admin.domain.Role;
 import com.github.liuweijw.business.admin.domain.RoleDept;
-import com.github.liuweijw.business.admin.repository.DeptRepository;
 import com.github.liuweijw.business.admin.repository.RoleDeptRepository;
 import com.github.liuweijw.business.admin.repository.RoleRepository;
 import com.github.liuweijw.business.admin.service.RoleService;
@@ -43,16 +42,14 @@ public class RoleServiceImpl extends JPAFactoryImpl implements RoleService {
 	@Autowired
 	private RoleDeptRepository	roleDeptRepository;
 
-	@Autowired
-	private DeptRepository		deptRepository;
-
 	@Override
 	@Cacheable(key = "'role_code_' + #roleCode")
 	public Role findRoleByCode(String roleCode) {
 		if (StringHelper.isBlank(roleCode)) return null;
 
 		QRole qRole = QRole.role;
-		return this.queryFactory.selectFrom(qRole).where(qRole.roleCode.eq(roleCode.trim()))
+		return this.queryFactory.selectFrom(qRole)
+				.where(qRole.roleCode.eq(roleCode.trim()))
 				.fetchOne();
 	}
 
@@ -64,8 +61,11 @@ public class RoleServiceImpl extends JPAFactoryImpl implements RoleService {
 		// load role
 		QRoleDept qRoleDept = QRoleDept.roleDept;
 		QRole qRole = QRole.role;
-		List<Role> rList = this.queryFactory.select(qRole).from(qRoleDept, qRole).where(
-				qRoleDept.deptId.eq(deptId)).where(qRoleDept.roleId.eq(qRole.roleId)).fetch();
+		List<Role> rList = this.queryFactory.select(qRole)
+				.from(qRoleDept, qRole)
+				.where(qRoleDept.deptId.eq(deptId))
+				.where(qRoleDept.roleId.eq(qRole.roleId))
+				.fetch();
 
 		return rList;
 	}
@@ -174,7 +174,8 @@ public class RoleServiceImpl extends JPAFactoryImpl implements RoleService {
 		if (null == roleId || roleId <= 0) return Boolean.FALSE;
 
 		QRole qRole = QRole.role;
-		long num = this.queryFactory.update(qRole).set(qRole.statu, 1) // 0 正常 1删除
+		long num = this.queryFactory.update(qRole)
+				.set(qRole.statu, 1) // 0 正常 1删除
 				.where(qRole.roleId.eq(roleId.intValue()))
 				.execute();
 
