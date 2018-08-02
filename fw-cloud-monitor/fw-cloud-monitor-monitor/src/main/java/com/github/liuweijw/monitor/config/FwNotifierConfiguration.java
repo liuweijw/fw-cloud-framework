@@ -2,8 +2,6 @@ package com.github.liuweijw.monitor.config;
 
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -17,9 +15,6 @@ import de.codecentric.boot.admin.notify.RemindingNotifier;
 @Configuration
 @EnableScheduling
 public class FwNotifierConfiguration {
-
-	@Autowired
-	private RabbitTemplate	rabbitTemplate;
 
 	@Bean
 	@Primary
