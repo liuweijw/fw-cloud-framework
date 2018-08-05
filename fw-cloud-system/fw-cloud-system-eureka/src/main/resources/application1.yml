@@ -1,5 +1,5 @@
 server:
-  port: 1001
+  port: 100101
 
 spring:
   application:
@@ -9,10 +9,12 @@ spring:
 
 eureka:
   instance:
-   hostname: localhost
+   hostname: eureka1
   client:
     fetch-registry: false
     register-with-eureka: false
+    serviceUrl:
+      defaultZone: http://eureka2:100102/eureka/
 ---
 spring:
   profiles: dev

@@ -78,7 +78,7 @@
 		<spring-boot.version>1.5.12.RELEASE</spring-boot.version>
 		<spring-cloud.version>Edgware.SR3</spring-cloud.version>
 		<lombok.version>1.16.20</lombok.version>
-		<swagger2.version>2.9.0</swagger2.version>
+		<swagger2.version>2.9.2</swagger2.version>
 		<jjwt>0.7.0</jjwt>
 		<fastjson>1.2.30</fastjson>
 		<mysql.version>5.1.46</mysql.version>
@@ -90,7 +90,7 @@
 		<hutool-all>3.3.2</hutool-all>
 		<weixin.business.version>3.1.0</weixin.business.version>
 		<weixin.emoji.converter.version>0.1.1</weixin.emoji.converter.version>
-		<cloud-commons.version>1.0.5-SNAPSHOT</cloud-commons.version>
+		<cloud-commons.version>1.0.6-SNAPSHOT</cloud-commons.version>
 		<kaptcha.version>0.0.9</kaptcha.version>
 		<shardingjdbc.version>2.0.3</shardingjdbc.version>
 		<hibernate.validator.version>5.3.6.Final</hibernate.validator.version>
@@ -396,7 +396,7 @@
 				</plugin>
 
 				<!-- 发布到 maven central -->
-				<plugin>
+				<!--<plugin>
 					<groupId>org.sonatype.plugins</groupId>
 					<artifactId>nexus-staging-maven-plugin</artifactId>
 					<version>1.6.3</version>
@@ -406,7 +406,7 @@
 						<nexusUrl>https://oss.sonatype.org/</nexusUrl>
 						<autoReleaseAfterClose>true</autoReleaseAfterClose>
 					</configuration>
-				</plugin>
+				</plugin>-->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-release-plugin</artifactId>
@@ -451,7 +451,7 @@
 		</pluginManagement>
 	</build>
 
-	<distributionManagement>
+	<!--<distributionManagement>
 		<repository>
 			<id>sonatype-releases</id>
 			<name>sonatype repository</name>
@@ -480,5 +480,5 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-	</repositories>
+	</repositories>-->
 </project>
