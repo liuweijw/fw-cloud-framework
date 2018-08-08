@@ -1,5 +1,5 @@
 -- --------------------------------------------------------
--- 主机:                           47.106.144.24
+-- 主机:                           0.0.0.0
 -- 服务器版本:                        5.7.21 - MySQL Community Server (GPL)
 -- 服务器操作系统:                      Linux
 -- HeidiSQL 版本:                  8.0.0.4396
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `t_sys_dept_relation` (
   PRIMARY KEY (`pre_id`,`after_id`),
   KEY `pre_id` (`pre_id`),
   KEY `after_id` (`after_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='部门关联表';
 
 -- 正在导出表  fw-cloud.t_sys_dept_relation 的数据：~0 rows (大约)
 DELETE FROM `t_sys_dept_relation`;
@@ -64,7 +64,7 @@ DELETE FROM `t_sys_dept_relation`;
 /*!40000 ALTER TABLE `t_sys_dept_relation` ENABLE KEYS */;
 
 
--- 导出  表 fw-cloud.t_sys_dict 结构
+-- 导出  系统字典表 fw-cloud.t_sys_dict 结构
 DROP TABLE IF EXISTS `t_sys_dict`;
 CREATE TABLE IF NOT EXISTS `t_sys_dict` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
@@ -191,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `t_sys_module` (
   `code` varchar(20) NOT NULL COMMENT '编码',
   `name` varchar(100) NOT NULL COMMENT '名称',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='元操作表';
 
 -- 正在导出表  fw-cloud.t_sys_module 的数据：~6 rows (大约)
 DELETE FROM `t_sys_module`;
@@ -218,7 +218,7 @@ CREATE TABLE IF NOT EXISTS `t_sys_role` (
   `statu` smallint(6) NOT NULL DEFAULT '0' COMMENT '删除标识（0-正常,1-删除）',
   PRIMARY KEY (`role_id`),
   UNIQUE KEY `role_idx1_role_code` (`role_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='系统角色表';
 
 -- 正在导出表  fw-cloud.t_sys_role 的数据：~3 rows (大约)
 DELETE FROM `t_sys_role`;
@@ -237,7 +237,7 @@ CREATE TABLE IF NOT EXISTS `t_sys_role_dept` (
   `role_id` int(20) DEFAULT NULL COMMENT '角色ID',
   `dept_id` int(20) DEFAULT NULL COMMENT '部门ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色与部门对应关系';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色与部门对应关系表';
 
 -- 正在导出表  fw-cloud.t_sys_role_dept 的数据：~3 rows (大约)
 DELETE FROM `t_sys_role_dept`;
@@ -399,7 +399,7 @@ CREATE TABLE IF NOT EXISTS `t_sys_user` (
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_idx1_username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='系统用户表';
 
 -- 正在导出表  fw-cloud.t_sys_user 的数据：~8 rows (大约)
 DELETE FROM `t_sys_user`;
@@ -462,7 +462,7 @@ CREATE TABLE IF NOT EXISTS `zipkin_annotations` (
   KEY `a_type` (`a_type`) COMMENT 'for getTraces',
   KEY `a_key` (`a_key`) COMMENT 'for getTraces',
   KEY `trace_id` (`trace_id`,`span_id`,`a_key`) COMMENT 'for dependencies job'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED COMMENT='zipkin_annotations表';
 
 
 -- 导出  表 fw-cloud.zipkin_dependencies 结构
@@ -474,7 +474,7 @@ CREATE TABLE IF NOT EXISTS `zipkin_dependencies` (
   `call_count` bigint(20) DEFAULT NULL,
   `error_count` bigint(20) DEFAULT NULL,
   UNIQUE KEY `day` (`day`,`parent`,`child`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED COMMENT='zipkin_dependencies表'
 
 
 -- 导出  表 fw-cloud.zipkin_spans 结构
@@ -493,7 +493,7 @@ CREATE TABLE IF NOT EXISTS `zipkin_spans` (
   KEY `trace_id_high_3` (`trace_id_high`,`trace_id`) COMMENT 'for getTracesByIds',
   KEY `name` (`name`) COMMENT 'for getTraces and getSpanNames',
   KEY `start_ts` (`start_ts`) COMMENT 'for getTraces ordering and range'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED COMMENT='zipkin_spans表';
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
