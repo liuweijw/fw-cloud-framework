@@ -8,13 +8,10 @@ spring:
     active: dev
 
 eureka:
-  instance:
-   hostname: localhost
   client:
-    fetch-registry: false         #是否取得注册信息(配置false)
-    register-with-eureka: false   #配置服务注册中心是否以自己为客户端进行注册(配置false)
     fetch-registry: false
     register-with-eureka: false
+
 ---
 spring:
   profiles: dev
@@ -36,7 +33,7 @@ security:
     enabled: true
   user:
     name: admin
-    password: admin
+    password: liuweijw
 eureka:
   server:
     enable-self-preservation: false
@@ -49,4 +46,4 @@ security:
     enabled: true
   user:
     name: admin
-    password: admin
+    password: liuweijw
