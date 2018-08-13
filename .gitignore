@@ -3,5 +3,6 @@
 .classpath
 /target
 .factorypath
-.iml
-.class
+*.iml
+*.class
+*.log
