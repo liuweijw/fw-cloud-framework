@@ -23,7 +23,7 @@ import com.github.liuweijw.core.commons.https.HttpUtil;
 /**
  * 支付队列消息监听：消息对象必须是经过序列化操作的对象
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Slf4j
 @Component

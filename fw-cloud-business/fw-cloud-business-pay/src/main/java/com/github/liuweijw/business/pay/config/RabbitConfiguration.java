@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * rabbit初始化配置
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Configuration
 public class RabbitConfiguration {

@@ -8,7 +8,7 @@ import com.github.liuweijw.commons.base.tree.TreeNode;
 /**
  * 部门树形结构
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Setter
 @Getter

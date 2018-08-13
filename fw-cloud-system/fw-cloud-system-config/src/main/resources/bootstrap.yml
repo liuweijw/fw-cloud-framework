@@ -58,11 +58,11 @@ spring:
         max-attempts: 6
 eureka:
   instance:
-    ip-address: 47.106.144.24
+    ip-address: localhost
     prefer-ip-address: true
   client:
     serviceUrl:
-      defaultZone: http://admin:liuweijw@47.106.144.24:1001/eureka
+      defaultZone: http://admin:liuweijw@localhost:1001/eureka
 ---
 spring:
   profiles: prod

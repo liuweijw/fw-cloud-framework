@@ -474,7 +474,7 @@ CREATE TABLE IF NOT EXISTS `zipkin_dependencies` (
   `call_count` bigint(20) DEFAULT NULL,
   `error_count` bigint(20) DEFAULT NULL,
   UNIQUE KEY `day` (`day`,`parent`,`child`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED COMMENT='zipkin_dependencies表'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPRESSED COMMENT='zipkin_dependencies表';
 
 
 -- 导出  表 fw-cloud.zipkin_spans 结构

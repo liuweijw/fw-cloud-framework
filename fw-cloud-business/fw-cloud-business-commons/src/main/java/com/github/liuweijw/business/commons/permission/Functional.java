@@ -3,7 +3,7 @@ package com.github.liuweijw.business.commons.permission;
 /**
  * 方法上标注需要的权限
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 public interface Functional {
 

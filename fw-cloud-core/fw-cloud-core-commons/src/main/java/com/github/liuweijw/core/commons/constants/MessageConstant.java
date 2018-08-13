@@ -3,7 +3,7 @@ package com.github.liuweijw.core.commons.constants;
 /**
  * 自定义消息常量 SYSTEM_AUTH 开头对应 fw-cloud-system-auth-xxx BUSINESS_ADMIN 开头对应 fw-cloud-business-admin-xxx
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 public interface MessageConstant {
 

@@ -19,7 +19,7 @@ import com.github.liuweijw.core.commons.constants.CommonConstant;
 import com.github.liuweijw.core.commons.constants.SecurityConstant;
 
 /**
- * @author liuweijw 用户相关工具类
+ * @author luozhonghua 用户相关工具类
  */
 public class JwtUtil {
 

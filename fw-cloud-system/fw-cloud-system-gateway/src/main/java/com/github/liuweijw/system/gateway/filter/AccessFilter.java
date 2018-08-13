@@ -13,7 +13,7 @@ import com.netflix.zuul.context.RequestContext;
 import com.xiaoleilu.hutool.collection.CollectionUtil;
 
 /**
- * @author liuweijw 在RateLimitPreFilter 之前执行，否则会出现空指针问题
+ * @author luozhonghua 在RateLimitPreFilter 之前执行，否则会出现空指针问题
  */
 @Component
 public class AccessFilter extends ZuulFilter {

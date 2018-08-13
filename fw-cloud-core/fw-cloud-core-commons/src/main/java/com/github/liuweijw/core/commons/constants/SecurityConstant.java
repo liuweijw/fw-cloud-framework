@@ -1,7 +1,7 @@
 package com.github.liuweijw.core.commons.constants;
 
 /**
- * @author liuweijw
+ * @author luozhonghua
  */
 public interface SecurityConstant {
 
@@ -133,7 +133,7 @@ public interface SecurityConstant {
 	/**
 	 * LICENSE
 	 */
-	String	LICENSE								= "Copyright (c) 2018 liuweijw";
+	String	LICENSE								= "Copyright (c) 2018 ST";
 
 	/**
 	 * 前缀

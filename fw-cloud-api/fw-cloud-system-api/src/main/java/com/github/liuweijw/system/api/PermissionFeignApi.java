@@ -10,7 +10,7 @@ import com.github.liuweijw.system.api.hystrix.PermissionFeignApiHystrix;
 import com.github.liuweijw.system.api.model.AuthPermission;
 
 /**
- * @author liuweijw
+ * @author luozhonghua
  */
 @FeignClient(name = "business-admin-server", fallback = PermissionFeignApiHystrix.class)
 public interface PermissionFeignApi {

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cloud.simple.service.dao.SysAdminMenuDao">
+  <resultMap id="BaseResultMap" type="cloud.simple.service.model.SysAdminMenu">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="menu_type" jdbcType="TINYINT" property="menuType" />
+    <result column="sort" jdbcType="TINYINT" property="sort" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="rule_id" jdbcType="INTEGER" property="ruleId" />
+    <result column="module" jdbcType="VARCHAR" property="module" />
+    <result column="menu" jdbcType="VARCHAR" property="menu" />
+    <association property="rule" column="rule_id" javaType="cloud.simple.service.model.SysAdminRule" select="getRule"/>
+  </resultMap>
+  
+  
+  <!-- 根据权限ids查询菜单信息 -->
+  <select id="selectInRuleIds" resultMap="BaseResultMap">
+  	SELECT * FROM sys_admin_menu t1 where t1.status = #{status} AND t1.rule_id in (#{ruleIds}) order by sort asc
+  </select>
+  
+   <select id="getRule" parameterType="int" resultType="cloud.simple.service.model.SysAdminRule">
+         SELECT id, title, name, level, pid, status FROM sys_admin_rule WHERE id=#{id}
+   </select>
+</mapper>

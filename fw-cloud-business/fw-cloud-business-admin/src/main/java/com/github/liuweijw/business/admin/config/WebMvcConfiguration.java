@@ -12,7 +12,7 @@ import com.github.liuweijw.business.admin.aop.AuthorizationInterceptor;
 import com.github.liuweijw.business.admin.aop.TokenArgumentResolver;
 
 /**
- * @author liuweijw
+ * @author luozhonghua
  */
 @Configuration
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {

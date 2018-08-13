@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 微信公众号开发，权限验证等
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @RestController
 @RequestMapping("/wechat/portal")

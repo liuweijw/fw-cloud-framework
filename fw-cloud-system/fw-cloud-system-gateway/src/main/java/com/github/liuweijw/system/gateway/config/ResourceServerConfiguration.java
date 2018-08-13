@@ -19,7 +19,7 @@ import com.github.liuweijw.system.gateway.filter.ValidateCodeFilter;
 import com.github.liuweijw.system.gateway.handler.AccessDeniedHandler;
 
 /**
- * @author liuweijw
+ * @author luozhonghua
  */
 @Configuration
 @EnableResourceServer

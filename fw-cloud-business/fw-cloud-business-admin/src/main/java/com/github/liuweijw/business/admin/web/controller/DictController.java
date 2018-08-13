@@ -31,7 +31,7 @@ import com.github.liuweijw.core.configuration.ApiTag;
 /**
  * 字典管理
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Api(value = "字典信息管理", tags = ApiTag.TAG_DEFAULT)
 @RestController

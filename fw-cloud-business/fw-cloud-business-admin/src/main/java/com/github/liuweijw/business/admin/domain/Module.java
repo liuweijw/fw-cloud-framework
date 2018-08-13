@@ -16,7 +16,7 @@ import com.github.liuweijw.business.commons.permission.Functional;
 /**
  * 方法上标注需要的权限 {@link Functional }
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Setter
 @Getter

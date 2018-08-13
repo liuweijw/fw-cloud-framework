@@ -1,0 +1,50 @@
+server:
+  port: 80
+
+redis:
+  cache:
+    expiration: 3600
+
+logging:
+   level:
+     tk:
+       mybatis: TRACE
+     com:
+      framework: TRACE
+
+druid:
+    url: jdbc:mysql://localhost:3306/cloud-vue?useUnicode=true&characterEncoding=utf8&useSSL=false
+    driver-class: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    initial-size: 1
+    min-idle: 1
+    max-active: 20
+    test-on-borrow: true
+
+pagehelper:
+   helperDialect: mysql
+   reasonable: true
+   supportMethodsArguments: true
+   reasonable: true
+   params: count=countSql
+
+mybatis:
+  type-aliases-package: cloud.simple.service.model
+  mapper-locations: classpath*:/mappers/**.xml
+  mappers: cloud.simple.service.util.MyMapper
+  not-empty: true
+  identity: MYSQL
+  configuration.mapUnderscoreToCamelCase: true
+
+spring:
+   http:
+     multipart:
+        enabled: true
+        file-size-threshold: 0
+        location: D:/test
+        max-file-size: 1Mb
+        max-request-size: 10Mb
+
+logging:
+  config: classpath:logback.xml

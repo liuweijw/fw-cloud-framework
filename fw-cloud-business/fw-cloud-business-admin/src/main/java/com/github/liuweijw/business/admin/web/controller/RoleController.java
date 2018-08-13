@@ -36,7 +36,7 @@ import com.github.liuweijw.core.configuration.ApiTag;
 /**
  * 角色服务
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Api(value = "角色信息管理", tags = ApiTag.TAG_DEFAULT)
 @RestController

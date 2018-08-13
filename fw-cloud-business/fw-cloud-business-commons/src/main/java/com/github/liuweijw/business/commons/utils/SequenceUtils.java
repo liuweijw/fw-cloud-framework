@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * 获取序列号字符串
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 public class SequenceUtils {
 

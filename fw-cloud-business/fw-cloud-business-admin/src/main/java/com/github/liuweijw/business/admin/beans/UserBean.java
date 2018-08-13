@@ -8,7 +8,7 @@ import lombok.Setter;
 import com.github.liuweijw.business.admin.domain.User;
 
 /**
- * @author liuweijw
+ * @author luozhonghua
  */
 @Setter
 @Getter

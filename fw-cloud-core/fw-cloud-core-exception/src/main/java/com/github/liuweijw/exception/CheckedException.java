@@ -3,7 +3,7 @@ package com.github.liuweijw.exception;
 /**
  * 全局check检查异常
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 public class CheckedException extends RuntimeException {
 

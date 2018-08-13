@@ -100,8 +100,18 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 		// load role
 		QUserRole qUserRole = QUserRole.userRole;
 		QRole qRole = QRole.role;
+
 		List<Role> rList = this.queryFactory.select(qRole).from(qUserRole, qRole).where(
 				qUserRole.userId.eq(userId)).where(qUserRole.roleId.eq(qRole.roleId)).fetch();
+
+		//TODO
+        System.out.println("-------- QUserRole.userRole:"+ QUserRole.userRole);
+        System.out.println("--------qRole.roleId:"+qRole.roleId);
+        System.out.println("--------userId:"+userId);
+
+        
+        for (Role r:rList)
+        System.out.println("-------- RoleId:"+r.getRoleId()+"  RoleName:"+r.getRoleName()+"  RoleDesc:"+r.getRoleDesc()+"  RoleCode:"+r.getRoleCode()+" getStatu:"+r.getStatu()+" getDeptId:"+r.getDeptId());
 
 		return rList;
 	}

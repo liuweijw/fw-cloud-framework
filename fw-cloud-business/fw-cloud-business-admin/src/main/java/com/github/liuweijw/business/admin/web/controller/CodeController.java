@@ -22,7 +22,7 @@ import com.google.code.kaptcha.Producer;
 /**
  * 图像验证码服务
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Controller
 @PrePermissions(value = Module.CODE, required = false)

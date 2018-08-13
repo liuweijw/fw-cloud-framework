@@ -9,7 +9,7 @@ import com.github.binarywang.wxpay.config.WxPayConfig;
 /**
  * 微信支付工具
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 public class WxPayUtil {
 

@@ -8,7 +8,7 @@ import lombok.Setter;
 /**
  * 回调通知Bean
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Setter
 @Getter

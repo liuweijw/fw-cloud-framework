@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import com.github.liuweijw.system.api.UserFeignApi;
 
 /**
- * @author liuweijw
+ * @author luozhonghua
  */
 @Component
 public class AjaxSecurityConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {

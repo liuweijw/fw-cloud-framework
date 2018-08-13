@@ -1,5 +1,6 @@
 package com.github.liuweijw.business.admin.web.controller;
 
+import com.github.liuweijw.system.api.model.AuthRole;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -30,7 +31,7 @@ import com.github.liuweijw.system.api.model.AuthUser;
 /**
  * 用户管理服务
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @RestController
 @Api(value = "用户信息", tags = ApiTag.TAG_DEFAULT)
@@ -51,7 +52,7 @@ public class UserController extends BaseController {
 		return new R<PageBean<User>>().data(pageData);
 	}
 
-	/**
+	/**updateUser
 	 * 通过userId删除数据
 	 */
 	@ApiOperation(value = "删除用户", notes = "根据userId删除用户")
@@ -71,7 +72,11 @@ public class UserController extends BaseController {
 	@PrePermissions(value = Functional.VIEW)
 	public R<AuthUser> findByUserId(HttpServletRequest request,
 			@PathVariable("userId") Integer userId) {
+
+	    //查的数据不全
 		AuthUser authUser = this.userService.findByUserId(String.valueOf(userId));
+
+
 		if (null == authUser) return new R<AuthUser>().failure();
 		return new R<AuthUser>().success().data(authUser);
 	}
@@ -101,6 +106,25 @@ public class UserController extends BaseController {
 		boolean r = this.userService.updateUserAndRoleDept(userForm);
 		return new R<Boolean>().data(r);
 	}
+
+
+
+
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    @PrePermissions(value = Functional.UPD)
+    public R<Boolean> updateUser(HttpServletRequest request, @RequestBody UserForm userForm) {
+        if (null == userForm.getUserId()) return new R<Boolean>().failure("用户不存在");
+        if (null == userForm.getDeptId()) return new R<Boolean>().failure("请选择部门");
+        if (null == userForm.getRoleId()) return new R<Boolean>().failure("请选择角色");
+
+        boolean r = this.userService.updateUserAndRoleDept(userForm);
+        return new R<Boolean>().data(r);
+    }
+
+
+
+
+
 
 	/**
 	 * 修改用户密码

@@ -13,7 +13,7 @@ import com.github.liuweijw.exception.CheckedException;
 /**
  * Web相关工具类
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 public class RequestUtil {
 

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import com.github.liuweijw.core.commons.constants.MqQueueConstant;
 
 /**
- * @author liuweijw rabbit初始化配置
+ * @author luozhonghua rabbit初始化配置
  */
 @Configuration
 public class RabbitConfiguration {

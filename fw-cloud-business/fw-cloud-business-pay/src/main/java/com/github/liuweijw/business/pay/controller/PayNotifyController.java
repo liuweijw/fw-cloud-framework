@@ -31,7 +31,7 @@ import com.github.liuweijw.commons.utils.StringHelper;
 /**
  * 支付后台通知
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Slf4j
 @RestController

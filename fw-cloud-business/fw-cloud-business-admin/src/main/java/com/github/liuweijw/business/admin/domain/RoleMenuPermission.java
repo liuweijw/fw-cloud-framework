@@ -14,7 +14,7 @@ import lombok.Setter;
 /**
  * 系统菜单功能权限
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Setter
 @Getter

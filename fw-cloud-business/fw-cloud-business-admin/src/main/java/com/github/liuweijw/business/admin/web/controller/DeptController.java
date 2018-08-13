@@ -33,7 +33,7 @@ import com.github.liuweijw.commons.utils.StringHelper;
 /**
  * 部门管理服务
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @RestController
 @RequestMapping("/dept")

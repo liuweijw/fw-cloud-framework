@@ -11,7 +11,7 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
 /**
- * @author liuweijw 网关统一异常处理
+ * @author luozhonghua 网关统一异常处理
  */
 @Component
 public class ErrorHandlerFilter extends ZuulFilter {

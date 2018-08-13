@@ -23,7 +23,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * Swagger API 文档配置
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Configuration
 @EnableSwagger2

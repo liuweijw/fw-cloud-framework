@@ -23,7 +23,7 @@ import com.github.liuweijw.system.auth.service.UserDetailsImpl;
  * 8.验证通过后，可实现自定义逻辑操作，如记录cookie信息<br/>
  * 9.attemptAuthentication方法执行完成后，由springSecuriy来进行对应权限验证，成功于否会跳转到相对应处理器设置的界面。<br/>
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 public class AjaxAuthenticationProvider implements AuthenticationProvider {
 

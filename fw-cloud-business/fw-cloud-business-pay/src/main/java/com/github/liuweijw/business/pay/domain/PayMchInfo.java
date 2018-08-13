@@ -15,7 +15,7 @@ import lombok.Setter;
 /**
  * 商户信息表
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Setter
 @Getter

@@ -30,7 +30,7 @@ import com.github.liuweijw.system.api.model.AuthUser;
 /**
  * 无须经过网关权限的接口
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @RestController
 @RequestMapping("/api")

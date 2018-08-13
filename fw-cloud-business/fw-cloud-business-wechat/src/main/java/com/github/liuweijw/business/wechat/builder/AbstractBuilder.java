@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 构建消息
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 public abstract class AbstractBuilder {
 

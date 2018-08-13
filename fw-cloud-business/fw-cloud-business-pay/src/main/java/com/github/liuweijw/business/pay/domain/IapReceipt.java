@@ -15,7 +15,7 @@ import lombok.Setter;
 /**
  * 苹果支付凭据表
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Setter
 @Getter

@@ -3,7 +3,7 @@ package com.github.liuweijw.business.commons.web;
 /**
  * 所有controller 需继承此类
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 public abstract class BaseController {
 

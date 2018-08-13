@@ -11,7 +11,7 @@ import com.github.liuweijw.business.commons.tree.MenuTree;
 /**
  * 用于redis缓存的必须实现Serializable 接口
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Setter
 @Getter

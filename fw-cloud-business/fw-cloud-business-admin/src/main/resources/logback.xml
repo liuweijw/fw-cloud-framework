@@ -148,7 +148,7 @@
 	<logger name="com.netflix" value="WARN" />
 	<logger name="me.chanjar" value="WARN" />
 	<logger name="com.ulisesbocchio" value="WARN" />
-	<logger name="org.hibernate" value="WARN" />
+	<logger name="org.hibernate" value="DEBUG" />
 	<logger name="com.github.liuweijw" value="INFO" />
 	<logger name="c.n.discovery" value="WARN" />
 	<logger name="o.s.c.s" value="WARN" />

@@ -8,7 +8,7 @@ import com.github.liuweijw.business.admin.domain.RoleMenuPermission;
 /**
  * 权限服务
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 public interface PermissionService {
 

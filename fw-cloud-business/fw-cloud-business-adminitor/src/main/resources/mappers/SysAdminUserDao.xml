@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cloud.simple.service.dao.SysAdminUserDao">
+  <resultMap id="BaseResultMap" type="cloud.simple.service.model.SysAdminUser">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" jdbcType="INTEGER" property="createTime" />
+    <result column="realname" jdbcType="VARCHAR" property="realname" />
+    <result column="structure_id" jdbcType="INTEGER" property="structureId" />
+    <result column="post_id" jdbcType="INTEGER" property="postId" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+  </resultMap>
+  
+  
+  <!-- 根据用户id查询分组信息 -->
+  <select id="selectByUserId"  resultMap="BaseResultMap">
+  		SELECT * FROM sys_admin_group t1 WHERE t1.status=#{status}
+  		<if test="userId != null and userId !=1">
+  			t1.id in (select t2.group_id from sys_admin_access t2 WHERE t2.user_id=#{userId})
+  		</if>
+  </select>
+  
+</mapper>

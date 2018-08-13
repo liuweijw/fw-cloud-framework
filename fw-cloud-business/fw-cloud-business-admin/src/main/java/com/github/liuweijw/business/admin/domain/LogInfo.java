@@ -16,7 +16,7 @@ import lombok.Setter;
 /**
  * 日志信息表
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Setter
 @Getter

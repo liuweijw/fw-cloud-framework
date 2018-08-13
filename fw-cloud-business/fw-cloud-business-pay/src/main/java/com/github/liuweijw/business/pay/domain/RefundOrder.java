@@ -15,7 +15,7 @@ import lombok.Setter;
 /**
  * 退款信息表
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Setter
 @Getter

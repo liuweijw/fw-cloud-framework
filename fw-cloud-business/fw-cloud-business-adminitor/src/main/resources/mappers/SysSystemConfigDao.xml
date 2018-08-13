@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cloud.simple.service.dao.SysSystemConfigDao">
+  <resultMap id="BaseResultMap" type="cloud.simple.service.model.SysSystemConfig">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="group" jdbcType="TINYINT" property="group" />
+    <result column="need_auth" jdbcType="TINYINT" property="needAuth" />
+  </resultMap>
+</mapper>

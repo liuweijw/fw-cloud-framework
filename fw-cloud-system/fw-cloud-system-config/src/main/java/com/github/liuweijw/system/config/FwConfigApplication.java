@@ -10,7 +10,7 @@ import org.springframework.cloud.config.server.EnableConfigServer;
 /**
  * Config Server 配置中心
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @EnableDiscoveryClient
 @EnableConfigServer

@@ -14,7 +14,7 @@ import com.github.liuweijw.commons.base.R;
 /**
  * 支付渠道商户信息获取
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @RestController
 @RequestMapping(value = "/pay/mchinfo")

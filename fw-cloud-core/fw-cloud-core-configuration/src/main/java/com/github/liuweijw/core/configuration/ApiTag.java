@@ -3,7 +3,7 @@ package com.github.liuweijw.core.configuration;
 /**
  * Swagger API Tag
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 public interface ApiTag {
 

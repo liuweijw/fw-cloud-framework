@@ -22,7 +22,7 @@ import com.github.liuweijw.core.commons.constants.MessageConstant;
 import com.github.liuweijw.exception.DeniedException;
 
 /**
- * @author liuweijw 授权拒绝处理器，覆盖默认的OAuth2AccessDeniedHandler 包装失败信息到DeniedException
+ * @author luozhonghua 授权拒绝处理器，覆盖默认的OAuth2AccessDeniedHandler 包装失败信息到DeniedException
  */
 @Slf4j
 @Component

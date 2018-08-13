@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 生成随机码工具类
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 public class RandomStrUtils {
 

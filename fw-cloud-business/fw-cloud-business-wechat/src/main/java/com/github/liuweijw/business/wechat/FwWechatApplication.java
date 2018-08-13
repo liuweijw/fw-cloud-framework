@@ -12,7 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 /**
  * 微信公众号服务
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @EnableCaching
 @EnableScheduling

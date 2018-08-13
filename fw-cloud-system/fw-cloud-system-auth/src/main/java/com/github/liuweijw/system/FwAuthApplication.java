@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 /**
  * Auth Server 中心
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 // 认证中心，以及获取用户信息
 // @EnableResourceServer

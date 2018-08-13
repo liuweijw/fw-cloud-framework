@@ -15,7 +15,7 @@ import com.github.liuweijw.core.commons.constants.CommonConstant;
 import com.github.liuweijw.core.commons.constants.SecurityConstant;
 
 /**
- * @author liuweijw
+ * @author luozhonghua
  */
 public class AjaxAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 

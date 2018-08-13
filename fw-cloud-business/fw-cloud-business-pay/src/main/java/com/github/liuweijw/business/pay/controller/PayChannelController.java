@@ -12,7 +12,7 @@ import com.github.liuweijw.commons.base.R;
 /**
  * 支付渠道信息获取
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @RestController
 @RequestMapping(value = "/pay/channel")

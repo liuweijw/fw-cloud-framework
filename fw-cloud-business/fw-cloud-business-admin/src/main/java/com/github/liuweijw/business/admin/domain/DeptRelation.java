@@ -13,7 +13,7 @@ import lombok.Setter;
 /**
  * 部门关联信息
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Setter
 @Getter

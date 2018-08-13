@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
 
 /**
- * @author liuweijw
+ * @author luozhonghua
  */
 public class AjaxAuthenticationToken extends AbstractAuthenticationToken {
 

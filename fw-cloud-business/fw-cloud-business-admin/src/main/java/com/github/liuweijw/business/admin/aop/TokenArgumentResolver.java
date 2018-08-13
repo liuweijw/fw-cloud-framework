@@ -23,7 +23,7 @@ import com.github.liuweijw.system.api.model.AuthUser;
 /**
  * 将AuthUser参数转换为用户对象
  *
- * @author liuweijw
+ * @author luozhonghua
  */
 @Slf4j
 @Configuration

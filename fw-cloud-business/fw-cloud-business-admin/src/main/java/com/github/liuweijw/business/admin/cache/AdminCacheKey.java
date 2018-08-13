@@ -3,7 +3,7 @@ package com.github.liuweijw.business.admin.cache;
 /**
  * 各种缓存模块Key定义
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 public interface AdminCacheKey {
 

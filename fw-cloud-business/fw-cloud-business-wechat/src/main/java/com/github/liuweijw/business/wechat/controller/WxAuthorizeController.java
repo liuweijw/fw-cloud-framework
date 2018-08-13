@@ -29,7 +29,7 @@ import com.github.liuweijw.core.commons.constants.MqQueueConstant;
 /**
  * 微信公众号授权管理
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Slf4j
 @Controller

@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * 后台管理系统API
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 // @EnableAsync // 开始对异步任务的支持，并在相应的方法中使用@Async注解来声明一个异步任务
 // @EnableScheduling

@@ -18,7 +18,7 @@ import com.github.liuweijw.commons.utils.WebUtils;
 /**
  * 获取微信jsdk签名信息
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Slf4j
 @Controller

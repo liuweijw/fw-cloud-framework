@@ -7,7 +7,7 @@ import com.github.liuweijw.commons.utils.WebUtils;
 /**
  * 微信昵称带特殊字符和Emoji图标的入库处理
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 public class EmojiUtils {
 

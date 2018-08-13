@@ -15,7 +15,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 /**
  * Gateway Server 中心
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @EnableZuulProxy
 @EnableFeignClients

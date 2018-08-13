@@ -13,7 +13,7 @@ import com.github.liuweijw.commons.base.R;
 /**
  * 全局500异常
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Slf4j
 @RestControllerAdvice

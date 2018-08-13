@@ -3,7 +3,7 @@ package com.github.liuweijw.exception;
 /**
  * 全局权限拒绝异常
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 public class DeniedException extends RuntimeException {
 

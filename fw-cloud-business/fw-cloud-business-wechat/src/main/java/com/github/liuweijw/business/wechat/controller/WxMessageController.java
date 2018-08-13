@@ -23,7 +23,7 @@ import com.github.liuweijw.commons.utils.StringHelper;
 /**
  * 微信公众号消息通过openId发送
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Slf4j
 @Controller

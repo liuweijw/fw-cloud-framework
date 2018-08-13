@@ -16,7 +16,7 @@ import com.github.liuweijw.commons.pay.beans.HttpResult;
 /**
  * 通过openId 获取用户信息
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Slf4j
 @RestController

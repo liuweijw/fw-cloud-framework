@@ -6,7 +6,6 @@
 	<groupId>com.github.liuweijw.business</groupId>
 	<packaging>pom</packaging>
 	<version>${fw.business.version}</version>
-
 	<name>fw-cloud-business</name>
 	<description>业务模块</description>
 
@@ -22,9 +21,10 @@
 
 		<!-- business 业务相关模块服务 -->
 		<module>fw-cloud-business-admin</module>
+        <module>fw-cloud-business-adminitor</module>
 		<module>fw-cloud-business-sso</module>
-		<module>fw-cloud-business-pay</module>
-		<module>fw-cloud-business-wechat</module>
+        <!--<module>fw-cloud-business-pay</module>
+        <module>fw-cloud-business-wechat</module>-->
 	</modules>
 
 </project>

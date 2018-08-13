@@ -17,7 +17,7 @@ import com.github.liuweijw.core.commons.constants.MessageConstant;
 import com.github.liuweijw.core.commons.constants.ServiceIdConstant;
 
 /**
- * @author liuweijw Auth 模块异常回调
+ * @author luozhonghua Auth 模块异常回调
  */
 @Slf4j
 @Component

@@ -11,7 +11,7 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
 /**
- * @author liuweijw 网关日志拦截器
+ * @author luozhonghua 网关日志拦截器
  */
 @Component
 public class LoggerFilter extends ZuulFilter {

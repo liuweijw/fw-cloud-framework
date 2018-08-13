@@ -1,7 +1,7 @@
 package com.github.liuweijw.core.commons.constants;
 
 /**
- * @author liuweijw
+ * @author luozhonghua
  */
 public interface CommonConstant {
 

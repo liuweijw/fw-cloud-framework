@@ -1,7 +1,7 @@
 package com.github.liuweijw.core.commons.constants;
 
 /**
- * @author liuweijw 服务ID名称
+ * @author luozhonghua 服务ID名称
  */
 public interface ServiceIdConstant {
 

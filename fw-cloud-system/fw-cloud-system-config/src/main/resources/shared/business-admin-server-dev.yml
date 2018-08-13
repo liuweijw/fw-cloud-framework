@@ -7,10 +7,10 @@ redis:
 
 spring:
   #datasource: # 采用分库分表，即注释这里的数据源
-    #driver-class-name: 
-    #username: 
-    #password: 
-    #url: 
+  # driver-class-name: com.mysql.jdbc.Driver
+  #  username: root
+  #  password:
+  #  url: jdbc:mysql://127.0.0.1:3306/fw-cloud?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
   jpa:
     database: MYSQL
     show-sql: true
@@ -27,7 +27,7 @@ spring:
     sampler:
       percentage: 1.0 #日志记录发送给采集器的概率,配置成1全量收集日志
 
-# 对分库分表的支持
+# 对分库分表的支持（日志表）
 sharding:
   jdbc:
     #defaultDataSourceName: #默认数据库设置
@@ -42,7 +42,7 @@ sharding:
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: com.mysql.jdbc.Driver
         username: ENC(rC/X/8UBBH2bn9Tgfuu7aw==)
-        password: ENC(IVTzs5LDfVEsblAFWFgA9w==)
+        password: ENC(rC/X/8UBBH2bn9Tgfuu7aw==)
         jdbc-url: jdbc:mysql://127.0.0.1:3306/fw-cloud?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
     config:
       sharding:

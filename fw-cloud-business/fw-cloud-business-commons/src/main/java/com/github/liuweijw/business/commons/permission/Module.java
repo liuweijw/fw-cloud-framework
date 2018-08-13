@@ -3,7 +3,7 @@ package com.github.liuweijw.business.commons.permission;
 /**
  * 功能模块权限
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 public interface Module {
 

@@ -11,7 +11,7 @@ import com.marcosbarbero.cloud.autoconfigure.zuul.ratelimit.config.repository.Ra
 /**
  * 限流降级处理
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Slf4j
 @Configuration

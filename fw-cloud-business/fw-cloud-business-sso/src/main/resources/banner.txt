@@ -6,6 +6,6 @@
   '  |____| .__|_| |_|_| |_\__, | / / / /
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot  ::        (v1.5.12.RELEASE)
- :: Powered By   ::        (https://github.com/liuweijw)
+ :: Powered By   ::        (https://github.com/luozhonghua)
  :: Project With ::        (fw-cloud-business-sso)
 =======================================================================================

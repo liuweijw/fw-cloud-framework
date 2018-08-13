@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * 微信公众号相关配置
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Setter
 @Getter

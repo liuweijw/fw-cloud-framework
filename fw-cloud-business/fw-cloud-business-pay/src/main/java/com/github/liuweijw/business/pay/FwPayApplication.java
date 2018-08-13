@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * 支付平台服务API
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @EnableTransactionManagement
 @SpringBootApplication

@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>com.github.liuweijw.business</groupId>
 		<artifactId>fw-cloud-business</artifactId>
-		<version>${fw.business.version}</version>
+		 <version>${fw.business.version}</version>
 	</parent>
 
 	<dependencies>

@@ -13,7 +13,7 @@ import com.github.liuweijw.commons.base.page.PageParams;
 /**
  * 分页工具 注意分页是从0开始的
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 public class PageUtils {
 

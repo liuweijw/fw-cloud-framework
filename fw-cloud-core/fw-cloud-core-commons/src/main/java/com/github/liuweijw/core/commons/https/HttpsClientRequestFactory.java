@@ -20,7 +20,7 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 /**
  * RestTemplate client获取 获取RestTemplate HttpUtil.restTemplate(reqUrl);
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 class HttpsClientRequestFactory extends SimpleClientHttpRequestFactory {
 

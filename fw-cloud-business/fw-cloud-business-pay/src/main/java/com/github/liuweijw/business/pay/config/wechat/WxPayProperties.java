@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 微信支付相关配置
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Setter
 @Getter

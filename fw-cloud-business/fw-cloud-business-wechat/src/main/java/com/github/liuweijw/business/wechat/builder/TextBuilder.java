@@ -8,7 +8,7 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlOutTextMessage;
 /**
  * 文本消息
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 public class TextBuilder extends AbstractBuilder {
 

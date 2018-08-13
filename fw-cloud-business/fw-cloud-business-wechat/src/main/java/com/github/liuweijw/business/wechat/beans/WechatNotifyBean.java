@@ -9,7 +9,7 @@ import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 /**
  * 异步拉取微信登录信息
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Setter
 @Getter

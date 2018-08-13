@@ -15,7 +15,7 @@ import lombok.Setter;
 /**
  * 多公众号信息表
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Setter
 @Getter

@@ -10,7 +10,7 @@ import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
 
 /**
- * @author liuweijw
+ * @author luozhonghua
  */
 @Configuration
 public class KaptchaConfig {

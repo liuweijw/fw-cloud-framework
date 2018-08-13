@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * business 相关模块的配置
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Configuration
 @ConfigurationProperties(prefix = "business.permission")

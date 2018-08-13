@@ -10,7 +10,7 @@ import lombok.Setter;
 /**
  * 缓存URLInfo
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Setter
 @Getter

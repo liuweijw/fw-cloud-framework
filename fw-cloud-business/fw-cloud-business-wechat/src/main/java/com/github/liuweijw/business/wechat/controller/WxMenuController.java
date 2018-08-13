@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  *      实际项目中无需这样，根据自己需要添加对应接口即可
  * </pre>
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @RestController
 @RequestMapping("/wechat/menu")

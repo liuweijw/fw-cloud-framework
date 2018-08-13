@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 所有需要过滤URL的配置，urls.collects 模式
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Configuration
 @ConditionalOnExpression("!'${urls}'.isEmpty()")

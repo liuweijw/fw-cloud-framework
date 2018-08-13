@@ -13,7 +13,7 @@ import com.github.liuweijw.core.configuration.FwUrlsConfiguration;
 import com.github.liuweijw.system.auth.component.ajax.AjaxSecurityConfigurer;
 
 /**
- * @author liuweijw 认证服务器开放接口配置
+ * @author luozhonghua 认证服务器开放接口配置
  */
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER - 2)
 @Configuration

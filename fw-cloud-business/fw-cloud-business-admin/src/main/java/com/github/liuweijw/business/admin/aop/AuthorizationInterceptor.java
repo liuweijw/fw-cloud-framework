@@ -29,7 +29,7 @@ import com.github.liuweijw.exception.CheckedException;
 /**
  * 功能权限切面验证
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Slf4j
 @Component
@@ -57,7 +57,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 		final HandlerMethod handlerMethod = (HandlerMethod) handler;
 		final Method method = handlerMethod.getMethod();
 		final Class<?> clazz = method.getDeclaringClass();
-
+		log.info(clazz.getName()+" ---- "+clazz.getSimpleName()+" --- "+handlerMethod.getMethod()+" --- "+handlerMethod.toString()+"----");
 		String requestURI = request.getRequestURI();
 		String modulePermission = "";
 		// 为了规范，如果class上面没有设置@PrePermissions则不通过

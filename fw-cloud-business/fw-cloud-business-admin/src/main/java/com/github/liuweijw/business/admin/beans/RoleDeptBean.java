@@ -9,7 +9,7 @@ import lombok.ToString;
 /**
  * 角色部门组合信息查询
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Data
 @ToString

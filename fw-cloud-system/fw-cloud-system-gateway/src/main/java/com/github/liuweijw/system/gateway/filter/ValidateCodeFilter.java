@@ -23,7 +23,7 @@ import com.github.liuweijw.core.commons.constants.SecurityConstant;
 import com.github.liuweijw.exception.ValidateCodeException;
 
 /**
- * @author liuweijw 验证码校验，true开启，false关闭校验 更细化可以 clientId 进行区分
+ * @author luozhonghua 验证码校验，true开启，false关闭校验 更细化可以 clientId 进行区分
  */
 @Component("validateCodeFilter")
 public class ValidateCodeFilter extends OncePerRequestFilter {

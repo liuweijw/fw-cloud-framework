@@ -15,7 +15,7 @@ import lombok.Setter;
 /**
  * 微信用户信息保存
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Setter
 @Getter

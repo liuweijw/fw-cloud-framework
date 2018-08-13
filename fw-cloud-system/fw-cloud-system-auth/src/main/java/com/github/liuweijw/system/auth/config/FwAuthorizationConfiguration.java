@@ -29,7 +29,7 @@ import com.github.liuweijw.core.commons.constants.SecurityConstant;
 import com.github.liuweijw.core.configuration.JwtConfiguration;
 
 /**
- * @author liuweijw 认证服务器逻辑实现
+ * @author luozhonghua 认证服务器逻辑实现
  */
 @Configuration
 @Order(Integer.MIN_VALUE)

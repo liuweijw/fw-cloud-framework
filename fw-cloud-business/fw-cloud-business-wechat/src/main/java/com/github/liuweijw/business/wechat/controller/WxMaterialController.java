@@ -17,7 +17,7 @@ import com.github.liuweijw.commons.base.R;
 /**
  * 微信商户信息获取
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Controller
 @RequestMapping("/wechat/material")

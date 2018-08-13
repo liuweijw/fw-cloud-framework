@@ -15,7 +15,7 @@ import lombok.Setter;
 /**
  * 支付通知
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @Setter
 @Getter

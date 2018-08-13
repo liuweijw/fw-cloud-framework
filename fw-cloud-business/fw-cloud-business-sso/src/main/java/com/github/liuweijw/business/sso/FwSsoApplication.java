@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 /**
  * sso demo
  *
- * @author liuweijw
+ * @author luozhonghua
  */
 @EnableOAuth2Sso
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })

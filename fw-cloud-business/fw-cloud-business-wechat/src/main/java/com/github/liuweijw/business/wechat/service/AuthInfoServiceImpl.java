@@ -15,7 +15,7 @@ import com.github.liuweijw.commons.utils.StringHelper;
 /**
  * 微信授权信息保存
  * 
- * @author liuweijw
+ * @author luozhonghua
  */
 @CacheConfig(cacheNames = "wechat_auth_info_")
 @Component
