@@ -14,12 +14,14 @@ import com.github.liuweijw.system.FwGatewayApplication;
 public class FwGatewayApplicationTest {
 
 	@Autowired
-	private StringEncryptor	stringEncryptor;
+	private  StringEncryptor	stringEncryptor;
+
 
 	@Test
 	public void testEnvironmentProperties() {
-		System.out.println("=====jwt:token:liuweijw======"
+		System.out.println("=====encrypt  jwt:token:liuweijw======"
 				+ stringEncryptor.encrypt("jwt:token:liuweijw"));
+
 
 
 		System.out.println("=====root======"
@@ -27,6 +29,27 @@ public class FwGatewayApplicationTest {
 
 
 
+
+		System.out.println("=====decrypt  jwt:token:liuweijw======"
+				+ stringEncryptor.decrypt(stringEncryptor.encrypt("jwt:token:liuweijw")));
+
+		System.out.println("=====encrypt   liuweijw======"
+				+ stringEncryptor.encrypt("liuweijw")) ;
+
+
+		System.out.println("=====decrypt   rC/X/8UBBH2bn9Tgfuu7aw========"
+				+ stringEncryptor.decrypt("rC/X/8UBBH2bn9Tgfuu7aw==")) ;
+
+
+		System.out.println("=====decrypt admin  IVTzs5LDfVEsblAFWFgA9w=========="
+				+ stringEncryptor.decrypt("IVTzs5LDfVEsblAFWFgA9w==")) ;
+
+
 	}
 
+	/*public static void   main(String[] args){
+
+		System.out.println("=====jwt:token:liuweijw======"
+				+ stringEncryptor.encrypt("jwt:token:liuweijw"));
+	}*/
 }

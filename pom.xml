@@ -34,7 +34,7 @@
 	<packaging>pom</packaging>
 
 	<name>liuweijw cloud framework</name>
-	<url>https://github.com/liuweijw</url>
+	<url>https://github.com/luozhonghua</url>
 	<description>
   		fox framework
   	</description>
@@ -53,14 +53,14 @@
 				<role>Owner</role>
 			</roles>
 			<timezone>+8</timezone>
-			<url>https://github.com/liuweijw</url>
+			<url>https://github.com/luozhonghua</url>
 		</developer>
 	</developers>
 
 	<scm>
-		<connection>scm:git:https://github.com/liuweijw/fw-cloud-framework.git</connection>
-		<developerConnection>scm:git:https://github.com/liuweijw/fw-cloud-framework.git</developerConnection>
-		<url>https://github.com/liuweijw/fw-cloud-framework</url>
+		<connection>scm:git:https://github.com/luozhonghua/fw-cloud-framework.git</connection>
+		<developerConnection>scm:git:https://github.com/luozhonghua/fw-cloud-framework.git</developerConnection>
+		<url>https://github.com/luozhonghua/fw-cloud-framework</url>
 		<tag>${project.version}</tag>
 	</scm>
 
@@ -78,7 +78,7 @@
 		<spring-boot.version>1.5.12.RELEASE</spring-boot.version>
 		<spring-cloud.version>Edgware.SR3</spring-cloud.version>
 		<lombok.version>1.16.20</lombok.version>
-		<swagger2.version>2.9.0</swagger2.version>
+		<swagger2.version>2.9.2</swagger2.version>
 		<jjwt>0.7.0</jjwt>
 		<fastjson>1.2.30</fastjson>
 		<mysql.version>5.1.46</mysql.version>

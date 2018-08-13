@@ -6,3 +6,6 @@
 *.iml
 *.class
 *.log
+.iml
+.git
+ 
