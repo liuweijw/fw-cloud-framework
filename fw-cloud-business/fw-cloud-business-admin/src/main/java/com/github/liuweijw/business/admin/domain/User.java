@@ -42,6 +42,12 @@ public class User implements Serializable {
 	private String					username;
 
 	/**
+	 * 用户编号
+	 */
+	@Column(name = "usercode")
+	private String					usercode;
+
+	/**
 	 * 密码
 	 */
 	@Column(name = "password")
@@ -60,6 +66,18 @@ public class User implements Serializable {
 	private String					mobile;
 
 	/**
+	 * 联系人姓名
+	 */
+	@Column(name = "contact_name")
+	private String					contactName;
+
+	/**
+	 * 邮件地址
+	 */
+	@Column(name = "email")
+	private String					email;
+
+	/**
 	 * 头像
 	 */
 	@Column(name = "pic_url")
@@ -76,6 +94,12 @@ public class User implements Serializable {
 	 */
 	@Column(name = "dept_id")
 	private Integer					deptId				= 0;
+
+	/**
+	 * 单位编码
+	 */
+	@Column(name = "company_code")
+	private String					companyCode;
 
 	/**
 	 * 创建时间

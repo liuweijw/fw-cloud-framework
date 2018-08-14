@@ -22,11 +22,14 @@ import com.github.liuweijw.business.admin.domain.QRole;
 import com.github.liuweijw.business.admin.domain.QRoleDept;
 import com.github.liuweijw.business.admin.domain.Role;
 import com.github.liuweijw.business.admin.domain.RoleDept;
+import com.github.liuweijw.business.admin.domain.User;
 import com.github.liuweijw.business.admin.repository.RoleDeptRepository;
 import com.github.liuweijw.business.admin.repository.RoleRepository;
 import com.github.liuweijw.business.admin.service.RoleService;
+import com.github.liuweijw.business.admin.service.UserService;
 import com.github.liuweijw.business.commons.utils.PageUtils;
 import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
+import com.github.liuweijw.commons.base.R;
 import com.github.liuweijw.commons.base.page.PageBean;
 import com.github.liuweijw.commons.base.page.PageParams;
 import com.github.liuweijw.commons.utils.StringHelper;
@@ -42,8 +45,11 @@ public class RoleServiceImpl extends JPAFactoryImpl implements RoleService {
 	@Autowired
 	private RoleDeptRepository	roleDeptRepository;
 
+	@Autowired
+	private UserService			userService;
+
 	@Override
-	@Cacheable(key = "'role_code_' + #roleCode")
+	@Cacheable(key = "'role_code_' + #roleCode", unless = "#result eq null")
 	public Role findRoleByCode(String roleCode) {
 		if (StringHelper.isBlank(roleCode)) return null;
 
@@ -54,7 +60,7 @@ public class RoleServiceImpl extends JPAFactoryImpl implements RoleService {
 	}
 
 	@Override
-	@Cacheable(key = "'role_deptid_' + #deptId")
+	@Cacheable(key = "'role_deptid_' + #deptId", unless = "#result eq null")
 	public List<Role> findRoleListByDeptId(Integer deptId) {
 		if (null == deptId || deptId <= 0) return null;
 
@@ -71,7 +77,7 @@ public class RoleServiceImpl extends JPAFactoryImpl implements RoleService {
 	}
 
 	@Override
-	@Cacheable(key = "'role_list'")
+	@Cacheable(key = "'role_list'", unless = "#result eq null")
 	public List<Role> getRoleList() {
 		return roleRepository.findAll();
 	}
@@ -180,6 +186,21 @@ public class RoleServiceImpl extends JPAFactoryImpl implements RoleService {
 				.execute();
 
 		return num > 0;
+	}
+
+	@Override
+	@Transactional
+	@CacheEvict(allEntries = true)
+	public R<Boolean> saveDefaultUserByRolecode(User user, String roleCode) {
+		Role role = this.findRoleByCode("ROLE_YANSHI");
+		if (null == role) return new R<Boolean>().data(false).failure("用户角色不存在");
+
+		userService.saveUser(user);
+
+		role.setDeptId(user.getDeptId());
+		this.saveRoleAndDept(role);
+
+		return new R<Boolean>().data(true).success();
 	}
 
 }

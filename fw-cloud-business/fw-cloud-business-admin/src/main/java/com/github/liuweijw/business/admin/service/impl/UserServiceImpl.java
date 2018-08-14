@@ -39,6 +39,7 @@ import com.github.liuweijw.business.commons.utils.PageUtils;
 import com.github.liuweijw.business.commons.web.jpa.JPAFactoryImpl;
 import com.github.liuweijw.commons.base.page.PageBean;
 import com.github.liuweijw.commons.base.page.PageParams;
+import com.github.liuweijw.commons.utils.RandomHelper;
 import com.github.liuweijw.commons.utils.StringHelper;
 import com.github.liuweijw.commons.utils.WebUtils;
 import com.github.liuweijw.core.commons.constants.SecurityConstant;
@@ -63,7 +64,7 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 	private UserRoleRepository	userRoleRepository;
 
 	@Override
-	@Cacheable(key = "'user_name_' + #username")
+	@Cacheable(key = "'user_name_' + #username", unless = "#result eq null")
 	public AuthUser findUserByUsername(String username) {
 		User user = findUserByUsername(username, true);
 
@@ -84,7 +85,7 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 	}
 
 	@Override
-	@Cacheable(key = "'user_mobile_' + #mobile")
+	@Cacheable(key = "'user_mobile_' + #mobile", unless = "#result eq null")
 	public AuthUser findUserByMobile(String mobile) {
 		User user = userRepository.findUserByMobile(mobile.trim());
 		if (null == user) return null;
@@ -100,8 +101,12 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 		// load role
 		QUserRole qUserRole = QUserRole.userRole;
 		QRole qRole = QRole.role;
-		List<Role> rList = this.queryFactory.select(qRole).from(qUserRole, qRole).where(
-				qUserRole.userId.eq(userId)).where(qUserRole.roleId.eq(qRole.roleId)).fetch();
+		List<Role> rList = this.queryFactory.select(qRole)
+				.from(qUserRole, qRole)
+				.where(
+						qUserRole.userId.eq(userId))
+				.where(qUserRole.roleId.eq(qRole.roleId))
+				.fetch();
 
 		return rList;
 	}
@@ -109,8 +114,10 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void saveImageCode(String randomStr, String imageCode) {
-		redisTemplate.opsForValue().set(SecurityConstant.DEFAULT_CODE_KEY + randomStr, imageCode,
-				SecurityConstant.DEFAULT_IMAGE_EXPIRE, TimeUnit.SECONDS);
+		redisTemplate.opsForValue()
+				.set(
+						SecurityConstant.DEFAULT_CODE_KEY + randomStr, imageCode,
+						SecurityConstant.DEFAULT_IMAGE_EXPIRE, TimeUnit.SECONDS);
 	}
 
 	@Override
@@ -148,7 +155,7 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 	}
 
 	@Override
-	@Cacheable(key = "'user_id_' + #userId")
+	@Cacheable(key = "'user_id_' + #userId", unless = "#result eq null")
 	public AuthUser findByUserId(String userId) {
 		User user = userRepository.findUserByUserId(Integer.valueOf(userId));
 		if (null == user) return null;
@@ -195,7 +202,9 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 		// 查询语句
 		StringBuilder querySql = new StringBuilder();
 		querySql.append("select ")
-				.append("t1.user_id, t1.username, t1.open_id, t1.mobile,t1.pic_url,t1.dept_id, t1.create_time, t1.update_time, t1.statu,")
+				.append("t1.user_id, t1.username, t1.open_id as openId, t1.mobile,t1.pic_url as picUrl,t1.dept_id as deptId,")
+				.append("t1.create_time as createTime, t1.update_time as updateTime, t1.statu, t1.company_code as companyCode,")
+				.append("t1.email, t1.contact_name as contactName, t1.usercode,")
 				.append("t3.dept_name as deptName ")
 				.append("from " + User.TABLE_NAME + " t1 ")
 				.append("left join t_sys_dept t3 on t3.dept_id = t1.dept_id ");
@@ -244,7 +253,8 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 		if (null == userId || userId <= 0) return Boolean.FALSE;
 
 		QUser qUser = QUser.user;
-		long num = this.queryFactory.update(qUser).set(qUser.statu, 1) // 0 正常 1删除
+		long num = this.queryFactory.update(qUser)
+				.set(qUser.statu, 1) // 0 正常 1删除
 				.where(qUser.userId.eq(userId.intValue()))
 				.execute();
 
@@ -264,6 +274,10 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 		user.setUpdateTime(new Date());
 		user.setUsername(userForm.getUsername().trim());
 		user.setMobile(userForm.getMobile());
+		user.setCompanyCode(userForm.getCompanyCode());
+		user.setUsercode(RandomHelper.randomStringUpper());
+		user.setContactName(userForm.getContactName());
+		user.setEmail(userForm.getEmail());
 
 		User dbUser = this.userRepository.saveAndFlush(user);
 
@@ -290,11 +304,15 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 		user.setDeptId(userForm.getDeptId());
 		user.setUsername(userForm.getUsername());
 		user.setMobile(userForm.getMobile());
+		user.setCompanyCode(userForm.getCompanyCode());
+		user.setEmail(userForm.getEmail());
+		user.setContactName(userForm.getContactName());
 		userRepository.save(user);
 
 		QUserRole qUserRole = QUserRole.userRole;
 
-		this.queryFactory.delete(qUserRole).where(qUserRole.userId.eq(userForm.getUserId()))
+		this.queryFactory.delete(qUserRole)
+				.where(qUserRole.userId.eq(userForm.getUserId()))
 				.execute();
 
 		UserRole uRole = new UserRole();
@@ -311,6 +329,24 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 	@CacheEvict(allEntries = true)
 	public boolean updateUser(User user) {
 		if (null == user || null == user.getUserId()) return false;
+
+		this.userRepository.saveAndFlush(user);
+
+		return true;
+	}
+
+	@Override
+	@Cacheable(key = "'user_code_' + #usercode", unless = "#result eq null")
+	public User findByUsercode(String usercode) {
+		if (StringHelper.isBlank(usercode)) return null;
+
+		return userRepository.findUserByUsercode(usercode.trim());
+	}
+
+	@Override
+	@Transactional
+	@CacheEvict(allEntries = true)
+	public boolean saveUser(User user) {
 
 		this.userRepository.saveAndFlush(user);
 

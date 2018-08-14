@@ -31,4 +31,8 @@ public interface UserService {
 
 	public boolean updateUser(User user);
 
+	public boolean saveUser(User user);
+
+	public User findByUsercode(String usercode);
+
 }

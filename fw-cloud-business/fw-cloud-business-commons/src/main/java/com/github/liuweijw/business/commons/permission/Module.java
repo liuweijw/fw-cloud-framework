@@ -47,4 +47,9 @@ public interface Module {
 	 */
 	String	API		= "api_";
 
+	/**
+	 * 单位模块
+	 */
+	String	COMPANY	= "company_";
+
 }

@@ -96,4 +96,5 @@ public class ApiController extends BaseController {
 	public R<List<Dict>> findDictByType(@PathVariable String type) {
 		return new R<List<Dict>>().data(dictService.getDictList(type));
 	}
+
 }

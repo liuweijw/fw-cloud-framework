@@ -1,9 +1,5 @@
 package com.github.liuweijw.business.admin.web.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +20,13 @@ import com.github.liuweijw.business.commons.web.aop.PrePermissions;
 import com.github.liuweijw.commons.base.R;
 import com.github.liuweijw.commons.base.page.PageBean;
 import com.github.liuweijw.commons.base.page.PageParams;
+import com.github.liuweijw.commons.utils.StringHelper;
 import com.github.liuweijw.core.configuration.ApiTag;
 import com.github.liuweijw.system.api.model.AuthUser;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * 用户管理服务
@@ -39,7 +40,7 @@ import com.github.liuweijw.system.api.model.AuthUser;
 public class UserController extends BaseController {
 
 	@Autowired
-	private UserService	userService;
+	private UserService userService;
 
 	/**
 	 * 查询用户列表数据
@@ -82,8 +83,9 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@PrePermissions(value = Functional.ADD)
 	public R<Boolean> add(HttpServletRequest request, @RequestBody UserForm userForm) {
-		if (null == userForm.getDeptId()) return new R<Boolean>().failure("请选择部门");
+		if (null == userForm.getDeptId()) return new R<Boolean>().failure("请选择所属部门");
 		if (null == userForm.getRoleId()) return new R<Boolean>().failure("请选择角色");
+		if (StringHelper.isBlank(userForm.getCompanyCode())) return new R<Boolean>().failure("请选择所属单位");
 		boolean r = this.userService.addUserAndRoleDept(userForm);
 		return new R<Boolean>().data(r);
 	}
@@ -95,8 +97,9 @@ public class UserController extends BaseController {
 	@PrePermissions(value = Functional.UPD)
 	public R<Boolean> upd(HttpServletRequest request, @RequestBody UserForm userForm) {
 		if (null == userForm.getUserId()) return new R<Boolean>().failure("用户不存在");
-		if (null == userForm.getDeptId()) return new R<Boolean>().failure("请选择部门");
+		if (null == userForm.getDeptId()) return new R<Boolean>().failure("请选择所属部门");
 		if (null == userForm.getRoleId()) return new R<Boolean>().failure("请选择角色");
+		if (StringHelper.isBlank(userForm.getCompanyCode())) return new R<Boolean>().failure("请选择所属单位");
 
 		boolean r = this.userService.updateUserAndRoleDept(userForm);
 		return new R<Boolean>().data(r);

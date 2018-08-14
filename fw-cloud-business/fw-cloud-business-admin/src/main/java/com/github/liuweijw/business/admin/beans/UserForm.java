@@ -28,4 +28,9 @@ public class UserForm {
 
 	private String	mobile;
 
+	private String	companyCode;
+
+	private String	contactName;
+
+	private String	email;
 }

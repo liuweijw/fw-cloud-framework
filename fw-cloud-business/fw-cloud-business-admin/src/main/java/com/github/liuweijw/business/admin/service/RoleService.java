@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.github.liuweijw.business.admin.beans.RoleDeptBean;
 import com.github.liuweijw.business.admin.domain.Role;
+import com.github.liuweijw.business.admin.domain.User;
+import com.github.liuweijw.commons.base.R;
 import com.github.liuweijw.commons.base.page.PageBean;
 import com.github.liuweijw.commons.base.page.PageParams;
 
@@ -23,4 +25,5 @@ public interface RoleService {
 
 	Role findRoleByCode(String roleCode);
 
+	R<Boolean> saveDefaultUserByRolecode(User user, String roleCode);
 }

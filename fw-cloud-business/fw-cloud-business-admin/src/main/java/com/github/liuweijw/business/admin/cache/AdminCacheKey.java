@@ -21,4 +21,6 @@ public interface AdminCacheKey {
 
 	String	DEPT_INFO		= "dept_info_";
 
+	String	COMPANY_INFO	= "company_info";
+
 }
