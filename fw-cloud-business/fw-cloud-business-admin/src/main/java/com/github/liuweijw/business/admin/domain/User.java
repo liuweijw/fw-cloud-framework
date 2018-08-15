@@ -123,4 +123,9 @@ public class User implements Serializable {
 	 */
 	private transient String		deptName;
 
+	/**
+	 * 所属单位名称
+	 */
+	private transient String		companyName;
+
 }

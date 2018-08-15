@@ -25,6 +25,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.liuweijw.business.admin.beans.UserBean;
 import com.github.liuweijw.business.admin.beans.UserForm;
 import com.github.liuweijw.business.admin.cache.AdminCacheKey;
+import com.github.liuweijw.business.admin.domain.Company;
 import com.github.liuweijw.business.admin.domain.QRole;
 import com.github.liuweijw.business.admin.domain.QUser;
 import com.github.liuweijw.business.admin.domain.QUserRole;
@@ -33,6 +34,7 @@ import com.github.liuweijw.business.admin.domain.User;
 import com.github.liuweijw.business.admin.domain.UserRole;
 import com.github.liuweijw.business.admin.repository.UserRepository;
 import com.github.liuweijw.business.admin.repository.UserRoleRepository;
+import com.github.liuweijw.business.admin.service.CompanyService;
 import com.github.liuweijw.business.admin.service.PermissionService;
 import com.github.liuweijw.business.admin.service.UserService;
 import com.github.liuweijw.business.commons.utils.PageUtils;
@@ -62,6 +64,9 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 
 	@Autowired
 	private UserRoleRepository	userRoleRepository;
+
+	@Autowired
+	private CompanyService		companyService;
 
 	@Override
 	@Cacheable(key = "'user_name_' + #username", unless = "#result eq null")
@@ -129,6 +134,10 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 		dbUser.setPassword("");
 		dbUser.setCreateTime(null);
 		dbUser.setUpdateTime(null);
+		// 查询所属单位
+		Company company = this.companyService.findByCode(dbUser.getCompanyCode());
+		if (null != company) dbUser.setCompanyName(company.getName());
+
 		userInfo.setUser(dbUser);
 
 		// 设置角色列表
