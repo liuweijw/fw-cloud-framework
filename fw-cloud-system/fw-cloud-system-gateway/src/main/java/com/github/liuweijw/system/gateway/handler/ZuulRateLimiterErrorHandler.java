@@ -1,12 +1,12 @@
 package com.github.liuweijw.system.gateway.handler;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.marcosbarbero.cloud.autoconfigure.zuul.ratelimit.config.repository.DefaultRateLimiterErrorHandler;
 import com.marcosbarbero.cloud.autoconfigure.zuul.ratelimit.config.repository.RateLimiterErrorHandler;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 限流降级处理

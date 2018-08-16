@@ -13,7 +13,9 @@ import com.netflix.zuul.context.RequestContext;
 import com.xiaoleilu.hutool.collection.CollectionUtil;
 
 /**
- * @author liuweijw 在RateLimitPreFilter 之前执行，否则会出现空指针问题
+ * 在RateLimitPreFilter 之前执行，否则会出现空指针问题
+ * 
+ * @author liuweijw
  */
 @Component
 public class AccessFilter extends ZuulFilter {
@@ -38,12 +40,14 @@ public class AccessFilter extends ZuulFilter {
 		RequestContext ctx = RequestContext.getCurrentContext();
 		ctx.set("startTime", System.currentTimeMillis());
 
+		// 传递 { @link SecurityConstant.ROLE_HEADER } 头部角色权限到下游请求
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication != null
 				&& !"anonymousUser".equals(authentication.getPrincipal().toString())) {
 			ctx.addZuulRequestHeader(SecurityConstant.USER_HEADER, authentication.getName());
-			ctx.addZuulRequestHeader(SecurityConstant.ROLE_HEADER, CollectionUtil.join(
-					authentication.getAuthorities(), ","));
+			ctx.addZuulRequestHeader(
+					SecurityConstant.ROLE_HEADER, CollectionUtil.join(
+							authentication.getAuthorities(), ","));
 		}
 		return null;
 	}

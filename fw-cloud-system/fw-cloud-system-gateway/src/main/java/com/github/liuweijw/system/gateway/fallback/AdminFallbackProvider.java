@@ -3,8 +3,6 @@ package com.github.liuweijw.system.gateway.fallback;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.cloud.netflix.zuul.filters.route.FallbackProvider;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,8 +13,12 @@ import org.springframework.stereotype.Component;
 import com.github.liuweijw.core.commons.constants.MessageConstant;
 import com.github.liuweijw.core.commons.constants.ServiceIdConstant;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
- * @author liuweijw Admin 模块异常回调
+ * Admin 模块异常回调
+ * 
+ * @author liuweijw
  */
 @Slf4j
 @Component
@@ -53,8 +55,9 @@ public class AdminFallbackProvider implements FallbackProvider {
 					return new ByteArrayInputStream(cause.getMessage().getBytes());
 				} else {
 					log.error("调用:{} 异常：{}", getRoute(), MessageConstant.BUSINESS_ADMIN_NOTSUPPORT);
-					return new ByteArrayInputStream(MessageConstant.BUSINESS_ADMIN_NOTSUPPORT
-							.getBytes());
+					return new ByteArrayInputStream(
+							MessageConstant.BUSINESS_ADMIN_NOTSUPPORT
+									.getBytes());
 				}
 			}
 

@@ -25,11 +25,16 @@ import com.xiaoleilu.hutool.http.HttpUtil;
 import com.xiaoleilu.hutool.io.IoUtil;
 import com.xiaoleilu.hutool.util.URLUtil;
 
+/**
+ * 日志异步实现
+ * 
+ * @author liuweijw
+ */
 @Component
 public class LogServiceImpl implements LogService {
 
 	@Autowired
-	private AmqpTemplate	rabbitTemplate;
+	private AmqpTemplate rabbitTemplate;
 
 	@Override
 	public void send(RequestContext requestContext) {

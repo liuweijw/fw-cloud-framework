@@ -19,40 +19,59 @@ import com.github.liuweijw.system.gateway.filter.ValidateCodeFilter;
 import com.github.liuweijw.system.gateway.handler.AccessDeniedHandler;
 
 /**
+ * 资源权限配置
+ * 
  * @author liuweijw
  */
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
+	/**
+	 * 无需认证的请求URL配置
+	 */
 	@Autowired
 	private FwUrlsConfiguration					urlsConfiguration;
 
+	/**
+	 * 权限请求认证 Handler
+	 */
 	@Autowired
 	private OAuth2WebSecurityExpressionHandler	expressionHandler;
 
+	/**
+	 * 访问权限认证 Handler
+	 */
 	@Autowired
 	private AccessDeniedHandler					accessDeniedHandler;
 
+	/**
+	 * 验证码过滤器
+	 */
 	@Autowired
 	private ValidateCodeFilter					validateCodeFilter;
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
+		// 首先进行验证码过滤逻辑
 		http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class);
 		// 允许使用iframe 嵌套，避免swagger-ui 不被加载的问题
 		http.headers().frameOptions().disable();
 		ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http
 				.authorizeRequests();
+		// 排除无需认证的请求
 		for (String url : urlsConfiguration.getCollects()) {
 			registry.antMatchers(url).permitAll();
 		}
+		// 通过切面进行验证 { @link PermissionService.hasPermission }
 		registry.anyRequest().access("@permissionService.hasPermission(request,authentication)");
 	}
 
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) {
+		// 认证回调
 		resources.expressionHandler(expressionHandler);
+		// 访问异常回到
 		resources.accessDeniedHandler(accessDeniedHandler);
 	}
 
@@ -71,6 +90,11 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 		return expressionHandler;
 	}
 
+	/**
+	 * 密码生成规则
+	 * 
+	 * @return 密码生成器
+	 */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

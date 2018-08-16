@@ -6,8 +6,6 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.core.Authentication;
@@ -24,13 +22,26 @@ import com.github.liuweijw.core.commons.jwt.JwtUtil;
 import com.github.liuweijw.system.api.PermissionFeignApi;
 import com.github.liuweijw.system.api.model.AuthPermission;
 
+import lombok.extern.slf4j.Slf4j;
+
+/**
+ * 权限接口实现
+ * 
+ * @author liuweijw
+ */
 @Slf4j
 @Service("permissionService")
 public class PermissionServiceImpl implements PermissionService {
 
+	/**
+	 * 具体Admin工程实现
+	 */
 	@Autowired
 	private PermissionFeignApi		permissionFeignApi;
 
+	/**
+	 * redis 工厂类
+	 */
 	@Autowired
 	private RedisConnectionFactory	redisConnectionFactory;
 

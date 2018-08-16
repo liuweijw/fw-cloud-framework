@@ -11,13 +11,15 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
 /**
- * @author liuweijw 网关统一异常处理
+ * 网关统一异常处理
+ * 
+ * @author liuweijw
  */
 @Component
 public class ErrorHandlerFilter extends ZuulFilter {
 
 	@Autowired
-	private LogService	logService;
+	private LogService logService;
 
 	@Override
 	public String filterType() {
@@ -37,6 +39,7 @@ public class ErrorHandlerFilter extends ZuulFilter {
 
 	@Override
 	public Object run() {
+		// 发送 mq 记录日志
 		RequestContext requestContext = RequestContext.getCurrentContext();
 		logService.send(requestContext);
 		return null;

@@ -11,13 +11,15 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 
 /**
- * @author liuweijw 网关日志拦截器
+ * 网关日志拦截器
+ * 
+ * @author liuweijw
  */
 @Component
 public class LoggerFilter extends ZuulFilter {
 
 	@Autowired
-	private LogService	logService;
+	private LogService logService;
 
 	@Override
 	public String filterType() {
@@ -36,6 +38,7 @@ public class LoggerFilter extends ZuulFilter {
 
 	@Override
 	public Object run() {
+		// 发送 mq 记录日志
 		logService.send(RequestContext.getCurrentContext());
 		return null;
 	}

@@ -8,17 +8,22 @@ import org.springframework.cloud.netflix.zuul.filters.RouteLocator;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
-import springfox.documentation.swagger.web.SwaggerResource;
-import springfox.documentation.swagger.web.SwaggerResourcesProvider;
-
 import com.github.liuweijw.commons.utils.StringHelper;
 import com.github.liuweijw.core.commons.constants.ServiceIdConstant;
 
+import springfox.documentation.swagger.web.SwaggerResource;
+import springfox.documentation.swagger.web.SwaggerResourcesProvider;
+
+/**
+ * swagger 资源配置
+ * 
+ * @author liuweijw
+ */
 @Component
 @Primary
 public class FwSwaggerResourcesProvider implements SwaggerResourcesProvider {
 
-	private final RouteLocator	routeLocator;
+	private final RouteLocator routeLocator;
 
 	public FwSwaggerResourcesProvider(RouteLocator routeLocator) {
 		this.routeLocator = routeLocator;
@@ -31,11 +36,9 @@ public class FwSwaggerResourcesProvider implements SwaggerResourcesProvider {
 		routes.forEach(route -> {
 			// swagger排除 auth 模块
 			if (!StringHelper.contains(route.getId(), ServiceIdConstant.AUTH_SERVICE)) {
-				resources.add(buildSwaggerResource(route.getId(), route.getFullPath().replace("**",
-						"v2/api-docs")));
+				resources.add(buildSwaggerResource(route.getId(), route.getFullPath().replace("**", "v2/api-docs")));
 			}
 		});
-
 		return resources;
 	}
 
