@@ -1,5 +1,9 @@
 package com.github.liuweijw.business.wechat.controller;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +18,10 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
-
 @Controller
 public class WxErrorController implements ErrorController {
 
-	private static final Logger			logger		= LoggerFactory
-															.getLogger(WxErrorController.class);
+	private static final Logger			logger		= LoggerFactory.getLogger(WxErrorController.class);
 
 	private final static String			ERROR_PATH	= "/error";
 
@@ -78,7 +78,6 @@ public class WxErrorController implements ErrorController {
 		return ERROR_PATH;
 	}
 
-	@SuppressWarnings("static-method")
 	private boolean getTraceParameter(HttpServletRequest request) {
 		String parameter = request.getParameter("trace");
 		if (parameter == null) { return false; }
@@ -89,7 +88,8 @@ public class WxErrorController implements ErrorController {
 	private Map<String, Object> getErrorAttributes(HttpServletRequest request,
 			boolean includeStackTrace) {
 		RequestAttributes requestAttributes = new ServletRequestAttributes(request);
-		Map<String, Object> map = this.errorAttributes.getErrorAttributes(requestAttributes,
+		Map<String, Object> map = this.errorAttributes.getErrorAttributes(
+				requestAttributes,
 				includeStackTrace);
 		logger.error("map is [{}]", map);
 		String url = request.getRequestURL().toString();
@@ -98,7 +98,6 @@ public class WxErrorController implements ErrorController {
 		return map;
 	}
 
-	@SuppressWarnings("static-method")
 	private HttpStatus getStatus(HttpServletRequest request) {
 		Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
 		if (statusCode != null) { return HttpStatus.valueOf(statusCode); }
