@@ -30,7 +30,7 @@
 
 	<groupId>com.github.liuweijw</groupId>
 	<artifactId>fw-cloud-framework</artifactId>
-	<version>${fw.version}</version>
+	<version>v1.0.7</version>
 	<packaging>pom</packaging>
 
 	<name>liuweijw cloud framework</name>
@@ -102,11 +102,11 @@
 		<spring-boot-admin-server-ui-turbine.version>1.5.7</spring-boot-admin-server-ui-turbine.version>
 		<zipkin-autoconfigure.version>2.8.4</zipkin-autoconfigure.version>
 		<fw.version>1.0.5</fw.version>
-		<fw.core.version>${fw.version}</fw.core.version>
-		<fw.business.version>${fw.version}</fw.business.version>
-		<fw.monitor.version>${fw.version}</fw.monitor.version>
-		<fw.system.version>${fw.version}</fw.system.version>
-		<fw.api.version>${fw.version}</fw.api.version>
+		<fw.core.version>v1.0.7</fw.core.version>
+		<fw.business.version>v1.0.7</fw.business.version>
+		<fw.monitor.version>v1.0.7</fw.monitor.version>
+		<fw.system.version>v1.0.7</fw.system.version>
+		<fw.api.version>v1.0.7</fw.api.version>
 	</properties>
 
 	<modules>
@@ -161,32 +161,32 @@
 			<dependency>
 				<groupId>com.github.liuweijw.core</groupId>
 				<artifactId>fw-cloud-core</artifactId>
-				<version>${fw.core.version}</version>
+				<version>v1.0.7</version>
 			</dependency>
 			<dependency>
 				<groupId>com.github.liuweijw.core</groupId>
 				<artifactId>fw-cloud-core-commons</artifactId>
-				<version>${fw.core.version}</version>
+				<version>v1.0.7</version>
 			</dependency>
 			<dependency>
 				<groupId>com.github.liuweijw.core</groupId>
 				<artifactId>fw-cloud-core-beans</artifactId>
-				<version>${fw.core.version}</version>
+				<version>v1.0.7</version>
 			</dependency>
 			<dependency>
 				<groupId>com.github.liuweijw.core</groupId>
 				<artifactId>fw-cloud-core-configuration</artifactId>
-				<version>${fw.core.version}</version>
+				<version>v1.0.7</version>
 			</dependency>
 			<dependency>
 				<groupId>com.github.liuweijw.core</groupId>
 				<artifactId>fw-cloud-core-exception</artifactId>
-				<version>${fw.core.version}</version>
+				<version>v1.0.7</version>
 			</dependency>
 			<dependency>
 				<groupId>com.github.liuweijw.core</groupId>
 				<artifactId>fw-cloud-core-utils</artifactId>
-				<version>${fw.core.version}</version>
+				<version>v1.0.7</version>
 			</dependency>
 			<!-- fw-cloud-core -->
 
@@ -194,7 +194,7 @@
 			<dependency>
 	            <groupId>com.github.liuweijw.api</groupId>
 	            <artifactId>fw-cloud-system-api</artifactId>
-	            <version>${fw.api.version}</version>
+	            <version>v1.0.7</version>
 	        </dependency>
 	        <!-- fw-cloud-system-api //system 工程feign api -->
 
@@ -202,12 +202,12 @@
 			<dependency>
 				<groupId>com.github.liuweijw.business</groupId>
 				<artifactId>fw-cloud-business</artifactId>
-				<version>${fw.business.version}</version>
+				<version>v1.0.7</version>
 			</dependency>
 			<dependency>
 				<groupId>com.github.liuweijw.business</groupId>
 				<artifactId>fw-cloud-business-commons</artifactId>
-				<version>${fw.business.version}</version>
+				<version>v1.0.7</version>
 			</dependency>
 			<!-- fw-cloud-business-commons //business 工程基础依赖 -->
 

@@ -11,7 +11,7 @@
     <parent>
     	<groupId>com.github.liuweijw.api</groupId>
         <artifactId>fw-cloud-api</artifactId> 
-        <version>${fw.api.version}</version>
+        <version>v1.0.7</version>
     </parent>
     
 </project>

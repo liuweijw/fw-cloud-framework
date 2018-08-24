@@ -5,7 +5,6 @@
     <artifactId>fw-cloud-monitor</artifactId>
     <groupId>com.github.liuweijw.monitor</groupId>
     <packaging>pom</packaging>
-    <version>${fw.monitor.version}</version>
 
     <name>fw-cloud-monitor</name>
     <description>监控模块</description>
@@ -13,7 +12,7 @@
     <parent>
 		<groupId>com.github.liuweijw</groupId>
 		<artifactId>fw-cloud-framework</artifactId>
-		<version>${fw.version}</version>
+		<version>v1.0.7</version>
 	</parent>
 
 	<modules>

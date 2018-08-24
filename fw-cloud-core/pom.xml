@@ -5,7 +5,6 @@
 	<artifactId>fw-cloud-core</artifactId>
 	<groupId>com.github.liuweijw.core</groupId>
 	<packaging>pom</packaging>
-	<version>${fw.core.version}</version>
 
 	<name>fw-cloud-core</name>
 	<description>核心基础公共模块</description>
@@ -13,7 +12,7 @@
 	<parent>
 		<groupId>com.github.liuweijw</groupId>
 		<artifactId>fw-cloud-framework</artifactId>
-		<version>${fw.version}</version>
+		<version>v1.0.7</version>
 	</parent>
 
 	<modules>

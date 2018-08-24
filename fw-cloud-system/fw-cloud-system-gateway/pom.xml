@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>com.github.liuweijw.system</groupId>
 		<artifactId>fw-cloud-system</artifactId>
-		<version>${fw.system.version}</version>
+		<version>v1.0.7</version>
 	</parent>
 
 	<dependencies>
