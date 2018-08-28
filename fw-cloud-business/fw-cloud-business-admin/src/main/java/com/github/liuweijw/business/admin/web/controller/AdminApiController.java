@@ -7,11 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.liuweijw.business.admin.beans.AuthUserExtendBean;
 import com.github.liuweijw.business.admin.beans.UserAddForm;
 import com.github.liuweijw.business.admin.domain.Company;
 import com.github.liuweijw.business.admin.domain.User;
@@ -24,6 +26,7 @@ import com.github.liuweijw.commons.base.R;
 import com.github.liuweijw.commons.utils.RandomHelper;
 import com.github.liuweijw.commons.utils.StringHelper;
 
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 
@@ -52,6 +55,16 @@ public class AdminApiController {
 	public R<List<Company>> listAll(HttpServletRequest request) {
 		List<Company> allList = this.companyService.findAllList();
 		return new R<List<Company>>().data(allList).success();
+	}
+
+	@ApiOperation(value = "查询", notes = "通过登录用户名获取用户信息")
+	@ApiImplicitParam(name = "username", value = "用户username", required = true, dataType = "string", paramType = "path")
+	@RequestMapping(value = "/findUser/{username}", method = RequestMethod.GET)
+	public R<AuthUserExtendBean> findAuthUserInfoByUsername(@PathVariable("username") String username) {
+		if (StringHelper.isBlank(username)) return null;
+
+		AuthUserExtendBean extendBean = this.userService.findAuthUserExtendBeanByUsername(username);
+		return new R<AuthUserExtendBean>().data(extendBean).success();
 	}
 
 	/**

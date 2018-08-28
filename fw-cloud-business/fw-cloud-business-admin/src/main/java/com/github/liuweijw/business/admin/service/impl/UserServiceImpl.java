@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.liuweijw.business.admin.beans.AuthUserExtendBean;
 import com.github.liuweijw.business.admin.beans.UserBean;
 import com.github.liuweijw.business.admin.beans.UserForm;
 import com.github.liuweijw.business.admin.cache.AdminCacheKey;
@@ -361,4 +362,28 @@ public class UserServiceImpl extends JPAFactoryImpl implements UserService {
 
 		return true;
 	}
+
+	@Override
+	@Cacheable(key = "'user_extend_info_' + #username", unless = "#result eq null")
+	public AuthUserExtendBean findAuthUserExtendBeanByUsername(String username) {
+		User user = findUserByUsername(username, false);
+		if (null == user) return null;
+
+		AuthUserExtendBean extendBean = new AuthUserExtendBean();
+		extendBean.setPicUrl(user.getPicUrl());
+		extendBean.setStatu(user.getStatu());
+		extendBean.setPassword(user.getPassword());
+		extendBean.setUserId(user.getUserId());
+		extendBean.setUsername(user.getUsername());
+
+		// 查询所属单位
+		Company company = this.companyService.findByCode(user.getCompanyCode());
+		if (null != company) {
+			extendBean.setCompanyCode(user.getCompanyCode());
+			extendBean.setCompanyName(company.getName());
+		}
+
+		return extendBean;
+	}
+
 }

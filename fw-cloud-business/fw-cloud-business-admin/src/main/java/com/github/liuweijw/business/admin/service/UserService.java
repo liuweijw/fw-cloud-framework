@@ -1,5 +1,6 @@
 package com.github.liuweijw.business.admin.service;
 
+import com.github.liuweijw.business.admin.beans.AuthUserExtendBean;
 import com.github.liuweijw.business.admin.beans.UserBean;
 import com.github.liuweijw.business.admin.beans.UserForm;
 import com.github.liuweijw.business.admin.domain.User;
@@ -34,5 +35,7 @@ public interface UserService {
 	public boolean saveUser(User user);
 
 	public User findByUsercode(String usercode);
+
+	public AuthUserExtendBean findAuthUserExtendBeanByUsername(String username);
 
 }
