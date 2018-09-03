@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile-eureka
     restart: always
     ports:
-      - 1001:1001
+      - 1000:1000
 
   config-server:
     links:
@@ -70,7 +70,7 @@ services:
     volumes:
       - /usr/web/logs/wechat/:/usr/web/logs/wechat/
       - /etc/localtime/:/etc/localtime/
-  
+
   gateway-server:
     links:
       - eureka-server:eureka

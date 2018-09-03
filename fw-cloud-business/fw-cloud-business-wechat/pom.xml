@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>fw-cloud-business-wechat</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	
 	<name>fw-cloud-business-wechat</name>
 	<description>微信公众号服务</description>
@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>com.github.liuweijw.business</groupId>
 		<artifactId>fw-cloud-business</artifactId>
-		<version>${fw.business.version}</version>
+		<version>1.0.6-zh</version>
 	</parent>
 
 	<dependencies>

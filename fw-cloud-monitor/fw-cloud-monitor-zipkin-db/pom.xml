@@ -10,7 +10,7 @@
     <parent>
     	<groupId>com.github.liuweijw.monitor</groupId>
         <artifactId>fw-cloud-monitor</artifactId>
-        <version>${fw.monitor.version}</version>
+        <version>1.0.6-zh</version>
     </parent>
 
 	<dependencies>
