@@ -2,12 +2,6 @@ package com.github.liuweijw.business.wechat.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import lombok.extern.slf4j.Slf4j;
-import me.chanjar.weixin.common.api.WxConsts;
-import me.chanjar.weixin.common.error.WxErrorException;
-import me.chanjar.weixin.mp.api.WxMpService;
-import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
-
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +19,12 @@ import com.github.liuweijw.commons.utils.RandomHelper;
 import com.github.liuweijw.commons.utils.StringHelper;
 import com.github.liuweijw.commons.utils.WebUtils;
 import com.github.liuweijw.core.commons.constants.MqQueueConstant;
+
+import lombok.extern.slf4j.Slf4j;
+import me.chanjar.weixin.common.api.WxConsts;
+import me.chanjar.weixin.common.error.WxErrorException;
+import me.chanjar.weixin.mp.api.WxMpService;
+import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 
 /**
  * 微信公众号授权管理
@@ -72,9 +72,11 @@ public class WxAuthorizeController {
 			UrlInfoBean urlInfoBean = new UrlInfoBean(state, _backUrl);
 			urlInfoService.cacheUrlInfo(urlInfoBean);
 		}
-		String redirectURL = wxService.oauth2buildAuthorizationUrl(returnUrl,
+		String redirectURL = wxService.oauth2buildAuthorizationUrl(
+				returnUrl,
 				from.intValue() == 1 ? WxConsts.OAuth2Scope.SNSAPI_BASE
-						: WxConsts.OAuth2Scope.SNSAPI_USERINFO, state);
+						: WxConsts.OAuth2Scope.SNSAPI_USERINFO,
+				state);
 		// 微信默认会发送两次回调请求问题处理 -设置之后还是一样问题暂未解决,目前调用服务端采用其它方式规避此问题
 		// https://blog.csdn.net/jiangguilong2000/article/details/79416615
 		// https://open.weixin.qq.com/connect/oauth2/authorize?appid=xxx&redirect_uri=https&response_type=code&scope=snsapi_base&state=xxx#wechat_redirect
@@ -122,10 +124,11 @@ public class WxAuthorizeController {
 		if (state.length() == 32 && !state.startsWith("http")) { // key
 			UrlInfoBean urlInfoBean = urlInfoService.findFromCacheByUuid(state);
 			returnUrl = urlInfoBean.getUrl();
+		} else {
+			returnUrl = state;
 		}
 
-		String redirectUrl = RequestUtil.buildAppendURLParams(RequestUtil.buildURLParams(returnUrl,
-				OPENID), OPENID + "=" + openId, "t=" + t);
+		String redirectUrl = RequestUtil.buildAppendURLParams(RequestUtil.buildURLParams(returnUrl, OPENID), OPENID + "=" + openId, "t=" + t);
 		log.info("【wxauth.openId】:redirect|" + redirectUrl);
 		long end = System.currentTimeMillis();
 		log.info("【wxauth.openId】耗时:" + (end - start));
