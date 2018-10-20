@@ -1,5 +1,7 @@
 package com.github.liuweijw.business.pay.service.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,13 +19,15 @@ import com.querydsl.jpa.impl.JPAUpdateClause;
 public class PayOrderServiceImpl extends JPAFactoryImpl implements PayOrderService {
 
 	@Autowired
-	private PayOrderRepository	payOrderRepository;
+	private PayOrderRepository payOrderRepository;
 
 	@Override
 	@Transactional
 	public PayOrder updateOrSavePayOrder(PayOrder payOrder) {
 
 		if (null == payOrder) return null;
+		if (null == payOrder.getCreateTime()) payOrder.setCreateTime(new Date());
+		if (null == payOrder.getUpdateTime()) payOrder.setUpdateTime(new Date());
 
 		return payOrderRepository.saveAndFlush(payOrder);
 	}
@@ -42,8 +46,10 @@ public class PayOrderServiceImpl extends JPAFactoryImpl implements PayOrderServi
 		if (StringHelper.isBlank(mchId) || StringHelper.isBlank(payOrderId)) return null;
 
 		QPayOrder qPayOrder = QPayOrder.payOrder;
-		return this.queryFactory.selectFrom(qPayOrder).where(qPayOrder.mch_id.eq(mchId.trim()))
-				.where(qPayOrder.payOrderId.eq(payOrderId.trim())).fetchFirst();
+		return this.queryFactory.selectFrom(qPayOrder)
+				.where(qPayOrder.mch_id.eq(mchId.trim()))
+				.where(qPayOrder.payOrderId.eq(payOrderId.trim()))
+				.fetchFirst();
 	}
 
 	@Override
@@ -52,8 +58,10 @@ public class PayOrderServiceImpl extends JPAFactoryImpl implements PayOrderServi
 		if (StringHelper.isBlank(mchId) || StringHelper.isBlank(mchOrderNo)) return null;
 
 		QPayOrder qPayOrder = QPayOrder.payOrder;
-		return this.queryFactory.selectFrom(qPayOrder).where(qPayOrder.mch_id.eq(mchId.trim()))
-				.where(qPayOrder.mchOrderNo.eq(mchOrderNo.trim())).fetchFirst();
+		return this.queryFactory.selectFrom(qPayOrder)
+				.where(qPayOrder.mch_id.eq(mchId.trim()))
+				.where(qPayOrder.mchOrderNo.eq(mchOrderNo.trim()))
+				.fetchFirst();
 
 	}
 
@@ -64,15 +72,20 @@ public class PayOrderServiceImpl extends JPAFactoryImpl implements PayOrderServi
 		if (StringHelper.isBlank(payOrderId)) return false;
 
 		QPayOrder qPayOrder = QPayOrder.payOrder;
-		JPAUpdateClause updateClause = this.queryFactory.update(qPayOrder).set(qPayOrder.status,
-				PayConstant.PAY_STATUS_PAYING).set(qPayOrder.paySuccTime,
-				System.currentTimeMillis());
+		JPAUpdateClause updateClause = this.queryFactory.update(qPayOrder)
+				.set(
+						qPayOrder.status,
+						PayConstant.PAY_STATUS_PAYING)
+				.set(
+						qPayOrder.paySuccTime,
+						System.currentTimeMillis());
 		if (StringHelper.isNotBlank(channelOrderNo)) {
 			updateClause.set(qPayOrder.channelOrderNo, channelOrderNo.trim());
 		}
 
-		updateClause.where(qPayOrder.payOrderId.eq(payOrderId.trim())).where(
-				qPayOrder.status.eq(PayConstant.PAY_STATUS_INIT));
+		updateClause.where(qPayOrder.payOrderId.eq(payOrderId.trim()))
+				.where(
+						qPayOrder.status.eq(PayConstant.PAY_STATUS_INIT));
 
 		long num = updateClause.execute();
 		return num > 0;
@@ -85,10 +98,16 @@ public class PayOrderServiceImpl extends JPAFactoryImpl implements PayOrderServi
 		if (StringHelper.isBlank(payOrderId)) return false;
 
 		QPayOrder qPayOrder = QPayOrder.payOrder;
-		long num = this.queryFactory.update(qPayOrder).set(qPayOrder.status,
-				PayConstant.PAY_STATUS_SUCCESS).set(qPayOrder.paySuccTime,
-				System.currentTimeMillis()).where(qPayOrder.payOrderId.eq(payOrderId.trim()))
-				.where(qPayOrder.status.eq(PayConstant.PAY_STATUS_PAYING)).execute();
+		long num = this.queryFactory.update(qPayOrder)
+				.set(
+						qPayOrder.status,
+						PayConstant.PAY_STATUS_SUCCESS)
+				.set(
+						qPayOrder.paySuccTime,
+						System.currentTimeMillis())
+				.where(qPayOrder.payOrderId.eq(payOrderId.trim()))
+				.where(qPayOrder.status.eq(PayConstant.PAY_STATUS_PAYING))
+				.execute();
 
 		return num > 0;
 	}
@@ -100,9 +119,13 @@ public class PayOrderServiceImpl extends JPAFactoryImpl implements PayOrderServi
 		if (StringHelper.isBlank(payOrderId)) return false;
 
 		QPayOrder qPayOrder = QPayOrder.payOrder;
-		long num = this.queryFactory.update(qPayOrder).set(qPayOrder.status,
-				PayConstant.PAY_STATUS_COMPLETE).where(qPayOrder.payOrderId.eq(payOrderId.trim()))
-				.where(qPayOrder.status.eq(PayConstant.PAY_STATUS_SUCCESS)).execute();
+		long num = this.queryFactory.update(qPayOrder)
+				.set(
+						qPayOrder.status,
+						PayConstant.PAY_STATUS_COMPLETE)
+				.where(qPayOrder.payOrderId.eq(payOrderId.trim()))
+				.where(qPayOrder.status.eq(PayConstant.PAY_STATUS_SUCCESS))
+				.execute();
 
 		return num > 0;
 	}
@@ -115,9 +138,13 @@ public class PayOrderServiceImpl extends JPAFactoryImpl implements PayOrderServi
 		if (StringHelper.isBlank(payOrderId)) return false;
 
 		QPayOrder qPayOrder = QPayOrder.payOrder;
-		long num = this.queryFactory.update(qPayOrder).set(qPayOrder.notifyCount, count).set(
-				qPayOrder.lastNotifyTime, System.currentTimeMillis()).where(
-				qPayOrder.payOrderId.eq(payOrderId.trim())).execute();
+		long num = this.queryFactory.update(qPayOrder)
+				.set(qPayOrder.notifyCount, count)
+				.set(
+						qPayOrder.lastNotifyTime, System.currentTimeMillis())
+				.where(
+						qPayOrder.payOrderId.eq(payOrderId.trim()))
+				.execute();
 
 		return num > 0;
 	}
