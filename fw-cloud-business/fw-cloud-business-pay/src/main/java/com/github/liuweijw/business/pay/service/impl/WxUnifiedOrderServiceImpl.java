@@ -94,7 +94,7 @@ public class WxUnifiedOrderServiceImpl implements WxUnifiedOrderService {
 					configMap.put("appid", appId);
 					// 此map用于客户端与微信服务器交互
 					payInfo.put("sign", SignUtils.createSign(configMap, null, wxPayConfig
-							.getMchKey(), false));
+							.getMchKey(), new String[0]));
 					payInfo.put("prepayId", wxPayUnifiedOrderResult.getPrepayId());
 					payInfo.put("partnerId", partnerId);
 					payInfo.put("appId", appId);
@@ -115,7 +115,7 @@ public class WxUnifiedOrderServiceImpl implements WxUnifiedOrderService {
 					payInfo.put("package", "prepay_id=" + wxPayUnifiedOrderResult.getPrepayId());
 					payInfo.put("signType", WxPayConstants.SignType.MD5);
 					payInfo.put("paySign", SignUtils.createSign(payInfo, null, wxPayConfig
-							.getMchKey(), false));
+							.getMchKey(), new String[0]));
 					map.put("payParams", payInfo);
 					break;
 				}
