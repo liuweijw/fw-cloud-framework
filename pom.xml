@@ -90,7 +90,7 @@
 		<hutool-all>3.3.2</hutool-all>
 		<weixin.business.version>3.2.0</weixin.business.version>
 		<weixin.emoji.converter.version>0.1.1</weixin.emoji.converter.version>
-		<cloud-commons.version>1.0.5-SNAPSHOT</cloud-commons.version>
+		<cloud-commons.version>1.0.7-SNAPSHOT</cloud-commons.version>
 		<kaptcha.version>0.0.9</kaptcha.version>
 		<shardingjdbc.version>2.0.3</shardingjdbc.version>
 		<hibernate.validator.version>5.3.6.Final</hibernate.validator.version>
@@ -252,6 +252,12 @@
 			<dependency>
 				<groupId>com.github.binarywang</groupId>
 				<artifactId>weixin-java-mp</artifactId>
+				<version>${weixin.business.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.github.binarywang</groupId>
+				<artifactId>weixin-java-open</artifactId>
 				<version>${weixin.business.version}</version>
 			</dependency>
 
