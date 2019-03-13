@@ -5,6 +5,7 @@ import java.io.File;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.binarywang.wxpay.config.WxPayConfig;
+import com.github.liuweijw.commons.pay.constants.PayConstant;
 import com.github.liuweijw.commons.utils.PublicHelper;
 
 /**
@@ -22,7 +23,11 @@ public class WxPayUtil {
 		WxPayConfig wxPayConfig = new WxPayConfig();
 		JSONObject paramObj = JSON.parseObject(configParam);
 		wxPayConfig.setMchId(paramObj.getString("mchId"));
-		wxPayConfig.setAppId(paramObj.getString("appId"));
+		if (tradeType.equals(PayConstant.WxConstant.TRADE_TYPE_APP)) {
+			wxPayConfig.setAppId(paramObj.getString("openAppId"));
+		} else {
+			wxPayConfig.setAppId(paramObj.getString("appId"));
+		}
 		wxPayConfig.setMchKey(paramObj.getString("key"));
 		if (!PublicHelper.isEmpty(certRootPath)) wxPayConfig.setKeyPath(certRootPath + File.separator + paramObj.getString("certLocalPath"));
 		if (!PublicHelper.isEmpty(notifyUrl)) wxPayConfig.setNotifyUrl(notifyUrl);

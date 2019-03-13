@@ -3,12 +3,11 @@ package com.github.liuweijw.business.pay.service.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderRequest;
 import com.github.binarywang.wxpay.bean.result.WxPayUnifiedOrderResult;
 import com.github.binarywang.wxpay.config.WxPayConfig;
@@ -27,6 +26,9 @@ import com.github.liuweijw.commons.pay.constants.PayConstant;
 import com.github.liuweijw.commons.pay.enums.PayEnum;
 import com.github.liuweijw.commons.pay.utils.PayUtil;
 import com.github.liuweijw.commons.utils.StringHelper;
+import com.github.liuweijw.commons.utils.WebUtils;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
@@ -48,28 +50,35 @@ public class WxUnifiedOrderServiceImpl implements WxUnifiedOrderService {
 					|| StringHelper.isBlank(params.get("resKey"))
 					|| StringHelper.isBlank(params.get("channelParam")))
 				return new R<Map<String, Object>>().data(
-						PayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "",
-								PayConstant.RETURN_VALUE_FAIL, PayEnum.ERR_0001)).failure();
+						PayUtil.makeRetMap(
+								PayConstant.RETURN_VALUE_FAIL, "",
+								PayConstant.RETURN_VALUE_FAIL, PayEnum.ERR_0001))
+						.failure();
 
 			String resKey = params.get("resKey");
-			WxPayConfig wxPayConfig = WxPayUtil.getWxPayConfig(params.get("channelParam"),
+			WxPayConfig wxPayConfig = WxPayUtil.getWxPayConfig(
+					params.get("channelParam"),
 					tradeType, wxPayProperties.getCertRootPath(), wxPayProperties.getNotifyUrl());
 			WxPayService wxPayService = new WxPayServiceImpl();
 			wxPayService.setConfig(wxPayConfig);
-			WxPayUnifiedOrderRequest wxPayUnifiedOrderRequest = buildUnifiedOrderRequest(payOrder,
+			WxPayUnifiedOrderRequest wxPayUnifiedOrderRequest = buildUnifiedOrderRequest(
+					payOrder,
 					wxPayConfig);
 			String payOrderId = payOrder.getPayOrderId();
 			WxPayUnifiedOrderResult wxPayUnifiedOrderResult = null;
 			try {
 				wxPayUnifiedOrderResult = wxPayService.unifiedOrder(wxPayUnifiedOrderRequest);
 				log.info("{} >>> 下单成功", logPrefix);
-				Map<String, Object> map = PayUtil.makeRetMap(PayConstant.RETURN_VALUE_SUCCESS, "",
+				Map<String, Object> map = PayUtil.makeRetMap(
+						PayConstant.RETURN_VALUE_SUCCESS, "",
 						PayConstant.RETURN_VALUE_SUCCESS, null);
 				map.put("payOrderId", payOrderId);
 				map.put("prepayId", wxPayUnifiedOrderResult.getPrepayId());
-				boolean result = payOrderService.updatePayOrderStatus4Paying(payOrderId,
+				boolean result = payOrderService.updatePayOrderStatus4Paying(
+						payOrderId,
 						wxPayUnifiedOrderResult.getPrepayId());
-				log.info("更新第三方支付订单号:payOrderId={},prepayId={},result={}", payOrderId,
+				log.info(
+						"更新第三方支付订单号:payOrderId={},prepayId={},result={}", payOrderId,
 						wxPayUnifiedOrderResult.getPrepayId(), result);
 				switch (tradeType) {
 				case PayConstant.WxConstant.TRADE_TYPE_NATIVE: {
@@ -93,8 +102,11 @@ public class WxUnifiedOrderServiceImpl implements WxUnifiedOrderService {
 					configMap.put("noncestr", nonceStr);
 					configMap.put("appid", appId);
 					// 此map用于客户端与微信服务器交互
-					payInfo.put("sign", SignUtils.createSign(configMap, null, wxPayConfig
-							.getMchKey(), new String[0]));
+					payInfo.put(
+							"sign", SignUtils.createSign(
+									configMap, null, wxPayConfig
+											.getMchKey(),
+									new String[0]));
 					payInfo.put("prepayId", wxPayUnifiedOrderResult.getPrepayId());
 					payInfo.put("partnerId", partnerId);
 					payInfo.put("appId", appId);
@@ -114,8 +126,11 @@ public class WxUnifiedOrderServiceImpl implements WxUnifiedOrderService {
 					payInfo.put("nonceStr", nonceStr);
 					payInfo.put("package", "prepay_id=" + wxPayUnifiedOrderResult.getPrepayId());
 					payInfo.put("signType", WxPayConstants.SignType.MD5);
-					payInfo.put("paySign", SignUtils.createSign(payInfo, null, wxPayConfig
-							.getMchKey(), new String[0]));
+					payInfo.put(
+							"paySign", SignUtils.createSign(
+									payInfo, null, wxPayConfig
+											.getMchKey(),
+									new String[0]));
 					map.put("payParams", payInfo);
 					break;
 				}
@@ -133,16 +148,21 @@ public class WxUnifiedOrderServiceImpl implements WxUnifiedOrderService {
 				log.info("err_code:{}", e.getErrCode());
 				log.info("err_code_des:{}", e.getErrCodeDes());
 				return new R<Map<String, Object>>().data(
-						PayUtil.makeRetData(PayUtil.makeRetMap(PayConstant.RETURN_VALUE_SUCCESS,
-								"", PayConstant.RETURN_VALUE_FAIL, "0111", "调用微信支付失败,"
-										+ e.getErrCode() + ":" + e.getErrCodeDes()), resKey))
+						PayUtil.makeRetData(
+								PayUtil.makeRetMap(
+										PayConstant.RETURN_VALUE_SUCCESS,
+										"", PayConstant.RETURN_VALUE_FAIL, "0111", "调用微信支付失败,"
+												+ e.getErrCode() + ":" + e.getErrCodeDes()),
+								resKey))
 						.failure();
 			}
 		} catch (Exception e) {
 			log.error("微信支付统一下单异常" + e);
 			return new R<Map<String, Object>>().data(
-					PayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "",
-							PayConstant.RETURN_VALUE_FAIL, PayEnum.ERR_0001)).failure();
+					PayUtil.makeRetMap(
+							PayConstant.RETURN_VALUE_FAIL, "",
+							PayConstant.RETURN_VALUE_FAIL, PayEnum.ERR_0001))
+					.failure();
 		}
 	}
 
@@ -173,8 +193,10 @@ public class WxUnifiedOrderServiceImpl implements WxUnifiedOrderService {
 		if (tradeType.equals(PayConstant.WxConstant.TRADE_TYPE_JSPAI))
 			openId = JSON.parseObject(payOrder.getExtra()).getString("openId");
 		String sceneInfo = null;
-		if (tradeType.equals(PayConstant.WxConstant.TRADE_TYPE_MWEB))
-			sceneInfo = JSON.parseObject(payOrder.getExtra()).getString("sceneInfo");
+		if (tradeType.equals(PayConstant.WxConstant.TRADE_TYPE_MWEB)) {
+			JSONObject extraObject = JSON.parseObject(WebUtils.buildURLDecoder(payOrder.getExtra()));
+			sceneInfo = extraObject.getJSONObject("sceneInfo").toJSONString();
+		}
 		// 微信统一下单请求对象
 		WxPayUnifiedOrderRequest request = new WxPayUnifiedOrderRequest();
 		request.setDeviceInfo(deviceInfo);

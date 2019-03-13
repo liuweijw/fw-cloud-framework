@@ -3,8 +3,6 @@ package com.github.liuweijw.business.pay.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +26,8 @@ import com.github.liuweijw.commons.pay.constants.PayConstant;
 import com.github.liuweijw.commons.pay.utils.PayUtil;
 import com.github.liuweijw.commons.utils.StringHelper;
 import com.github.liuweijw.commons.utils.WebUtils;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 支付订单,包括:统一下单,订单查询,补单等接口
@@ -89,8 +89,11 @@ public class PayOrderController {
 			break;
 		}
 		return new R<Map<String, Object>>().data(
-				PayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "不支持的支付渠道类型[channelId="
-						+ resultOrder.getChannelId() + "]", null, null)).failure();
+				PayUtil.makeRetMap(
+						PayConstant.RETURN_VALUE_FAIL, "不支持的支付渠道类型[channelId="
+								+ resultOrder.getChannelId() + "]",
+						null, null))
+				.failure();
 	}
 
 	@RequestMapping(value = "/find/{mchId}")
@@ -176,13 +179,15 @@ public class PayOrderController {
 
 			JSONObject extraObject = JSON.parseObject(extra);
 			if (null == extraObject || !extraObject.containsKey("openId"))
-				return new R<Boolean>().data(false).failure(
-						preFix + channelId + "[extra.openId]信息未设置！");
+				return new R<Boolean>().data(false)
+						.failure(
+								preFix + channelId + "[extra.openId]信息未设置！");
 
 			String openId = extraObject.getString("openId");
 			if (StringHelper.isBlank(openId))
-				return new R<Boolean>().data(false).failure(
-						preFix + channelId + "[extra.openId]信息未正确设置！");
+				return new R<Boolean>().data(false)
+						.failure(
+								preFix + channelId + "[extra.openId]信息未正确设置！");
 
 		} else if (PayConstant.PAY_CHANNEL_WX_NATIVE.equalsIgnoreCase(channelId)) {
 			if (StringHelper.isBlank(extra))
@@ -190,27 +195,31 @@ public class PayOrderController {
 
 			JSONObject extraObject = JSON.parseObject(extra);
 			if (null == extraObject || !extraObject.containsKey("productId"))
-				return new R<Boolean>().data(false).failure(
-						preFix + channelId + "[extra.productId]信息未设置！");
+				return new R<Boolean>().data(false)
+						.failure(
+								preFix + channelId + "[extra.productId]信息未设置！");
 
 			String productId = extraObject.getString("productId");
 			if (StringHelper.isBlank(productId))
-				return new R<Boolean>().data(false).failure(
-						preFix + channelId + "[extra.productId]信息未正确设置！");
+				return new R<Boolean>().data(false)
+						.failure(
+								preFix + channelId + "[extra.productId]信息未正确设置！");
 
 		} else if (PayConstant.PAY_CHANNEL_WX_MWEB.equalsIgnoreCase(channelId)) {
 			if (StringHelper.isBlank(extra))
 				return new R<Boolean>().data(false).failure(preFix + channelId + "[extra]信息未设置！");
 
-			JSONObject extraObject = JSON.parseObject(extra);
+			JSONObject extraObject = JSON.parseObject(WebUtils.buildURLDecoder(extra));
 			if (null == extraObject || !extraObject.containsKey("sceneInfo"))
-				return new R<Boolean>().data(false).failure(
-						preFix + channelId + "[extra.sceneInfo]信息未设置！");
+				return new R<Boolean>().data(false)
+						.failure(
+								preFix + channelId + "[extra.sceneInfo]信息未设置！");
 
-			String sceneInfo = extraObject.getString("sceneInfo");
+			String sceneInfo = extraObject.getJSONObject("sceneInfo").toJSONString();
 			if (StringHelper.isBlank(sceneInfo))
-				return new R<Boolean>().data(false).failure(
-						preFix + channelId + "[extra.sceneInfo]信息未正确设置！");
+				return new R<Boolean>().data(false)
+						.failure(
+								preFix + channelId + "[extra.sceneInfo]信息未正确设置！");
 		}
 
 		// 签名信息
@@ -231,20 +240,25 @@ public class PayOrderController {
 		// 查询商户对应的支付渠道
 		PayChannel payChannel = payChannelService.findPayChannel(channelId, mchId);
 		if (null == payChannel)
-			return new R<Boolean>().data(false).failure(
-					preFix + "商户渠道[channelId=" + channelId + ",mchId=" + mchId + "]信息不存在！");
+			return new R<Boolean>().data(false)
+					.failure(
+							preFix + "商户渠道[channelId=" + channelId + ",mchId=" + mchId + "]信息不存在！");
 
 		if (payChannel.getStatu().intValue() != 1)
-			return new R<Boolean>().data(false).failure(
-					preFix + "商户渠道[channelId=" + channelId + ",mchId=" + mchId + "]信息已经失效！");
+			return new R<Boolean>().data(false)
+					.failure(
+							preFix + "商户渠道[channelId=" + channelId + ",mchId=" + mchId + "]信息已经失效！");
 
 		// 验证签名数据
-		boolean verifyFlag = PayUtil.verifyPaySign((JSONObject) JSON.toJSON(unifiedOrder), mchInfo
-				.getReqKey());
+		boolean verifyFlag = PayUtil.verifyPaySign(
+				(JSONObject) JSON.toJSON(unifiedOrder), mchInfo
+						.getReqKey());
 		if (!verifyFlag) return new R<Boolean>().data(false).failure(preFix + "下单信息验证签名失败！");
 
-		payOrder.setPayOrderId(SequenceUtils.getInstance().generateBizSeqNo(
-				BizConstant.PAY_ORDER_PREFIX));
+		payOrder.setPayOrderId(
+				SequenceUtils.getInstance()
+						.generateBizSeqNo(
+								BizConstant.PAY_ORDER_PREFIX));
 		payOrder.setMch_id(mchInfo.getMchId());
 		payOrder.setMchOrderNo(mchOrderNo);
 		payOrder.setChannelId(channelId);
