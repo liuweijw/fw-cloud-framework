@@ -154,7 +154,9 @@ public class PaySendRedpackController {
 		if (payChannel.getStatu().intValue() != 1)
 			return new R<Boolean>().data(false).failure(preFix + "商户渠道[channelId=" + channelId + ",mchId=" + mchId + "]信息已经失效！");
 
-		WxPayConfig wxPayConfig = WxPayUtil.getWxPayConfig(payChannel.getParam(), wxPayProperties.getCertRootPath());
+		WxPayConfig wxPayConfig = WxPayUtil.getWxPayConfig(
+				payChannel.getParam(),
+				null, wxPayProperties.getCertRootPath(), wxPayProperties.getNotifyUrl());
 		if (null == wxPayConfig)
 			return new R<Boolean>().data(false).failure(preFix + "商户渠道[channelId=" + channelId + ",mchId=" + mchId + "]信息param设置不正确！");
 

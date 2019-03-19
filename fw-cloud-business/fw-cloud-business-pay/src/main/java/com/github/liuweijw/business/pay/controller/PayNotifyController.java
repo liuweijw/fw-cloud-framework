@@ -5,8 +5,6 @@ import java.math.BigDecimal;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import lombok.extern.slf4j.Slf4j;
-
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +17,7 @@ import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyResult;
 import com.github.binarywang.wxpay.config.WxPayConfig;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.impl.WxPayServiceImpl;
+import com.github.liuweijw.business.pay.config.wechat.WxPayProperties;
 import com.github.liuweijw.business.pay.config.wechat.WxPayUtil;
 import com.github.liuweijw.business.pay.domain.PayChannel;
 import com.github.liuweijw.business.pay.domain.PayOrder;
@@ -27,6 +26,8 @@ import com.github.liuweijw.business.pay.service.PayChannelService;
 import com.github.liuweijw.business.pay.service.PayOrderService;
 import com.github.liuweijw.commons.pay.constants.PayConstant;
 import com.github.liuweijw.commons.utils.StringHelper;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 支付后台通知
@@ -46,6 +47,9 @@ public class PayNotifyController {
 
 	@Autowired
 	private NotifyService		notifyService;
+
+	@Autowired
+	private WxPayProperties		wxPayProperties;
 
 	/**
 	 * 微信支付(统一下单接口)后台通知响应
@@ -76,8 +80,7 @@ public class PayNotifyController {
 		String channelId = payOrder.getChannelId();
 		PayChannel payChannel = payChannelService.findPayChannel(channelId, mchId);
 		if (null == payChannel) {
-			log.error("Can't found payChannel form db. mchId={} channelId={}, ", payOrderId, mchId,
-					channelId);
+			log.error("Can't found payChannel form db. mchId={} channelId={}, ", payOrderId, mchId, channelId);
 			return WxPayNotifyResponse.fail("未查询到订单相关渠道信息");
 		}
 
@@ -89,15 +92,12 @@ public class PayNotifyController {
 		}
 
 		if (payStatus != PayConstant.PAY_STATUS_SUCCESS) {
-			boolean updatePayOrderRows = payOrderService.updatePayOrderStatus4Success(payOrder
-					.getPayOrderId());
+			boolean updatePayOrderRows = payOrderService.updatePayOrderStatus4Success(payOrder.getPayOrderId());
 			if (!updatePayOrderRows) {
-				log.error("{}更新支付状态失败,将payOrderId={},更新payStatus={}失败", logPrefix, payOrder
-						.getPayOrderId(), PayConstant.PAY_STATUS_SUCCESS);
+				log.error("{}更新支付状态失败,将payOrderId={},更新payStatus={}失败", logPrefix, payOrder.getPayOrderId(), PayConstant.PAY_STATUS_SUCCESS);
 				return WxPayNotifyResponse.fail("处理订单失败");
 			}
-			log.error("{}更新支付状态成功,将payOrderId={},更新payStatus={}成功", logPrefix, payOrder
-					.getPayOrderId(), PayConstant.PAY_STATUS_SUCCESS);
+			log.error("{}更新支付状态成功,将payOrderId={},更新payStatus={}成功", logPrefix, payOrder.getPayOrderId(), PayConstant.PAY_STATUS_SUCCESS);
 			payOrder.setStatus(PayConstant.PAY_STATUS_SUCCESS);
 		}
 		// 业务系统后端通知
@@ -110,8 +110,9 @@ public class PayNotifyController {
 		String logPrefix = "【微信支付回调通知】";
 		log.info("====== 开始接收微信支付回调通知 ======");
 		try {
-			String xmlResult = IOUtils.toString(request.getInputStream(), request
-					.getCharacterEncoding());
+			String xmlResult = IOUtils.toString(
+					request.getInputStream(), request
+							.getCharacterEncoding());
 			log.info("{}通知请求数据:reqStr={}", logPrefix, xmlResult);
 			if (StringHelper.isBlank(xmlResult)) { return WxPayNotifyResponse.fail("FAIL"); }
 			WxPayServiceImpl wxPayService = new WxPayServiceImpl();
@@ -120,9 +121,7 @@ public class PayNotifyController {
 			// 验证业务数据是否正确
 			if (!PayConstant.RETURN_VALUE_SUCCESS.equalsIgnoreCase(result.getResultCode())
 					|| !PayConstant.RETURN_VALUE_SUCCESS.equalsIgnoreCase(result.getResultCode())) {
-				log.error("returnCode={},resultCode={},errCode={},errCodeDes={}", result
-						.getReturnCode(), result.getResultCode(), result.getErrCode(), result
-						.getErrCodeDes());
+				log.error("returnCode={},resultCode={},errCode={},errCodeDes={}", result.getReturnCode(), result.getResultCode(), result.getErrCode(), result.getErrCodeDes());
 				return WxPayNotifyResponse.fail("notify data failed");
 			}
 
@@ -142,11 +141,12 @@ public class PayNotifyController {
 			String channelId = payOrder.getChannelId();
 			PayChannel payChannel = payChannelService.findPayChannel(channelId, mchId);
 			if (null == payChannel) {
-				log.error("Can't found payChannel form db. mchId={} channelId={}, ", payOrderId,
-						mchId, channelId);
+				log.error("Can't found payChannel form db. mchId={} channelId={}, ", payOrderId, mchId, channelId);
 				return WxPayNotifyResponse.fail("未查询到订单相关渠道信息");
 			}
-			WxPayConfig wxPayConfig = WxPayUtil.getWxPayConfig(payChannel.getParam());
+			WxPayConfig wxPayConfig = WxPayUtil.getWxPayConfig(
+					payChannel.getParam(),
+					result.getTradeType(), wxPayProperties.getCertRootPath(), wxPayProperties.getNotifyUrl());
 			wxPayService.setConfig(wxPayConfig);
 			// 签名校验
 			result.checkResult(wxPayService, null, false);
@@ -155,9 +155,7 @@ public class PayNotifyController {
 			long wxPayAmt = new BigDecimal(total_fee).longValue();
 			long dbPayAmt = payOrder.getAmount().longValue();
 			if (dbPayAmt != wxPayAmt) {
-				log.error(
-						"db payOrder record payPrice not equals total_fee. total_fee={},payOrderId={}",
-						total_fee, payOrderId);
+				log.error("db payOrder record payPrice not equals total_fee. total_fee={},payOrderId={}", total_fee, payOrderId);
 				return WxPayNotifyResponse.fail("支付金额不正确");
 			}
 
@@ -169,15 +167,12 @@ public class PayNotifyController {
 			}
 
 			if (payStatus != PayConstant.PAY_STATUS_SUCCESS) {
-				boolean updatePayOrderRows = payOrderService.updatePayOrderStatus4Success(payOrder
-						.getPayOrderId());
+				boolean updatePayOrderRows = payOrderService.updatePayOrderStatus4Success(payOrder.getPayOrderId());
 				if (!updatePayOrderRows) {
-					log.error("{}更新支付状态失败,将payOrderId={},更新payStatus={}失败", logPrefix, payOrder
-							.getPayOrderId(), PayConstant.PAY_STATUS_SUCCESS);
+					log.error("{}更新支付状态失败,将payOrderId={},更新payStatus={}失败", logPrefix, payOrder.getPayOrderId(), PayConstant.PAY_STATUS_SUCCESS);
 					return WxPayNotifyResponse.fail("处理订单失败");
 				}
-				log.error("{}更新支付状态成功,将payOrderId={},更新payStatus={}成功", logPrefix, payOrder
-						.getPayOrderId(), PayConstant.PAY_STATUS_SUCCESS);
+				log.error("{}更新支付状态成功,将payOrderId={},更新payStatus={}成功", logPrefix, payOrder.getPayOrderId(), PayConstant.PAY_STATUS_SUCCESS);
 				payOrder.setStatus(PayConstant.PAY_STATUS_SUCCESS);
 			}
 			// 业务系统后端通知

@@ -23,7 +23,7 @@ public class WxPayUtil {
 		WxPayConfig wxPayConfig = new WxPayConfig();
 		JSONObject paramObj = JSON.parseObject(configParam);
 		wxPayConfig.setMchId(paramObj.getString("mchId"));
-		if (tradeType.equals(PayConstant.WxConstant.TRADE_TYPE_APP)) {
+		if (null != tradeType && tradeType.equals(PayConstant.WxConstant.TRADE_TYPE_APP)) {
 			wxPayConfig.setAppId(paramObj.getString("openAppId"));
 		} else {
 			wxPayConfig.setAppId(paramObj.getString("appId"));
@@ -33,20 +33,6 @@ public class WxPayUtil {
 		if (!PublicHelper.isEmpty(notifyUrl)) wxPayConfig.setNotifyUrl(notifyUrl);
 		if (!PublicHelper.isEmpty(tradeType)) wxPayConfig.setTradeType(tradeType);
 		return wxPayConfig;
-	}
-
-	/**
-	 * 获取微信支付配置
-	 */
-	public static WxPayConfig getWxPayConfig(String configParam, String certRootPath) {
-		return getWxPayConfig(configParam, null, certRootPath, null);
-	}
-
-	/**
-	 * 获取微信支付配置
-	 */
-	public static WxPayConfig getWxPayConfig(String configParam) {
-		return getWxPayConfig(configParam, null);
 	}
 
 }
