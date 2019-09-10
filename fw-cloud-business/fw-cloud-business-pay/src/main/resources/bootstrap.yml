@@ -30,6 +30,8 @@ business:
     wxpay:
       certRootPath: E:/project/xxx/cert
       notifyUrl: http://localhost:2003/pay/notify/result
+    alipay:
+      notifyUrl: http://localhost:2003/pay/alinotify/result
 ---
 spring:
   profiles: untest
@@ -46,6 +48,8 @@ business:
     wxpay:
       certRootPath: /usr/web/cert/pay #最终证书真实地址/xxx/pay/wx/apiclient_cert.p12
       notifyUrl: http://47.106.144.24/pay/notify/result
+    alipay:
+      notifyUrl: http://47.106.144.24/pay/alinotify/result
 ---
 spring:
   profiles: prod
@@ -62,3 +66,5 @@ business:
     wxpay:
       certRootPath: /xxx/pay #最终证书真实地址/xxx/pay/wx/apiclient_cert.p12
       notifyUrl: https://www.xxxx/pay/notify/result
+    alipay:
+      notifyUrl: https://www.csyrsw.com/pay/alinotify/result

@@ -1,31 +1,20 @@
 package com.github.liuweijw.business.wechat.config;
 
+import com.github.liuweijw.business.wechat.handler.*;
 import me.chanjar.weixin.common.api.WxConsts.EventType;
 import me.chanjar.weixin.common.api.WxConsts.MenuButtonType;
 import me.chanjar.weixin.common.api.WxConsts.XmlMsgType;
-import me.chanjar.weixin.mp.api.WxMpConfigStorage;
-import me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpMessageRouter;
 import me.chanjar.weixin.mp.api.WxMpService;
+import me.chanjar.weixin.mp.config.WxMpConfigStorage;
+import me.chanjar.weixin.mp.config.impl.WxMpDefaultConfigImpl;
 import me.chanjar.weixin.mp.constant.WxMpEventConstants;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.github.liuweijw.business.wechat.handler.AbstractHandler;
-import com.github.liuweijw.business.wechat.handler.KfSessionHandler;
-import com.github.liuweijw.business.wechat.handler.LocationHandler;
-import com.github.liuweijw.business.wechat.handler.LogHandler;
-import com.github.liuweijw.business.wechat.handler.MenuHandler;
-import com.github.liuweijw.business.wechat.handler.MsgHandler;
-import com.github.liuweijw.business.wechat.handler.NullHandler;
-import com.github.liuweijw.business.wechat.handler.StoreCheckNotifyHandler;
-import com.github.liuweijw.business.wechat.handler.SubscribeHandler;
-import com.github.liuweijw.business.wechat.handler.UnsubscribeHandler;
 
 @Configuration
 @ConditionalOnClass(WxMpService.class)
@@ -65,7 +54,7 @@ public class WechatMpConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public WxMpConfigStorage configStorage() {
-		WxMpInMemoryConfigStorage configStorage = new WxMpInMemoryConfigStorage();
+		WxMpDefaultConfigImpl configStorage = new WxMpDefaultConfigImpl();
 		configStorage.setAppId(this.properties.getAppId());
 		configStorage.setSecret(this.properties.getSecret());
 		configStorage.setToken(this.properties.getToken());

@@ -1,17 +1,5 @@
 package com.github.liuweijw.business.pay.controller;
 
-import java.math.BigDecimal;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.github.binarywang.wxpay.bean.notify.WxPayNotifyResponse;
 import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyResult;
 import com.github.binarywang.wxpay.config.WxPayConfig;
@@ -26,8 +14,17 @@ import com.github.liuweijw.business.pay.service.PayChannelService;
 import com.github.liuweijw.business.pay.service.PayOrderService;
 import com.github.liuweijw.commons.pay.constants.PayConstant;
 import com.github.liuweijw.commons.utils.StringHelper;
-
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
 
 /**
  * 支付后台通知
@@ -169,7 +166,7 @@ public class PayNotifyController {
 			if (payStatus != PayConstant.PAY_STATUS_SUCCESS) {
 				boolean updatePayOrderRows = payOrderService.updatePayOrderStatus4Success(payOrder.getPayOrderId());
 				if (!updatePayOrderRows) {
-					log.error("{}更新支付状态失败,将payOrderId={},更新payStatus={}失败", logPrefix, payOrder.getPayOrderId(), PayConstant.PAY_STATUS_SUCCESS);
+					log.error("{}更新支付状态失败,将payOrderId={},更新payStatus={}失败", logPrefix, payOrder.getPayOrderId(), PayConstant.PAY_STATUS_FAILED);
 					return WxPayNotifyResponse.fail("处理订单失败");
 				}
 				log.error("{}更新支付状态成功,将payOrderId={},更新payStatus={}成功", logPrefix, payOrder.getPayOrderId(), PayConstant.PAY_STATUS_SUCCESS);

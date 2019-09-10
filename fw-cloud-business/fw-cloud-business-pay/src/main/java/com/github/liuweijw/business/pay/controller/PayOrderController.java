@@ -1,24 +1,12 @@
 package com.github.liuweijw.business.pay.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.github.liuweijw.business.commons.utils.SequenceUtils;
 import com.github.liuweijw.business.pay.domain.PayChannel;
 import com.github.liuweijw.business.pay.domain.PayMchInfo;
 import com.github.liuweijw.business.pay.domain.PayOrder;
-import com.github.liuweijw.business.pay.service.MchInfoService;
-import com.github.liuweijw.business.pay.service.PayChannelService;
-import com.github.liuweijw.business.pay.service.PayOrderService;
-import com.github.liuweijw.business.pay.service.WxUnifiedOrderService;
+import com.github.liuweijw.business.pay.service.*;
 import com.github.liuweijw.commons.base.R;
 import com.github.liuweijw.commons.pay.beans.PayUnifiedOrder;
 import com.github.liuweijw.commons.pay.constants.BizConstant;
@@ -26,8 +14,15 @@ import com.github.liuweijw.commons.pay.constants.PayConstant;
 import com.github.liuweijw.commons.pay.utils.PayUtil;
 import com.github.liuweijw.commons.utils.StringHelper;
 import com.github.liuweijw.commons.utils.WebUtils;
-
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 支付订单,包括:统一下单,订单查询,补单等接口
@@ -51,14 +46,17 @@ public class PayOrderController {
 	@Autowired
 	private WxUnifiedOrderService	wxUnifiedOrderService;
 
+	@Autowired
+	private AliUnifiedOrderService aliUnifiedOrderService;
+
 	/**
 	 * 统一下单接口: 1) 先验证接口参数以及签名信息 2) 验证通过创建支付订单 3) 根据商户选择渠道,调用支付服务进行下单 4) 返回下单数据
 	 */
 	@RequestMapping(value = "/create")
 	public R<Map<String, Object>> create(@RequestBody PayUnifiedOrder unifiedOrder) {
 		PayOrder payOrder = new PayOrder();
-		Map<String, String> params = new HashMap<String, String>();
-		R<Boolean> validateResult = validatePayOrderParams(unifiedOrder, payOrder, params);
+		Map<String, String> params = new HashMap<>();
+		R<Boolean> validateResult = this.validatePayOrderParams(unifiedOrder, payOrder, params);
 		if (!validateResult.getData()) {
 			log.error(JSON.toJSONString(validateResult));
 			return new R<Map<String, Object>>().data(
@@ -73,26 +71,24 @@ public class PayOrderController {
 					.failure();
 
 		switch (resultOrder.getChannelId()) {
-		case PayConstant.PAY_CHANNEL_WX_APP:
-			return wxUnifiedOrderService.doWxUnifiedOrderRequest(
-					PayConstant.WxConstant.TRADE_TYPE_APP, payOrder, params);
-		case PayConstant.PAY_CHANNEL_WX_JSAPI:
-			return wxUnifiedOrderService.doWxUnifiedOrderRequest(
-					PayConstant.WxConstant.TRADE_TYPE_JSPAI, payOrder, params);
-		case PayConstant.PAY_CHANNEL_WX_NATIVE:
-			return wxUnifiedOrderService.doWxUnifiedOrderRequest(
-					PayConstant.WxConstant.TRADE_TYPE_NATIVE, payOrder, params);
-		case PayConstant.PAY_CHANNEL_WX_MWEB:
-			return wxUnifiedOrderService.doWxUnifiedOrderRequest(
-					PayConstant.WxConstant.TRADE_TYPE_MWEB, payOrder, params);
-		default:
-			break;
+			case PayConstant.PAY_CHANNEL_WX_APP:
+				return wxUnifiedOrderService.doWxUnifiedOrderRequest(PayConstant.WxConstant.TRADE_TYPE_APP, payOrder, params);
+			case PayConstant.PAY_CHANNEL_WX_JSAPI:
+				return wxUnifiedOrderService.doWxUnifiedOrderRequest(PayConstant.WxConstant.TRADE_TYPE_JSPAI, payOrder, params);
+			case PayConstant.PAY_CHANNEL_WX_NATIVE:
+				return wxUnifiedOrderService.doWxUnifiedOrderRequest(PayConstant.WxConstant.TRADE_TYPE_NATIVE, payOrder, params);
+			case PayConstant.PAY_CHANNEL_WX_MWEB:
+				return wxUnifiedOrderService.doWxUnifiedOrderRequest(PayConstant.WxConstant.TRADE_TYPE_MWEB, payOrder, params);
+			case PayConstant.PAY_CHANNEL_ALIPAY_MOBILE:
+			case PayConstant.PAY_CHANNEL_ALIPAY_PC:
+			case PayConstant.PAY_CHANNEL_ALIPAY_WAP:
+			case PayConstant.PAY_CHANNEL_ALIPAY_QR:
+				return aliUnifiedOrderService.doAliUnifiedOrderRequest(resultOrder.getChannelId(), payOrder, params);
+			default:
+				break;
 		}
 		return new R<Map<String, Object>>().data(
-				PayUtil.makeRetMap(
-						PayConstant.RETURN_VALUE_FAIL, "不支持的支付渠道类型[channelId="
-								+ resultOrder.getChannelId() + "]",
-						null, null))
+				PayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "不支持的支付渠道类型[channelId=" + resultOrder.getChannelId() + "]", null, null))
 				.failure();
 	}
 
@@ -180,14 +176,12 @@ public class PayOrderController {
 			JSONObject extraObject = JSON.parseObject(extra);
 			if (null == extraObject || !extraObject.containsKey("openId"))
 				return new R<Boolean>().data(false)
-						.failure(
-								preFix + channelId + "[extra.openId]信息未设置！");
+						.failure(preFix + channelId + "[extra.openId]信息未设置！");
 
 			String openId = extraObject.getString("openId");
 			if (StringHelper.isBlank(openId))
 				return new R<Boolean>().data(false)
-						.failure(
-								preFix + channelId + "[extra.openId]信息未正确设置！");
+						.failure(preFix + channelId + "[extra.openId]信息未正确设置！");
 
 		} else if (PayConstant.PAY_CHANNEL_WX_NATIVE.equalsIgnoreCase(channelId)) {
 			if (StringHelper.isBlank(extra))
@@ -196,14 +190,12 @@ public class PayOrderController {
 			JSONObject extraObject = JSON.parseObject(extra);
 			if (null == extraObject || !extraObject.containsKey("productId"))
 				return new R<Boolean>().data(false)
-						.failure(
-								preFix + channelId + "[extra.productId]信息未设置！");
+						.failure(preFix + channelId + "[extra.productId]信息未设置！");
 
 			String productId = extraObject.getString("productId");
 			if (StringHelper.isBlank(productId))
 				return new R<Boolean>().data(false)
-						.failure(
-								preFix + channelId + "[extra.productId]信息未正确设置！");
+						.failure(preFix + channelId + "[extra.productId]信息未正确设置！");
 
 		} else if (PayConstant.PAY_CHANNEL_WX_MWEB.equalsIgnoreCase(channelId)) {
 			if (StringHelper.isBlank(extra))
@@ -212,14 +204,12 @@ public class PayOrderController {
 			JSONObject extraObject = JSON.parseObject(WebUtils.buildURLDecoder(extra));
 			if (null == extraObject || !extraObject.containsKey("sceneInfo"))
 				return new R<Boolean>().data(false)
-						.failure(
-								preFix + channelId + "[extra.sceneInfo]信息未设置！");
+						.failure(preFix + channelId + "[extra.sceneInfo]信息未设置！");
 
 			String sceneInfo = extraObject.getJSONObject("sceneInfo").toJSONString();
 			if (StringHelper.isBlank(sceneInfo))
 				return new R<Boolean>().data(false)
-						.failure(
-								preFix + channelId + "[extra.sceneInfo]信息未正确设置！");
+						.failure(preFix + channelId + "[extra.sceneInfo]信息未正确设置！");
 		}
 
 		// 签名信息
@@ -241,24 +231,17 @@ public class PayOrderController {
 		PayChannel payChannel = payChannelService.findPayChannel(channelId, mchId);
 		if (null == payChannel)
 			return new R<Boolean>().data(false)
-					.failure(
-							preFix + "商户渠道[channelId=" + channelId + ",mchId=" + mchId + "]信息不存在！");
+					.failure(preFix + "商户渠道[channelId=" + channelId + ",mchId=" + mchId + "]信息不存在！");
 
 		if (payChannel.getStatu().intValue() != 1)
 			return new R<Boolean>().data(false)
-					.failure(
-							preFix + "商户渠道[channelId=" + channelId + ",mchId=" + mchId + "]信息已经失效！");
+					.failure(preFix + "商户渠道[channelId=" + channelId + ",mchId=" + mchId + "]信息已经失效！");
 
 		// 验证签名数据
-		boolean verifyFlag = PayUtil.verifyPaySign(
-				(JSONObject) JSON.toJSON(unifiedOrder), mchInfo
-						.getReqKey());
+		boolean verifyFlag = PayUtil.verifyPaySign((JSONObject) JSON.toJSON(unifiedOrder), mchInfo.getReqKey());
 		if (!verifyFlag) return new R<Boolean>().data(false).failure(preFix + "下单信息验证签名失败！");
 
-		payOrder.setPayOrderId(
-				SequenceUtils.getInstance()
-						.generateBizSeqNo(
-								BizConstant.PAY_ORDER_PREFIX));
+		payOrder.setPayOrderId(SequenceUtils.getInstance().generateBizSeqNo(BizConstant.PAY_ORDER_PREFIX));
 		payOrder.setMch_id(mchInfo.getMchId());
 		payOrder.setMchOrderNo(mchOrderNo);
 		payOrder.setChannelId(channelId);
@@ -276,6 +259,8 @@ public class PayOrderController {
 
 		params.put("resKey", mchInfo.getResKey());
 		params.put("channelParam", payChannel.getParam());
+		// 支付宝支付回调业务地址--非必填
+		params.put("returnUrl", unifiedOrder.getReturnUrl());
 
 		return new R<Boolean>().data(true).success(preFix + "下单信息验证成功！");
 	}

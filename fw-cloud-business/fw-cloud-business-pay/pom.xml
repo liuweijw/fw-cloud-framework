@@ -36,6 +36,15 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<!--ali_pay-->
+		<dependency>
+			<groupId>com.alipay</groupId>
+			<artifactId>sdk</artifactId>
+			<version>1.5</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/alipay-sdk-java20170818173712.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 	<build>
