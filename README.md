@@ -75,7 +75,7 @@
 - 从github 获取代码 [guide](https://github.com/liuweijw/fw-cloud-framework)
 - 从gitee 获取代码获取 [guide](https://gitee.com/liuweijw/fw-cloud-framework)
 - xxx 待开发和完善的模块
-- 登录账户密码 superAdmin\test1234 | admin\test1234 | test\test1234
+- 登录账户密码 superAdmin\test1234 | admin\test1234
 - 项目部分技术配置说明[guide](https://github.com/liuweijw/fw-cloud-framework/wiki/02-%E9%83%A8%E5%88%86%E6%8A%80%E6%9C%AF%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E)
 - 项目配置文件加密说明[guide](https://github.com/liuweijw/fw-cloud-framework/wiki/03-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8A%A0%E5%AF%86%E8%AF%B4%E6%98%8E)
 - 服务启动说明[guide](https://github.com/liuweijw/fw-cloud-framework/wiki/04-%E6%9C%8D%E5%8A%A1%E5%90%AF%E5%8A%A8)
