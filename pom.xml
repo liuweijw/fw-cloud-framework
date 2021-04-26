@@ -84,7 +84,7 @@
 		<mysql.version>5.1.46</mysql.version>
 		<querydsl.version>4.2.1</querydsl.version>
 		<commons-lang3>3.5</commons-lang3>
-		<commons-io.version>2.5</commons-io.version>
+		<commons-io.version>2.7</commons-io.version>
 		<ttl.version>2.2.0</ttl.version>
 		<zuul-ratelimit>1.7.0.RELEASE</zuul-ratelimit>
 		<hutool-all>3.3.2</hutool-all>
