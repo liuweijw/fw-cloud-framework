@@ -94,7 +94,7 @@
 		<kaptcha.version>0.0.9</kaptcha.version>
 		<shardingjdbc.version>2.0.3</shardingjdbc.version>
 		<hibernate.validator.version>5.3.6.Final</hibernate.validator.version>
-		<hibernate.core.version>5.0.12.Final</hibernate.core.version>
+		<hibernate.core.version>5.4.24.Final</hibernate.core.version>
 		<!-- // https://github.com/codecentric/spring-boot-admin -->
 		<!-- // http://codecentric.github.io/spring-boot-admin/1.5.7/ -->
 		<spring-boot-admin-server.version>1.5.7</spring-boot-admin-server.version>
