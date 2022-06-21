@@ -81,7 +81,7 @@
 		<swagger2.version>2.9.2</swagger2.version>
 		<jjwt>0.7.0</jjwt>
 		<fastjson>1.2.30</fastjson>
-		<mysql.version>5.1.46</mysql.version>
+		<mysql.version>8.0.28</mysql.version>
 		<querydsl.version>4.2.1</querydsl.version>
 		<commons-lang3>3.5</commons-lang3>
 		<commons-io.version>2.5</commons-io.version>
